@@ -1,0 +1,35 @@
+/* GRID SHIFT v1.2.2 — iPhone long-press suppression + visible high score */
+html,body,#app,.game-shell,.topbar,.board-wrap,.board,.tray-zone,.tray,.piece-wrap,.round-btn,.mode-card,.size-option,.primary,.secondary,.panel{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+  -webkit-user-drag:none!important;
+}
+img,svg{ -webkit-user-drag:none!important; user-select:none!important; }
+button{touch-action:manipulation}
+.board,.tray-zone,.tray,.piece-wrap{touch-action:none!important}
+
+/* Current score stays dominant; the per-mode personal record is always visible beneath it. */
+.score-hero{min-width:150px;justify-self:center;transform:translateX(0)!important}
+.score-hero strong{display:block;text-align:center;width:100%}
+.best-display{
+  display:flex;align-items:baseline;justify-content:center;gap:5px;
+  height:13px;margin-top:1px;line-height:13px;
+  color:#8a8c92;font-size:8px;font-weight:850;letter-spacing:.13em;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.best-display span{font-size:7px;letter-spacing:.16em;color:#a1a2a7}
+.best-display b{font-size:10px;letter-spacing:.03em;color:#62656c;font-weight:900}
+.best-display.new-best{animation:bestHitV122 .72s cubic-bezier(.18,.86,.24,1) both}
+.best-display.new-best span,.best-display.new-best b{color:#d39217}
+@keyframes bestHitV122{
+  0%{transform:scale(.84);opacity:.3}
+  28%{transform:scale(1.16);opacity:1;filter:brightness(1.22)}
+  58%{transform:scale(.98)}
+  100%{transform:scale(1);filter:none}
+}
+
+@media(max-width:420px){
+  .score-hero{min-width:136px}
+  .best-display{margin-top:0}
+}
