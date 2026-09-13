@@ -1,0 +1,104 @@
+/* GRID SHIFT v1.2.4 — make the high score unmistakable and keep it away from the board */
+
+/* Current score remains hard-centered. The record is a separate left-side stat,
+   so it no longer reads like a subtitle sitting on top of the board. */
+.score-hero{
+  left:50%!important;
+  transform:translateX(-50%)!important;
+}
+.score-hero .best-display{
+  position:absolute!important;
+  left:-66px!important;
+  top:13px!important;
+  width:58px!important;
+  min-width:58px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:1px!important;
+  text-align:left!important;
+  line-height:1!important;
+  white-space:normal!important;
+  pointer-events:none!important;
+}
+.score-hero .best-display span{
+  display:block!important;
+  width:100%!important;
+  color:#74777f!important;
+  font-size:9px!important;
+  line-height:10px!important;
+  font-weight:950!important;
+  letter-spacing:.055em!important;
+  text-align:left!important;
+}
+.score-hero .best-display b{
+  display:block!important;
+  width:100%!important;
+  margin-top:2px!important;
+  color:#2f3137!important;
+  font-size:16px!important;
+  line-height:16px!important;
+  font-weight:950!important;
+  letter-spacing:-.02em!important;
+  text-align:left!important;
+  font-variant-numeric:tabular-nums!important;
+}
+.score-hero .best-display.new-best span,
+.score-hero .best-display.new-best b{color:#c48612!important}
+
+/* The mode selector is also a record board. Make the number self-explanatory. */
+.mode-card{padding-bottom:34px!important}
+.mode-best-v123{
+  left:8px!important;
+  right:8px!important;
+  bottom:7px!important;
+  min-height:22px!important;
+  padding:3px 7px!important;
+  border-radius:8px!important;
+  background:rgba(23,25,31,.055)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  color:#60636a!important;
+  line-height:1!important;
+  font-style:normal!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+.mode-best-v123 span{
+  color:#777a81!important;
+  font-size:8px!important;
+  line-height:10px!important;
+  font-weight:950!important;
+  letter-spacing:.075em!important;
+}
+.mode-best-v123 b{
+  color:#34373d!important;
+  font-size:13px!important;
+  line-height:14px!important;
+  font-weight:1000!important;
+  letter-spacing:-.01em!important;
+}
+.mode-card.active .mode-best-v123{
+  background:rgba(47,128,237,.075)!important;
+}
+.mode-card.active .mode-best-v123 span,
+.mode-card.active .mode-best-v123 b{color:#2f80ed!important}
+
+@media(max-width:420px){
+  .score-hero .best-display{
+    left:-58px!important;
+    width:52px!important;
+  }
+  .score-hero .best-display span{font-size:8.5px!important;line-height:9.5px!important}
+  .score-hero .best-display b{font-size:15px!important;line-height:15px!important}
+  .mode-card{padding-bottom:33px!important}
+  .mode-best-v123{left:6px!important;right:6px!important;gap:5px!important}
+  .mode-best-v123 span{font-size:7.5px!important}
+  .mode-best-v123 b{font-size:12.5px!important}
+}
