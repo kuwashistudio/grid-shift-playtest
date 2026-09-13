@@ -1,0 +1,84 @@
+/* GRID SHIFT v1.4.0 — player-placed bomb piece visuals */
+
+.piece-block.bomb-cargo-v140::after{
+  content:attr(data-bomb);
+  position:absolute;
+  inset:9%;
+  z-index:5;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,#ff9aaa 0 18%,#ef596f 20% 58%,#a92e45 100%);
+  color:#fff;
+  font-size:10px;
+  line-height:1;
+  font-weight:1000;
+  text-shadow:0 1px 2px rgba(0,0,0,.38);
+  box-shadow:0 0 0 2px rgba(27,29,34,.88),0 0 12px rgba(239,89,111,.52);
+  pointer-events:none;
+}
+.piece-block.bomb-cargo-v140::before{
+  content:'';
+  position:absolute;
+  z-index:6;
+  width:23%;height:23%;
+  right:2%;top:-5%;
+  border-radius:50%;
+  background:#ffd76a;
+  box-shadow:0 0 6px rgba(255,215,106,.8);
+  pointer-events:none;
+}
+.piece-wrap.bomb-carrier-v140{
+  border-color:rgba(239,89,111,.24)!important;
+  box-shadow:inset 0 0 0 1px rgba(239,89,111,.06),0 5px 18px rgba(239,89,111,.045);
+}
+.piece-wrap.bomb-carrier-v140::before{
+  content:'●4';
+  position:absolute;
+  left:9px;top:7px;
+  z-index:5;
+  color:#d74b60;
+  font-size:8px;
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:.03em;
+  opacity:.78;
+  pointer-events:none;
+}
+.drag-ghost .piece-block.bomb-cargo-v140::after{font-size:clamp(10px,2.4vw,15px);box-shadow:0 0 0 2px rgba(27,29,34,.9),0 0 15px rgba(239,89,111,.58)}
+.drag-ghost .piece-block.bomb-cargo-v140::before{box-shadow:0 0 8px rgba(255,215,106,.95)}
+
+/* The active board bomb remains the same object after landing; frames from v1.3.9
+   continue to show exactly what its controlled 3x3 blast will clear. */
+html[data-mode="bombs"] .cell.bomb-core-v138::after{font-weight:1000!important}
+
+/* Menu demo: the marked cell is part of the movable piece, not a random board spawn. */
+.demo-bombs-v140 .mini-board{position:relative}
+.demo-bombs-v140 .bomb-piece-cell-v140{animation:bombPieceDropV140 2.5s cubic-bezier(.2,.78,.22,1) infinite}
+.bomb-piece-core-v140{
+  position:absolute;z-index:10;left:17px;top:3px;width:13px;height:13px;border-radius:50%;
+  display:grid;place-items:center;background:#e94d66;color:#fff;font-size:7px;line-height:1;font-weight:1000;
+  box-shadow:0 0 0 2px #292d34,0 0 9px rgba(233,77,102,.5);
+  animation:bombPieceDropV140 2.5s cubic-bezier(.2,.78,.22,1) infinite
+}
+.bomb-piece-arrow-v140{
+  position:absolute;z-index:9;left:31px;top:20px;color:rgba(255,255,255,.72);font-size:16px;font-style:normal;font-weight:1000;
+  animation:bombPieceArrowV140 2.5s ease infinite
+}
+.bomb-demo-zone-v140{
+  position:absolute;z-index:6;left:14px;top:28px;width:42px;height:42px;border-radius:8px;
+  border:2px solid rgba(244,182,60,.62);background:rgba(244,182,60,.035);
+  animation:bombPieceZoneV140 2.5s ease infinite
+}
+@keyframes bombPieceDropV140{
+  0%,18%{transform:translateY(0);opacity:1}
+  46%,68%{transform:translateY(28px);opacity:1}
+  82%,100%{transform:translateY(28px);opacity:.08}
+}
+@keyframes bombPieceArrowV140{0%,14%{opacity:.12;transform:translateY(-3px)}36%,58%{opacity:.9;transform:translateY(3px)}75%,100%{opacity:.08;transform:translateY(6px)}}
+@keyframes bombPieceZoneV140{0%,42%{opacity:.12;transform:scale(.92)}56%,72%{opacity:.9;transform:scale(1)}88%,100%{opacity:.08;transform:scale(.76)}}
+
+@media(max-width:420px){
+  .piece-wrap.bomb-carrier-v140::before{left:7px;top:6px;font-size:7px}
+  .piece-block.bomb-cargo-v140::after{font-size:9px}
+}
