@@ -1,0 +1,46 @@
+/* GRID SHIFT v1.4.5 — fuse badge is a separate element, never clipped by a block */
+
+/* Retire the old pseudo-element badge entirely. The marked block keeps only its
+   thin red outline so the polyomino silhouette stays readable. */
+.piece-block.bomb-cargo-v140::after{display:none!important}
+.piece-block.bomb-cargo-v140::before{display:none!important}
+
+.piece-art,
+.piece-art.tray,
+.piece-art.ghost,
+.drag-ghost,
+.drag-ghost .ghost-skin{
+  overflow:visible!important;
+}
+
+.bomb-fuse-badge-v145{
+  position:absolute;
+  z-index:30;
+  transform:translate(-50%,-50%);
+  display:grid;
+  place-items:center;
+  margin:0;
+  padding:0;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 28%,#ff9aaa 0 18%,#ef596f 20% 58%,#a92e45 100%);
+  color:#fff;
+  font-size:9px;
+  line-height:1;
+  font-weight:1000;
+  font-style:normal;
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 1px 2px rgba(0,0,0,.42);
+  box-shadow:0 0 0 2px rgba(27,29,34,.96),0 0 9px rgba(239,89,111,.62);
+  pointer-events:none;
+}
+.bomb-fuse-badge-v145.ghost{
+  z-index:40;
+  font-size:12px;
+  box-shadow:0 0 0 2px rgba(27,29,34,.98),0 0 13px rgba(239,89,111,.72);
+}
+
+/* Keep enough paint room around the tray card as well as the drag ghost. */
+.piece-wrap.bomb-first-v141,
+.piece-wrap.bomb-carrier-v140{
+  overflow:visible!important;
+}
