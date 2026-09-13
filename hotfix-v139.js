@@ -132,7 +132,7 @@
   modeDemoHTML=function(id){
     if(id!=='BOMBS')return previousModeDemoHTML(id);
     let cells='';
-    for(let x=0;x<5;x++)cells+=miniCell(x,3,'md-blue bomb-demo-line-v139');
+    for(let x=0;x<5;x++)cells+=miniCell(x,2,'md-blue bomb-demo-line-v139');
     return `<div class="mode-demo demo-bombs demo-bombs-v139"><div class="mini-board">${cells}<i class="bomb-demo-zone-v139"></i><b class="bomb-demo-core-v139">3</b></div></div>`;
   };
 
