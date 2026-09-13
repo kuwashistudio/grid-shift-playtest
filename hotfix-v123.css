@@ -1,0 +1,57 @@
+/* GRID SHIFT v1.2.3 — hard-center score + persistent per-mode records */
+.topbar{
+  position:relative!important;
+  grid-template-columns:48px 1fr 44px 48px!important;
+}
+#modeBtn{grid-column:1!important}
+#quickRestart{grid-column:3!important}
+#muteBtn{grid-column:4!important}
+
+/* Do not let the left/right controls decide where the score sits. */
+.score-hero{
+  position:absolute!important;
+  left:50%!important;
+  top:0!important;
+  transform:translateX(-50%)!important;
+  width:170px!important;
+  min-width:170px!important;
+  max-width:170px!important;
+  z-index:1;
+  pointer-events:none;
+}
+.score-hero>strong{
+  width:100%!important;
+  text-align:center!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+.score-hero .context-stat,.score-hero .best-display{width:100%;justify-content:center;text-align:center}
+.best-display{opacity:1!important;visibility:visible!important}
+
+/* Every mode card keeps its own record visible, so the menu doubles as a record board. */
+.mode-card{padding-bottom:25px!important}
+.mode-best-v123{
+  position:absolute;
+  left:0;right:0;bottom:7px;
+  display:flex;align-items:baseline;justify-content:center;gap:4px;
+  color:#96989d;
+  font-size:7px;font-weight:850;line-height:11px;letter-spacing:.12em;
+  font-style:normal;font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+  pointer-events:none;
+}
+.mode-best-v123 span{font-size:6.5px;letter-spacing:.15em;color:#aaa9a5}
+.mode-best-v123 b{font-size:10px;letter-spacing:.01em;color:#5d6067;font-weight:950}
+.mode-card.active .mode-best-v123 b{color:#2f80ed}
+.mode-best-v123.record-hit b{animation:modeBestHitV123 .65s cubic-bezier(.18,.86,.24,1) both;color:#d39217}
+@keyframes modeBestHitV123{
+  0%{transform:scale(.8);opacity:.3}
+  35%{transform:scale(1.2);opacity:1}
+  100%{transform:scale(1);opacity:1}
+}
+
+@media(max-width:420px){
+  .score-hero{width:158px!important;min-width:158px!important;max-width:158px!important}
+  .mode-card{padding-bottom:24px!important}
+}
