@@ -1,0 +1,72 @@
+/* GRID SHIFT v1.3.9 — BOMBS clarity visuals */
+
+/* v1.3.8's long transient labels and per-cell haze are intentionally retired. */
+.bomb-label-v138{display:none!important}
+html[data-mode="bombs"] .cell.bomb-zone-v138,
+html[data-mode="bombs"] .cell.bomb-zone-hot-v138{
+  box-shadow:inherit!important;
+  animation:none!important;
+}
+html[data-mode="bombs"] .cell.bomb-zone-v138:not(.filled){background:#2a2d33!important}
+html[data-mode="bombs"] .cell.bomb-chainable-v138::before{display:none!important}
+html[data-mode="bombs"] .cell.rubble-v138{background:inherit!important;filter:none!important}
+html[data-mode="bombs"] .cell.rubble-v138::after{display:none!important}
+
+/* One outlined square = the exact 3x3 controlled-blast area. */
+.bomb-zone-frame-v139{
+  position:absolute;z-index:5;pointer-events:none;border-radius:10px;
+  border:2px solid rgba(244,182,60,.42);
+  background:rgba(244,182,60,.035);
+  box-shadow:inset 0 0 18px rgba(244,182,60,.05),0 0 12px rgba(244,182,60,.08);
+}
+.bomb-zone-frame-v139.hot{
+  border-color:rgba(239,88,91,.74);
+  background:rgba(239,88,91,.045);
+  box-shadow:inset 0 0 20px rgba(239,88,91,.08),0 0 15px rgba(239,88,91,.14);
+  animation:bombFrameHotV139 .68s ease-in-out infinite alternate;
+}
+@keyframes bombFrameHotV139{to{opacity:.72;transform:scale(.985)}}
+
+/* Chain feedback is deliberately just a number. */
+.bomb-chain-badge-v139{
+  position:absolute;left:50%;top:47%;z-index:52;transform:translate(-50%,-50%);
+  pointer-events:none;color:#fff4b8;font-size:clamp(30px,10vw,56px);line-height:1;
+  font-weight:1000;letter-spacing:-.03em;text-shadow:0 2px 18px rgba(0,0,0,.32),0 0 26px rgba(244,182,60,.6);
+  animation:bombChainBadgeV139 .62s cubic-bezier(.16,.88,.22,1) both;
+}
+@keyframes bombChainBadgeV139{
+  0%{opacity:0;transform:translate(-50%,-46%) scale(.58)}
+  22%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}
+  72%{opacity:1;transform:translate(-50%,-55%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-70%) scale(.92)}
+}
+
+/* Menu demo: the line reaches the bomb, then exactly the framed area reacts. */
+.demo-bombs-v139 .mini-board{position:relative}
+.bomb-demo-zone-v139{
+  position:absolute;z-index:5;left:14px;top:14px;width:42px;height:42px;border-radius:8px;
+  border:2px solid rgba(244,182,60,.68);background:rgba(244,182,60,.04);
+  animation:bombDemoZoneV139 2.5s ease-in-out infinite;
+}
+.bomb-demo-core-v139{
+  position:absolute;z-index:8;left:29px;top:29px;width:15px;height:15px;border-radius:50%;
+  background:#e94d66;color:#fff;display:grid;place-items:center;font-size:8px;line-height:1;font-weight:1000;
+  box-shadow:0 0 0 2px #292d34,0 0 9px rgba(233,77,102,.5);
+  animation:bombDemoCoreV139 2.5s ease-in-out infinite;
+}
+.demo-bombs-v139 .bomb-demo-line-v139{animation:bombDemoLineV139 2.5s ease-in-out infinite}
+@keyframes bombDemoLineV139{
+  0%,34%{opacity:1;filter:none;transform:scale(1)}
+  48%{filter:brightness(1.85);transform:scale(1.08)}
+  62%,100%{opacity:.08;transform:scale(.8)}
+}
+@keyframes bombDemoZoneV139{
+  0%,35%{opacity:.38;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.08);box-shadow:0 0 15px rgba(244,182,60,.5)}
+  70%,100%{opacity:.08;transform:scale(.72)}
+}
+@keyframes bombDemoCoreV139{
+  0%,34%{transform:scale(1)}
+  47%{transform:scale(1.2);filter:brightness(1.35)}
+  62%,100%{transform:scale(.15);opacity:.08}
+}
