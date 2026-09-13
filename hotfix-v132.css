@@ -1,0 +1,31 @@
+/* GRID SHIFT v1.3.2 — dual-anchor mission visuals */
+
+.cell.shift-anchor-v132::before{
+  content:attr(data-anchor-number);
+  position:absolute;
+  right:2px;
+  top:1px;
+  z-index:3;
+  min-width:10px;
+  height:10px;
+  padding:0 2px;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(35,37,42,.72);
+  color:#fff;
+  font-size:7px;
+  line-height:10px;
+  font-weight:950;
+  pointer-events:none;
+}
+.cell.shift-anchor-v132.anchor-secured-v131::before{background:#2f9c58}
+
+/* Two targets in the mode selector teach that both anchors matter. */
+.shift-anchor-demo-a-v132{right:5px!important;bottom:3px!important}
+.shift-anchor-demo-b-v132{left:5px!important;right:auto!important;bottom:16px!important}
+
+@media(max-width:420px){
+  .cell.shift-anchor-v132::before{font-size:6.5px;min-width:9px;height:9px;line-height:9px}
+}
