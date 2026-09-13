@@ -1,0 +1,84 @@
+/* GRID SHIFT v1.3.1 — SHIFT v2 visuals */
+
+/* The anchor is the one cell the player can hit during the current 3-piece tray
+   to cancel the coming alternating wave. */
+.cell.shift-anchor-v131{
+  position:relative;
+  z-index:2;
+  outline:2px solid rgba(244,182,60,.95);
+  outline-offset:-3px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.75),0 0 0 2px rgba(244,182,60,.16),0 0 15px rgba(244,182,60,.46)!important;
+  animation:shiftAnchorPulseV131 1.15s ease-in-out infinite;
+}
+.cell.shift-anchor-v131::after{
+  content:'◎';
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#b87908;
+  font-size:19px;
+  line-height:1;
+  font-weight:1000;
+  text-shadow:0 1px 0 rgba(255,255,255,.85);
+  pointer-events:none;
+}
+.cell.shift-anchor-v131.filled::after{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.32)}
+.cell.shift-anchor-v131.anchor-secured-v131{
+  outline-color:#35b865;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.78),0 0 16px rgba(53,184,101,.5)!important;
+  animation:none;
+}
+.cell.shift-anchor-v131.anchor-secured-v131::after{content:'✓';color:#fff}
+@keyframes shiftAnchorPulseV131{
+  0%,100%{transform:scale(1);filter:brightness(1)}
+  50%{transform:scale(.93);filter:brightness(1.1)}
+}
+
+/* Short, readable feedback when a mission succeeds or the wave actually fires. */
+.board.shift-stabilized-v131{animation:shiftSafeV131 .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes shiftSafeV131{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.012);filter:brightness(1.13)}
+  100%{transform:scale(1);filter:none}
+}
+.board.wave-shift-v131{animation:waveKickV131 .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes waveKickV131{
+  0%{transform:scale(1)}
+  24%{transform:scale(.985) rotate(-.25deg)}
+  54%{transform:scale(1.012) rotate(.18deg)}
+  100%{transform:scale(1);filter:none}
+}
+
+/* Selector demo: make SHIFT immediately read as alternating motion + objective. */
+.demo-shift-v131 .mini-board{position:relative}
+.shift-wave-demo-v131{
+  position:absolute;
+  left:3px;right:3px;top:1px;
+  text-align:center;
+  color:#60636a;
+  font-size:10px;
+  line-height:11px;
+  font-weight:950;
+  letter-spacing:.08em;
+  pointer-events:none;
+}
+.shift-anchor-demo-v131{
+  position:absolute;
+  right:5px;bottom:3px;
+  width:15px;height:15px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:#fff4cf;
+  color:#ad7208;
+  box-shadow:0 0 0 1px rgba(173,114,8,.28);
+  font-size:12px;
+  line-height:15px;
+  font-style:normal;
+  font-weight:1000;
+}
+
+@media(max-width:420px){
+  .cell.shift-anchor-v131::after{font-size:17px}
+}
