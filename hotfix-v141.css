@@ -1,0 +1,45 @@
+/* GRID SHIFT v1.4.1 — mandatory bomb-first tray clarity */
+
+/* The small duplicate ●4 label on the tray card is retired. The bomb cell itself
+   is the only bomb marker the player needs to read. */
+.piece-wrap.bomb-carrier-v140::before{display:none!important}
+
+/* Make the bomb printed on the actual piece unmistakable without adding text. */
+.piece-art.tray .piece-block.bomb-cargo-v140::after{
+  inset:0!important;
+  font-size:13px!important;
+  box-shadow:0 0 0 2px rgba(27,29,34,.92),0 0 14px rgba(239,89,111,.68)!important;
+}
+.drag-ghost .piece-block.bomb-cargo-v140::after{
+  inset:1%!important;
+  font-size:clamp(15px,3.8vw,22px)!important;
+  box-shadow:0 0 0 2px rgba(27,29,34,.94),0 0 18px rgba(239,89,111,.72)!important;
+}
+
+/* Only the bomb carrier is actionable at the start of each 3-piece round. */
+.piece-wrap.bomb-locked-v141{
+  opacity:.24!important;
+  filter:grayscale(.95) brightness(.72)!important;
+  pointer-events:none!important;
+  cursor:default!important;
+  border-color:rgba(255,255,255,.025)!important;
+  background:rgba(255,255,255,.015)!important;
+  box-shadow:none!important;
+  transition:opacity .14s ease,filter .14s ease!important;
+}
+.piece-wrap.bomb-locked-v141 .rotate-affordance{opacity:0!important}
+.piece-wrap.bomb-locked-v141::after{opacity:.06!important}
+
+.piece-wrap.bomb-first-v141{
+  border-color:rgba(239,89,111,.42)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.035),0 0 18px rgba(239,89,111,.10)!important;
+  animation:bombFirstCardV141 1.15s ease-in-out infinite alternate;
+}
+@keyframes bombFirstCardV141{
+  from{filter:brightness(1)}
+  to{filter:brightness(1.08)}
+}
+
+@media(max-width:420px){
+  .piece-art.tray .piece-block.bomb-cargo-v140::after{font-size:12px!important}
+}
