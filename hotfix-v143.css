@@ -1,0 +1,72 @@
+/* GRID SHIFT v1.4.3 — keep the bomb readable without hiding the carrier shape */
+
+/* The marked block remains fully visible. A thin red keyline tells you which cell
+   owns the bomb; the fuse badge itself hangs outside the silhouette. */
+.piece-block.bomb-cargo-v140{
+  outline:2px solid rgba(239,89,111,.86)!important;
+  outline-offset:-2px!important;
+}
+.piece-block.bomb-cargo-v140::before{display:none!important}
+.piece-block.bomb-cargo-v140::after{
+  inset:auto!important;
+  width:58%!important;
+  height:58%!important;
+  min-width:0!important;
+  min-height:0!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle at 34% 28%,#ff9aaa 0 18%,#ef596f 20% 58%,#a92e45 100%)!important;
+  color:#fff!important;
+  font-size:9px!important;
+  line-height:1!important;
+  font-weight:1000!important;
+  display:grid!important;
+  place-items:center!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.42)!important;
+  box-shadow:0 0 0 1.5px rgba(27,29,34,.96),0 0 8px rgba(239,89,111,.56)!important;
+  pointer-events:none!important;
+}
+.piece-block.bomb-badge-n-v143::after{left:50%!important;top:0!important;right:auto!important;bottom:auto!important;transform:translate(-50%,-62%)!important}
+.piece-block.bomb-badge-e-v143::after{right:0!important;top:50%!important;left:auto!important;bottom:auto!important;transform:translate(62%,-50%)!important}
+.piece-block.bomb-badge-s-v143::after{left:50%!important;bottom:0!important;right:auto!important;top:auto!important;transform:translate(-50%,62%)!important}
+.piece-block.bomb-badge-w-v143::after{left:0!important;top:50%!important;right:auto!important;bottom:auto!important;transform:translate(-62%,-50%)!important}
+
+.drag-ghost .piece-block.bomb-cargo-v140::after{
+  width:52%!important;
+  height:52%!important;
+  font-size:clamp(9px,2.2vw,13px)!important;
+  box-shadow:0 0 0 2px rgba(27,29,34,.96),0 0 11px rgba(239,89,111,.62)!important;
+}
+
+/* Persistent, low-noise mode identity. Context-specific information (fuse, SHIFT
+   state, etc.) stays near the score; this line only answers “what am I playing?”. */
+.mode-badge-v143{
+  height:20px;
+  min-height:20px;
+  margin:1px 0 6px;
+  padding:0 10px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#7f8796;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.055);
+  font-size:9px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.12em;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.mode-badge-v143[data-mode="bombs"]{color:#d35b6e;border-color:rgba(239,89,111,.14);background:rgba(239,89,111,.035)}
+.mode-badge-v143[data-mode="shift"]{color:#54a8bb}
+.mode-badge-v143[data-mode="gravity"]{color:#6f9d75}
+.mode-badge-v143[data-mode="squares"]{color:#aa8a36}
+.mode-badge-v143[data-mode="blitz"]{color:#b0802f}
+
+@media(max-width:420px){
+  .piece-block.bomb-cargo-v140::after{width:56%!important;height:56%!important;font-size:8px!important}
+  .drag-ghost .piece-block.bomb-cargo-v140::after{font-size:11px!important}
+  .mode-badge-v143{height:18px;min-height:18px;margin-bottom:5px;font-size:8.5px}
+}
