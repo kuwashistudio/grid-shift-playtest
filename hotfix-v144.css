@@ -1,0 +1,25 @@
+/* GRID SHIFT v1.4.4 — prevent fuse badge clipping while dragging */
+
+/* The v1.4.3 fuse badge intentionally hangs outside the carrier silhouette.
+   The drag ghost previously used paint containment, which clipped that outside
+   portion. Keep layout containment for stability, but allow overflow to paint. */
+.drag-ghost{
+  contain:layout style!important;
+  overflow:visible!important;
+}
+.drag-ghost .ghost-skin,
+.drag-ghost .piece-art,
+.drag-ghost .piece-block{
+  overflow:visible!important;
+}
+
+/* Give the dragged fuse badge a little more breathing room so every direction
+   (N/E/S/W) remains fully legible at iPhone scale. */
+.drag-ghost .piece-block.bomb-cargo-v140::after{
+  width:54%!important;
+  height:54%!important;
+  min-width:14px!important;
+  min-height:14px!important;
+  font-size:clamp(10px,2.4vw,14px)!important;
+  z-index:12!important;
+}
