@@ -1,0 +1,70 @@
+/* GRID SHIFT v1.2.8 — stronger iPhone gesture suppression + clearer records */
+
+/* Gameplay is an app surface, not selectable web content. Keep Safari from
+   interpreting a hold/drag as text selection, callout, loupe or page gesture. */
+.game-shell,
+.game-shell *,
+.board-wrap,
+.board-wrap *,
+.tray-zone,
+.tray-zone *,
+.drag-ghost,
+.drag-ghost *{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+  -webkit-user-drag:none!important;
+  -webkit-tap-highlight-color:transparent!important;
+  caret-color:transparent!important;
+}
+.game-shell,.board-wrap,.board,.tray-zone,.tray,.piece-wrap,.piece-art,.piece-block{
+  touch-action:none!important;
+}
+.piece-wrap,.piece-art,.piece-block{
+  -webkit-user-drag:none!important;
+  user-drag:none!important;
+}
+
+/* Make selector records read as actual records, not unexplained numbers. */
+.mode-card{padding-bottom:43px!important}
+.mode-best-v123{
+  left:8px!important;
+  right:8px!important;
+  bottom:6px!important;
+  min-height:31px!important;
+  padding:4px 7px 5px!important;
+  border-radius:9px!important;
+  background:rgba(23,25,31,.065)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:1px!important;
+  white-space:nowrap!important;
+}
+.mode-best-v123 span{
+  display:block!important;
+  font-size:9px!important;
+  line-height:10px!important;
+  font-weight:1000!important;
+  letter-spacing:.09em!important;
+  color:#6f7279!important;
+}
+.mode-best-v123 b{
+  display:block!important;
+  font-size:15px!important;
+  line-height:16px!important;
+  font-weight:1000!important;
+  letter-spacing:-.015em!important;
+  color:#2f3238!important;
+  font-variant-numeric:tabular-nums!important;
+}
+.mode-card.active .mode-best-v123 span,
+.mode-card.active .mode-best-v123 b{color:#2f80ed!important}
+
+@media(max-width:420px){
+  .mode-card{padding-bottom:41px!important}
+  .mode-best-v123{left:6px!important;right:6px!important;min-height:30px!important}
+  .mode-best-v123 span{font-size:8.5px!important}
+  .mode-best-v123 b{font-size:14px!important;line-height:15px!important}
+}
