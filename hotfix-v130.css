@@ -1,0 +1,21 @@
+/* GRID SHIFT v1.3.0 — SQUARES 4x4+ presentation */
+.mode-card[data-mode="SQUARES"]>strong::after{
+  content:'4×4+ SQUARES ONLY';
+  display:block;
+  margin-top:3px;
+  font-size:7px;
+  line-height:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#8b8e95;
+}
+.mode-card[data-mode="SQUARES"].active>strong::after{color:#2f80ed}
+.demo-squares-v130 .square-outline-v130{
+  left:0!important;
+  top:14px!important;
+  width:56px!important;
+  height:56px!important;
+  border-width:2px!important;
+  border-radius:5px!important;
+  opacity:.9!important;
+}
