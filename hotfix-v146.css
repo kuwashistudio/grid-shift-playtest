@@ -1,0 +1,37 @@
+/* GRID SHIFT v1.4.6 — tray fuse clipping + explicit controlled-blast feedback */
+
+/* Safari still clipped the tray badge because the base .piece-wrap uses paint
+   containment. overflow:visible cannot escape a paint containment boundary.
+   Keep layout/style containment, but remove paint containment for the bomb card. */
+.piece-wrap.bomb-first-v141,
+.piece-wrap.bomb-carrier-v140{
+  contain:layout style!important;
+  overflow:visible!important;
+}
+.tray,
+.tray-zone{
+  overflow:visible!important;
+}
+
+/* Current BOMBS rule feedback: the outlined box flashes the exact 3x3 area that
+   a successful bomb clear removed. This is intentionally short and text-free. */
+.bomb-blast-box-v146{
+  position:absolute;
+  z-index:48;
+  pointer-events:none;
+  border:3px solid rgba(255,215,106,.94);
+  border-radius:11px;
+  background:rgba(255,198,72,.12);
+  box-shadow:0 0 22px rgba(255,196,62,.52),inset 0 0 18px rgba(255,255,255,.22);
+  animation:bombBlastBoxV146 .56s cubic-bezier(.16,.84,.22,1) both;
+}
+.bomb-blast-box-v146.chain{
+  border-color:rgba(255,239,157,.98);
+  box-shadow:0 0 30px rgba(255,202,67,.72),inset 0 0 22px rgba(255,255,255,.28);
+}
+@keyframes bombBlastBoxV146{
+  0%{opacity:0;transform:scale(.82)}
+  18%{opacity:1;transform:scale(1.035)}
+  66%{opacity:.88;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.08)}
+}
