@@ -1,0 +1,78 @@
+/* GRID SHIFT v1.3.4 — clearer ordered SHIFT targets */
+.cell.shift-order-v134{
+  position:relative!important;
+  z-index:4!important;
+}
+.cell.shift-order-v134::before{display:none!important}
+.cell.shift-order-v134::after{
+  content:attr(data-order-glyph)!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:24px!important;
+  height:24px!important;
+  border-radius:50%!important;
+  display:grid!important;
+  place-items:center!important;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-size:15px!important;
+  line-height:24px!important;
+  font-weight:1000!important;
+  color:#fff!important;
+  background:#b87908!important;
+  border:2px solid rgba(255,255,255,.96)!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.26),0 0 0 2px rgba(244,182,60,.38)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.25)!important;
+  opacity:1!important;
+  pointer-events:none!important;
+}
+.cell.shift-order-v134.order-current-v134{
+  outline:3px solid rgba(244,182,60,.98)!important;
+  outline-offset:-3px!important;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.72),0 0 19px rgba(244,182,60,.58)!important;
+  animation:shiftOrderCurrentV134 .9s ease-in-out infinite!important;
+}
+.cell.shift-order-v134.order-locked-v134{
+  outline:2px dashed rgba(112,117,128,.72)!important;
+  outline-offset:-4px!important;
+  filter:none!important;
+  animation:none!important;
+}
+.cell.shift-order-v134.order-locked-v134::after{
+  color:#4e535d!important;
+  background:#e7e9ed!important;
+  border-color:rgba(255,255,255,.96)!important;
+  box-shadow:0 1px 6px rgba(0,0,0,.18)!important;
+  text-shadow:none!important;
+}
+.cell.shift-order-v134.order-done-v134{
+  outline:3px solid rgba(53,184,101,.95)!important;
+  outline-offset:-3px!important;
+  animation:none!important;
+}
+.cell.shift-order-v134.order-done-v134::after{
+  content:'✓'!important;
+  background:#2f9c58!important;
+  color:#fff!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.22),0 0 0 2px rgba(53,184,101,.26)!important;
+}
+.cell.shift-order-v134.order-failed-v134{
+  outline:3px solid rgba(224,75,99,.92)!important;
+  outline-offset:-3px!important;
+  animation:none!important;
+}
+.cell.shift-order-v134.order-failed-v134::after{
+  content:'×'!important;
+  background:#d84b63!important;
+  color:#fff!important;
+}
+@keyframes shiftOrderCurrentV134{
+  0%,100%{filter:brightness(1)}
+  50%{filter:brightness(1.14)}
+}
+@media(max-width:420px){
+  .cell.shift-order-v134::after{
+    width:22px!important;height:22px!important;line-height:22px!important;font-size:14px!important;
+  }
+}
