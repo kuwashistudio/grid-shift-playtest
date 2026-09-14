@@ -1,0 +1,27 @@
+/* GRID SHIFT v1.5.0 — make the third placement read as an immediate trigger. */
+.shift-last-v150{display:none;font-size:10px;line-height:1;font-weight:1000;letter-spacing:.08em;color:#d65368}
+.shift-guide-v149.last-move-v150 .shift-pips-v149,
+.shift-guide-v149.last-move-v150 .shift-arrow-v149,
+.shift-guide-v149.last-move-v150 .shift-rule-v149>strong,
+.shift-guide-v149.last-move-v150 .shift-stable-v149{display:none!important}
+.shift-guide-v149.last-move-v150 .shift-last-v150{display:inline}
+.shift-guide-v149.last-move-v150 .shift-rule-v149{background:rgba(214,83,104,.07);border-color:rgba(214,83,104,.24);animation:v150LastMovePulse .82s ease-in-out infinite}
+.shift-guide-v149.last-move-v150 .shift-direction-v149{color:#b05b69;font-weight:1000}
+.shift-guide-v149.preview-stable-v150 .shift-last-v150{color:#2f9c58}
+.shift-guide-v149.preview-stable-v150 .shift-rule-v149{background:rgba(53,167,100,.08);border-color:rgba(53,167,100,.28);animation:none}
+.shift-guide-v149.preview-stable-v150 .shift-direction-v149{color:#5c8d6d}
+.shift-guide-v149.stable-v149 .shift-pips-v149{display:none!important}
+
+.board.shift-next-v150{box-shadow:0 22px 45px rgba(31,28,24,.18),0 3px 0 rgba(255,255,255,.2) inset,0 0 0 2px rgba(214,83,104,.16)}
+.board.shift-preview-stable-v150{box-shadow:0 22px 45px rgba(31,28,24,.18),0 3px 0 rgba(255,255,255,.2) inset,0 0 0 2px rgba(53,167,100,.22)}
+
+/* The selector preview uses the same language: the last pip becomes a warning just before motion. */
+.v149-demo-count i:nth-child(3){animation:v150DemoLastPip 2.8s ease infinite!important}
+@keyframes v150DemoLastPip{
+  0%,43%{opacity:1;transform:scale(1);background:#3e9eb1}
+  52%,63%{opacity:1;transform:scale(1.45);background:#df5368;box-shadow:0 0 0 2px rgba(223,83,104,.16)}
+  72%,100%{opacity:.18;transform:scale(.72);background:#3e9eb1;box-shadow:none}
+}
+@keyframes v150LastMovePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+
+@media(max-width:420px){.shift-last-v150{font-size:9px}.shift-guide-v149.last-move-v150 .shift-rule-v149{min-width:188px}}
