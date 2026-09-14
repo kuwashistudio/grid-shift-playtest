@@ -1,0 +1,39 @@
+/* GRID SHIFT v1.5.7 — first two trays are true BUILD, with no SHIFT. */
+.shift-guide-v149.build-v157 .shift-rule-v149{
+  background:rgba(73,158,178,.055)!important;
+  border-color:rgba(73,158,178,.15)!important;
+  animation:none!important;
+}
+.shift-guide-v149.build-v157 .shift-pips-v149{display:flex!important}
+.shift-guide-v149.build-v157 .shift-arrow-v149{display:none!important}
+.shift-guide-v149.build-v157 .shift-rule-v149>strong{
+  display:inline!important;
+  color:#447f8d!important;
+}
+.shift-guide-v149.build-v157 .shift-last-v150,
+.shift-guide-v149.build-v157 .shift-stable-v149{display:none!important}
+.shift-guide-v149.build-v157 .shift-direction-v149{
+  color:#74858b!important;
+  font-weight:950!important;
+  letter-spacing:.055em;
+}
+.shift-guide-v149.build-v157 .shift-build-label-v153{
+  display:inline-flex!important;
+  align-items:center;
+  height:16px;
+  padding:0 6px;
+  border-radius:999px;
+  font-size:7.5px;
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:.09em;
+  color:#66727a;
+  background:rgba(105,119,128,.09);
+  border:1px solid rgba(105,119,128,.13);
+  white-space:nowrap;
+}
+@media(max-width:420px){
+  .shift-guide-v149.build-v157 .shift-rule-v149{min-width:198px;gap:6px;padding:0 8px}
+  .shift-guide-v149.build-v157 .shift-build-label-v153{font-size:7px;padding:0 5px;height:15px}
+  .shift-guide-v149.build-v157 .shift-direction-v149{font-size:7px}
+}
