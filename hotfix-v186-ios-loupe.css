@@ -1,0 +1,41 @@
+/* GRID SHIFT v1.8.6 QA — stronger iPhone Safari loupe suppression.
+   The game surface is a direct-manipulation canvas; browser scrolling/selection
+   gestures are not useful there. Keep overlays/buttons usable while preventing
+   long-press text/drag affordances on the actual play field. */
+#app,
+.game-shell,
+.board-wrap,
+#board,
+.board,
+.tray-zone,
+#tray,
+.tray,
+.piece-wrap,
+.piece-art,
+.piece-block,
+.rotate-affordance,
+.cell,
+.drag-ghost,
+.ghost-skin{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+  -webkit-user-drag:none!important;
+  touch-action:none!important;
+}
+
+#app img,
+.game-shell img,
+.board-wrap img,
+.tray-zone img{
+  -webkit-user-drag:none!important;
+  pointer-events:none;
+}
+
+#app ::selection,
+.game-shell ::selection,
+.board-wrap ::selection,
+.tray-zone ::selection{
+  background:transparent!important;
+  color:inherit!important;
+}
