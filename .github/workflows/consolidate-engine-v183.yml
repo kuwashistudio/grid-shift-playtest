@@ -1,0 +1,83 @@
+name: Consolidate GRID SHIFT engine v183
+
+on:
+  push:
+    branches: [consolidate-v183]
+    paths:
+      - '.github/workflows/consolidate-engine-v183.yml'
+      - 'script1.js'
+      - 'script2.js'
+      - 'runtime-base-v182.js'
+      - 'runtime-bombs-v180.js'
+      - 'runtime-bombs-v180.css'
+      - 'hotfix-v147.js'
+      - 'hotfix-v147.css'
+      - 'index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: consolidate-v183
+      - name: Build exact-order v183 bundles and isolated QA page
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            printf '/* GRID SHIFT v1.8.3 engine bundle — script2 + runtime-base-v182 in exact order. */\n\n'
+            printf '/* ===== script2.js ===== */\n'
+            cat script2.js
+            printf '\n\n/* ===== runtime-base-v182.js ===== */\n'
+            cat runtime-base-v182.js
+          } > runtime-engine-v183.js
+          {
+            printf '/* GRID SHIFT v1.8.3 bombs/global bundle — runtime-bombs-v180 + hotfix-v147 in exact order. */\n\n'
+            printf '/* ===== runtime-bombs-v180.js ===== */\n'
+            cat runtime-bombs-v180.js
+            printf '\n\n/* ===== hotfix-v147.js ===== */\n'
+            cat hotfix-v147.js
+          } > runtime-bombs-global-v183.js
+          {
+            printf '/* GRID SHIFT v1.8.3 bombs/global CSS — runtime-bombs-v180 + hotfix-v147 exact cascade. */\n\n'
+            printf '/* ===== runtime-bombs-v180.css ===== */\n'
+            cat runtime-bombs-v180.css
+            printf '\n\n/* ===== hotfix-v147.css ===== */\n'
+            cat hotfix-v147.css
+          } > runtime-bombs-global-v183.css
+          cp script1.js script1-test-v183.js
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('script1-test-v183.js')
+          s=p.read_text()
+          s=s.replace("const prefix='gridshift_';", "const prefix='gridshift_test_v183_';")
+          p.write_text(s)
+          idx=Path('index.html').read_text()
+          idx=idx.replace('<title>GRID SHIFT — v1.8.2</title>','<title>GRID SHIFT — v1.8.3 ENGINE TEST</title>')
+          idx=idx.replace('data-build="v1.8.2"','data-build="v1.8.3-test"')
+          idx=idx.replace('<!-- v1.8.2: base app/style consolidation + rotation affordance repair; gameplay unchanged from v1.8.1. -->','<!-- v1.8.3 QA: exact-order engine and bombs/global consolidation; isolated storage. -->')
+          idx=idx.replace('<link rel="stylesheet" href="runtime-bombs-v180.css?v=180">\n  <link rel="stylesheet" href="hotfix-v147.css?v=173">','<link rel="stylesheet" href="runtime-bombs-global-v183.css?v=183">')
+          idx=idx.replace('<script src="script1.js?v=173"></script><script src="script2.js?v=173"></script><script src="runtime-base-v182.js?v=182r1"></script>','<script src="script1-test-v183.js?v=183"></script><script src="runtime-engine-v183.js?v=183"></script>')
+          idx=idx.replace('<script src="runtime-bombs-v180.js?v=180"></script><script src="hotfix-v147.js?v=173"></script>','<script src="runtime-bombs-global-v183.js?v=183"></script>')
+          Path('test-v183.html').write_text(idx)
+          PY
+          node --check runtime-engine-v183.js
+          node --check runtime-bombs-global-v183.js
+          grep -q "gridshift_test_v183_" script1-test-v183.js
+          grep -q "runtime-engine-v183.js" test-v183.html
+          grep -q "runtime-bombs-global-v183.js" test-v183.html
+          grep -q "runtime-bombs-global-v183.css" test-v183.html
+      - name: Commit generated QA files
+        shell: bash
+        run: |
+          if git diff --quiet -- runtime-engine-v183.js runtime-bombs-global-v183.js runtime-bombs-global-v183.css script1-test-v183.js test-v183.html; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runtime-engine-v183.js runtime-bombs-global-v183.js runtime-bombs-global-v183.css script1-test-v183.js test-v183.html
+          git commit -m "Build v1.8.3 engine consolidation QA"
+          git push origin HEAD:consolidate-v183
