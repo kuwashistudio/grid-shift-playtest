@@ -1,0 +1,104 @@
+/* GRID SHIFT v1.4.8 — SHIFT first-play comprehension */
+.shift-guide-v148{
+  width:min(94vw,600px);
+  margin:1px 0 7px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  color:#676c76;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.shift-guide-v148[hidden]{display:none!important}
+.shift-guide-main-v148{
+  min-height:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:2px 10px;
+  border-radius:999px;
+  background:rgba(79,177,198,.055);
+  border:1px solid rgba(79,177,198,.13);
+  white-space:nowrap;
+}
+.shift-guide-label-v148{
+  font-size:8px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.095em;
+  color:#777c86;
+}
+.shift-guide-v148.intro-v148 .shift-guide-label-v148{color:#4e7f8b}
+.shift-pips-v148{display:flex;align-items:center;gap:4px}
+.shift-pips-v148 i{
+  width:7px;height:7px;border-radius:50%;
+  background:#4faec1;
+  box-shadow:0 0 0 1px rgba(79,174,193,.13);
+  transition:opacity .15s,transform .15s,background .15s;
+}
+.shift-pips-v148 i.spent{opacity:.22;transform:scale(.82);background:#7d828a}
+.shift-goal-v148{display:flex;align-items:center;gap:4px;font-style:normal}
+.shift-goal-v148 b{
+  width:18px;height:18px;border-radius:50%;display:grid;place-items:center;
+  font-size:11px;line-height:1;font-weight:1000;
+  color:#8d650c;background:#fff1c7;border:1px solid rgba(190,133,16,.24);
+  transition:filter .15s,transform .15s,background .15s,color .15s;
+}
+.shift-goal-v148 b.current{box-shadow:0 0 0 2px rgba(244,182,60,.18);transform:scale(1.05)}
+.shift-goal-v148 b.done{color:#fff;background:#35a764;border-color:#35a764;box-shadow:none}
+.shift-goal-v148 em{font-size:11px;color:#989ca3;font-style:normal;font-weight:900}
+.shift-wave-v148{
+  height:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  line-height:1;
+  white-space:nowrap;
+}
+.shift-wave-v148 small{
+  font-size:6.5px;
+  font-weight:950;
+  letter-spacing:.105em;
+  color:#9a7c52;
+}
+.shift-wave-v148 b{
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.045em;
+  color:#6e858b;
+}
+
+/* ② before ① is feedback, not an instant punishment. */
+.cell.shift-order-v134.shift-early2-v148{
+  animation:shiftEarlyTwoV148 .42s ease!important;
+}
+.cell.shift-order-v134.shift-early2-v148::after{
+  background:#df5368!important;
+  color:#fff!important;
+  border-color:#fff!important;
+  box-shadow:0 2px 9px rgba(0,0,0,.2),0 0 0 3px rgba(223,83,104,.2)!important;
+}
+@keyframes shiftEarlyTwoV148{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-3px)}
+  50%{transform:translateX(3px)}
+  75%{transform:translateX(-2px)}
+}
+
+/* Once both targets are secured, keep the success visible until the third piece
+   finishes the round. This tells the player the remaining move is free board-building. */
+.cell.shift-order-v134.order-done-v134{animation:none!important}
+
+@media(max-width:420px){
+  .shift-guide-v148{margin-top:0;margin-bottom:5px;gap:2px}
+  .shift-guide-main-v148{min-height:20px;gap:7px;padding:1px 8px}
+  .shift-guide-label-v148{font-size:7.5px}
+  .shift-goal-v148 b{width:17px;height:17px;font-size:10.5px}
+  .shift-wave-v148{height:12px;gap:5px}
+  .shift-wave-v148 small{font-size:6px}
+  .shift-wave-v148 b{font-size:7.3px}
+}
