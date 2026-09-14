@@ -1,0 +1,5 @@
+/* GRID SHIFT v1.6.3 — measured tray centering owns position; old translate centering is disabled. */
+.tray .piece-wrap > .piece-art.tray,
+.tray .piece-wrap > .rotate-affordance{
+  translate:none!important;
+}
