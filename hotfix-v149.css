@@ -1,0 +1,95 @@
+/* GRID SHIFT v1.4.9 — SHIFT: show one rule, not a tutorial stack. */
+.shift-guide-v148{display:none!important}
+
+.shift-guide-v149{
+  width:min(94vw,600px);
+  margin:1px 0 7px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  color:#6d727b;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.shift-guide-v149[hidden]{display:none!important}
+.shift-rule-v149{
+  height:27px;
+  min-width:188px;
+  padding:0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:999px;
+  background:rgba(68,161,181,.06);
+  border:1px solid rgba(68,161,181,.16);
+}
+.shift-pips-v149{display:flex;align-items:center;gap:5px}
+.shift-pips-v149 i{
+  width:10px;height:10px;border-radius:50%;
+  background:#4aa7ba;
+  box-shadow:0 0 0 1px rgba(74,167,186,.12),0 1px 3px rgba(0,0,0,.12);
+  transition:opacity .15s,transform .15s,background .15s;
+}
+.shift-pips-v149 i.spent{opacity:.2;transform:scale(.76);background:#7d8188}
+.shift-arrow-v149{font-size:12px;color:#92969d;font-weight:900}
+.shift-rule-v149 strong{
+  font-size:10px;line-height:1;font-weight:1000;letter-spacing:.12em;color:#3f7f8d;
+}
+.shift-stable-v149{
+  display:none;
+  font-style:normal;
+  font-size:10px;line-height:1;font-weight:1000;letter-spacing:.08em;
+  color:#2f9c58;
+}
+.shift-guide-v149.stable-v149 .shift-arrow-v149,
+.shift-guide-v149.stable-v149 .shift-rule-v149 strong{display:none}
+.shift-guide-v149.stable-v149 .shift-stable-v149{display:inline}
+.shift-guide-v149.stable-v149 .shift-rule-v149{
+  background:rgba(53,167,100,.06);
+  border-color:rgba(53,167,100,.16);
+}
+.shift-direction-v149{
+  min-height:13px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:8px;line-height:1;font-weight:950;letter-spacing:.06em;
+  color:#75878c;
+  white-space:nowrap;
+}
+.shift-guide-v149.stable-v149 .shift-direction-v149{color:#6b9278}
+
+/* Selector: three moves count down, then alternating rows visibly shift. */
+.demo-shift-v149 .v149-shift-row.r1{animation:v149DemoRight 2.8s cubic-bezier(.2,.8,.22,1) infinite}
+.demo-shift-v149 .v149-shift-row.r2{animation:v149DemoLeft 2.8s cubic-bezier(.2,.8,.22,1) infinite}
+.v149-demo-count{
+  position:absolute;z-index:9;left:50%;top:3px;transform:translateX(-50%);
+  height:13px;padding:0 4px;border-radius:8px;
+  display:flex;align-items:center;gap:3px;
+  background:rgba(245,243,238,.9);box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+.v149-demo-count i{width:4px;height:4px;border-radius:50%;background:#3e9eb1}
+.v149-demo-count i:nth-child(1){animation:v149Pip1 2.8s ease infinite}
+.v149-demo-count i:nth-child(2){animation:v149Pip2 2.8s ease infinite}
+.v149-demo-count i:nth-child(3){animation:v149Pip3 2.8s ease infinite}
+.v149-demo-count b{font-size:7px;line-height:1;color:#8a8e95}
+.v149-demo-count strong{font-size:9px;line-height:1;color:#3d8695}
+.v149-demo-a{position:absolute;z-index:8;font-style:normal;font-size:17px;font-weight:1000;color:rgba(72,178,198,.82);opacity:0}
+.v149-demo-a.a1{right:4px;top:25px;animation:v149ArrowRight 2.8s ease infinite}
+.v149-demo-a.a2{left:4px;bottom:12px;animation:v149ArrowLeft 2.8s ease infinite}
+@keyframes v149Pip1{0%,15%{opacity:1;transform:scale(1)}25%,100%{opacity:.18;transform:scale(.72)}}
+@keyframes v149Pip2{0%,34%{opacity:1;transform:scale(1)}44%,100%{opacity:.18;transform:scale(.72)}}
+@keyframes v149Pip3{0%,54%{opacity:1;transform:scale(1)}64%,100%{opacity:.18;transform:scale(.72)}}
+@keyframes v149DemoRight{0%,64%{transform:translateX(0)}78%,88%{transform:translateX(14px)}100%{transform:translateX(0)}}
+@keyframes v149DemoLeft{0%,64%{transform:translateX(0)}78%,88%{transform:translateX(-14px)}100%{transform:translateX(0)}}
+@keyframes v149ArrowRight{0%,62%{opacity:0;transform:translateX(-4px)}75%,88%{opacity:1;transform:translateX(3px)}100%{opacity:0;transform:translateX(5px)}}
+@keyframes v149ArrowLeft{0%,62%{opacity:0;transform:translateX(4px)}75%,88%{opacity:1;transform:translateX(-3px)}100%{opacity:0;transform:translateX(-5px)}}
+
+@media(max-width:420px){
+  .shift-guide-v149{margin-top:0;margin-bottom:5px;gap:3px}
+  .shift-rule-v149{height:24px;min-width:176px;padding:0 10px;gap:7px}
+  .shift-pips-v149 i{width:9px;height:9px}
+  .shift-rule-v149 strong,.shift-stable-v149{font-size:9px}
+  .shift-direction-v149{font-size:7.3px}
+}
