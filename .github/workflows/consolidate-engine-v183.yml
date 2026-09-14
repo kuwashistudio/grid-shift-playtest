@@ -75,9 +75,9 @@ jobs:
       - name: Commit generated QA files
         shell: bash
         run: |
-          if git diff --quiet -- runtime-engine-v183.js runtime-bombs-global-v183.js runtime-bombs-global-v183.css script1-test-v183.js test-v183.html; then exit 0; fi
+          git add runtime-engine-v183.js runtime-bombs-global-v183.js runtime-bombs-global-v183.css script1-test-v183.js test-v183.html
+          if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add runtime-engine-v183.js runtime-bombs-global-v183.js runtime-bombs-global-v183.css script1-test-v183.js test-v183.html
           git commit -m "Build v1.8.3 engine consolidation QA"
           git push origin HEAD:consolidate-v183
