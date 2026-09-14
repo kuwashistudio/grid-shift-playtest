@@ -92,27 +92,33 @@ jobs:
               (['hotfix-v171.js','hotfix-v172.js','hotfix-v172-fair.js','hotfix-v176.js','hotfix-v177.js'], 'runtime-tail-v180.js?v=180'),
           ]
 
+          def replace_css_group(html, files, bundle):
+              first=files[0]
+              pat=r'<link rel="stylesheet" href="'+re.escape(first)+r'\?v=[^"]+">'
+              html,n=re.subn(pat, '<link rel="stylesheet" href="'+bundle+'">', html, count=1)
+              if n!=1: raise SystemExit(f'missing CSS tag {first}')
+              for f in files[1:]:
+                  pat=r'\s*<link rel="stylesheet" href="'+re.escape(f)+r'\?v=[^"]+">'
+                  html,n=re.subn(pat,'',html,count=1)
+                  if n!=1: raise SystemExit(f'missing CSS tag {f}')
+              return html
+
+          def replace_js_group(html, files, bundle):
+              first=files[0]
+              pat=r'<script src="'+re.escape(first)+r'\?v=[^"]+"></script>'
+              html,n=re.subn(pat, '<script src="'+bundle+'"></script>', html, count=1)
+              if n!=1: raise SystemExit(f'missing JS tag {first}')
+              for f in files[1:]:
+                  pat=r'<script src="'+re.escape(f)+r'\?v=[^"]+"></script>'
+                  html,n=re.subn(pat,'',html,count=1)
+                  if n!=1: raise SystemExit(f'missing JS tag {f}')
+              return html
+
           def bundle_html(html):
-              for files, bundle in css_groups:
-                  positions=[]
-                  for f in files:
-                      m=re.search(r'\s*<link rel="stylesheet" href="'+re.escape(f)+r'\?v=[^"]+">', html)
-                      if not m: raise SystemExit(f'missing CSS tag {f}')
-                      positions.append(m.start())
-                  insert=min(positions)
-                  for f in files:
-                      html=re.sub(r'\s*<link rel="stylesheet" href="'+re.escape(f)+r'\?v=[^"]+">','',html)
-                  html=html[:insert]+'\n  <link rel="stylesheet" href="'+bundle+'">'+html[insert:]
-              for files, bundle in js_groups:
-                  matches=[]
-                  for f in files:
-                      m=re.search(r'<script src="'+re.escape(f)+r'\?v=[^"]+"></script>', html)
-                      if not m: raise SystemExit(f'missing JS tag {f}')
-                      matches.append(m.start())
-                  insert=min(matches)
-                  for f in files:
-                      html=re.sub(r'<script src="'+re.escape(f)+r'\?v=[^"]+"></script>','',html)
-                  html=html[:insert]+'<script src="'+bundle+'"></script>'+html[insert:]
+              for files,bundle in css_groups:
+                  html=replace_css_group(html,files,bundle)
+              for files,bundle in js_groups:
+                  html=replace_js_group(html,files,bundle)
               return html
 
           candidate=bundle_html(source)
