@@ -1,0 +1,10 @@
+/* GRID SHIFT v1.6.4 — piece artwork must not inherit outer tray layout. */
+#tray > .piece-wrap > .piece-art.tray.tray-art-v164{
+  display:block!important;
+  min-width:0!important;
+  max-width:none!important;
+  grid-template-columns:none!important;
+  grid-template-rows:none!important;
+  align-items:initial!important;
+  justify-items:initial!important;
+}
