@@ -1,0 +1,25 @@
+/* GRID SHIFT v1.6.8 — CHAIN GUIDE lives in a dedicated row above the board. */
+.gravity-guide-dock-v168{
+  width:100%;
+  box-sizing:border-box;
+  display:none;
+  justify-content:flex-end;
+  align-items:center;
+  padding:0 8px;
+  margin:0 0 7px;
+  min-height:46px;
+}
+.gravity-guide-dock-v168.visible-v168{display:flex}
+.gravity-guide-dock-v168 .gravity-guide-switch-v167{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
+  left:auto!important;
+  bottom:auto!important;
+  margin:0!important;
+  transform:none!important;
+}
+
+@media(max-width:420px){
+  .gravity-guide-dock-v168{padding:0 7px;margin-bottom:6px;min-height:44px}
+}
