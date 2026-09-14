@@ -1,0 +1,42 @@
+/* GRID SHIFT v1.6.1 — hard-center tray artwork and rotate mark on one anchor. */
+.tray .piece-wrap{
+  position:relative!important;
+  display:block!important;
+}
+.tray .piece-wrap > .piece-art.tray{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  margin:0!important;
+  translate:-50% -50%!important;
+}
+.tray .piece-wrap > .rotate-affordance{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  margin:0!important;
+  translate:-50% -50%!important;
+}
+
+/* Keep the existing rotate animation while the centering uses the independent
+   translate property, so transform animation can no longer move the anchor. */
+.tray .piece-wrap.rotatable > .rotate-affordance{
+  animation:rotateAffordanceIntroV161 1.3s cubic-bezier(.2,.75,.25,1) 1!important;
+}
+.tray .piece-wrap.rotate-pop > .rotate-affordance{
+  animation:rotateAffordanceTapV161 .22s cubic-bezier(.2,.9,.25,1) 1!important;
+}
+@keyframes rotateAffordanceIntroV161{
+  0%{opacity:0;transform:rotate(-34deg) scale(.88)}
+  38%{opacity:.2}
+  100%{opacity:.13;transform:rotate(0) scale(1)}
+}
+@keyframes rotateAffordanceTapV161{
+  0%{opacity:.14;transform:rotate(0) scale(.93)}
+  75%{opacity:.3;transform:rotate(92deg) scale(1.05)}
+  100%{opacity:.13;transform:rotate(90deg) scale(1)}
+}
