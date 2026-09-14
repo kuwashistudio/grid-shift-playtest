@@ -1,0 +1,682 @@
+/* GRID SHIFT v1.8.1 common CSS bundle — exact cascade order, no style rewrite. */
+
+/* ===== hotfix-v12.css ===== */
+/* GRID SHIFT v1.2 playtest polish + iPhone fixes */
+
+/* Keep the score mathematically centered even with two controls on the right. */
+.topbar{position:relative!important;display:flex!important;align-items:center!important;min-height:72px!important;width:100%!important}
+#modeBtn{margin-right:auto!important;flex:0 0 auto}
+#quickRestart{margin-left:auto!important;flex:0 0 auto}
+#muteBtn{flex:0 0 auto}
+.score-hero{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;min-width:132px!important;pointer-events:none}
+
+/* Always show the current mode below the score. */
+.context-stat{height:15px!important;margin-top:6px!important;min-width:96px!important;font-size:10px!important;line-height:15px!important;font-weight:900!important;letter-spacing:.16em!important;color:#65686f!important;opacity:1!important;transform:none!important;white-space:nowrap!important}
+.context-stat.visible{opacity:1!important;transform:none!important}
+html[data-mode="blitz"] .context-stat{font-size:10px!important;color:#d84f67!important}
+html[data-mode="gravity"] .context-stat{color:#6357b9!important}
+
+/* Long vertical pieces: give them breathing room and keep them block-like, not bead-like. */
+.piece-art.tray .piece-block{border-radius:3px!important}
+.piece-wrap{overflow:visible!important}
+.tray,.tray-zone{overflow:visible!important}
+
+/* Only the piece actually tapped should animate its rotation mark. */
+.piece-wrap.rotatable .rotate-affordance{animation:none!important}
+.piece-wrap.rotatable.rotate-pop .rotate-affordance{animation:rotateAffordanceTap .22s cubic-bezier(.2,.9,.25,1) 1!important}
+
+/* GRAVITY: make clears and cascades feel earned. */
+html[data-mode="gravity"] .cell.clear-flash{animation:gravityClearFlashV12 .34s cubic-bezier(.12,.8,.2,1) both!important;z-index:4}
+@keyframes gravityClearFlashV12{
+  0%{transform:scale(.82);filter:brightness(1.1);box-shadow:0 0 0 rgba(255,255,255,0)}
+  30%{transform:scale(1.12);filter:brightness(2.25) saturate(1.3);background:#fff;box-shadow:0 0 18px rgba(255,255,255,.9)}
+  58%{transform:scale(.94);filter:brightness(1.65);box-shadow:0 0 24px rgba(148,118,255,.7)}
+  100%{transform:scale(.08);opacity:0;filter:brightness(1)}
+}
+.board.gravity-wave-kick{animation:gravityWaveKickV12 .30s cubic-bezier(.16,.82,.2,1) both}
+@keyframes gravityWaveKickV12{0%{transform:scale(1)}34%{transform:scale(.986)}62%{transform:scale(1.008)}100%{transform:scale(1)}}
+.gravity-bloom{position:absolute;z-index:55;left:50%;top:50%;width:36%;aspect-ratio:1;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,255,255,.55) 0 3%,rgba(167,137,255,.22) 18%,rgba(100,219,255,.12) 42%,rgba(255,255,255,0) 72%);animation:gravityBloomV12 .56s ease-out both;mix-blend-mode:screen}
+@keyframes gravityBloomV12{0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(2.7)}}
+.gravity-combo-v12{position:absolute;z-index:58;left:50%;top:48%;transform:translate(-50%,-50%);pointer-events:none;font-weight:950;font-size:clamp(34px,11vw,64px);letter-spacing:-.04em;color:#fff;text-shadow:0 4px 24px rgba(103,79,214,.50),0 0 12px rgba(255,255,255,.9);animation:gravityComboV12 .72s cubic-bezier(.12,.88,.22,1) both}
+@keyframes gravityComboV12{0%{opacity:0;transform:translate(-50%,-44%) scale(.42)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.16)}55%{opacity:1;transform:translate(-50%,-54%) scale(1)}100%{opacity:0;transform:translate(-50%,-70%) scale(.92)}}
+
+@media(max-height:720px) and (orientation:portrait){
+  .topbar{min-height:58px!important}
+  .score-hero{top:50%!important}
+}
+
+
+/* ===== hotfix-v122.css ===== */
+/* GRID SHIFT v1.2.2 — iPhone long-press suppression + visible high score */
+html,body,#app,.game-shell,.topbar,.board-wrap,.board,.tray-zone,.tray,.piece-wrap,.round-btn,.mode-card,.size-option,.primary,.secondary,.panel{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+  -webkit-user-drag:none!important;
+}
+img,svg{ -webkit-user-drag:none!important; user-select:none!important; }
+button{touch-action:manipulation}
+.board,.tray-zone,.tray,.piece-wrap{touch-action:none!important}
+
+/* Current score stays dominant; the per-mode personal record is always visible beneath it. */
+.score-hero{min-width:150px;justify-self:center;transform:translateX(0)!important}
+.score-hero strong{display:block;text-align:center;width:100%}
+.best-display{
+  display:flex;align-items:baseline;justify-content:center;gap:5px;
+  height:13px;margin-top:1px;line-height:13px;
+  color:#8a8c92;font-size:8px;font-weight:850;letter-spacing:.13em;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.best-display span{font-size:7px;letter-spacing:.16em;color:#a1a2a7}
+.best-display b{font-size:10px;letter-spacing:.03em;color:#62656c;font-weight:900}
+.best-display.new-best{animation:bestHitV122 .72s cubic-bezier(.18,.86,.24,1) both}
+.best-display.new-best span,.best-display.new-best b{color:#d39217}
+@keyframes bestHitV122{
+  0%{transform:scale(.84);opacity:.3}
+  28%{transform:scale(1.16);opacity:1;filter:brightness(1.22)}
+  58%{transform:scale(.98)}
+  100%{transform:scale(1);filter:none}
+}
+
+@media(max-width:420px){
+  .score-hero{min-width:136px}
+  .best-display{margin-top:0}
+}
+
+
+/* ===== hotfix-v123.css ===== */
+/* GRID SHIFT v1.2.3 — hard-center score + persistent per-mode records */
+.topbar{
+  position:relative!important;
+  grid-template-columns:48px 1fr 44px 48px!important;
+}
+#modeBtn{grid-column:1!important}
+#quickRestart{grid-column:3!important}
+#muteBtn{grid-column:4!important}
+
+/* Do not let the left/right controls decide where the score sits. */
+.score-hero{
+  position:absolute!important;
+  left:50%!important;
+  top:0!important;
+  transform:translateX(-50%)!important;
+  width:170px!important;
+  min-width:170px!important;
+  max-width:170px!important;
+  z-index:1;
+  pointer-events:none;
+}
+.score-hero>strong{
+  width:100%!important;
+  text-align:center!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+.score-hero .context-stat,.score-hero .best-display{width:100%;justify-content:center;text-align:center}
+.best-display{opacity:1!important;visibility:visible!important}
+
+/* Every mode card keeps its own record visible, so the menu doubles as a record board. */
+.mode-card{padding-bottom:25px!important}
+.mode-best-v123{
+  position:absolute;
+  left:0;right:0;bottom:7px;
+  display:flex;align-items:baseline;justify-content:center;gap:4px;
+  color:#96989d;
+  font-size:7px;font-weight:850;line-height:11px;letter-spacing:.12em;
+  font-style:normal;font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+  pointer-events:none;
+}
+.mode-best-v123 span{font-size:6.5px;letter-spacing:.15em;color:#aaa9a5}
+.mode-best-v123 b{font-size:10px;letter-spacing:.01em;color:#5d6067;font-weight:950}
+.mode-card.active .mode-best-v123 b{color:#2f80ed}
+.mode-best-v123.record-hit b{animation:modeBestHitV123 .65s cubic-bezier(.18,.86,.24,1) both;color:#d39217}
+@keyframes modeBestHitV123{
+  0%{transform:scale(.8);opacity:.3}
+  35%{transform:scale(1.2);opacity:1}
+  100%{transform:scale(1);opacity:1}
+}
+
+@media(max-width:420px){
+  .score-hero{width:158px!important;min-width:158px!important;max-width:158px!important}
+  .mode-card{padding-bottom:24px!important}
+}
+
+
+/* ===== hotfix-v124.css ===== */
+/* GRID SHIFT v1.2.4 — make the high score unmistakable and keep it away from the board */
+
+/* Current score remains hard-centered. The record is a separate left-side stat,
+   so it no longer reads like a subtitle sitting on top of the board. */
+.score-hero{
+  left:50%!important;
+  transform:translateX(-50%)!important;
+}
+.score-hero .best-display{
+  position:absolute!important;
+  left:-66px!important;
+  top:13px!important;
+  width:58px!important;
+  min-width:58px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:1px!important;
+  text-align:left!important;
+  line-height:1!important;
+  white-space:normal!important;
+  pointer-events:none!important;
+}
+.score-hero .best-display span{
+  display:block!important;
+  width:100%!important;
+  color:#74777f!important;
+  font-size:9px!important;
+  line-height:10px!important;
+  font-weight:950!important;
+  letter-spacing:.055em!important;
+  text-align:left!important;
+}
+.score-hero .best-display b{
+  display:block!important;
+  width:100%!important;
+  margin-top:2px!important;
+  color:#2f3137!important;
+  font-size:16px!important;
+  line-height:16px!important;
+  font-weight:950!important;
+  letter-spacing:-.02em!important;
+  text-align:left!important;
+  font-variant-numeric:tabular-nums!important;
+}
+.score-hero .best-display.new-best span,
+.score-hero .best-display.new-best b{color:#c48612!important}
+
+/* The mode selector is also a record board. Make the number self-explanatory. */
+.mode-card{padding-bottom:34px!important}
+.mode-best-v123{
+  left:8px!important;
+  right:8px!important;
+  bottom:7px!important;
+  min-height:22px!important;
+  padding:3px 7px!important;
+  border-radius:8px!important;
+  background:rgba(23,25,31,.055)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  color:#60636a!important;
+  line-height:1!important;
+  font-style:normal!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+.mode-best-v123 span{
+  color:#777a81!important;
+  font-size:8px!important;
+  line-height:10px!important;
+  font-weight:950!important;
+  letter-spacing:.075em!important;
+}
+.mode-best-v123 b{
+  color:#34373d!important;
+  font-size:13px!important;
+  line-height:14px!important;
+  font-weight:1000!important;
+  letter-spacing:-.01em!important;
+}
+.mode-card.active .mode-best-v123{
+  background:rgba(47,128,237,.075)!important;
+}
+.mode-card.active .mode-best-v123 span,
+.mode-card.active .mode-best-v123 b{color:#2f80ed!important}
+
+@media(max-width:420px){
+  .score-hero .best-display{
+    left:-58px!important;
+    width:52px!important;
+  }
+  .score-hero .best-display span{font-size:8.5px!important;line-height:9.5px!important}
+  .score-hero .best-display b{font-size:15px!important;line-height:15px!important}
+  .mode-card{padding-bottom:33px!important}
+  .mode-best-v123{left:6px!important;right:6px!important;gap:5px!important}
+  .mode-best-v123 span{font-size:7.5px!important}
+  .mode-best-v123 b{font-size:12.5px!important}
+}
+
+
+/* ===== hotfix-v130.css ===== */
+/* GRID SHIFT v1.3.0 — SQUARES 4x4+ presentation */
+.mode-card[data-mode="SQUARES"]>strong::after{
+  content:'4×4+ SQUARES ONLY';
+  display:block;
+  margin-top:3px;
+  font-size:7px;
+  line-height:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#8b8e95;
+}
+.mode-card[data-mode="SQUARES"].active>strong::after{color:#2f80ed}
+.demo-squares-v130 .square-outline-v130{
+  left:0!important;
+  top:14px!important;
+  width:56px!important;
+  height:56px!important;
+  border-width:2px!important;
+  border-radius:5px!important;
+  opacity:.9!important;
+}
+
+
+/* ===== hotfix-v131.css ===== */
+/* GRID SHIFT v1.3.1 — SHIFT v2 visuals */
+
+/* The anchor is the one cell the player can hit during the current 3-piece tray
+   to cancel the coming alternating wave. */
+.cell.shift-anchor-v131{
+  position:relative;
+  z-index:2;
+  outline:2px solid rgba(244,182,60,.95);
+  outline-offset:-3px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.75),0 0 0 2px rgba(244,182,60,.16),0 0 15px rgba(244,182,60,.46)!important;
+  animation:shiftAnchorPulseV131 1.15s ease-in-out infinite;
+}
+.cell.shift-anchor-v131::after{
+  content:'◎';
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#b87908;
+  font-size:19px;
+  line-height:1;
+  font-weight:1000;
+  text-shadow:0 1px 0 rgba(255,255,255,.85);
+  pointer-events:none;
+}
+.cell.shift-anchor-v131.filled::after{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.32)}
+.cell.shift-anchor-v131.anchor-secured-v131{
+  outline-color:#35b865;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.78),0 0 16px rgba(53,184,101,.5)!important;
+  animation:none;
+}
+.cell.shift-anchor-v131.anchor-secured-v131::after{content:'✓';color:#fff}
+@keyframes shiftAnchorPulseV131{
+  0%,100%{transform:scale(1);filter:brightness(1)}
+  50%{transform:scale(.93);filter:brightness(1.1)}
+}
+
+/* Short, readable feedback when a mission succeeds or the wave actually fires. */
+.board.shift-stabilized-v131{animation:shiftSafeV131 .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes shiftSafeV131{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.012);filter:brightness(1.13)}
+  100%{transform:scale(1);filter:none}
+}
+.board.wave-shift-v131{animation:waveKickV131 .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes waveKickV131{
+  0%{transform:scale(1)}
+  24%{transform:scale(.985) rotate(-.25deg)}
+  54%{transform:scale(1.012) rotate(.18deg)}
+  100%{transform:scale(1);filter:none}
+}
+
+/* Selector demo: make SHIFT immediately read as alternating motion + objective. */
+.demo-shift-v131 .mini-board{position:relative}
+.shift-wave-demo-v131{
+  position:absolute;
+  left:3px;right:3px;top:1px;
+  text-align:center;
+  color:#60636a;
+  font-size:10px;
+  line-height:11px;
+  font-weight:950;
+  letter-spacing:.08em;
+  pointer-events:none;
+}
+.shift-anchor-demo-v131{
+  position:absolute;
+  right:5px;bottom:3px;
+  width:15px;height:15px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:#fff4cf;
+  color:#ad7208;
+  box-shadow:0 0 0 1px rgba(173,114,8,.28);
+  font-size:12px;
+  line-height:15px;
+  font-style:normal;
+  font-weight:1000;
+}
+
+@media(max-width:420px){
+  .cell.shift-anchor-v131::after{font-size:17px}
+}
+
+
+/* ===== hotfix-v132.css ===== */
+/* GRID SHIFT v1.3.2 — dual-anchor mission visuals */
+
+.cell.shift-anchor-v132::before{
+  content:attr(data-anchor-number);
+  position:absolute;
+  right:2px;
+  top:1px;
+  z-index:3;
+  min-width:10px;
+  height:10px;
+  padding:0 2px;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(35,37,42,.72);
+  color:#fff;
+  font-size:7px;
+  line-height:10px;
+  font-weight:950;
+  pointer-events:none;
+}
+.cell.shift-anchor-v132.anchor-secured-v131::before{background:#2f9c58}
+
+/* Two targets in the mode selector teach that both anchors matter. */
+.shift-anchor-demo-a-v132{right:5px!important;bottom:3px!important}
+.shift-anchor-demo-b-v132{left:5px!important;right:auto!important;bottom:16px!important}
+
+@media(max-width:420px){
+  .cell.shift-anchor-v132::before{font-size:6.5px;min-width:9px;height:9px;line-height:9px}
+}
+
+
+/* ===== hotfix-v133.css ===== */
+/* GRID SHIFT v1.3.3 — ordered SHIFT mission + stronger clear feedback */
+
+/* Ordered SHIFT targets: ① is active first, ② stays visibly locked until then. */
+.cell.shift-order-v133{
+  position:relative;
+  z-index:3;
+}
+.cell.shift-order-v133::after{
+  content:attr(data-order-glyph)!important;
+  position:absolute!important;
+  inset:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-size:19px!important;
+  line-height:1!important;
+  font-weight:1000!important;
+  color:#b87908!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.88)!important;
+  pointer-events:none!important;
+}
+.cell.shift-order-v133::before{display:none!important}
+.cell.shift-order-v133.order-current-v133{
+  outline:3px solid rgba(244,182,60,.98)!important;
+  outline-offset:-3px!important;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.82),0 0 0 2px rgba(244,182,60,.18),0 0 19px rgba(244,182,60,.58)!important;
+  animation:shiftOrderCurrentV133 .9s ease-in-out infinite!important;
+}
+.cell.shift-order-v133.order-locked-v133{
+  outline:2px dashed rgba(106,112,125,.7)!important;
+  outline-offset:-4px!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)!important;
+  filter:saturate(.5) brightness(.88)!important;
+  animation:none!important;
+}
+.cell.shift-order-v133.order-locked-v133::after{color:#777c87!important;text-shadow:none!important;opacity:.72}
+.cell.shift-order-v133.order-done-v133{
+  outline-color:#35b865!important;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.78),0 0 18px rgba(53,184,101,.52)!important;
+  animation:none!important;
+}
+.cell.shift-order-v133.order-done-v133::after{content:'✓'!important;color:#fff!important;text-shadow:0 1px 4px rgba(0,0,0,.25)!important}
+.cell.shift-order-v133.order-failed-v133{
+  outline:2px solid rgba(224,75,99,.88)!important;
+  outline-offset:-3px!important;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.36),0 0 14px rgba(224,75,99,.32)!important;
+  animation:none!important;
+}
+.cell.shift-order-v133.order-failed-v133::after{content:'×'!important;color:#e04b63!important;text-shadow:none!important}
+@keyframes shiftOrderCurrentV133{
+  0%,100%{transform:scale(1);filter:brightness(1)}
+  50%{transform:scale(.91);filter:brightness(1.17)}
+}
+
+/* Mode selector teaches the sequence, not just two unrelated targets. */
+.shift-order-demo-v133{
+  position:absolute;z-index:8;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:#fff1c8;color:#9e6808;font-size:12px;font-style:normal;font-weight:1000;box-shadow:0 0 0 1px rgba(158,104,8,.25)
+}
+.shift-order-demo-v133.one{left:5px;bottom:5px}
+.shift-order-demo-v133.two{right:5px;bottom:5px;background:#edf0f4;color:#747985;box-shadow:0 0 0 1px rgba(80,86,98,.18)}
+.shift-order-arrow-v133{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);z-index:8;color:#6a6d74;font-size:12px;font-style:normal;font-weight:1000}
+
+/* Stronger but still short clear response. */
+.board.clear-kick{animation:clearKickV133 .26s cubic-bezier(.18,.86,.22,1)!important}
+@keyframes clearKickV133{
+  0%{transform:scale(1);filter:none}
+  24%{transform:scale(.988);filter:brightness(1.07)}
+  52%{transform:scale(1.006);filter:brightness(1.03)}
+  100%{transform:scale(1);filter:none}
+}
+.cell.clear-flash{animation:clearFlashV133 .26s cubic-bezier(.14,.82,.2,1) both!important}
+@keyframes clearFlashV133{
+  0%{transform:scale(.9);filter:brightness(1.35);opacity:1}
+  26%{transform:scale(1.14);filter:brightness(2.15);background:#fff;box-shadow:0 0 16px rgba(255,255,255,.9)}
+  58%{transform:scale(.82);filter:brightness(1.5);opacity:.9}
+  100%{transform:scale(.08);opacity:0;filter:brightness(1)}
+}
+
+.juice-ring-v133{
+  position:absolute;z-index:34;width:56px;height:56px;border:3px solid rgba(255,255,255,.9);border-radius:50%;pointer-events:none;
+  transform:translate(-50%,-50%);box-shadow:0 0 20px rgba(255,255,255,.5);animation:juiceRingV133 .52s ease-out both
+}
+.juice-squares-v133{border-color:rgba(255,211,94,.95);box-shadow:0 0 24px rgba(244,182,60,.55)}
+.juice-shift-v133{border-color:rgba(110,233,245,.95);box-shadow:0 0 24px rgba(25,182,201,.5)}
+.juice-gravity-v133{border-color:rgba(201,150,255,.9);box-shadow:0 0 23px rgba(152,91,239,.48)}
+@keyframes juiceRingV133{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}
+  18%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(3.15)}
+}
+
+.juice-sweep-v133{position:absolute;z-index:33;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.98),transparent);filter:blur(.2px);mix-blend-mode:screen}
+.juice-sweep-v133.horizontal{left:-10%;right:-10%;height:7px;transform:translateY(-50%) scaleX(.1);animation:juiceSweepHV133 .38s cubic-bezier(.12,.82,.18,1) both}
+.juice-sweep-v133.vertical{top:-10%;bottom:-10%;width:7px;transform:translateX(-50%) scaleY(.1);background:linear-gradient(180deg,transparent,rgba(255,255,255,.98),transparent);animation:juiceSweepVV133 .38s cubic-bezier(.12,.82,.18,1) both}
+@keyframes juiceSweepHV133{0%{opacity:0;transform:translateY(-50%) scaleX(.08)}24%{opacity:1}70%{opacity:.82;transform:translateY(-50%) scaleX(1)}100%{opacity:0;transform:translateY(-50%) scaleX(1.08)}}
+@keyframes juiceSweepVV133{0%{opacity:0;transform:translateX(-50%) scaleY(.08)}24%{opacity:1}70%{opacity:.82;transform:translateX(-50%) scaleY(1)}100%{opacity:0;transform:translateX(-50%) scaleY(1.08)}}
+
+.juice-square-v133{
+  position:absolute;z-index:32;pointer-events:none;border:3px solid rgba(255,214,105,.95);border-radius:12px;
+  box-shadow:inset 0 0 20px rgba(255,230,145,.26),0 0 25px rgba(244,182,60,.48);transform:scale(.72);transform-origin:center;animation:juiceSquareV133 .56s cubic-bezier(.14,.84,.2,1) both
+}
+@keyframes juiceSquareV133{0%{opacity:0;transform:scale(.72)}18%{opacity:1;transform:scale(1.04)}58%{opacity:.92;transform:scale(.98)}100%{opacity:0;transform:scale(.58)}}
+
+.juice-chip-v133{
+  position:absolute;z-index:35;width:7px;height:7px;border-radius:2px;background:#fff;box-shadow:0 0 11px rgba(255,255,255,.72);pointer-events:none;
+  transform:translate(-50%,-50%);animation:juiceChipV133 .46s cubic-bezier(.12,.7,.2,1) var(--jd) both
+}
+@keyframes juiceChipV133{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(calc(-50% + var(--jx)),calc(-50% + var(--jy))) scale(.18) rotate(120deg)}
+}
+
+.juice-label-v133{
+  position:absolute;left:50%;top:50%;z-index:42;transform:translate(-50%,-50%);pointer-events:none;
+  color:#fff;font-size:clamp(19px,5.2vw,31px);font-weight:1000;letter-spacing:.08em;white-space:nowrap;
+  text-shadow:0 2px 18px rgba(0,0,0,.28),0 0 18px rgba(255,255,255,.28);animation:juiceLabelV133 .68s cubic-bezier(.16,.86,.22,1) both
+}
+.juice-label-v133.good{color:#fff6ce;text-shadow:0 2px 18px rgba(0,0,0,.26),0 0 24px rgba(244,182,60,.5)}
+.juice-label-v133.bad{color:#ffb5c0;text-shadow:0 2px 18px rgba(0,0,0,.26),0 0 22px rgba(224,75,99,.45)}
+@keyframes juiceLabelV133{0%{opacity:0;transform:translate(-50%,-42%) scale(.7)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}65%{opacity:1;transform:translate(-50%,-54%) scale(1)}100%{opacity:0;transform:translate(-50%,-67%) scale(.96)}}
+
+.score-hero>strong.juice-score-v133{animation:juiceScoreV133 .34s cubic-bezier(.14,.84,.2,1)!important}
+@keyframes juiceScoreV133{0%{transform:scale(1)}34%{transform:scale(1.14);filter:brightness(1.22)}100%{transform:scale(1);filter:none}}
+
+@media(max-width:420px){
+  .cell.shift-order-v133::after{font-size:17px!important}
+  .juice-chip-v133{width:6px;height:6px}
+}
+
+
+/* ===== hotfix-v134.css ===== */
+/* GRID SHIFT v1.3.4 — clearer ordered SHIFT targets */
+.cell.shift-order-v134{
+  position:relative!important;
+  z-index:4!important;
+}
+.cell.shift-order-v134::before{display:none!important}
+.cell.shift-order-v134::after{
+  content:attr(data-order-glyph)!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:24px!important;
+  height:24px!important;
+  border-radius:50%!important;
+  display:grid!important;
+  place-items:center!important;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-size:15px!important;
+  line-height:24px!important;
+  font-weight:1000!important;
+  color:#fff!important;
+  background:#b87908!important;
+  border:2px solid rgba(255,255,255,.96)!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.26),0 0 0 2px rgba(244,182,60,.38)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.25)!important;
+  opacity:1!important;
+  pointer-events:none!important;
+}
+.cell.shift-order-v134.order-current-v134{
+  outline:3px solid rgba(244,182,60,.98)!important;
+  outline-offset:-3px!important;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.72),0 0 19px rgba(244,182,60,.58)!important;
+  animation:shiftOrderCurrentV134 .9s ease-in-out infinite!important;
+}
+.cell.shift-order-v134.order-locked-v134{
+  outline:2px dashed rgba(112,117,128,.72)!important;
+  outline-offset:-4px!important;
+  filter:none!important;
+  animation:none!important;
+}
+.cell.shift-order-v134.order-locked-v134::after{
+  color:#4e535d!important;
+  background:#e7e9ed!important;
+  border-color:rgba(255,255,255,.96)!important;
+  box-shadow:0 1px 6px rgba(0,0,0,.18)!important;
+  text-shadow:none!important;
+}
+.cell.shift-order-v134.order-done-v134{
+  outline:3px solid rgba(53,184,101,.95)!important;
+  outline-offset:-3px!important;
+  animation:none!important;
+}
+.cell.shift-order-v134.order-done-v134::after{
+  content:'✓'!important;
+  background:#2f9c58!important;
+  color:#fff!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.22),0 0 0 2px rgba(53,184,101,.26)!important;
+}
+.cell.shift-order-v134.order-failed-v134{
+  outline:3px solid rgba(224,75,99,.92)!important;
+  outline-offset:-3px!important;
+  animation:none!important;
+}
+.cell.shift-order-v134.order-failed-v134::after{
+  content:'×'!important;
+  background:#d84b63!important;
+  color:#fff!important;
+}
+@keyframes shiftOrderCurrentV134{
+  0%,100%{filter:brightness(1)}
+  50%{filter:brightness(1.14)}
+}
+@media(max-width:420px){
+  .cell.shift-order-v134::after{
+    width:22px!important;height:22px!important;line-height:22px!important;font-size:14px!important;
+  }
+}
+
+
+/* ===== hotfix-v138.css ===== */
+/* GRID SHIFT v1.3.8 — BOMBS: visible danger zones, chain opportunities, rubble */
+html[data-mode="bombs"] .cell.bomb-zone-v138{
+  box-shadow:inset 0 0 0 1px rgba(240,107,62,.13),0 0 7px rgba(240,107,62,.05);
+}
+html[data-mode="bombs"] .cell.bomb-zone-v138:not(.filled){
+  background:linear-gradient(145deg,rgba(240,107,62,.09),rgba(181,67,36,.035)),#2a2d33;
+}
+html[data-mode="bombs"] .cell.bomb-zone-hot-v138:not(.bomb){
+  box-shadow:inset 0 0 0 2px rgba(240,85,69,.22),0 0 10px rgba(240,85,69,.09)!important;
+  animation:bombZoneHotV138 .72s ease-in-out infinite alternate;
+}
+@keyframes bombZoneHotV138{to{filter:brightness(1.12)}}
+
+html[data-mode="bombs"] .cell.bomb-core-v138::after{
+  box-shadow:0 0 0 2px #17191f,0 0 15px rgba(255,89,111,.48),0 0 28px rgba(255,89,111,.14)!important;
+}
+html[data-mode="bombs"] .cell.bomb-chainable-v138::before{
+  content:'∞';position:absolute;z-index:4;right:1px;top:0;
+  color:#fff3b0;font-size:9px;line-height:10px;font-weight:1000;
+  text-shadow:0 1px 5px rgba(0,0,0,.5);pointer-events:none;
+}
+
+html[data-mode="bombs"] .cell.rubble-v138{
+  background:
+    linear-gradient(32deg,transparent 0 39%,rgba(255,255,255,.20) 40% 43%,transparent 44% 100%),
+    linear-gradient(145deg,#70747d,#454952 52%,#2f333a)!important;
+  border-color:rgba(255,255,255,.17)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -2px 0 rgba(0,0,0,.18),0 2px 4px rgba(0,0,0,.18)!important;
+  filter:saturate(.35);
+}
+html[data-mode="bombs"] .cell.rubble-v138::after{
+  content:'';position:absolute;inset:18%;border-radius:0!important;background:transparent!important;
+  box-shadow:none!important;transform:rotate(-18deg);
+  border-top:1.5px solid rgba(20,22,27,.5)!important;
+  border-left:1.5px solid rgba(255,255,255,.2)!important;
+}
+
+.bomb-blast-ring-v138{
+  position:absolute;z-index:46;width:10%;aspect-ratio:1;border-radius:50%;pointer-events:none;
+  transform:translate(-50%,-50%) scale(.35);opacity:0;animation:bombRingV138 .62s cubic-bezier(.12,.75,.18,1) var(--bd) both;
+}
+.bomb-blast-ring-v138.controlled{
+  border:3px solid rgba(255,221,103,.96);box-shadow:0 0 18px rgba(255,196,62,.7),inset 0 0 14px rgba(255,255,255,.36);
+}
+.bomb-blast-ring-v138.uncontrolled{
+  border:4px solid rgba(255,91,111,.96);box-shadow:0 0 22px rgba(255,65,88,.78),inset 0 0 17px rgba(255,183,90,.35);
+}
+@keyframes bombRingV138{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.28)}
+  18%{opacity:1}
+  68%{opacity:.85;transform:translate(-50%,-50%) scale(3.0)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(3.45)}
+}
+.board.bomb-impact-v138{animation:bombImpactV138 .34s cubic-bezier(.16,.86,.2,1)}
+@keyframes bombImpactV138{0%{transform:scale(1)}28%{transform:scale(.985);filter:brightness(1.16)}58%{transform:scale(1.006)}100%{transform:scale(1);filter:none}}
+.board.bomb-chaos-v138{animation:bombChaosV138 .5s cubic-bezier(.16,.75,.2,1)}
+@keyframes bombChaosV138{
+  0%{transform:none;filter:none}14%{transform:translateX(-4px) scale(.99);filter:brightness(1.2) saturate(1.2)}
+  28%{transform:translateX(5px) scale(.985)}48%{transform:translateX(-3px)}70%{transform:translateX(2px)}100%{transform:none;filter:none}
+}
+.bomb-label-v138{
+  position:absolute;left:50%;top:47%;z-index:49;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;
+  font-size:clamp(17px,5vw,28px);font-weight:1000;letter-spacing:.07em;color:#fff;
+  animation:bombLabelV138 .82s cubic-bezier(.16,.86,.22,1) both;
+}
+.bomb-label-v138.controlled{color:#fff2ae;text-shadow:0 2px 16px rgba(0,0,0,.32),0 0 22px rgba(244,182,60,.55)}
+.bomb-label-v138.uncontrolled{color:#ffc1c9;text-shadow:0 2px 16px rgba(0,0,0,.38),0 0 24px rgba(224,75,99,.62)}
+@keyframes bombLabelV138{0%{opacity:0;transform:translate(-50%,-42%) scale(.7)}22%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}72%{opacity:1}100%{opacity:0;transform:translate(-50%,-65%) scale(.96)}}
+
