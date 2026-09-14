@@ -6,6 +6,9 @@ on:
     paths-ignore:
       - 'runtime-*.js'
       - 'runtime-*.css'
+      - 'test-v180.html'
+      - 'candidate-v180.html'
+      - 'script1-test-v180.js'
 
 permissions:
   contents: write
@@ -17,6 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: consolidate-v178
+
       - name: Build exact-order bundles
         shell: bash
         run: |
@@ -60,13 +64,82 @@ jobs:
           bundle_css runtime-tail-v180.css \
             hotfix-v171.css hotfix-v172.css hotfix-v175.css hotfix-v177.css
 
-      - name: Commit generated bundles
+          node --check runtime-bombs-v180.js
+          node --check runtime-shift-v180.js
+          node --check runtime-gravity-v180.js
+          node --check runtime-tail-v180.js
+
+      - name: Build isolated test and production candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          source = Path('index.html').read_text()
+
+          css_groups = [
+              (['hotfix-v139.css','hotfix-v140.css','hotfix-v141.css','hotfix-v143.css','hotfix-v144.css','hotfix-v145.css','hotfix-v146.css'], 'runtime-bombs-v180.css?v=180'),
+              (['hotfix-v148.css','hotfix-v149.css','hotfix-v150.css','hotfix-v152.css','hotfix-v155.css','hotfix-v157.css'], 'runtime-shift-v180.css?v=180'),
+              (['hotfix-v158.css','hotfix-v159.css','hotfix-v160.css','hotfix-v161.css','hotfix-v163.css','hotfix-v164.css','hotfix-v167.css','hotfix-v168.css'], 'runtime-gravity-v180.css?v=180'),
+              (['hotfix-v171.css','hotfix-v172.css','hotfix-v175.css','hotfix-v177.css'], 'runtime-tail-v180.css?v=180'),
+          ]
+          js_groups = [
+              (['hotfix-v139.js','hotfix-v140.js','hotfix-v141.js','hotfix-v142.js','hotfix-v143.js','hotfix-v145.js','hotfix-v146.js'], 'runtime-bombs-v180.js?v=180'),
+              (['hotfix-v148.js','hotfix-v149.js','hotfix-v150.js','hotfix-v151.js','hotfix-v152.js','hotfix-v155.js','hotfix-v157.js'], 'runtime-shift-v180.js?v=180'),
+              (['hotfix-v158.js','hotfix-v159.js','hotfix-v163.js','hotfix-v164.js','hotfix-v167.js','hotfix-v168.js','hotfix-v170.js'], 'runtime-gravity-v180.js?v=180'),
+              (['hotfix-v171.js','hotfix-v172.js','hotfix-v172-fair.js','hotfix-v176.js','hotfix-v177.js'], 'runtime-tail-v180.js?v=180'),
+          ]
+
+          def bundle_html(html):
+              for files, bundle in css_groups:
+                  positions=[]
+                  for f in files:
+                      m=re.search(r'\s*<link rel="stylesheet" href="'+re.escape(f)+r'\?v=[^"]+">', html)
+                      if not m: raise SystemExit(f'missing CSS tag {f}')
+                      positions.append(m.start())
+                  insert=min(positions)
+                  for f in files:
+                      html=re.sub(r'\s*<link rel="stylesheet" href="'+re.escape(f)+r'\?v=[^"]+">','',html)
+                  html=html[:insert]+'\n  <link rel="stylesheet" href="'+bundle+'">'+html[insert:]
+              for files, bundle in js_groups:
+                  matches=[]
+                  for f in files:
+                      m=re.search(r'<script src="'+re.escape(f)+r'\?v=[^"]+"></script>', html)
+                      if not m: raise SystemExit(f'missing JS tag {f}')
+                      matches.append(m.start())
+                  insert=min(matches)
+                  for f in files:
+                      html=re.sub(r'<script src="'+re.escape(f)+r'\?v=[^"]+"></script>','',html)
+                  html=html[:insert]+'<script src="'+bundle+'"></script>'+html[insert:]
+              return html
+
+          candidate=bundle_html(source)
+          candidate=re.sub(r'<title>.*?</title>', '<title>GRID SHIFT — v1.8.0</title>', candidate, count=1)
+          candidate=re.sub(r'<!-- v1\.7\.7:.*?-->', '<!-- v1.8.0: runtime consolidation candidate; gameplay unchanged from v1.7.7. -->', candidate, count=1)
+          candidate=candidate.replace('data-build="v1.7.7"','data-build="v1.8.0"')
+          Path('candidate-v180.html').write_text(candidate)
+
+          test=candidate.replace('<title>GRID SHIFT — v1.8.0</title>','<title>GRID SHIFT — v1.8.0 CONSOLIDATION TEST</title>')
+          test=test.replace('data-build="v1.8.0"','data-build="v1.8.0-test"')
+          test=test.replace('script1.js?v=173','script1-test-v180.js?v=180')
+          Path('test-v180.html').write_text(test)
+
+          adapter=Path('script1.js').read_text()
+          if "const prefix='gridshift_';" not in adapter:
+              raise SystemExit('storage prefix marker missing')
+          adapter=adapter.replace("const prefix='gridshift_';", "const prefix='gridshift_test_v180_';", 1)
+          Path('script1-test-v180.js').write_text(adapter)
+          PY
+
+      - name: Commit generated consolidation assets
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'grid-shift-build'
           git config user.email 'actions@users.noreply.github.com'
-          git add runtime-*-v180.js runtime-*-v180.css
+          git add runtime-*-v180.js runtime-*-v180.css test-v180.html candidate-v180.html script1-test-v180.js
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Generate consolidated runtime bundles v180'
+          git commit -m 'Generate full consolidated runtime candidate v180'
           git push origin HEAD:consolidate-v178
