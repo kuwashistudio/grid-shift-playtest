@@ -1,0 +1,93 @@
+/* GRID SHIFT v1.6.6 — GRAVITY CHAIN GUIDE UI. */
+.gravity-guide-bar-v166{
+  width:100%;
+  min-height:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin:0 0 8px;
+  padding:0 4px;
+  box-sizing:border-box;
+}
+.gravity-guide-bar-v166.visible-v166{display:flex}
+.gravity-guide-toggle-v166{
+  appearance:none;
+  border:1px solid rgba(33,37,45,.12);
+  background:#eeece7;
+  color:#4d5058;
+  border-radius:999px;
+  min-height:26px;
+  padding:5px 10px 4px;
+  font:900 9px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.10em;
+  white-space:nowrap;
+  box-shadow:0 1px 0 rgba(255,255,255,.65) inset;
+}
+.gravity-guide-toggle-v166:disabled{opacity:.55}
+.gravity-guide-bar-v166.active-v166 .gravity-guide-toggle-v166{
+  color:#24687a;
+  background:rgba(72,174,196,.11);
+  border-color:rgba(54,153,176,.24);
+}
+.gravity-guide-prompt-v166{
+  min-width:0;
+  color:#6b6e76;
+  font:900 9px/1.1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.09em;
+  white-space:nowrap;
+}
+.gravity-guide-prompt-v166:empty{display:none}
+.gravity-guide-prompt-v166.miss-v166{color:#d64f64}
+.gravity-guide-bar-v166.complete-v166 .gravity-guide-prompt-v166{color:#946e16}
+.gravity-guide-bar-v166.complete-v166 .gravity-guide-toggle-v166{
+  color:#6e551c;
+  background:rgba(236,194,79,.15);
+  border-color:rgba(197,151,40,.24);
+}
+
+.cell.gravity-guide-target-v166{
+  position:relative;
+  background:color-mix(in srgb,var(--guide-color-v166) 28%,#2a2d33)!important;
+  box-shadow:
+    inset 0 0 0 3px color-mix(in srgb,var(--guide-hi-v166) 78%,white),
+    0 0 14px color-mix(in srgb,var(--guide-color-v166) 46%,transparent)!important;
+  animation:v166GuideTarget 1.05s ease-in-out infinite;
+}
+.cell.gravity-guide-target-v166::after{
+  content:"";
+  position:absolute;
+  inset:19%;
+  border-radius:50%;
+  background:var(--guide-hi-v166);
+  opacity:.56;
+  filter:blur(1px);
+  animation:v166GuideDot 1.05s ease-in-out infinite;
+}
+.board.gravity-guide-miss-v166{animation:v166GuideMiss .28s ease both!important}
+
+@keyframes v166GuideTarget{
+  0%,100%{filter:brightness(.92);transform:translateZ(0) scale(.96)}
+  50%{filter:brightness(1.28);transform:translateZ(0) scale(1.035)}
+}
+@keyframes v166GuideDot{
+  0%,100%{opacity:.32;transform:scale(.72)}
+  50%{opacity:.78;transform:scale(1.08)}
+}
+@keyframes v166GuideMiss{
+  0%,100%{transform:translateX(0)}
+  28%{transform:translateX(-5px)}
+  58%{transform:translateX(5px)}
+  82%{transform:translateX(-2px)}
+}
+
+@media(max-width:420px){
+  .gravity-guide-bar-v166{gap:7px;margin-bottom:6px}
+  .gravity-guide-toggle-v166{padding-left:8px;padding-right:8px;font-size:8px}
+  .gravity-guide-prompt-v166{font-size:8px;letter-spacing:.065em}
+}
+@media(prefers-reduced-motion:reduce){
+  .cell.gravity-guide-target-v166,
+  .cell.gravity-guide-target-v166::after,
+  .board.gravity-guide-miss-v166{animation-duration:.01ms!important}
+}
