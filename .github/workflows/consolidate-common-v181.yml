@@ -1,0 +1,98 @@
+name: Consolidate GRID SHIFT common runtime v181
+
+on:
+  push:
+    branches: [consolidate-v181]
+    paths-ignore:
+      - 'runtime-common-v181.js'
+      - 'runtime-common-v181.css'
+      - 'candidate-v181.html'
+      - 'test-v181.html'
+      - 'script1-test-v181.js'
+
+permissions:
+  contents: write
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: consolidate-v181
+
+      - name: Build common bundles in exact runtime order
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '/* GRID SHIFT v1.8.1 common JS bundle — exact source order, no logic rewrite. */\n' > runtime-common-v181.js
+          for f in hotfix-v12.js hotfix-v121.js hotfix-v122.js hotfix-v123.js hotfix-v124.js hotfix-v127.js hotfix-v130.js hotfix-v131.js hotfix-v132.js hotfix-v133.js hotfix-v134.js hotfix-v135.js hotfix-v136.js hotfix-v137.js hotfix-v138.js; do
+            printf '\n/* ===== %s ===== */\n' "$f" >> runtime-common-v181.js
+            cat "$f" >> runtime-common-v181.js
+            printf '\n' >> runtime-common-v181.js
+          done
+
+          printf '/* GRID SHIFT v1.8.1 common CSS bundle — exact cascade order, no style rewrite. */\n' > runtime-common-v181.css
+          for f in hotfix-v12.css hotfix-v122.css hotfix-v123.css hotfix-v124.css hotfix-v130.css hotfix-v131.css hotfix-v132.css hotfix-v133.css hotfix-v134.css hotfix-v138.css; do
+            printf '\n/* ===== %s ===== */\n' "$f" >> runtime-common-v181.css
+            cat "$f" >> runtime-common-v181.css
+            printf '\n' >> runtime-common-v181.css
+          done
+
+          node --check runtime-common-v181.js
+
+      - name: Build isolated QA and production candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          source=Path('index.html').read_text()
+
+          css_files=['hotfix-v12.css','hotfix-v122.css','hotfix-v123.css','hotfix-v124.css','hotfix-v130.css','hotfix-v131.css','hotfix-v132.css','hotfix-v133.css','hotfix-v134.css','hotfix-v138.css']
+          js_files=['hotfix-v12.js','hotfix-v121.js','hotfix-v122.js','hotfix-v123.js','hotfix-v124.js','hotfix-v127.js','hotfix-v130.js','hotfix-v131.js','hotfix-v132.js','hotfix-v133.js','hotfix-v134.js','hotfix-v135.js','hotfix-v136.js','hotfix-v137.js','hotfix-v138.js']
+
+          def replace_group(html, files, tag_pattern, replacement):
+              first=files[0]
+              pat=tag_pattern(first)
+              html,n=re.subn(pat,replacement,html,count=1)
+              if n!=1: raise SystemExit(f'missing first tag {first}')
+              for f in files[1:]:
+                  html,n=re.subn(r'\\s*'+tag_pattern(f),'',html,count=1)
+                  if n!=1: raise SystemExit(f'missing tag {f}')
+              return html
+
+          csspat=lambda f:r'<link rel="stylesheet" href="'+re.escape(f)+r'\\?v=[^"]+">'
+          jspat=lambda f:r'<script src="'+re.escape(f)+r'\\?v=[^"]+"></script>'
+
+          candidate=replace_group(source,css_files,csspat,'<link rel="stylesheet" href="runtime-common-v181.css?v=181">')
+          candidate=replace_group(candidate,js_files,jspat,'<script src="runtime-common-v181.js?v=181"></script>')
+          candidate=re.sub(r'<title>.*?</title>','<title>GRID SHIFT — v1.8.1</title>',candidate,count=1)
+          candidate=re.sub(r'<!-- v1\\.8\\.0:.*?-->','<!-- v1.8.1: common runtime consolidation; gameplay unchanged from v1.8.0. -->',candidate,count=1)
+          candidate=candidate.replace('data-build="v1.8.0"','data-build="v1.8.1"')
+          Path('candidate-v181.html').write_text(candidate)
+
+          test=candidate.replace('<title>GRID SHIFT — v1.8.1</title>','<title>GRID SHIFT — v1.8.1 COMMON CONSOLIDATION TEST</title>')
+          test=test.replace('data-build="v1.8.1"','data-build="v1.8.1-test"')
+          test=test.replace('script1.js?v=173','script1-test-v181.js?v=181')
+          Path('test-v181.html').write_text(test)
+
+          adapter=Path('script1.js').read_text()
+          marker="const prefix='gridshift_';"
+          if marker not in adapter: raise SystemExit('storage prefix marker missing')
+          adapter=adapter.replace(marker,"const prefix='gridshift_test_v181_';",1)
+          Path('script1-test-v181.js').write_text(adapter)
+          PY
+
+      - name: Commit generated v181 assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'grid-shift-build'
+          git config user.email 'actions@users.noreply.github.com'
+          git add runtime-common-v181.js runtime-common-v181.css candidate-v181.html test-v181.html script1-test-v181.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Generate common consolidated runtime v181'
+          git push origin HEAD:consolidate-v181
