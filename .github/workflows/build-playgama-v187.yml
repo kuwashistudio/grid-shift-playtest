@@ -1,0 +1,120 @@
+name: Build GRID SHIFT Playgama v1.8.7
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-playgama-v187.yml'
+      - 'submission-v187.html'
+      - 'script1-platform-v187.js'
+      - 'hotfix-v187-playgama.js'
+      - 'playgama-bridge-config.json'
+      - 'runtime-base-v182.css'
+      - 'runtime-common-v181.css'
+      - 'runtime-bombs-global-v183.css'
+      - 'runtime-shift-v180.css'
+      - 'runtime-gravity-v180.css'
+      - 'runtime-tail-v180.css'
+      - 'hotfix-v182-rotate.css'
+      - 'runtime-engine-v183.js'
+      - 'runtime-common-v181.js'
+      - 'runtime-bombs-global-v183.js'
+      - 'runtime-shift-v180.js'
+      - 'runtime-gravity-v180.js'
+      - 'runtime-tail-v180.js'
+      - 'hotfix-v184-squares-balance.js'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare submission directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build
+          mkdir build
+          cp submission-v187.html build/index.html
+          cp playgama-bridge-config.json build/
+          cp runtime-base-v182.css runtime-common-v181.css runtime-bombs-global-v183.css runtime-shift-v180.css runtime-gravity-v180.css runtime-tail-v180.css hotfix-v182-rotate.css build/
+          cp script1-platform-v187.js runtime-engine-v183.js runtime-common-v181.js runtime-bombs-global-v183.js runtime-shift-v180.js runtime-gravity-v180.js runtime-tail-v180.js hotfix-v184-squares-balance.js hotfix-v187-playgama.js build/
+
+      - name: Vendor Playgama Bridge locally
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --silent --show-error \
+            https://bridge.playgama.com/v1/stable/playgama-bridge.js \
+            -o build/playgama-bridge.js
+          curl --fail --location --retry 3 --silent --show-error \
+            https://raw.githubusercontent.com/Playgama/bridge/main/LICENSE \
+            -o build/PLAYGAMA-BRIDGE-LICENSE.txt
+          test -s build/playgama-bridge.js
+
+      - name: JavaScript syntax check
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in build/*.js; do node --check "$f"; done
+
+      - name: Verify package references
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, sys
+          root=Path('build')
+          html=(root/'index.html').read_text()
+          refs=re.findall(r'(?:src|href)="([^"?#]+)', html)
+          missing=[r for r in refs if not (root/r).exists()]
+          if missing:
+              print('Missing package files:', missing)
+              sys.exit(1)
+          print('All HTML package references exist.')
+          PY
+
+      - name: Reject external calls in game-owned files
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RInE 'https?://|wss?://' build \
+            --exclude='playgama-bridge.js' \
+            --exclude='PLAYGAMA-BRIDGE-LICENSE.txt'; then
+            echo 'External URL found in game-owned submission files.'
+            exit 1
+          fi
+          echo 'No external URLs in game-owned submission files.'
+
+      - name: Check initial build size
+        shell: bash
+        run: |
+          set -euo pipefail
+          bytes=$(du -sb build | cut -f1)
+          mib=$(python3 -c "print(round($bytes/1024/1024, 3))")
+          echo "Submission size: ${mib} MiB (${bytes} bytes)"
+          test "$bytes" -lt 31457280
+
+      - name: Create submission ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd build
+          zip -9 -r ../GRID-SHIFT-PLAYGAMA-v187.zip . >/dev/null
+          cd ..
+          unzip -l GRID-SHIFT-PLAYGAMA-v187.zip
+          ls -lh GRID-SHIFT-PLAYGAMA-v187.zip
+
+      - name: Upload submission ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: GRID-SHIFT-PLAYGAMA-v187
+          path: GRID-SHIFT-PLAYGAMA-v187.zip
+          if-no-files-found: error
+          retention-days: 30
