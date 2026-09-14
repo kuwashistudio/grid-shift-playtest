@@ -1,0 +1,198 @@
+/* GRID SHIFT v1.7.2 — PERFECT SQUARES visuals. */
+
+/* Exact finishing preview: confirmation only when the current drop truly creates
+   an isolated perfect square. */
+.square-finish-preview-v172{
+  position:absolute;
+  z-index:31;
+  pointer-events:none;
+  box-sizing:border-box;
+  border:4px solid rgba(255,206,72,.98);
+  border-radius:13px;
+  box-shadow:inset 0 0 24px rgba(255,224,122,.20),0 0 18px rgba(255,186,39,.58),0 0 35px rgba(255,210,83,.28);
+  animation:squareFinishPreviewV172 .72s ease-in-out infinite alternate;
+}
+.square-finish-preview-v172::after{
+  content:'PERFECT';
+  position:absolute;
+  left:50%;top:-9px;
+  transform:translate(-50%,-100%);
+  padding:4px 7px 3px;
+  border-radius:999px;
+  background:#fff3b2;
+  border:1px solid rgba(181,126,12,.20);
+  color:#8b610b;
+  font:1000 8px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.12em;
+  box-shadow:0 3px 9px rgba(128,89,8,.18);
+}
+@keyframes squareFinishPreviewV172{
+  from{filter:brightness(.96);transform:scale(.992)}
+  to{filter:brightness(1.18);transform:scale(1.006)}
+}
+
+/* When 7x7+ fires, the dedicated apex layer replaces the generic v1.7.1 card. */
+.board.square-apex-active-v172 .reward-layer-v171.mode-squares-v171{opacity:0!important}
+
+.square-apex-layer-v172{
+  position:absolute;
+  inset:-3%;
+  z-index:57;
+  pointer-events:none;
+  display:grid;
+  place-items:center;
+  overflow:visible;
+  isolation:isolate;
+}
+.square-apex-wash-v172{
+  position:absolute;
+  inset:0;
+  border-radius:30px;
+  opacity:0;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,.98) 0 5%,rgba(255,231,145,.76) 14%,rgba(255,184,44,.34) 34%,rgba(255,119,65,.14) 53%,transparent 77%);
+  mix-blend-mode:screen;
+  animation:squareApexWashV172 var(--square-apex-life-v172) cubic-bezier(.10,.82,.14,1) both;
+}
+.side-9-v172 .square-apex-wash-v172,
+.side-10-v172 .square-apex-wash-v172{
+  background:
+    radial-gradient(circle at 50% 50%,rgba(255,255,255,1) 0 6%,rgba(255,244,176,.90) 16%,rgba(255,190,50,.48) 34%,rgba(117,191,255,.24) 55%,transparent 80%);
+}
+.square-apex-ring-v172{
+  position:absolute;
+  width:var(--sq-ring-size-v172);
+  aspect-ratio:1;
+  border-radius:14%;
+  border:4px solid rgba(255,211,82,.94);
+  box-shadow:0 0 24px rgba(255,182,38,.56),0 0 48px rgba(255,225,117,.28),inset 0 0 14px rgba(255,255,255,.24);
+  opacity:0;
+  transform:rotate(45deg) scale(.24);
+  animation:squareApexRingV172 calc(var(--square-apex-life-v172) * .76) cubic-bezier(.08,.78,.14,1) var(--sq-ring-delay-v172) both;
+}
+.side-10-v172 .square-apex-ring-v172{
+  border-width:5px;
+  box-shadow:0 0 30px rgba(255,180,28,.72),0 0 64px rgba(255,229,126,.40),0 0 92px rgba(102,181,255,.22);
+}
+.square-apex-copy-v172{
+  position:relative;
+  z-index:9;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  line-height:.86;
+  filter:drop-shadow(0 10px 26px rgba(87,55,0,.22));
+  animation:squareApexCopyV172 var(--square-apex-life-v172) cubic-bezier(.10,.88,.13,1) both;
+}
+.square-apex-copy-v172 span{
+  margin-bottom:10px;
+  color:#8b6414;
+  font:1000 clamp(13px,4.2vw,20px)/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.30em;
+  text-shadow:0 0 16px rgba(255,255,255,.96);
+}
+.square-apex-copy-v172 b{
+  color:#f2ad18;
+  font:1000 clamp(82px,28vw,158px)/.82 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:-.075em;
+  text-shadow:0 0 13px rgba(255,255,255,1),0 0 32px rgba(255,230,142,.96),0 0 68px rgba(255,169,30,.58),0 10px 34px rgba(111,67,0,.25);
+}
+.side-9-v172 .square-apex-copy-v172 b{font-size:clamp(92px,30vw,168px)}
+.side-10-v172 .square-apex-copy-v172 b{font-size:clamp(100px,32vw,178px);color:#ffc83e}
+.square-apex-copy-v172 em{
+  margin-top:18px;
+  padding:6px 12px 5px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#fff5bb,#ffd45a);
+  color:#765005;
+  border:1px solid rgba(134,85,0,.15);
+  box-shadow:0 6px 20px rgba(180,112,11,.23),0 0 26px rgba(255,215,93,.32);
+  font:1000 9px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-style:normal;
+  letter-spacing:.15em;
+}
+.square-apex-spark-v172{
+  position:absolute;
+  left:50%;top:50%;
+  width:8px;height:8px;
+  margin:-4px 0 0 -4px;
+  border-radius:2px;
+  background:#ffe07c;
+  box-shadow:0 0 14px rgba(255,193,47,.92),0 0 27px rgba(255,236,151,.45);
+  opacity:0;
+  transform:rotate(var(--sq-a-v172)) translateX(10px) scale(.3);
+  animation:squareApexSparkV172 calc(var(--square-apex-life-v172) * .68) cubic-bezier(.10,.76,.16,1) var(--sq-delay-v172) both;
+}
+.side-9-v172 .square-apex-spark-v172:nth-child(3n),
+.side-10-v172 .square-apex-spark-v172:nth-child(3n){background:#d9f3ff;box-shadow:0 0 16px rgba(102,194,255,.85)}
+
+.board.square-apex-active-v172{
+  animation:squareApexBoardV172 .88s cubic-bezier(.10,.72,.16,1) both!important;
+}
+.board.square-apex-10-v172{
+  box-shadow:0 22px 45px rgba(31,28,24,.18),0 0 0 5px rgba(255,210,74,.62),0 0 58px rgba(255,186,39,.48),0 0 96px rgba(87,167,255,.26)!important;
+}
+
+@keyframes squareApexWashV172{
+  0%{opacity:0;transform:scale(.72)}
+  7%{opacity:1;transform:scale(.96)}
+  19%{opacity:.90;transform:scale(1.02)}
+  50%{opacity:.42;transform:scale(1.07)}
+  100%{opacity:0;transform:scale(1.15)}
+}
+@keyframes squareApexRingV172{
+  0%{opacity:0;transform:rotate(45deg) scale(.20)}
+  12%{opacity:1;transform:rotate(45deg) scale(.64)}
+  44%{opacity:.78}
+  100%{opacity:0;transform:rotate(45deg) scale(1.72)}
+}
+@keyframes squareApexCopyV172{
+  0%{opacity:0;transform:scale(.34) translateY(20px);filter:blur(4px)}
+  8%{opacity:1;transform:scale(1.20) translateY(0);filter:blur(0)}
+  17%{transform:scale(.95)}
+  29%,74%{opacity:1;transform:scale(1)}
+  86%{opacity:1;transform:scale(1.025)}
+  100%{opacity:0;transform:scale(.88) translateY(-12px)}
+}
+@keyframes squareApexSparkV172{
+  0%{opacity:0;transform:rotate(var(--sq-a-v172)) translateX(8px) scale(.2)}
+  12%{opacity:1}
+  48%{opacity:.98}
+  100%{opacity:0;transform:rotate(var(--sq-a-v172)) translateX(var(--sq-d-v172)) scale(.05) rotate(150deg)}
+}
+@keyframes squareApexBoardV172{
+  0%{transform:scale(1);filter:none}
+  10%{transform:scale(.976);filter:brightness(1.20)}
+  25%{transform:scale(1.012);filter:brightness(1.08)}
+  48%{transform:scale(.997)}
+  100%{transform:scale(1);filter:none}
+}
+
+/* Selector communicates that this is no longer an "any square hidden in a blob" mode. */
+.demo-squares-v172 .square-outline-v172{
+  left:0!important;top:14px!important;width:54px!important;height:54px!important;
+  border:2px solid rgba(244,182,60,.95)!important;
+  border-radius:5px!important;
+  box-shadow:0 0 9px rgba(244,182,60,.38)!important;
+}
+.v172-perfect-tag{
+  position:absolute;
+  right:2px;top:2px;
+  z-index:9;
+  padding:2px 4px;
+  border-radius:5px;
+  background:#fff0aa;
+  color:#8b610b;
+  font:1000 6px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.07em;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .square-finish-preview-v172,
+  .square-apex-wash-v172,
+  .square-apex-ring-v172,
+  .square-apex-copy-v172,
+  .square-apex-spark-v172,
+  .board.square-apex-active-v172{animation-duration:.01ms!important}
+}
