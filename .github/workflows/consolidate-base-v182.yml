@@ -1,0 +1,97 @@
+name: Consolidate GRID SHIFT base runtime v182
+
+on:
+  push:
+    branches: [consolidate-v182]
+    paths-ignore:
+      - 'runtime-base-v182.js'
+      - 'runtime-base-v182.css'
+      - 'candidate-v182.html'
+      - 'test-v182.html'
+      - 'script1-test-v182.js'
+
+permissions:
+  contents: write
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: consolidate-v182
+
+      - name: Build base bundles in exact runtime order
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '/* GRID SHIFT v1.8.2 base JS bundle — app1/app2/app3 exact source order, no logic rewrite. */\n' > runtime-base-v182.js
+          for f in app1.js app2.js app3.js; do
+            printf '\n/* ===== %s ===== */\n' "$f" >> runtime-base-v182.js
+            cat "$f" >> runtime-base-v182.js
+            printf '\n' >> runtime-base-v182.js
+          done
+
+          printf '/* GRID SHIFT v1.8.2 base CSS bundle — style1..style5 exact cascade order, no style rewrite. */\n' > runtime-base-v182.css
+          for f in style1.css style2.css style3.css style4.css style5.css; do
+            printf '\n/* ===== %s ===== */\n' "$f" >> runtime-base-v182.css
+            cat "$f" >> runtime-base-v182.css
+            printf '\n' >> runtime-base-v182.css
+          done
+
+          node --check runtime-base-v182.js
+
+      - name: Build isolated QA and production candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          source=Path('index.html').read_text()
+
+          css_files=['style1.css','style2.css','style3.css','style4.css','style5.css']
+          js_files=['app1.js','app2.js','app3.js']
+
+          def csspat(f): return r'<link rel="stylesheet" href="'+re.escape(f)+r'\?v=[^"]+">'
+          def jspat(f): return r'<script src="'+re.escape(f)+r'\?v=[^"]+"></script>'
+
+          def replace_group(html, files, pattern, replacement):
+              first=files[0]
+              html,n=re.subn(pattern(first),replacement,html,count=1)
+              if n!=1: raise SystemExit(f'missing first tag {first}')
+              for f in files[1:]:
+                  html,n=re.subn(r'\s*'+pattern(f),'',html,count=1)
+                  if n!=1: raise SystemExit(f'missing tag {f}')
+              return html
+
+          candidate=replace_group(source,css_files,csspat,'<link rel="stylesheet" href="runtime-base-v182.css?v=182">')
+          candidate=replace_group(candidate,js_files,jspat,'<script src="runtime-base-v182.js?v=182"></script>')
+          candidate=re.sub(r'<title>.*?</title>','<title>GRID SHIFT — v1.8.2</title>',candidate,count=1)
+          candidate=re.sub(r'<!-- v1\.8\.1:.*?-->','<!-- v1.8.2: base app/style consolidation; gameplay unchanged from v1.8.1. -->',candidate,count=1)
+          candidate=candidate.replace('data-build="v1.8.1"','data-build="v1.8.2"')
+          Path('candidate-v182.html').write_text(candidate)
+
+          test=candidate.replace('<title>GRID SHIFT — v1.8.2</title>','<title>GRID SHIFT — v1.8.2 BASE CONSOLIDATION TEST</title>')
+          test=test.replace('data-build="v1.8.2"','data-build="v1.8.2-test"')
+          test=test.replace('script1.js?v=173','script1-test-v182.js?v=182')
+          Path('test-v182.html').write_text(test)
+
+          adapter=Path('script1.js').read_text()
+          marker="const prefix='gridshift_';"
+          if marker not in adapter: raise SystemExit('storage prefix marker missing')
+          adapter=adapter.replace(marker,"const prefix='gridshift_test_v182_';",1)
+          Path('script1-test-v182.js').write_text(adapter)
+          PY
+
+      - name: Commit generated v182 assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'grid-shift-build'
+          git config user.email 'actions@users.noreply.github.com'
+          git add runtime-base-v182.js runtime-base-v182.css candidate-v182.html test-v182.html script1-test-v182.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Generate base consolidated runtime v182'
+          git push origin HEAD:consolidate-v182
