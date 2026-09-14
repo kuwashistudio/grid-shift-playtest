@@ -47,36 +47,39 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import re
 
           source=Path('index.html').read_text()
 
           css_files=['hotfix-v12.css','hotfix-v122.css','hotfix-v123.css','hotfix-v124.css','hotfix-v130.css','hotfix-v131.css','hotfix-v132.css','hotfix-v133.css','hotfix-v134.css','hotfix-v138.css']
           js_files=['hotfix-v12.js','hotfix-v121.js','hotfix-v122.js','hotfix-v123.js','hotfix-v124.js','hotfix-v127.js','hotfix-v130.js','hotfix-v131.js','hotfix-v132.js','hotfix-v133.js','hotfix-v134.js','hotfix-v135.js','hotfix-v136.js','hotfix-v137.js','hotfix-v138.js']
 
-          def replace_group(html, files, tag_pattern, replacement):
-              first=files[0]
-              pat=tag_pattern(first)
-              html,n=re.subn(pat,replacement,html,count=1)
-              if n!=1: raise SystemExit(f'missing first tag {first}')
-              for f in files[1:]:
-                  html,n=re.subn(r'\\s*'+tag_pattern(f),'',html,count=1)
-                  if n!=1: raise SystemExit(f'missing tag {f}')
-              return html
+          candidate=source
+          first=css_files[0]
+          old=f'<link rel="stylesheet" href="{first}?v=173">'
+          if old not in candidate: raise SystemExit(f'missing CSS {first}')
+          candidate=candidate.replace(old,'<link rel="stylesheet" href="runtime-common-v181.css?v=181">',1)
+          for f in css_files[1:]:
+              old=f'\n  <link rel="stylesheet" href="{f}?v=173">'
+              if old not in candidate: raise SystemExit(f'missing CSS {f}')
+              candidate=candidate.replace(old,'',1)
 
-          csspat=lambda f:r'<link rel="stylesheet" href="'+re.escape(f)+r'\\?v=[^"]+">'
-          jspat=lambda f:r'<script src="'+re.escape(f)+r'\\?v=[^"]+"></script>'
+          first=js_files[0]
+          old=f'<script src="{first}?v=173"></script>'
+          if old not in candidate: raise SystemExit(f'missing JS {first}')
+          candidate=candidate.replace(old,'<script src="runtime-common-v181.js?v=181"></script>',1)
+          for f in js_files[1:]:
+              old=f'<script src="{f}?v=173"></script>'
+              if old not in candidate: raise SystemExit(f'missing JS {f}')
+              candidate=candidate.replace(old,'',1)
 
-          candidate=replace_group(source,css_files,csspat,'<link rel="stylesheet" href="runtime-common-v181.css?v=181">')
-          candidate=replace_group(candidate,js_files,jspat,'<script src="runtime-common-v181.js?v=181"></script>')
-          candidate=re.sub(r'<title>.*?</title>','<title>GRID SHIFT — v1.8.1</title>',candidate,count=1)
-          candidate=re.sub(r'<!-- v1\\.8\\.0:.*?-->','<!-- v1.8.1: common runtime consolidation; gameplay unchanged from v1.8.0. -->',candidate,count=1)
-          candidate=candidate.replace('data-build="v1.8.0"','data-build="v1.8.1"')
+          candidate=candidate.replace('<title>GRID SHIFT — v1.8.0</title>','<title>GRID SHIFT — v1.8.1</title>',1)
+          candidate=candidate.replace('<!-- v1.8.0: runtime consolidation candidate; gameplay unchanged from v1.7.7. -->','<!-- v1.8.1: common runtime consolidation; gameplay unchanged from v1.8.0. -->',1)
+          candidate=candidate.replace('data-build="v1.8.0"','data-build="v1.8.1"',1)
           Path('candidate-v181.html').write_text(candidate)
 
-          test=candidate.replace('<title>GRID SHIFT — v1.8.1</title>','<title>GRID SHIFT — v1.8.1 COMMON CONSOLIDATION TEST</title>')
-          test=test.replace('data-build="v1.8.1"','data-build="v1.8.1-test"')
-          test=test.replace('script1.js?v=173','script1-test-v181.js?v=181')
+          test=candidate.replace('<title>GRID SHIFT — v1.8.1</title>','<title>GRID SHIFT — v1.8.1 COMMON CONSOLIDATION TEST</title>',1)
+          test=test.replace('data-build="v1.8.1"','data-build="v1.8.1-test"',1)
+          test=test.replace('script1.js?v=173','script1-test-v181.js?v=181',1)
           Path('test-v181.html').write_text(test)
 
           adapter=Path('script1.js').read_text()
