@@ -127,7 +127,7 @@ function endDrag(e){
   if(!drag)return;const d=drag;
   if(d.raf){cancelAnimationFrame(d.raf);d.raf=0;}if(d.active)processDragFrame();
   cleanupDragListeners(d.wrap);d.wrap.classList.remove('pressed','dragging');drag=null;
-  if(!d.active){previewAnchor=null;selectedPiece=null;clearPreview();rotateTrayPiece(d.idx,d.wrap);renderTray();return;}
+  if(!d.active){previewAnchor=null;selectedPiece=null;clearPreview();rotateTrayPiece(d.idx,d.wrap);return;}
   const shouldPlace=d.inBoard&&d.valid&&d.anchor;
   if(shouldPlace){
     snapGhostToBoard(d.ghost,d.anchor,d.shape,d.metrics);previewAnchor=null;selectedPiece=null;clearPreview();tryPlace(d.idx,d.anchor.x,d.anchor.y);
