@@ -1,0 +1,16 @@
+/* GRID SHIFT v1.7.5 — rotation affordance stabilization.
+   Keep the proven v1.7.3 centering stack intact. The normal rotatable marker must
+   stay still; only the piece the player just tapped gets the rotation animation.
+   This prevents a tray re-render from making all three affordances spin together. */
+#tray > .piece-wrap.rotatable > .rotate-affordance{
+  animation:none!important;
+  transform:none!important;
+}
+#tray > .piece-wrap.rotate-pop > .rotate-affordance{
+  animation:rotateAffordanceTapV175 .22s cubic-bezier(.2,.9,.25,1) 1!important;
+}
+@keyframes rotateAffordanceTapV175{
+  0%{opacity:.14;transform:rotate(0deg) scale(.93)}
+  75%{opacity:.30;transform:rotate(92deg) scale(1.05)}
+  100%{opacity:.13;transform:rotate(90deg) scale(1)}
+}
