@@ -1,0 +1,182 @@
+/* GRID SHIFT v1.5.8 — GRAVITY chain reward ladder.
+   Deliberately escalates structure more than raw intensity: readable, coherent,
+   and restrained enough to preserve the puzzle's thinking-first character. */
+.context-stat.gravity-best-v158{
+  color:#567f8c!important;
+  font-weight:1000!important;
+  letter-spacing:.075em!important;
+}
+
+.gravity-chain-layer-v158{
+  position:absolute;
+  inset:0;
+  z-index:34;
+  pointer-events:none;
+  display:grid;
+  place-items:center;
+  overflow:visible;
+  contain:layout style;
+}
+.gravity-chain-halo-v158{
+  position:absolute;
+  width:38%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1.5px solid rgba(70,170,191,.42);
+  box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 0 24px rgba(70,170,191,.13);
+  animation:v158Halo .36s cubic-bezier(.18,.82,.22,1) both;
+}
+.gravity-chain-wash-v158{
+  position:absolute;
+  inset:7%;
+  border-radius:24px;
+  background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.085),rgba(70,170,191,.055) 31%,transparent 67%);
+  animation:v158Wash .58s ease-out both;
+}
+.gravity-chain-copy-v158{
+  position:relative;
+  z-index:3;
+  min-width:72px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  line-height:.88;
+  transform-origin:center;
+  animation:v158ChainCopy .36s cubic-bezier(.16,.86,.22,1) both;
+  text-shadow:0 3px 18px rgba(20,54,66,.20);
+}
+.gravity-chain-copy-v158 b{
+  font-size:clamp(24px,7vw,42px);
+  font-weight:1000;
+  letter-spacing:-.055em;
+  color:#2c7688;
+  font-variant-numeric:tabular-nums;
+}
+.gravity-chain-copy-v158 span{
+  margin-top:4px;
+  font-size:clamp(7px,1.9vw,10px);
+  font-weight:1000;
+  letter-spacing:.20em;
+  color:#5b8b96;
+}
+.gravity-chain-copy-v158 em{
+  margin-top:7px;
+  padding:3px 7px;
+  border-radius:999px;
+  font-style:normal;
+  font-size:7px;
+  font-weight:1000;
+  letter-spacing:.12em;
+  color:#6d5b24;
+  background:rgba(238,197,79,.16);
+  border:1px solid rgba(211,166,42,.22);
+  animation:v158NewBest .62s ease-out both;
+}
+.gravity-chain-ray-v158{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:5px;
+  height:5px;
+  margin:-2.5px 0 0 -2.5px;
+  border-radius:50%;
+  background:rgba(78,176,195,.58);
+  box-shadow:0 0 8px rgba(78,176,195,.20);
+  transform:rotate(var(--a)) translateX(8px) scale(.55);
+  opacity:0;
+  animation:v158Ray .48s cubic-bezier(.16,.84,.23,1) var(--ray-delay,0ms) both;
+}
+
+/* 3-chain: first clearly different reward. */
+.gravity-chain-layer-v158.tier-3 .gravity-chain-halo-v158{width:46%;border-width:2px}
+.gravity-chain-layer-v158.tier-3 .gravity-chain-copy-v158 b{font-size:clamp(28px,8vw,46px)}
+
+/* 5-chain: first major mastery milestone. Warm accent appears for the first time. */
+.gravity-chain-layer-v158.tier-5 .gravity-chain-halo-v158{
+  width:58%;
+  border:2px solid rgba(205,166,65,.43);
+  box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 0 30px rgba(205,166,65,.12);
+  animation-duration:.52s;
+}
+.gravity-chain-layer-v158.tier-5 .gravity-chain-copy-v158 b{font-size:clamp(34px,10vw,54px);color:#9a7626}
+.gravity-chain-layer-v158.tier-5 .gravity-chain-copy-v158 span{color:#9a823f}
+.gravity-chain-layer-v158.tier-5 .gravity-chain-ray-v158{background:rgba(207,171,75,.67);box-shadow:0 0 9px rgba(207,171,75,.23)}
+
+/* 7-chain: add a second halo rather than simply making everything bigger. */
+.gravity-chain-layer-v158.tier-7::before{
+  content:"";
+  position:absolute;
+  width:72%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid rgba(70,170,191,.22);
+  animation:v158OuterHalo .70s ease-out both;
+}
+.gravity-chain-layer-v158.tier-7 .gravity-chain-halo-v158{width:62%;border-width:2px;animation-duration:.62s}
+.gravity-chain-layer-v158.tier-7 .gravity-chain-copy-v158 b{font-size:clamp(38px,11vw,60px);color:#256d83}
+.gravity-chain-layer-v158.tier-7 .gravity-chain-copy-v158 span{color:#4e8795}
+
+/* 10+: apex stays elegant: broad concentric field, no screen-filling explosion. */
+.gravity-chain-layer-v158.tier-10::before,
+.gravity-chain-layer-v158.tier-10::after{
+  content:"";
+  position:absolute;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid rgba(93,154,180,.22);
+  animation:v158OuterHalo .82s ease-out both;
+}
+.gravity-chain-layer-v158.tier-10::before{width:78%}
+.gravity-chain-layer-v158.tier-10::after{width:92%;animation-delay:.05s}
+.gravity-chain-layer-v158.tier-10 .gravity-chain-halo-v158{
+  width:66%;
+  border:2px solid rgba(195,164,84,.48);
+  box-shadow:0 0 36px rgba(83,157,181,.15),0 0 0 1px rgba(255,255,255,.09) inset;
+  animation-duration:.72s;
+}
+.gravity-chain-layer-v158.tier-10 .gravity-chain-copy-v158 b{font-size:clamp(42px,12vw,66px);color:#765f27}
+.gravity-chain-layer-v158.tier-10 .gravity-chain-copy-v158 span{color:#7e7049}
+.gravity-chain-layer-v158.tier-10 .gravity-chain-wash-v158{inset:2%;animation-duration:.78s}
+
+.gravity-chain-layer-v158.final-v158 .gravity-chain-copy-v158{animation-duration:.55s}
+.gravity-chain-layer-v158.new-best-v158 .gravity-chain-copy-v158{filter:drop-shadow(0 7px 18px rgba(191,154,57,.13))}
+
+@keyframes v158ChainCopy{
+  0%{opacity:0;transform:scale(.72) translateY(5px)}
+  38%{opacity:1;transform:scale(1.08) translateY(0)}
+  72%{opacity:1;transform:scale(1)}
+  100%{opacity:.94;transform:scale(.98)}
+}
+@keyframes v158Halo{
+  0%{opacity:0;transform:scale(.28)}
+  36%{opacity:.92;transform:scale(.92)}
+  100%{opacity:0;transform:scale(1.28)}
+}
+@keyframes v158OuterHalo{
+  0%{opacity:0;transform:scale(.46)}
+  28%{opacity:.72}
+  100%{opacity:0;transform:scale(1.10)}
+}
+@keyframes v158Wash{
+  0%{opacity:0;transform:scale(.82)}
+  30%{opacity:1}
+  100%{opacity:0;transform:scale(1.04)}
+}
+@keyframes v158Ray{
+  0%{opacity:0;transform:rotate(var(--a)) translateX(8px) scale(.5)}
+  28%{opacity:.88}
+  100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scale(.18)}
+}
+@keyframes v158NewBest{
+  0%,28%{opacity:0;transform:translateY(4px) scale(.88)}
+  48%{opacity:1;transform:translateY(0) scale(1.05)}
+  100%{opacity:1;transform:scale(1)}
+}
+
+@media(max-width:420px){
+  .gravity-chain-copy-v158 em{font-size:6.5px;padding:3px 6px}
+}
+@media(prefers-reduced-motion:reduce){
+  .gravity-chain-layer-v158 *{animation-duration:.01ms!important}
+}
