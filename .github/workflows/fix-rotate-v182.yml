@@ -1,0 +1,50 @@
+name: Fix GRID SHIFT rotate animation v182
+
+on:
+  push:
+    branches: [consolidate-v182]
+    paths:
+      - '.github/workflows/fix-rotate-v182.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: consolidate-v182
+      - name: Remove redundant tray rerender after tap rotation and rebuild v182
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('app2.js')
+          s=p.read_text()
+          old="rotateTrayPiece(d.idx,d.wrap);renderTray();return;"
+          new="rotateTrayPiece(d.idx,d.wrap);return;"
+          if old not in s:
+              raise SystemExit('target rotate sequence not found')
+          p.write_text(s.replace(old,new,1))
+          PY
+
+          printf '/* GRID SHIFT v1.8.2 base JS bundle — app1/app2/app3 in exact order. */\n' > runtime-base-v182.js
+          for f in app1.js app2.js app3.js; do
+            printf '\n/* ===== %s ===== */\n' "$f" >> runtime-base-v182.js
+            cat "$f" >> runtime-base-v182.js
+            printf '\n' >> runtime-base-v182.js
+          done
+          node --check runtime-base-v182.js
+
+          cp candidate-v182.html /tmp/candidate-v182.html
+          cp test-v182.html /tmp/test-v182.html
+          # HTML references remain identical; refreshed files are enough.
+
+          git config user.name 'grid-shift-build'
+          git config user.email 'actions@users.noreply.github.com'
+          git add app2.js runtime-base-v182.js
+          git commit -m 'Restore single-piece rotate animation in v182'
+          git push origin HEAD:consolidate-v182
