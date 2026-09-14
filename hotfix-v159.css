@@ -1,0 +1,27 @@
+/* GRID SHIFT v1.5.9 — defensive tray layout stabilization for iPhone Safari. */
+.tray{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  width:100%!important;
+  align-items:center!important;
+  justify-items:stretch!important;
+}
+.tray .piece-wrap{
+  position:relative!important;
+  left:auto!important;
+  top:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  justify-self:stretch!important;
+}
+.tray .piece-art.tray{
+  position:relative!important;
+  left:auto!important;
+  top:auto!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
