@@ -1,6 +1,6 @@
-/* GRID SHIFT v1.8.4 QA r2 — SQUARES precision-piece balance.
-   Raises 1-cell / 2-cell availability enough to support multiple square completions
-   per run while preserving pressure, randomness, and fair-tray solvability. */
+/* GRID SHIFT v1.8.4 QA r3 — SQUARES precision-piece balance.
+   Ensures 1-cell / 2-cell pieces actually appear often enough to support repeated
+   PERFECT SQUARE completions without making every tray trivial. */
 (function(){
   'use strict';
 
@@ -44,7 +44,7 @@
     return s;
   }
 
-  function solvable(board,tray,size,maxNodes=11500){
+  function solvable(board,tray,size,maxNodes=12000){
     let nodes=0;
     function dfs(b,remaining){
       if(!remaining.length)return true;
@@ -71,39 +71,52 @@
     if(p.span>=6)pool.push(['i3h',3],['l3a',3],['sq2',3],['i4h',2]);
     if(p.span>=8)pool.push(['i3h',2],['i4h',2],['l4a',2]);
 
-    /* r2: precision pieces enter materially earlier and ramp harder. */
-    if(p.fill>=24)pool.push(['i2h',2]);
-    if(p.fill>=38)pool.push(['i2h',3]);
-    if(p.fill>=50)pool.push(['i2h',3],['dot',1]);
-    if(p.fill>=62)pool.push(['i2h',4],['dot',2]);
-    if(p.fill>=72)pool.push(['i2h',3],['dot',2]);
-    if(p.near<=4&&p.fill>=32)pool.push(['i2h',3]);
-    if(p.near<=2&&p.fill>=42)pool.push(['dot',2],['i2h',2]);
+    /* Stronger raw weighting than r2. */
+    if(p.fill>=16)pool.push(['i2h',3]);
+    if(p.fill>=28)pool.push(['i2h',4]);
+    if(p.fill>=42)pool.push(['i2h',5],['dot',2]);
+    if(p.fill>=56)pool.push(['i2h',6],['dot',3]);
+    if(p.fill>=68)pool.push(['i2h',5],['dot',4]);
+    if(p.near<=4&&p.fill>=24)pool.push(['i2h',5]);
+    if(p.near<=2&&p.fill>=34)pool.push(['dot',3],['i2h',4]);
     return pool;
+  }
+
+  function precisionChance(p){
+    let chance=p.fill<16?.18:p.fill<28?.34:p.fill<42?.52:p.fill<56?.68:p.fill<68?.80:.88;
+    if(p.near<=4)chance+=.08;
+    if(p.near<=2)chance+=.06;
+    return Math.min(.94,chance);
   }
 
   function generate(board,size,rng=Math.random){
     const p=pressure(board,size),pool=normalPool(p);
-    for(let attempt=0;attempt<48;attempt++){
+    const wantPrecision=rng()<precisionChance(p);
+    for(let attempt=0;attempt<72;attempt++){
       const tray=[pick(pool,rng),pick(pool,rng),pick(pool,rng)];
       const tiny=tray.filter(s=>s.cells.length<=2).length;
       const dots=tray.filter(s=>s.cells.length===1).length;
-      /* Keep trays useful, not trivial: normally one precision piece, but allow two
-         once the board is moderately developed. Never allow more than one dot. */
       if(dots>1)continue;
-      if(tiny>(p.fill>=58?2:1))continue;
-      if(p.fill<24&&tiny>0)continue;
+      if(tiny>(p.fill>=46?2:1))continue;
+      /* Key r3 change: when this tray is selected to contain a precision piece,
+         reject otherwise-valid trays that have none instead of merely hoping the
+         weighted pool happens to draw one. */
+      if(wantPrecision&&tiny===0)continue;
       if(!tray.every(s=>Core.hasModePlacement(board,s,size,'SQUARES')))continue;
       if(solvable(board,tray,size))return tray;
     }
 
-    const emergency=[['i2h',12],['dot',5],['i3h',8],['l3a',7],['sq2',7],['i4h',5],['l4a',4]];
-    for(let attempt=0;attempt<110;attempt++){
+    /* Precision-biased fallback. Still random and still requires a sequentially
+       solvable three-piece tray. */
+    const emergency=[['i2h',18],['dot',7],['i3h',8],['l3a',7],['sq2',7],['i4h',5],['l4a',4]];
+    for(let attempt=0;attempt<140;attempt++){
       const tray=[pick(emergency,rng),pick(emergency,rng),pick(emergency,rng)];
+      const tiny=tray.filter(s=>s.cells.length<=2).length;
       if(tray.filter(s=>s.cells.length===1).length>1)continue;
-      if(tray.filter(s=>s.cells.length<=2).length>2)continue;
+      if(tiny>2)continue;
+      if(wantPrecision&&tiny===0)continue;
       if(!tray.every(s=>Core.hasModePlacement(board,s,size,'SQUARES')))continue;
-      if(solvable(board,tray,size,17500))return tray;
+      if(solvable(board,tray,size,18500))return tray;
     }
 
     return previousGenerate(board,'SQUARES',size,rng,0);
