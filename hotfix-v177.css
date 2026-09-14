@@ -1,0 +1,17 @@
+/* GRID SHIFT v1.7.7 — iPhone loupe / selection suppression.
+   Scope this to game UI only. Do not cancel touchstart/touchmove: those events drive
+   the drag controls on iOS. */
+#app *,
+.overlay *,
+.game-shell *,
+.tray-zone *,
+.board-wrap *{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+  -webkit-user-drag:none!important;
+}
+#app ::selection,.overlay ::selection{background:transparent;color:inherit}
+#app button,.overlay button,.piece-wrap,.piece-art,.piece-block,.rotate-affordance,.cell{
+  -webkit-tap-highlight-color:transparent!important;
+}
