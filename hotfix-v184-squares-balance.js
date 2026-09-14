@@ -1,6 +1,6 @@
-/* GRID SHIFT v1.8.4 QA — SQUARES precision-piece balance.
-   Slightly increases 1-cell / 2-cell availability as pressure rises, without
-   turning them into deterministic rescue pieces or allowing tiny-heavy trays. */
+/* GRID SHIFT v1.8.4 QA r2 — SQUARES precision-piece balance.
+   Raises 1-cell / 2-cell availability enough to support multiple square completions
+   per run while preserving pressure, randomness, and fair-tray solvability. */
 (function(){
   'use strict';
 
@@ -44,7 +44,7 @@
     return s;
   }
 
-  function solvable(board,tray,size,maxNodes=11000){
+  function solvable(board,tray,size,maxNodes=11500){
     let nodes=0;
     function dfs(b,remaining){
       if(!remaining.length)return true;
@@ -71,36 +71,39 @@
     if(p.span>=6)pool.push(['i3h',3],['l3a',3],['sq2',3],['i4h',2]);
     if(p.span>=8)pool.push(['i3h',2],['i4h',2],['l4a',2]);
 
-    /* Precision pieces ramp in before the board is already nearly dead. */
-    if(p.fill>=38)pool.push(['i2h',1]);
-    if(p.fill>=52)pool.push(['i2h',2]);
-    if(p.fill>=64)pool.push(['i2h',3],['dot',1]);
-    if(p.fill>=74)pool.push(['i2h',2],['dot',1]);
-    if(p.near<=4&&p.fill>=40)pool.push(['i2h',2]);
-    if(p.near<=2&&p.fill>=50)pool.push(['dot',1]);
+    /* r2: precision pieces enter materially earlier and ramp harder. */
+    if(p.fill>=24)pool.push(['i2h',2]);
+    if(p.fill>=38)pool.push(['i2h',3]);
+    if(p.fill>=50)pool.push(['i2h',3],['dot',1]);
+    if(p.fill>=62)pool.push(['i2h',4],['dot',2]);
+    if(p.fill>=72)pool.push(['i2h',3],['dot',2]);
+    if(p.near<=4&&p.fill>=32)pool.push(['i2h',3]);
+    if(p.near<=2&&p.fill>=42)pool.push(['dot',2],['i2h',2]);
     return pool;
   }
 
   function generate(board,size,rng=Math.random){
     const p=pressure(board,size),pool=normalPool(p);
-    for(let attempt=0;attempt<40;attempt++){
+    for(let attempt=0;attempt<48;attempt++){
       const tray=[pick(pool,rng),pick(pool,rng),pick(pool,rng)];
       const tiny=tray.filter(s=>s.cells.length<=2).length;
-      /* Never flood the player with rescue pieces. One precision piece per tray
-         is the normal ceiling; two are only permitted under real late pressure. */
-      if(tiny>(p.fill>=72?2:1))continue;
-      if(p.fill<38&&tiny>0)continue;
+      const dots=tray.filter(s=>s.cells.length===1).length;
+      /* Keep trays useful, not trivial: normally one precision piece, but allow two
+         once the board is moderately developed. Never allow more than one dot. */
+      if(dots>1)continue;
+      if(tiny>(p.fill>=58?2:1))continue;
+      if(p.fill<24&&tiny>0)continue;
       if(!tray.every(s=>Core.hasModePlacement(board,s,size,'SQUARES')))continue;
       if(solvable(board,tray,size))return tray;
     }
 
-    const emergency=[['i2h',9],['dot',3],['i3h',8],['l3a',7],['sq2',7],['i4h',5],['l4a',4]];
-    for(let attempt=0;attempt<96;attempt++){
+    const emergency=[['i2h',12],['dot',5],['i3h',8],['l3a',7],['sq2',7],['i4h',5],['l4a',4]];
+    for(let attempt=0;attempt<110;attempt++){
       const tray=[pick(emergency,rng),pick(emergency,rng),pick(emergency,rng)];
       if(tray.filter(s=>s.cells.length===1).length>1)continue;
       if(tray.filter(s=>s.cells.length<=2).length>2)continue;
       if(!tray.every(s=>Core.hasModePlacement(board,s,size,'SQUARES')))continue;
-      if(solvable(board,tray,size,16000))return tray;
+      if(solvable(board,tray,size,17500))return tray;
     }
 
     return previousGenerate(board,'SQUARES',size,rng,0);
