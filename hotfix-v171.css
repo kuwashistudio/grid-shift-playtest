@@ -1,0 +1,136 @@
+/* GRID SHIFT v1.7.1 — unified non-GRAVITY reward visuals. */
+
+/* While the authoritative reward banner is visible, hide legacy generic labels
+   such as MULTI! / SQUARE! / WAVE CLEAR to avoid duplicate messages. */
+.board.reward-active-v171 > .juice-label-v133{display:none!important}
+
+.reward-layer-v171{
+  --reward-accent-v171:#78b8ff;
+  --reward-accent2-v171:#8e78ff;
+  --reward-text-v171:#eef7ff;
+  position:absolute;
+  inset:0;
+  z-index:46;
+  display:grid;
+  place-items:center;
+  pointer-events:none;
+  overflow:hidden;
+  border-radius:inherit;
+  isolation:isolate;
+}
+.reward-layer-v171.mode-classic-v171{--reward-accent-v171:#7db9ff;--reward-accent2-v171:#8a7bff;--reward-text-v171:#f2f7ff}
+.reward-layer-v171.mode-shift-v171{--reward-accent-v171:#5fe6ef;--reward-accent2-v171:#65a9ff;--reward-text-v171:#efffff}
+.reward-layer-v171.mode-squares-v171{--reward-accent-v171:#ffd56e;--reward-accent2-v171:#ffad42;--reward-text-v171:#fff7d7}
+.reward-layer-v171.mode-blitz-v171{--reward-accent-v171:#78eaff;--reward-accent2-v171:#4f93ff;--reward-text-v171:#ecfdff}
+.reward-layer-v171.mode-bombs-v171{--reward-accent-v171:#ff876f;--reward-accent2-v171:#ffca63;--reward-text-v171:#fff2e9}
+
+.reward-flash-v171{
+  position:absolute;
+  inset:2%;
+  border-radius:28px;
+  opacity:0;
+  background:radial-gradient(circle at 50% 49%,rgba(255,255,255,.96) 0 4%,color-mix(in srgb,var(--reward-accent-v171) 74%,transparent) 13%,color-mix(in srgb,var(--reward-accent2-v171) 35%,transparent) 36%,transparent 72%);
+  mix-blend-mode:screen;
+  animation:rewardFlashV171 var(--reward-life-v171) cubic-bezier(.12,.82,.16,1) both;
+}
+.reward-layer-v171.tier-4-v171 .reward-flash-v171{
+  background:radial-gradient(circle at 50% 49%,rgba(255,255,255,1) 0 5%,color-mix(in srgb,var(--reward-accent-v171) 88%,white 12%) 14%,color-mix(in srgb,var(--reward-accent2-v171) 52%,transparent) 36%,transparent 76%);
+}
+
+.reward-ring-v171{
+  position:absolute;
+  width:var(--reward-ring-size-v171);
+  aspect-ratio:1;
+  border-radius:50%;
+  border:3px solid color-mix(in srgb,var(--reward-accent-v171) 88%,white 12%);
+  box-shadow:0 0 22px color-mix(in srgb,var(--reward-accent-v171) 62%,transparent),0 0 46px color-mix(in srgb,var(--reward-accent2-v171) 28%,transparent);
+  opacity:0;
+  animation:rewardRingV171 calc(var(--reward-life-v171) * .78) cubic-bezier(.08,.76,.15,1) var(--reward-ring-delay-v171) both;
+}
+
+.reward-copy-v171{
+  position:relative;
+  z-index:7;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  animation:rewardCopyV171 var(--reward-life-v171) cubic-bezier(.11,.88,.16,1) both;
+  filter:drop-shadow(0 7px 20px rgba(10,20,42,.26));
+}
+.reward-copy-v171 b{
+  color:var(--reward-text-v171);
+  font:1000 clamp(34px,11vw,66px)/.9 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:-.035em;
+  white-space:nowrap;
+  text-shadow:0 0 10px rgba(255,255,255,.82),0 0 28px color-mix(in srgb,var(--reward-accent-v171) 72%,transparent),0 7px 22px rgba(18,31,56,.30);
+}
+.reward-copy-v171 span{
+  margin-top:10px;
+  color:color-mix(in srgb,var(--reward-accent-v171) 72%,#263349 28%);
+  font:1000 clamp(9px,2.9vw,14px)/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.23em;
+  white-space:nowrap;
+  text-shadow:0 0 10px rgba(255,255,255,.78);
+}
+.reward-layer-v171.tier-3-v171 .reward-copy-v171 b{font-size:clamp(40px,13vw,76px)}
+.reward-layer-v171.tier-4-v171 .reward-copy-v171 b{font-size:clamp(47px,15vw,88px);text-shadow:0 0 12px #fff,0 0 30px color-mix(in srgb,var(--reward-accent-v171) 86%,transparent),0 0 52px color-mix(in srgb,var(--reward-accent2-v171) 56%,transparent),0 8px 26px rgba(14,25,44,.30)}
+
+.reward-spark-v171{
+  position:absolute;
+  left:50%;top:50%;
+  width:7px;height:7px;
+  margin:-3.5px 0 0 -3.5px;
+  border-radius:50%;
+  background:color-mix(in srgb,var(--reward-accent-v171) 82%,white 18%);
+  box-shadow:0 0 13px color-mix(in srgb,var(--reward-accent-v171) 85%,transparent),0 0 24px color-mix(in srgb,var(--reward-accent2-v171) 45%,transparent);
+  opacity:0;
+  transform:rotate(var(--reward-a-v171)) translateX(10px) scale(.35);
+  animation:rewardSparkV171 calc(var(--reward-life-v171) * .72) cubic-bezier(.10,.78,.16,1) var(--reward-delay-v171) both;
+}
+.reward-layer-v171.tier-4-v171 .reward-spark-v171{width:8px;height:8px}
+
+.board.reward-tier-2-v171{animation:rewardBoard2V171 .34s cubic-bezier(.15,.78,.2,1) both}
+.board.reward-tier-3-v171{animation:rewardBoard3V171 .46s cubic-bezier(.12,.76,.18,1) both}
+.board.reward-tier-4-v171{animation:rewardBoard4V171 .62s cubic-bezier(.10,.72,.16,1) both}
+
+@keyframes rewardFlashV171{
+  0%{opacity:0;transform:scale(.72)}
+  9%{opacity:.96;transform:scale(.94)}
+  24%{opacity:.62;transform:scale(1.01)}
+  54%{opacity:.24;transform:scale(1.06)}
+  100%{opacity:0;transform:scale(1.12)}
+}
+@keyframes rewardRingV171{
+  0%{opacity:0;transform:scale(.18)}
+  13%{opacity:1;transform:scale(.66)}
+  48%{opacity:.72}
+  100%{opacity:0;transform:scale(1.82)}
+}
+@keyframes rewardCopyV171{
+  0%{opacity:0;transform:translateY(14px) scale(.55);filter:blur(2px)}
+  10%{opacity:1;transform:translateY(0) scale(1.16);filter:blur(0)}
+  22%{transform:scale(.96)}
+  34%,72%{opacity:1;transform:scale(1)}
+  100%{opacity:0;transform:translateY(-11px) scale(.92)}
+}
+@keyframes rewardSparkV171{
+  0%{opacity:0;transform:rotate(var(--reward-a-v171)) translateX(8px) scale(.18)}
+  14%{opacity:1}
+  52%{opacity:.92}
+  100%{opacity:0;transform:rotate(var(--reward-a-v171)) translateX(var(--reward-d-v171)) scale(.05)}
+}
+@keyframes rewardBoard2V171{0%,100%{transform:scale(1);filter:none}30%{transform:scale(.991);filter:brightness(1.09)}58%{transform:scale(1.004)}}
+@keyframes rewardBoard3V171{0%,100%{transform:scale(1);filter:none}20%{transform:scale(.984);filter:brightness(1.15) saturate(1.08)}48%{transform:scale(1.008);filter:brightness(1.05)}}
+@keyframes rewardBoard4V171{0%,100%{transform:scale(1);filter:none}16%{transform:scale(.978);filter:brightness(1.22) saturate(1.14)}38%{transform:scale(1.012);filter:brightness(1.10)}62%{transform:scale(.997)}}
+
+@media(max-width:420px){
+  .reward-copy-v171 span{letter-spacing:.18em}
+}
+@media(prefers-reduced-motion:reduce){
+  .reward-layer-v171 *,
+  .board.reward-tier-2-v171,
+  .board.reward-tier-3-v171,
+  .board.reward-tier-4-v171{animation-duration:.01ms!important}
+}
