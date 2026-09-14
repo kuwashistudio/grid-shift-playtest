@@ -73,11 +73,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          git fetch origin main --depth=1
           python3 - <<'PY'
           from pathlib import Path
-          import re
+          import re, subprocess
 
-          source = Path('index.html').read_text()
+          source = subprocess.check_output(['git','show','origin/main:index.html'], text=True)
 
           css_groups = [
               (['hotfix-v139.css','hotfix-v140.css','hotfix-v141.css','hotfix-v143.css','hotfix-v144.css','hotfix-v145.css','hotfix-v146.css'], 'runtime-bombs-v180.css?v=180'),
