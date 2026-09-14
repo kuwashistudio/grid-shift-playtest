@@ -1,0 +1,28 @@
+/* GRID SHIFT v1.8.2 QA — restore visible motion to the tapped rotate affordance.
+   Earlier centering rules intentionally pin transform:none!important, which also
+   suppresses transform values coming from keyframe animations. Keep the centering
+   ownership, but drive the important transform through an animated typed custom
+   property so only .rotate-pop visibly turns. */
+@property --rotate-angle-v182 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --rotate-scale-v182 {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+#tray > .piece-wrap.rotatable > .rotate-affordance{
+  --rotate-angle-v182:0deg;
+  --rotate-scale-v182:1;
+  transform:rotate(var(--rotate-angle-v182)) scale(var(--rotate-scale-v182))!important;
+}
+#tray > .piece-wrap.rotate-pop > .rotate-affordance{
+  animation:rotateAffordanceTapV182 .22s cubic-bezier(.2,.9,.25,1) 1!important;
+}
+@keyframes rotateAffordanceTapV182{
+  0%{opacity:.14;--rotate-angle-v182:0deg;--rotate-scale-v182:.93}
+  75%{opacity:.30;--rotate-angle-v182:92deg;--rotate-scale-v182:1.05}
+  100%{opacity:.13;--rotate-angle-v182:90deg;--rotate-scale-v182:1}
+}
