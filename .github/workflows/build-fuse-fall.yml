@@ -1,0 +1,119 @@
+name: Build FUSE FALL Playgama
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-fuse-fall.yml'
+      - 'factory-fuse-fall.html'
+      - 'factory-fuse-fall-platform.js'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare submission directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build-fuse-fall
+          mkdir build-fuse-fall
+          cp factory-fuse-fall.html build-fuse-fall/index.html
+          cp factory-fuse-fall-platform.js build-fuse-fall/platform.js
+          printf '{}\n' > build-fuse-fall/playgama-bridge-config.json
+
+      - name: Vendor Playgama Bridge locally
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --silent --show-error \
+            https://bridge.playgama.com/v1/stable/playgama-bridge.js \
+            -o build-fuse-fall/playgama-bridge.js
+          curl --fail --location --retry 3 --silent --show-error \
+            https://raw.githubusercontent.com/Playgama/bridge/main/LICENSE \
+            -o build-fuse-fall/PLAYGAMA-BRIDGE-LICENSE.txt
+          test -s build-fuse-fall/playgama-bridge.js
+
+      - name: Inject platform scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('build-fuse-fall/index.html')
+          s=p.read_text()
+          marker='</body>'
+          injection='<script src="playgama-bridge.js"></script><script src="platform.js"></script></body>'
+          if marker not in s:
+              raise SystemExit('Missing </body>')
+          p.write_text(s.replace(marker,injection,1))
+          PY
+
+      - name: JavaScript syntax check
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check build-fuse-fall/platform.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, subprocess
+          html=Path('build-fuse-fall/index.html').read_text()
+          scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',html,re.S)
+          for i,code in enumerate(scripts):
+              if not code.strip():
+                  continue
+              path=Path(f'/tmp/fuse-fall-inline-{i}.js')
+              path.write_text(code)
+              subprocess.run(['node','--check',str(path)],check=True)
+          print(f'Checked {len(scripts)} inline script block(s).')
+          PY
+
+      - name: Verify package references
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, sys
+          root=Path('build-fuse-fall')
+          html=(root/'index.html').read_text()
+          refs=re.findall(r'(?:src|href)="([^"?#]+)',html)
+          missing=[r for r in refs if not (root/r).exists()]
+          if missing:
+              print('Missing package files:',missing)
+              sys.exit(1)
+          print('All HTML package references exist.')
+          PY
+
+      - name: Check initial build size
+        shell: bash
+        run: |
+          set -euo pipefail
+          bytes=$(du -sb build-fuse-fall | cut -f1)
+          mib=$(python3 -c "print(round($bytes/1024/1024, 3))")
+          echo "Submission size: ${mib} MiB (${bytes} bytes)"
+          test "$bytes" -lt 31457280
+
+      - name: Create submission ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd build-fuse-fall
+          zip -9 -r ../FUSE-FALL-PLAYGAMA.zip . >/dev/null
+          cd ..
+          unzip -l FUSE-FALL-PLAYGAMA.zip
+          ls -lh FUSE-FALL-PLAYGAMA.zip
+
+      - name: Upload submission ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: FUSE-FALL-PLAYGAMA
+          path: FUSE-FALL-PLAYGAMA.zip
+          if-no-files-found: error
+          retention-days: 30
