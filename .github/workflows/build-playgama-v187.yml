@@ -117,4 +117,4 @@ jobs:
           name: GRID-SHIFT-PLAYGAMA-v187
           path: GRID-SHIFT-PLAYGAMA-v187.zip
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 3
