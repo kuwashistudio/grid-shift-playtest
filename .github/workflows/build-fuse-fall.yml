@@ -116,4 +116,4 @@ jobs:
           name: FUSE-FALL-PLAYGAMA
           path: FUSE-FALL-PLAYGAMA.zip
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 3
