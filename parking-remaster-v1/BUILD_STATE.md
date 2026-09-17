@@ -13,11 +13,21 @@
 - G0 PASS — atomic Chat execution rules committed.
 - G1 PASS — canonical artifacts reconstructed locally and byte-verified; manifest committed at `ASSET_MANIFEST.json`.
 - Canonical runtime HTML is attached at `parking-remaster-v1/index.html` and was fetched back from staging.
+- G2 was split before transfer because direct binary upload is not exposed by the GitHub connector.
+- G2a PASS — first canonical master transfer chunk staged at `parking-remaster-v1/.transfer/master.part-00.b64` and verified from the GitHub directory listing: 20,000 bytes, Git blob SHA `bdb61612c0552e0a17b117c2366fa70fb9daa957`, exactly matching the local source chunk.
 
 ## Canonical artifacts
 - `index.html` — 11,849 bytes — SHA256 `12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5`
 - `assets/master.webp` — 448,118 bytes — SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0` — WebP 941x1672
 - `assets/atlas.webp` — 148,094 bytes — SHA256 `87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2` — WebP with alpha
+
+## Master transfer subgates
+The canonical master base64 is 597,492 characters, pre-split locally into 30 deterministic text chunks (`part-00` ... `part-29`). Each full chunk is 20,000 characters except the final chunk. Each subgate must verify GitHub size/blob SHA before advancing.
+- G2a PASS — part-00 staged and verified.
+- G2b NEXT — stage/verify part-01.
+- G2c — part-02.
+- Continue one verified chunk per turn through part-29.
+- G2-final — reconstruct `assets/master.webp` from the verified chunks, verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`, then remove transfer chunks.
 
 ## Functional scope implemented locally
 - 10 tappable cars.
@@ -30,7 +40,7 @@
 - QA hooks and auto-solve hook.
 
 ## Remaining gates — fixed order
-- G2 attach canonical `master.webp` to staging and verify bytes.
+- Complete G2 master transfer/reconstruction/byte verification.
 - G3 attach canonical `atlas.webp` to staging and verify bytes.
 - G4 verify runtime asset loading and initial render.
 - G5 verify blocked tap and legal exit interaction.
@@ -39,4 +49,4 @@
 - G8 verify GitHub Pages URL.
 
 ## Chat execution rule
-Advance one atomic gate per `進めて`. Never silently wait, never imply background execution, never bundle multiple long gates. If a gate cannot complete inside a bounded turn, split it before starting. Persist every PASS or blocker here before replying.
+Advance one atomic subgate per `進めて`. Never silently wait, never imply background execution, never bundle multiple long gates. If a gate cannot complete inside a bounded turn, split it before starting. Persist every PASS or blocker here before replying.
