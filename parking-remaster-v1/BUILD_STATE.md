@@ -15,6 +15,7 @@
 - Canonical runtime HTML is attached at `parking-remaster-v1/index.html` and was fetched back from staging.
 - G2 was split before transfer because direct binary upload is not exposed by the GitHub connector.
 - G2a PASS — first canonical master transfer chunk staged at `parking-remaster-v1/.transfer/master.part-00.b64` and verified from the GitHub directory listing: 20,000 bytes, Git blob SHA `bdb61612c0552e0a17b117c2366fa70fb9daa957`, exactly matching the local source chunk.
+- G2b PASS — `master.part-01.b64` staged and fetched back from GitHub. Verified 20,000 bytes and Git blob SHA `53e51a67285f84739e73e44b99fa6e6025c96cf6`, exactly matching the local deterministic chunk. Local chunk SHA256: `637e5682d935c9f2dabb128658e6da6ee18eaf34677fa740cc7ecd6817e72bb0`.
 
 ## Canonical artifacts
 - `index.html` — 11,849 bytes — SHA256 `12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5`
@@ -24,8 +25,8 @@
 ## Master transfer subgates
 The canonical master base64 is 597,492 characters, pre-split locally into 30 deterministic text chunks (`part-00` ... `part-29`). Each full chunk is 20,000 characters except the final chunk. Each subgate must verify GitHub size/blob SHA before advancing.
 - G2a PASS — part-00 staged and verified.
-- G2b NEXT — stage/verify part-01.
-- G2c — part-02.
+- G2b PASS — part-01 staged and verified.
+- G2c NEXT — stage/verify part-02.
 - Continue one verified chunk per turn through part-29.
 - G2-final — reconstruct `assets/master.webp` from the verified chunks, verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`, then remove transfer chunks.
 
