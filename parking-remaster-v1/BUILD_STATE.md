@@ -5,32 +5,36 @@
 - Visual master: the first user-approved Parking Jam image only.
 - Do not touch GRID SHIFT production files.
 - Staging branch: `parking-remaster-v1-staging-20260917`.
-- Final runtime target: lightweight HTML5, visual master as background, sprite atlas for moving cars, simple collision logic, single visible top EXIT.
+- Runtime: lightweight HTML5, visual master background, sprite atlas, simple collision logic, single top EXIT.
 - No redesign, no 3D pivot, no new benchmark mechanic during this build.
 
-## Local canonical artifact set
-- `index.html` — 11,849 bytes — SHA256 `12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5`
-- `assets/master.webp` — 448,118 bytes — SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`
-- `assets/atlas.webp` — 148,094 bytes — SHA256 `87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2`
-- Total canonical payload: 608,061 bytes.
+## Completed staging gates
+- Canonical runtime HTML is now attached at `parking-remaster-v1/index.html`.
+- Runtime blob SHA: `1c2729add6b82556c5ff695b69a562b68c1cc634`.
+- Verified by fetching the file back from the staging branch.
 
-## Functional scope already implemented locally
+## Canonical local artifacts
+- Runtime HTML: 11,849 bytes.
+- Visual master WebP: 448,118 bytes.
+- Sprite atlas WebP: 148,094 bytes.
+
+## Functional scope implemented locally
 - 10 tappable cars.
 - Direction-aware blockage detection.
 - Blocked-car bump feedback.
-- Exit animation routes every released car toward the single visible top EXIT.
+- Legal exit animation toward the single top EXIT.
 - Audio/vibration feedback.
 - Hint pulse after inactivity.
 - Win state and restart.
 - QA hooks and auto-solve hook.
 
-## Remaining gates
-1. Transfer canonical binary assets + HTML to staging branch without altering their bytes.
-2. Verify repository file sizes/checksums.
-3. Open staging preview and verify initial render.
+## Remaining gates — do not redesign
+1. Attach the canonical visual master binary to staging.
+2. Attach the canonical sprite atlas binary to staging.
+3. Verify file hashes/sizes and runtime asset loading.
 4. Verify blocked tap, legal exit, full solve, restart, portrait widths.
-5. Only after all gates pass, merge/copy the isolated `parking-remaster-v1/` directory to main.
+5. Only after all gates pass, copy the isolated `parking-remaster-v1/` directory to main.
 6. Verify GitHub Pages URL before reporting completion.
 
 ## Chat execution rule
-Each Chat turn must finish a complete, resumable checkpoint before replying. Never reply with only “in progress”. If a tool boundary stops a step, record the exact completed commit/path/checksum here before replying, so the next turn resumes deterministically instead of redesigning the pipeline.
+Never ask the user to wait while implying background execution. Each turn must end with a committed, resumable checkpoint or an immediate explicit blocker. Do not restart the design or change implementation strategy between turns.
