@@ -24,10 +24,11 @@
 - G2d PASS — master part-03, 20,000 bytes, Git blob `dc6b88a6fafadd20b57550dfc84c14487fe6d3bb`.
 - G2e PASS — canonical part-04 transferred as verified halves because a direct write truncated: `part-04a` 10,000 bytes / Git blob `0aaa216a317f52048677c95170fa442c16a95e05`; `part-04b` 10,000 bytes / Git blob `8f2897e82fa90157697763c82e10ab27b8e11a87`. Ignore truncated `master.part-04.b64`.
 - G2f PASS — `master.part-05.b64` staged and fetched back. Verified 20,000 bytes and Git blob `5cfcd7519dea5e680bc5013449c0fb3803a82fc5`, exactly matching the local deterministic chunk. Local SHA256 `52315e2bdff729d0ce9bf73bb8a2f3ba332fed5ff09f7b680841b2a26e5907fe`.
+- G2g PASS — `master.part-06.b64` staged and verified from GitHub at 20,000 bytes with Git blob `5d4772af4650a2d5233084eb7932391ea200d4ec`, exactly matching the local deterministic chunk. Local SHA256 `09e8c69f0394da0f370406fabea18a983b2cb8bbf25725c4d4fd86542a4eb282`.
 
 ## Master transfer plan
 Canonical master base64 is 597,492 characters split locally into `part-00` ... `part-29`; each full part is 20,000 chars except the final one.
-- NEXT: G2g — stage/verify `part-06` only.
+- NEXT: G2h — stage/verify `part-07` only.
 - Continue one verified chunk per `進めて` through part-29.
 - G2-final — reconstruct `assets/master.webp` from verified chunks, using `part-04a + part-04b` as canonical part-04; verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`; then remove transfer chunks.
 
