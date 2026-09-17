@@ -1,0 +1,22 @@
+{
+  "gate": "G1",
+  "status": "PASS",
+  "source": "reconstructed from index_embedded_canonical.html",
+  "artifacts": {
+    "index.html": {
+      "bytes": 11849,
+      "sha256": "12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5"
+    },
+    "assets/master.webp": {
+      "bytes": 448118,
+      "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+      "format_check": "WebP 941x1672"
+    },
+    "assets/atlas.webp": {
+      "bytes": 148094,
+      "sha256": "87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2",
+      "format_check": "WebP with alpha"
+    }
+  },
+  "next_gate": "G2 attach canonical master.webp to staging"
+}
