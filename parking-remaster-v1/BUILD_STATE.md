@@ -2,58 +2,40 @@
 
 ## Fixed decisions
 - Work only in Chat; do not switch to Work mode.
-- Visual master: the first user-approved Parking Jam image only.
+- Visual master: first user-approved Parking Jam image only.
 - Do not touch GRID SHIFT production files.
 - Staging branch: `parking-remaster-v1-staging-20260917`.
-- Runtime: lightweight HTML5, visual master background, sprite atlas, simple collision logic, single top EXIT.
-- No redesign, no 3D pivot, no new benchmark mechanic during this build.
+- Runtime: lightweight HTML5 + approved master background + sprite atlas + simple collision logic + single top EXIT.
+- No redesign, 3D pivot, or gameplay-mechanic drift during this build.
 - Execution rules are locked in `EXECUTION_RULES.md`.
-
-## Completed gates
-- G0 PASS — atomic Chat execution rules committed.
-- G1 PASS — canonical artifacts reconstructed locally and byte-verified; manifest committed at `ASSET_MANIFEST.json`.
-- Canonical runtime HTML is attached at `parking-remaster-v1/index.html` and was fetched back from staging.
-- G2 was split before transfer because direct binary upload is not exposed by the GitHub connector.
-- G2a PASS — first canonical master transfer chunk staged at `parking-remaster-v1/.transfer/master.part-00.b64` and verified from the GitHub directory listing: 20,000 bytes, Git blob SHA `bdb61612c0552e0a17b117c2366fa70fb9daa957`, exactly matching the local source chunk.
-- G2b PASS — `master.part-01.b64` staged and fetched back from GitHub. Verified 20,000 bytes and Git blob SHA `53e51a67285f84739e73e44b99fa6e6025c96cf6`, exactly matching the local deterministic chunk. Local chunk SHA256: `637e5682d935c9f2dabb128658e6da6ee18eaf34677fa740cc7ecd6817e72bb0`.
-- G2c PASS — `master.part-02.b64` staged and fetched back from GitHub. Verified 20,000 bytes and Git blob SHA `7053a0dfd614dbf3f523771176cdf426605a6c23`, exactly matching the local deterministic chunk. Local chunk SHA256: `c52aa07d311e05b383cdabcfcfe2ea367bce9d865ac93db62217cb3b687d515c`.
-- G2d PASS — `master.part-03.b64` staged and verified from the GitHub directory listing at 20,000 bytes with Git blob SHA `dc6b88a6fafadd20b57550dfc84c14487fe6d3bb`, exactly matching the local deterministic chunk. Local chunk SHA256: `fdd1d10c99de6339630374c458cdb643f084e29a6a5728ecc0b08831b6bd14d1`.
-- G2e PASS — the first direct write of `master.part-04.b64` was truncated by the connector to 9,873 bytes and is explicitly ignored. One bounded repair attempt split the exact deterministic local part-04 into two 10,000-character halves: `master.part-04a.b64` and `master.part-04b.b64`. GitHub verification: half A = 10,000 bytes, blob SHA `0aaa216a317f52048677c95170fa442c16a95e05`; half B = 10,000 bytes, blob SHA `8f2897e82fa90157697763c82e10ab27b8e11a87`. Both match the locally computed Git blob SHAs exactly; their concatenation is the canonical 20,000-character part-04, whose local Git blob SHA is `6a133e6c452bc47c6f0a4fa61eb7f7e9ce77888b` and SHA256 is `d26ce5c34d1ec245242baec8b803aabac679b6aff4707327bc6986b2761b190e`.
 
 ## Canonical artifacts
 - `index.html` — 11,849 bytes — SHA256 `12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5`
 - `assets/master.webp` — 448,118 bytes — SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0` — WebP 941x1672
-- `assets/atlas.webp` — 148,094 bytes — SHA256 `87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2` — WebP with alpha
+- `assets/atlas.webp` — 148,094 bytes — SHA256 `87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2`
 
-## Master transfer subgates
-The canonical master base64 is 597,492 characters, pre-split locally into 30 deterministic text chunks (`part-00` ... `part-29`). Each full chunk is 20,000 characters except the final chunk. Each subgate must verify GitHub size/blob SHA before advancing.
-- G2a PASS — part-00 staged and verified.
-- G2b PASS — part-01 staged and verified.
-- G2c PASS — part-02 staged and verified.
-- G2d PASS — part-03 staged and verified.
-- G2e PASS — part-04 staged via verified 10k + 10k repair halves; truncated direct copy is ignored.
-- G2f NEXT — stage/verify part-05.
-- Continue one verified chunk per turn through part-29.
-- G2-final — reconstruct `assets/master.webp` from the verified chunks, using `part-04a + part-04b` for canonical part-04, verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`, then remove transfer chunks including the ignored truncated `master.part-04.b64`.
+## Completed gates
+- G0 PASS — atomic Chat execution rules committed.
+- G1 PASS — canonical artifacts reconstructed and verified locally.
+- Runtime HTML is staged at `parking-remaster-v1/index.html` and fetched back successfully.
+- G2a PASS — master part-00, 20,000 bytes, Git blob `bdb61612c0552e0a17b117c2366fa70fb9daa957`.
+- G2b PASS — master part-01, 20,000 bytes, Git blob `53e51a67285f84739e73e44b99fa6e6025c96cf6`.
+- G2c PASS — master part-02, 20,000 bytes, Git blob `7053a0dfd614dbf3f523771176cdf426605a6c23`.
+- G2d PASS — master part-03, 20,000 bytes, Git blob `dc6b88a6fafadd20b57550dfc84c14487fe6d3bb`.
+- G2e PASS — canonical part-04 transferred as verified halves because a direct write truncated: `part-04a` 10,000 bytes / Git blob `0aaa216a317f52048677c95170fa442c16a95e05`; `part-04b` 10,000 bytes / Git blob `8f2897e82fa90157697763c82e10ab27b8e11a87`. Ignore truncated `master.part-04.b64`.
+- G2f PASS — `master.part-05.b64` staged and fetched back. Verified 20,000 bytes and Git blob `5cfcd7519dea5e680bc5013449c0fb3803a82fc5`, exactly matching the local deterministic chunk. Local SHA256 `52315e2bdff729d0ce9bf73bb8a2f3ba332fed5ff09f7b680841b2a26e5907fe`.
 
-## Functional scope implemented locally
-- 10 tappable cars.
-- Direction-aware blockage detection.
-- Blocked-car bump feedback.
-- Legal exit animation toward the single top EXIT.
-- Audio/vibration feedback.
-- Hint pulse after inactivity.
-- Win state and restart.
-- QA hooks and auto-solve hook.
+## Master transfer plan
+Canonical master base64 is 597,492 characters split locally into `part-00` ... `part-29`; each full part is 20,000 chars except the final one.
+- NEXT: G2g — stage/verify `part-06` only.
+- Continue one verified chunk per `進めて` through part-29.
+- G2-final — reconstruct `assets/master.webp` from verified chunks, using `part-04a + part-04b` as canonical part-04; verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`; then remove transfer chunks.
 
-## Remaining gates — fixed order
-- Complete G2 master transfer/reconstruction/byte verification.
-- G3 attach canonical `atlas.webp` to staging and verify bytes.
-- G4 verify runtime asset loading and initial render.
-- G5 verify blocked tap and legal exit interaction.
-- G6 verify full solve, restart, and portrait widths.
-- G7 copy only `parking-remaster-v1/` to main.
-- G8 verify GitHub Pages URL.
+## Functional scope already implemented locally
+- 10 tappable cars, direction-aware blockage detection, blocked bump feedback, legal exit animation, audio/vibration, inactivity hint, win state/restart, QA hooks, auto-solve hook.
+
+## Remaining fixed gate order
+G2 complete master transfer/reconstruction -> G3 atlas transfer/verify -> G4 asset-load/render QA -> G5 interaction QA -> G6 full solve/restart/viewport QA -> G7 release only `parking-remaster-v1/` to main -> G8 verify GitHub Pages URL.
 
 ## Chat execution rule
-Advance one atomic subgate per `進めて`. Never silently wait, never imply background execution, never bundle multiple long gates. If a gate cannot complete inside a bounded turn, split it before starting. Persist every PASS or blocker here before replying.
+One atomic subgate per `進めて`. No silent waiting, no background-work implication, no long bundled gates. Persist every PASS or explicit blocker here before replying.
