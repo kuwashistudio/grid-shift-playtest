@@ -18,6 +18,7 @@
 - G2b PASS — `master.part-01.b64` staged and fetched back from GitHub. Verified 20,000 bytes and Git blob SHA `53e51a67285f84739e73e44b99fa6e6025c96cf6`, exactly matching the local deterministic chunk. Local chunk SHA256: `637e5682d935c9f2dabb128658e6da6ee18eaf34677fa740cc7ecd6817e72bb0`.
 - G2c PASS — `master.part-02.b64` staged and fetched back from GitHub. Verified 20,000 bytes and Git blob SHA `7053a0dfd614dbf3f523771176cdf426605a6c23`, exactly matching the local deterministic chunk. Local chunk SHA256: `c52aa07d311e05b383cdabcfcfe2ea367bce9d865ac93db62217cb3b687d515c`.
 - G2d PASS — `master.part-03.b64` staged and verified from the GitHub directory listing at 20,000 bytes with Git blob SHA `dc6b88a6fafadd20b57550dfc84c14487fe6d3bb`, exactly matching the local deterministic chunk. Local chunk SHA256: `fdd1d10c99de6339630374c458cdb643f084e29a6a5728ecc0b08831b6bd14d1`.
+- G2e PASS — the first direct write of `master.part-04.b64` was truncated by the connector to 9,873 bytes and is explicitly ignored. One bounded repair attempt split the exact deterministic local part-04 into two 10,000-character halves: `master.part-04a.b64` and `master.part-04b.b64`. GitHub verification: half A = 10,000 bytes, blob SHA `0aaa216a317f52048677c95170fa442c16a95e05`; half B = 10,000 bytes, blob SHA `8f2897e82fa90157697763c82e10ab27b8e11a87`. Both match the locally computed Git blob SHAs exactly; their concatenation is the canonical 20,000-character part-04, whose local Git blob SHA is `6a133e6c452bc47c6f0a4fa61eb7f7e9ce77888b` and SHA256 is `d26ce5c34d1ec245242baec8b803aabac679b6aff4707327bc6986b2761b190e`.
 
 ## Canonical artifacts
 - `index.html` — 11,849 bytes — SHA256 `12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5`
@@ -30,9 +31,10 @@ The canonical master base64 is 597,492 characters, pre-split locally into 30 det
 - G2b PASS — part-01 staged and verified.
 - G2c PASS — part-02 staged and verified.
 - G2d PASS — part-03 staged and verified.
-- G2e NEXT — stage/verify part-04.
+- G2e PASS — part-04 staged via verified 10k + 10k repair halves; truncated direct copy is ignored.
+- G2f NEXT — stage/verify part-05.
 - Continue one verified chunk per turn through part-29.
-- G2-final — reconstruct `assets/master.webp` from the verified chunks, verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`, then remove transfer chunks.
+- G2-final — reconstruct `assets/master.webp` from the verified chunks, using `part-04a + part-04b` for canonical part-04, verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`, then remove transfer chunks including the ignored truncated `master.part-04.b64`.
 
 ## Functional scope implemented locally
 - 10 tappable cars.
