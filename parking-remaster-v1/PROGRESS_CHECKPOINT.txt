@@ -1,0 +1,5 @@
+2026-09-18 checkpoint
+
+The staging branch is now the only working branch for Parking Remaster v1.
+No silent waiting: each Chat turn must end with a committed checkpoint or an explicit blocker.
+Next fixed gate: add the canonical runtime index blob and then the two image blobs (master + atlas), verify hashes, then preview/QA.
