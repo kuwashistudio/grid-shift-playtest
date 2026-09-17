@@ -17,6 +17,7 @@
 - G2a PASS — first canonical master transfer chunk staged at `parking-remaster-v1/.transfer/master.part-00.b64` and verified from the GitHub directory listing: 20,000 bytes, Git blob SHA `bdb61612c0552e0a17b117c2366fa70fb9daa957`, exactly matching the local source chunk.
 - G2b PASS — `master.part-01.b64` staged and fetched back from GitHub. Verified 20,000 bytes and Git blob SHA `53e51a67285f84739e73e44b99fa6e6025c96cf6`, exactly matching the local deterministic chunk. Local chunk SHA256: `637e5682d935c9f2dabb128658e6da6ee18eaf34677fa740cc7ecd6817e72bb0`.
 - G2c PASS — `master.part-02.b64` staged and fetched back from GitHub. Verified 20,000 bytes and Git blob SHA `7053a0dfd614dbf3f523771176cdf426605a6c23`, exactly matching the local deterministic chunk. Local chunk SHA256: `c52aa07d311e05b383cdabcfcfe2ea367bce9d865ac93db62217cb3b687d515c`.
+- G2d PASS — `master.part-03.b64` staged and verified from the GitHub directory listing at 20,000 bytes with Git blob SHA `dc6b88a6fafadd20b57550dfc84c14487fe6d3bb`, exactly matching the local deterministic chunk. Local chunk SHA256: `fdd1d10c99de6339630374c458cdb643f084e29a6a5728ecc0b08831b6bd14d1`.
 
 ## Canonical artifacts
 - `index.html` — 11,849 bytes — SHA256 `12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5`
@@ -28,7 +29,8 @@ The canonical master base64 is 597,492 characters, pre-split locally into 30 det
 - G2a PASS — part-00 staged and verified.
 - G2b PASS — part-01 staged and verified.
 - G2c PASS — part-02 staged and verified.
-- G2d NEXT — stage/verify part-03.
+- G2d PASS — part-03 staged and verified.
+- G2e NEXT — stage/verify part-04.
 - Continue one verified chunk per turn through part-29.
 - G2-final — reconstruct `assets/master.webp` from the verified chunks, verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`, then remove transfer chunks.
 
