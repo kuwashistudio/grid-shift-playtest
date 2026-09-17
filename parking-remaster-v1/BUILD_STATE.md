@@ -13,6 +13,7 @@
 - `index.html` — 11,849 bytes — SHA256 `12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5`
 - `assets/master.webp` — 448,118 bytes — SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0` — WebP 941x1672
 - `assets/atlas.webp` — 148,094 bytes — SHA256 `87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2`
+- Canonical `master.webp` can be deterministically regenerated from `/mnt/data/レベル1_駐車場脱出パズル.png` with Pillow WebP `quality=90, method=6`; regeneration was rechecked at exactly 448,118 bytes and the canonical SHA256 above.
 
 ## Completed gates
 - G0 PASS — atomic Chat execution rules committed.
@@ -25,13 +26,13 @@
 - G2e PASS — canonical part-04 transferred as verified halves because a direct write truncated: `part-04a` 10,000 bytes / Git blob `0aaa216a317f52048677c95170fa442c16a95e05`; `part-04b` 10,000 bytes / Git blob `8f2897e82fa90157697763c82e10ab27b8e11a87`. Ignore truncated `master.part-04.b64`.
 - G2f PASS — master part-05, 20,000 bytes, Git blob `5cfcd7519dea5e680bc5013449c0fb3803a82fc5`.
 - G2g PASS — master part-06, 20,000 bytes, Git blob `5d4772af4650a2d5233084eb7932391ea200d4ec`.
-- G2h PASS — canonical part-07 transferred as two verified 10,000-character halves to avoid the prior truncation mode: `part-07a` 10,000 bytes / Git blob `300c9ceecc03d008420aeb0a317e9ccd892c96ec`; `part-07b` 10,000 bytes / Git blob `896917c67b0f0a603303a87f63193fb283abf94a`. Their concatenation is the deterministic local part-07; local full-part Git blob is `dd418eb48a2d07979a7727bf3bac6185cf6f167c`, SHA256 `85dc35f7763ea6889aa6ad52dbd3c239fb12da92587168e29a5a7593b9022170`.
+- G2h PASS — `master.part-07.b64` staged and verified at 20,000 bytes with Git blob `dd418eb48a2d07979a7727bf3bac6185cf6f167c`, exactly matching deterministic local part-07. SHA256 `85dc35f7763ea6889aa6ad52dbd3c239fb12da92587168e29a5a7593b9022170`. Earlier `part-07a` / `part-07b` repair halves may remain as redundant transfer artifacts and are not required for reconstruction.
 
 ## Master transfer plan
 Canonical master base64 is 597,492 characters split locally into `part-00` ... `part-29`; each full part is 20,000 chars except the final one.
 - NEXT: G2i — stage/verify `part-08` only.
 - Continue one verified chunk per `進めて` through part-29.
-- G2-final — reconstruct `assets/master.webp` from verified chunks, using `part-04a + part-04b` as canonical part-04 and `part-07a + part-07b` as canonical part-07; verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`; then remove transfer chunks.
+- G2-final — reconstruct `assets/master.webp` from verified chunks, using `part-04a + part-04b` as canonical part-04; use full `part-07`; verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`; then remove transfer chunks/redundant halves.
 
 ## Functional scope already implemented locally
 - 10 tappable cars, direction-aware blockage detection, blocked bump feedback, legal exit animation, audio/vibration, inactivity hint, win state/restart, QA hooks, auto-solve hook.
