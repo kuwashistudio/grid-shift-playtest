@@ -1,0 +1,3 @@
+Canonical runtime HTML blob already exists in repository Git database: 1c2729add6b82556c5ff695b69a562b68c1cc634
+Target path: parking-remaster-v1/index.html
+This checkpoint records the exact blob before attaching it to the staging tree.
