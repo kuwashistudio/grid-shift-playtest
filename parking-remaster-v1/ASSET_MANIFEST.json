@@ -4,8 +4,10 @@
   "source": "reconstructed from index_embedded_canonical.html",
   "artifacts": {
     "index.html": {
-      "bytes": 11849,
-      "sha256": "12fd2fcb263c13d625730675b36d8098d2f929bedaae66a51f1b328ceb13dfd5"
+      "bytes": 10685,
+      "sha256": "5f9f0dc5a97681942a7dc681935ec8496a0eb17fb5cfeb933a4e5cb276ab5020",
+      "git_blob": "a594fb29ba55fb4ccf08338bf8b8d60f7a9c72f6",
+      "note": "Touch input hardened; car exit animation uses transform-only motion after research-backed mobile performance audit."
     },
     "assets/master.webp": {
       "bytes": 448118,
