@@ -89,10 +89,13 @@ Use the minimum content needed to prove:
 - Car exit feels satisfying rather than slow or ornamental.
 - A fresh player can understand the action without reading instructions.
 - Core game remains understandable with sound muted.
+- First meaningful screen is already playable; no pre-game menu/mode selector/start gate.
+- Parking Remaster product target: first gameplay control available within 1.0 second on target iPhone testing.
 - Runtime is deterministic enough for automated QA.
 
 ## Gate
 A Core Fun Review must explicitly answer:
+- Did the player reach the first gameplay action without a pre-game decision screen?
 - Did the player understand the first action?
 - Did blocked feedback teach rather than punish?
 - Did clearing a car feel rewarding?

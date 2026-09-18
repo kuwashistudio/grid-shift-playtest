@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#1a211d">
+<link rel="preload" as="image" href="assets/master.webp" fetchpriority="high">
 <title>Parking Remaster — Level 1</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -25,13 +26,16 @@ body::before{content:"";position:fixed;inset:-40px;background:linear-gradient(#1
 #clear.show #badge{transform:scale(1)}
 #restart{position:absolute;z-index:35;left:50%;bottom:145px;transform:translateX(-50%);width:112px;height:112px;border-radius:50%;border:0;background:#f5f1e7dd;color:#1b231f;font-size:58px;font-weight:700;box-shadow:0 12px 35px #0006;opacity:0;pointer-events:none;transition:opacity .3s}
 #clear.show #restart{opacity:1;pointer-events:auto}
+#sound{position:absolute;z-index:36;right:28px;top:28px;width:76px;height:76px;border:0;border-radius:50%;background:rgba(8,13,10,.42);color:#fff;font-size:34px;line-height:76px;text-align:center;padding:0;opacity:.72;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#sound:active{transform:scale(.94)}
 </style>
 </head>
 <body>
 <div id="wrap"><div id="stage">
-<img id="master" src="assets/master.webp" alt="">
+<img id="master" src="assets/master.webp" alt="" decoding="sync" fetchpriority="high">
 <div id="flash"></div>
 <div id="clear"><div id="badge">✓</div><button id="restart" aria-label="restart">↻</button></div>
+<button id="sound" aria-label="mute sound" aria-pressed="false">🔊</button>
 </div></div>
 <script src="game_logic.js"></script>
 <script src="levels.generated.js"></script>
@@ -39,23 +43,61 @@ body::before{content:"";position:fixed;inset:-40px;background:linear-gradient(#1
 (()=>{
 const level=window.__PARKING_LEVELS__?.level_001,logic=window.ParkingLogic;if(!level)throw new Error('Level data missing: level_001');if(!logic)throw new Error('ParkingLogic missing');
 const W=level.board.width,H=level.board.height,stage=document.querySelector('#stage'),wrap=document.querySelector('#wrap');
-const master=document.querySelector('#master'),clear=document.querySelector('#clear');
+const master=document.querySelector('#master'),clear=document.querySelector('#clear'),soundBtn=document.querySelector('#sound');
 function fit(){const vw=innerWidth,vh=innerHeight;const s=Math.max(vw/W,vh/H);const ww=W*s,hh=H*s;Object.assign(wrap.style,{width:ww+'px',height:hh+'px',left:(vw-ww)/2+'px',top:(vh-hh)/2+'px'});stage.style.transform=`scale(${s})`;}
 addEventListener('resize',fit,{passive:true});fit();
 
 const defs=level.vehicles.map(c=>({...c,first:c.id===level.tutorial.first_focus_vehicle}));
 const v={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
 const baseAngle={up:-Math.PI/2,down:Math.PI/2,left:Math.PI,right:0};
-const cars=new Map();let moved=0,audioCtx=null,hintTimer=null,firstDone=false;
+const cars=new Map();let moved=0,hintTimer=null,firstDone=false;
+const startup={scriptStartMs:performance.now(),controlsReadyMs:null,firstPlayerActionMs:null};
+let audioCtx=null,audioBus=null,audioResetNeeded=false,audioEnabled=true;
+const audioQA={contextsCreated:0,interruptionsObserved:0,resetsRequested:0,lastState:'none'};
 function hitbox(body){const [x1,y1,x2,y2]=body,cx=(x1+x2)/2,cy=(y1+y2)/2,w=Math.max(112,x2-x1),h=Math.max(112,y2-y1);return [cx-w/2,cy-h/2,cx+w/2,cy+h/2]}
 function activeIds(){return [...cars.values()].filter(o=>!o.moved).map(o=>o.id)}
 function blocked(c){const id=logic.blockerId(level,c.id,activeIds());return id?cars.get(id):null}
-function audio(){if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
-function engine(){try{audio();const t=audioCtx.currentTime,o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sawtooth';o.frequency.setValueAtTime(70,t);o.frequency.exponentialRampToValueAtTime(145,t+.55);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.042,t+.05);g.gain.exponentialRampToValueAtTime(.0001,t+.72);o.connect(g).connect(audioCtx.destination);o.start(t);o.stop(t+.74)}catch(e){}}
-function horn(){try{audio();const t=audioCtx.currentTime;[0,.06].forEach((d,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.value=i?390:320;g.gain.setValueAtTime(.026,t+d);g.gain.exponentialRampToValueAtTime(.0001,t+d+.15);o.connect(g).connect(audioCtx.destination);o.start(t+d);o.stop(t+d+.16)})}catch(e){}}
-function winSound(){try{audio();const t=audioCtx.currentTime;[523,659,784].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+i*.09);g.gain.exponentialRampToValueAtTime(.05,t+i*.09+.02);g.gain.exponentialRampToValueAtTime(.0001,t+i*.09+.27);o.connect(g).connect(audioCtx.destination);o.start(t+i*.09);o.stop(t+i*.09+.28)})}catch(e){}}
-function add(c){c={...c,moved:false,bumping:false,patch:null,spriteEl:null};const [x1,y1,x2,y2]=hitbox(c.body);const b=document.createElement('button');b.className='hot';Object.assign(b.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px'});b.addEventListener('pointerdown',e=>{e.preventDefault();tap(c)});stage.appendChild(b);c.hot=b;cars.set(c.id,c)}
-defs.forEach(add);
+function createAudioContext(){
+  const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+  try{
+    audioCtx=new C({latencyHint:'interactive'});audioQA.contextsCreated++;
+    const masterGain=audioCtx.createGain(),comp=audioCtx.createDynamicsCompressor();
+    masterGain.gain.value=.72;comp.threshold.value=-18;comp.knee.value=12;comp.ratio.value=4;comp.attack.value=.004;comp.release.value=.18;
+    masterGain.connect(comp).connect(audioCtx.destination);audioBus=masterGain;audioResetNeeded=false;audioQA.lastState=audioCtx.state;
+    audioCtx.onstatechange=()=>{audioQA.lastState=audioCtx?.state||'none';if(audioCtx?.state==='interrupted'){audioQA.interruptionsObserved++;audioResetNeeded=true}};
+    return audioCtx;
+  }catch(e){audioCtx=null;audioBus=null;return null}
+}
+function ensureAudioOnGesture(){
+  if(!audioEnabled)return null;
+  if(audioResetNeeded||!audioCtx||audioCtx.state==='closed'||audioCtx.state==='interrupted'){
+    try{audioCtx?.close()}catch(e){} audioCtx=null;audioBus=null;audioQA.resetsRequested++;createAudioContext();
+  }
+  const ctx=audioCtx||createAudioContext();if(!ctx)return null;
+  if(ctx.state==='suspended'||ctx.state==='interrupted'){
+    ctx.resume().then(()=>{audioQA.lastState=ctx.state;if(ctx.state!=='running')audioResetNeeded=true}).catch(()=>{audioResetNeeded=true});
+  }
+  return ctx;
+}
+function withAudio(build){
+  if(!audioEnabled)return;
+  const ctx=ensureAudioOnGesture();if(!ctx||!audioBus)return;
+  const run=()=>{if(ctx===audioCtx&&ctx.state==='running'&&audioEnabled)try{build(ctx,audioBus)}catch(e){}};
+  if(ctx.state==='running')run();else ctx.resume().then(run).catch(()=>{audioResetNeeded=true});
+}
+function engine(){withAudio((ctx,bus)=>{const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.setValueAtTime(78,t);o.frequency.exponentialRampToValueAtTime(138,t+.52);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055,t+.04);g.gain.exponentialRampToValueAtTime(.0001,t+.64);o.connect(g).connect(bus);o.start(t);o.stop(t+.66)})}
+function horn(){withAudio((ctx,bus)=>{const t=ctx.currentTime;[0,.065].forEach((d,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.value=i?392:330;g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.035,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.13);o.connect(g).connect(bus);o.start(t+d);o.stop(t+d+.14)})})}
+function winSound(){withAudio((ctx,bus)=>{const t=ctx.currentTime;[523,659,784].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+i*.09);g.gain.exponentialRampToValueAtTime(.044,t+i*.09+.02);g.gain.exponentialRampToValueAtTime(.0001,t+i*.09+.25);o.connect(g).connect(bus);o.start(t+i*.09);o.stop(t+i*.09+.26)})})}
+function markAudioInterruption(){
+  if(!audioCtx)return;
+  audioResetNeeded=true;audioQA.resetsRequested++;
+  if(audioCtx.state==='running')audioCtx.suspend().catch(()=>{});
+}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)markAudioInterruption();else if(audioCtx)audioResetNeeded=true},{passive:true});
+addEventListener('pagehide',markAudioInterruption,{passive:true});
+addEventListener('pageshow',()=>{if(audioCtx)audioResetNeeded=true},{passive:true});
+function add(c){c={...c,moved:false,bumping:false,patch:null,spriteEl:null};const [x1,y1,x2,y2]=hitbox(c.body);const b=document.createElement('button');b.className='hot';Object.assign(b.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px'});b.addEventListener('pointerdown',e=>{e.preventDefault();if(startup.firstPlayerActionMs===null)startup.firstPlayerActionMs=performance.now();ensureAudioOnGesture();tap(c)});stage.appendChild(b);c.hot=b;cars.set(c.id,c)}
+defs.forEach(add);startup.controlsReadyMs=performance.now();
 function patch(c,show){if(!c.patch){const [x1,y1,x2,y2]=c.sprite;const im=document.createElement('img');im.className='patch';im.src=`assets/patches/${c.id}.webp`;Object.assign(im.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px',display:'none'});stage.appendChild(im);c.patch=im}c.patch.style.display=show?'block':'none'}
 function sprite(c){const [x1,y1,x2,y2]=c.sprite;const im=document.createElement('img');im.className='car';im.src=`assets/sprites/${c.id}.webp`;Object.assign(im.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px'});stage.appendChild(im);c.spriteEl=im;return im}
 function coverTutorial(){if(firstDone)return;firstDone=true;const im=document.createElement('img');im.className='patch';im.src='assets/tutorial_cover.webp';Object.assign(im.style,{left:'330px',top:'440px',width:'220px',height:'350px',zIndex:5});stage.appendChild(im)}
@@ -78,6 +120,13 @@ function exitCar(c){c.moved=true;c.hot.disabled=true;moved++;engine();navigator.
 function scheduleHint(){clearTimeout(hintTimer);hintTimer=setTimeout(()=>{const c=[...cars.values()].find(x=>!x.moved&&!blocked(x));if(!c)return;const [x1,y1,x2,y2]=c.body;const ring=document.createElement('div');ring.style.cssText=`position:absolute;z-index:9;left:${x1-8}px;top:${y1-8}px;width:${x2-x1+16}px;height:${y2-y1+16}px;border-radius:34px;pointer-events:none;animation:pulse 1.5s ease-in-out 2`;stage.appendChild(ring);setTimeout(()=>ring.remove(),3100)},5000)}
 function complete(){setTimeout(()=>{clear.classList.add('show');winSound();navigator.vibrate?.([25,40,25])},420)}
 document.querySelector('#restart').addEventListener('click',()=>location.reload());
+soundBtn.addEventListener('pointerdown',e=>{
+  e.preventDefault();audioEnabled=!audioEnabled;soundBtn.textContent=audioEnabled?'🔊':'🔇';soundBtn.setAttribute('aria-pressed',String(!audioEnabled));soundBtn.setAttribute('aria-label',audioEnabled?'mute sound':'unmute sound');
+  if(!audioEnabled){if(audioCtx?.state==='running')audioCtx.suspend().catch(()=>{});}
+  else{audioResetNeeded=true;ensureAudioOnGesture();}
+});
+window.__parkingStartup=startup;
+window.__parkingAudioQA={stats:audioQA,state:()=>audioCtx?.state||'none',enabled:()=>audioEnabled,resetNeeded:()=>audioResetNeeded};
 window.__parkingQA={cars,blocked,tap,hitbox,activeIds,order:()=>logic.legalMoves(level,activeIds())};
 if(new URLSearchParams(location.search).get('auto')==='1'){
   const solve=()=>{const c=[...cars.values()].find(x=>!x.moved&&!blocked(x));if(!c)return;tap(c);setTimeout(solve,2650)};setTimeout(solve,800)

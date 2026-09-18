@@ -52,3 +52,10 @@ G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 mast
 ## Long experiment non-blocking rule
 31. **Never make an experimental CI run a blocking wait state.** If a comparison job is materially slow, launch it only as optional evidence and continue with already available work. Repeated polling without another completed action counts as a stopped workflow.
 32. **CI success is not visual PASS.** Image candidates require direct visual inspection before promotion. A successful workflow only proves execution/structural QA.
+
+
+## Instant-start retention rule
+33. **First meaningful screen must already be gameplay.** GRID SHIFT field evidence showed severe <30s abandonment when a mode selector was the opening screen. Parking Remaster must not open on a title, mode selector, menu, Start button, tutorial modal, or audio-unlock screen.
+34. **One-second interaction product target.** On target iPhone testing, aim for the first gameplay control to be available within 1.0 second. Load only what is necessary for immediate interaction; defer nonessential systems/assets.
+35. **First tap does real work.** The first player gesture must perform a gameplay action and may simultaneously unlock/recover audio. Never spend the first tap only on "Tap to Start".
+36. **Screen-recording audio is a release gate.** iPhone Control Center recording necessarily exercises a focus/visibility transition. Audio must recover from WebKit suspended/interrupted states and the saved recording must contain clean, continuous internal game SFX before release.
