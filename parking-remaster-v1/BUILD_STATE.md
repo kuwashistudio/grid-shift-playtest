@@ -49,3 +49,13 @@ One atomic subgate per `進めて`. No silent waiting, no background-work implic
 - Alternate GitHub branch `parking-remaster-embedded-assets` was checked and rejected as a source because its embedded background does not match canonical master part-00 from the staging transfer.
 - Do NOT generate a replacement image and do NOT advance to part-09.
 - Resume point stays: obtain the existing approved MASTER bytes by a non-generative existing-asset path, then stage/verify only `master.part-08.b64`.
+
+### G2i blocker evidence update — 2026-09-18
+- Exact approved MASTER source re-found in File Library: `レベル1：駐車場脱出パズル.png` / file id `file_0000000007f882069c1aa954fad4866d`.
+- File Library can index the image, but raw-byte open (`mclick`) fails in this session.
+- File Library→Adobe bridge is unusable here because wrapper schema accepts `files: string[]` while the underlying MCP requires fileParam objects; both plain file-id strings and JSON-string/object repair attempts fail validation.
+- Adobe Creative Cloud search found no existing copy by exact name or broad Parking/駐車場/レベル1 queries.
+- `/mnt/data` is empty in this Chat session.
+- Git history inspection confirmed no committed canonical `parking-remaster-v1/assets/master.webp` or `atlas.webp` blob/path; prior G1 only verified them locally before chunk transfer.
+- Therefore G2i remains BLOCKED, not PASS. Do not generate/re-render a replacement MASTER, do not use alternate parking images, and do not advance to part-09.
+- Exact resume requirement: regain raw access to the existing approved File Library source (or the exact canonical 448,118-byte WebP), then create and verify only `.transfer/master.part-08.b64`.
