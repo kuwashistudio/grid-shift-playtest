@@ -8,6 +8,7 @@ on:
     paths:
       - "parking-remaster-v1/index.html"
       - "parking-remaster-v1/scripts/validate_runtime_mobile.py"
+      - "parking-remaster-v1/scripts/validate_instant_start_audio.py"
       - ".github/workflows/parking-remaster-runtime-qa.yml"
 
 permissions:
@@ -24,3 +25,7 @@ jobs:
       - name: Validate touch targets and interaction guards
         working-directory: parking-remaster-v1
         run: python scripts/validate_runtime_mobile.py
+
+      - name: Validate instant-start and iPhone audio recovery
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_instant_start_audio.py

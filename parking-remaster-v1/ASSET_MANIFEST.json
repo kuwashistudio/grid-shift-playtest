@@ -4,10 +4,10 @@
   "source": "reconstructed from index_embedded_canonical.html",
   "artifacts": {
     "index.html": {
-      "bytes": 10119,
-      "sha256": "358e41514dea77f3d8e07eb5e9facfe17f7df23fadccf57c323aa5e829a04e04",
-      "git_blob": "419b868d01047e17f89a111cd987abe4532794a8",
-      "note": "Runtime consumes generated canonical Level Data and delegates blocker/legal logic to game_logic.js functional core."
+      "bytes": 13627,
+      "sha256": "a5dad83a6fc41d428af3b00c01ca88eb503e6b5cbbad5d87048dec0dd8ac59a9",
+      "git_blob": "44cb2bfdc7e4d5a2c45a53d0be8c3028ec872bfd",
+      "note": "Immediate-play runtime: no pre-game menu/start gate; first car tap is gameplay+audio unlock. iOS Web Audio interrupted-state recovery and mute control implemented."
     },
     "assets/master.webp": {
       "bytes": 448118,

@@ -3,9 +3,9 @@
   "status": "PASS",
   "verified_at": "2026-09-18",
   "runtime": {
-    "bytes": 10119,
-    "sha256": "358e41514dea77f3d8e07eb5e9facfe17f7df23fadccf57c323aa5e829a04e04",
-    "git_blob": "419b868d01047e17f89a111cd987abe4532794a8"
+    "bytes": 13627,
+    "sha256": "a5dad83a6fc41d428af3b00c01ca88eb503e6b5cbbad5d87048dec0dd8ac59a9",
+    "git_blob": "44cb2bfdc7e4d5a2c45a53d0be8c3028ec872bfd"
   },
   "checks": {
     "car_count": 10,
@@ -33,6 +33,27 @@
       "level_001_regression_mismatches": 0,
       "schema_v2_fixture_validation": "PASS",
       "status": "PASS"
+    },
+    "instant_start_retention": {
+      "pregame_screen": "NONE",
+      "first_meaningful_screen": "PLAYABLE_LEVEL",
+      "first_car_tap_is_gameplay": true,
+      "first_car_tap_unlocks_audio": true,
+      "controls_ready_measurement_hook": true,
+      "product_target_ms": 1000,
+      "target_device_measurement": "PENDING_VISUAL_RUNTIME_REBUILD",
+      "status": "IMPLEMENTED"
+    },
+    "iphone_audio_capture_hardening": {
+      "handles_suspended": true,
+      "handles_interrupted": true,
+      "visibility_pagehide_pageshow_recovery": true,
+      "recreate_context_on_next_user_gesture": true,
+      "master_compressor": true,
+      "harsh_square_sawtooth_removed": true,
+      "mute_toggle": true,
+      "screen_recording_saved_file_test": "PENDING_TARGET_IPHONE",
+      "status": "IMPLEMENTED_PENDING_DEVICE_CAPTURE"
     }
   }
 }

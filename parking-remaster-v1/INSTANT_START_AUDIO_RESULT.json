@@ -1,0 +1,31 @@
+{
+  "gate": "INSTANT_START_IPHONE_AUDIO",
+  "status": "IMPLEMENTED_PENDING_TARGET_DEVICE_CAPTURE",
+  "verified_at": "2026-09-18",
+  "evidence": {
+    "field_learning": "GRID SHIFT: >50% abandoned <=30s with mode-select opening; most who passed early drop played >60s",
+    "youtube_playables": "gameReady only when interactable; interaction recommended within 5s",
+    "parking_remaster_target_ms": 1000,
+    "playgama": "fast/easy start, sound required, mute required, sound must stop when minimized",
+    "webkit_issue": "AudioContext may become interrupted after focus loss on iOS"
+  },
+  "implementation": {
+    "first_screen": "playable Level 1",
+    "pregame_ui": [],
+    "first_car_tap": [
+      "gameplay action",
+      "audio unlock/recovery"
+    ],
+    "master_image_preload": true,
+    "audio_context_recreate_after_visibility_interruption": true,
+    "dynamics_compressor": true,
+    "mute_button": true,
+    "square_sawtooth_core_sfx_removed": true
+  },
+  "verification": {
+    "independent_source_audit": "PASS",
+    "existing_runtime_workflow_run_35354568944": "PASS",
+    "target_iphone_controls_ready_under_1000ms": "PENDING",
+    "target_iphone_saved_screen_recording_audio": "PENDING"
+  }
+}

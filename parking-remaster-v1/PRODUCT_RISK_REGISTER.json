@@ -14,7 +14,8 @@
       "id": "R2",
       "name": "first_touch_comprehension",
       "status": "OPEN",
-      "retire_by": "uncoached fresh-player test"
+      "retire_by": "uncoached fresh-player test",
+      "progress": "Pre-game friction risk is now explicitly addressed: Level 1 is the first meaningful screen, with no mode selector/menu/Start/audio-unlock gate; first car tap performs gameplay immediately. Product target is controls available <=1.0s. Fresh uncoached comprehension evidence is still required."
     },
     {
       "id": "R3",
@@ -49,7 +50,7 @@
       "name": "iphone_runtime_stability",
       "status": "PARTIAL",
       "retire_by": "target-device repeated solve/restart QA",
-      "progress": "Static/input QA exists, but full target-device runtime cannot be considered production-stable while required interaction sprites/patches are absent. Re-test after clean-plate + sprite runtime migration."
+      "progress": "Runtime QA passes after instant-start/audio hardening. iOS/WebKit suspended/interrupted AudioContext states are handled by dirtying/recreating context on the next user gesture after visibility/page transitions; mute and compressor are present. Still open: missing production visual assets plus target-iPhone screen-recording verification of clean internal SFX."
     },
     {
       "id": "R8",
