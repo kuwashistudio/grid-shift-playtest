@@ -27,13 +27,14 @@
       "name": "difficulty_wave_control",
       "status": "PARTIAL",
       "retire_by": "12-main beat chart + human/metric agreement",
-      "progress": "Deterministic structural Difficulty Features v1 exists and Level 1 baseline is independently verified. Still open: 12-main waveform construction and agreement with fresh-player difficulty observations."
+      "progress": "Difficulty Features v1 plus a validated 12-Main heartbeat/recovery Beat Chart now exist. Still open: actual authored levels and fresh-player agreement with intended waveform."
     },
     {
       "id": "R5",
       "name": "content_variety",
-      "status": "OPEN",
-      "retire_by": "14-level slice + duplicate/structure review"
+      "status": "PARTIAL",
+      "retire_by": "14-level slice + duplicate/structure review",
+      "progress": "Beat Chart defines distinct intended roles and novelty isolation across 14 slice levels. Still open: authored-level structural diversity and duplicate detection."
     },
     {
       "id": "R6",

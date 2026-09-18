@@ -11,5 +11,20 @@
   "unresolved": [
     "H1 exact visible fail mechanic"
   ],
-  "authoring_locked_until": "H1 research decision + per-level target feature briefs"
+  "authoring_locked_until": "H1 research decision + per-level target feature briefs",
+  "verification": {
+    "method": "Independent JavaScript validation from committed Beat Chart JSON",
+    "result": "PASS",
+    "chart_blob": "12999653d8d812807d4f06434244d99a084fa100",
+    "checks": [
+      "14 total levels",
+      "12 Main + 2 Hard",
+      "new mechanics debut only on easy/non-peak levels",
+      "Main peak followed by recovery where applicable",
+      "first hard-fail is safe failure_teach",
+      "Hard remains optional",
+      "H1 exact fail mechanic remains RESEARCH_GATED"
+    ],
+    "violations": []
+  }
 }
