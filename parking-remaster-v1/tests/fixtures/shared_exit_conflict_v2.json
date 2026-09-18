@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "id": "fixture_shared_exit_conflict",
+  "chapter": 0,
+  "sequence": 0,
+  "role": "test_fixture",
+  "objective": {
+    "type": "clear_all_vehicles"
+  },
+  "board": {
+    "width": 941,
+    "height": 1672,
+    "movement_bounds": {
+      "left": 90,
+      "right": 850,
+      "top": 445,
+      "bottom": 1310
+    },
+    "corridor_inset": 4
+  },
+  "mechanics": [
+    "vehicle_blocking",
+    "shared_exit_conflict"
+  ],
+  "tutorial": {
+    "first_focus_vehicle": null,
+    "hard_fail_enabled": true
+  },
+  "vehicles": [
+    {
+      "id": "merge_a",
+      "body": [
+        300,
+        700,
+        400,
+        900
+      ],
+      "sprite": [
+        290,
+        690,
+        410,
+        910
+      ],
+      "dir": "up"
+    },
+    {
+      "id": "merge_b",
+      "body": [
+        540,
+        700,
+        640,
+        900
+      ],
+      "sprite": [
+        530,
+        690,
+        650,
+        910
+      ],
+      "dir": "up"
+    },
+    {
+      "id": "safe_c",
+      "body": [
+        120,
+        1000,
+        320,
+        1100
+      ],
+      "sprite": [
+        110,
+        990,
+        330,
+        1110
+      ],
+      "dir": "left"
+    }
+  ],
+  "conflict_groups": [
+    {
+      "id": "exit_merge",
+      "vehicle_ids": [
+        "merge_a",
+        "merge_b"
+      ],
+      "zone": [
+        430,
+        390,
+        510,
+        520
+      ],
+      "clear_event": "exit_complete"
+    }
+  ],
+  "design": {
+    "introduced": [
+      "shared_exit_conflict"
+    ],
+    "mastered": [
+      "vehicle_blocking"
+    ],
+    "combined": [],
+    "target_band": "easy",
+    "expected_player_experience": [
+      "visible_cause",
+      "safe_alternative_action",
+      "fast_retry"
+    ]
+  }
+}

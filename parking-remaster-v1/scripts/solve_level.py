@@ -51,6 +51,104 @@ def build_rules(level):
     return ids, blocker, legal
 
 
+def conflict_groups(level):
+    return level.get("conflict_groups", [])
+
+
+def conflict_group_for_vehicle(level, vehicle_id):
+    groups = [g for g in conflict_groups(level) if vehicle_id in g["vehicle_ids"]]
+    if len(groups) > 1:
+        raise ValueError(f"vehicle belongs to multiple conflict groups: {vehicle_id}")
+    return groups[0] if groups else None
+
+
+def create_game_state(level):
+    return {
+        "active_ids": [v["id"] for v in level["vehicles"]],
+        "occupied_groups": {},
+        "failed": None,
+    }
+
+
+def copy_game_state(state):
+    return {
+        "active_ids": list(state["active_ids"]),
+        "occupied_groups": dict(state["occupied_groups"]),
+        "failed": dict(state["failed"]) if state["failed"] else None,
+    }
+
+
+def conflict_risk(level, state, vehicle_id):
+    group = conflict_group_for_vehicle(level, vehicle_id)
+    if not group:
+        return None
+    occupant = state["occupied_groups"].get(group["id"])
+    if occupant and occupant != vehicle_id:
+        return {"group_id": group["id"], "occupant_id": occupant}
+    return None
+
+
+def build_state_rules(level):
+    ids, blocker, legal = build_rules(level)
+
+    def safe_moves(state):
+        if state["failed"]:
+            return []
+        alive = set(state["active_ids"])
+        return [vid for vid in legal(alive) if conflict_risk(level, state, vid) is None]
+
+    def risky_conflict_moves(state):
+        if state["failed"]:
+            return []
+        alive = set(state["active_ids"])
+        return [vid for vid in legal(alive) if conflict_risk(level, state, vid) is not None]
+
+    def attempt_launch(state, vehicle_id):
+        nxt = copy_game_state(state)
+        if nxt["failed"]:
+            return {"status": "failed_state", "state": nxt}
+        if vehicle_id not in nxt["active_ids"]:
+            return {"status": "inactive", "state": nxt}
+
+        alive = set(nxt["active_ids"])
+        static_blocker = blocker(vehicle_id, alive)
+        if static_blocker:
+            return {"status": "blocked", "blocker_id": static_blocker, "state": nxt}
+
+        risk = conflict_risk(level, nxt, vehicle_id)
+        if risk:
+            nxt["failed"] = {
+                "type": "shared_exit_conflict",
+                "group_id": risk["group_id"],
+                "occupant_id": risk["occupant_id"],
+                "attempted_vehicle_id": vehicle_id,
+            }
+            return {"status": "conflict_fail", "failure": dict(nxt["failed"]), "state": nxt}
+
+        nxt["active_ids"] = [vid for vid in nxt["active_ids"] if vid != vehicle_id]
+        group = conflict_group_for_vehicle(level, vehicle_id)
+        if group:
+            nxt["occupied_groups"][group["id"]] = vehicle_id
+        return {"status": "launched", "group_id": group["id"] if group else None, "state": nxt}
+
+    def complete_exit(state, vehicle_id):
+        nxt = copy_game_state(state)
+        for group in conflict_groups(level):
+            if nxt["occupied_groups"].get(group["id"]) == vehicle_id:
+                del nxt["occupied_groups"][group["id"]]
+        return nxt
+
+    return {
+        "ids": ids,
+        "blocker": blocker,
+        "legal": legal,
+        "safe_moves": safe_moves,
+        "risky_conflict_moves": risky_conflict_moves,
+        "attempt_launch": attempt_launch,
+        "complete_exit": complete_exit,
+    }
+
+
 def analyze(level):
     ids, blocker, legal = build_rules(level)
     states = 0

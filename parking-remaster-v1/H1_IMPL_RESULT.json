@@ -1,0 +1,18 @@
+{
+  "gate": "H1_IMPL_SHARED_EXIT_CONFLICT_STATE",
+  "status": "PENDING_EXECUTION",
+  "verified_at": "2026-09-18",
+  "architecture": "explicit event state; rendering time is non-authoritative",
+  "schema": "schemas/level_v2.schema.json",
+  "fixture": "tests/fixtures/shared_exit_conflict_v2.json",
+  "validator": "scripts/validate_shared_exit_conflict_parity.py",
+  "expected_trace": [
+    "initial all safe",
+    "launch merge_a occupies exit_merge",
+    "merge_b risky while safe_c remains safe",
+    "attempt merge_b => conflict_fail",
+    "safe_c launches without waiting",
+    "exit_complete merge_a clears group",
+    "merge_b launches safely"
+  ]
+}

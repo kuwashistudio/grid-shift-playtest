@@ -38,5 +38,84 @@
       .map(v=>v.id);
   }
 
-  return Object.freeze({intersect,corridorFor,blockerId,legalMoves});
+  function conflictGroups(level){
+    return Array.isArray(level.conflict_groups)?level.conflict_groups:[];
+  }
+
+  function conflictGroupForVehicle(level,vehicleId){
+    const groups=conflictGroups(level).filter(g=>g.vehicle_ids.includes(vehicleId));
+    if(groups.length>1)throw new Error('Vehicle belongs to multiple conflict groups: '+vehicleId);
+    return groups[0]||null;
+  }
+
+  function createGameState(level){
+    return {activeIds:level.vehicles.map(v=>v.id),occupiedGroups:{},failed:null};
+  }
+
+  function copyState(state){
+    return {
+      activeIds:[...state.activeIds],
+      occupiedGroups:{...state.occupiedGroups},
+      failed:state.failed?{...state.failed}:null
+    };
+  }
+
+  function conflictRisk(level,state,vehicleId){
+    const group=conflictGroupForVehicle(level,vehicleId);
+    if(!group)return null;
+    const occupant=state.occupiedGroups[group.id]||null;
+    return occupant&&occupant!==vehicleId?{groupId:group.id,occupantId:occupant}:null;
+  }
+
+  function safeMoves(level,state){
+    if(state.failed)return [];
+    const active=new Set(state.activeIds);
+    return legalMoves(level,active).filter(id=>!conflictRisk(level,state,id));
+  }
+
+  function riskyConflictMoves(level,state){
+    if(state.failed)return [];
+    const active=new Set(state.activeIds);
+    return legalMoves(level,active).filter(id=>!!conflictRisk(level,state,id));
+  }
+
+  function attemptLaunch(level,state,vehicleId){
+    const next=copyState(state);
+    if(next.failed)return {status:'failed_state',state:next};
+    if(!next.activeIds.includes(vehicleId))return {status:'inactive',state:next};
+
+    const active=new Set(next.activeIds);
+    const staticBlocker=blockerId(level,vehicleId,active);
+    if(staticBlocker)return {status:'blocked',blockerId:staticBlocker,state:next};
+
+    const risk=conflictRisk(level,next,vehicleId);
+    if(risk){
+      next.failed={
+        type:'shared_exit_conflict',
+        groupId:risk.groupId,
+        occupantId:risk.occupantId,
+        attemptedVehicleId:vehicleId
+      };
+      return {status:'conflict_fail',failure:{...next.failed},state:next};
+    }
+
+    next.activeIds=next.activeIds.filter(id=>id!==vehicleId);
+    const group=conflictGroupForVehicle(level,vehicleId);
+    if(group)next.occupiedGroups[group.id]=vehicleId;
+    return {status:'launched',groupId:group?group.id:null,state:next};
+  }
+
+  function completeExit(level,state,vehicleId){
+    const next=copyState(state);
+    for(const group of conflictGroups(level)){
+      if(next.occupiedGroups[group.id]===vehicleId)delete next.occupiedGroups[group.id];
+    }
+    return next;
+  }
+
+  return Object.freeze({
+    intersect,corridorFor,blockerId,legalMoves,
+    conflictGroups,conflictGroupForVehicle,createGameState,
+    conflictRisk,safeMoves,riskyConflictMoves,attemptLaunch,completeExit
+  });
 });
