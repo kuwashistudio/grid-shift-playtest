@@ -147,3 +147,26 @@ Independent local LaMa erase patches:
 - each patch is inferred from the untouched approved MASTER;
 - no generated result becomes another patch's input;
 - the experiment tests both individual patch quality and the all-patches composite.
+
+
+### Independent local LaMa patches — final
+**REJECTED after bounded repair**
+
+Run 1 — margin 7px:
+- execution PASS;
+- cars removed;
+- composite substantially better than global LaMa;
+- full-resolution review still showed rectangular dark former-car regions.
+
+Run 2 — shadow-expanded margin 26px:
+- execution PASS;
+- shadow coverage improved;
+- EXIT and most parking lines remained intact;
+- full-resolution review still exposed rectangular dark patches across the middle/lower lot and visible patch transitions in the upper-right area.
+
+This was the one allowed bounded repair inside the same method.
+
+**LaMa clean-plate tuning is now retired.**
+Do not return to standard/sequential/refined/hybrid/local/margin tuning unless new external evidence materially changes the method.
+
+Active route: MASTER-only exemplar texture synthesis / Image Quilting.
