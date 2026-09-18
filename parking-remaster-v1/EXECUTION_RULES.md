@@ -42,3 +42,8 @@ G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 mast
 26. **The assistant owns Chat handoff timing.** The user is not expected to know or monitor the Chat/context limit. Before context complexity threatens continuity, the assistant must proactively produce a formal HANDOFF PACKAGE/prompt for the next Chat without waiting to be asked.
 27. **Handoff before degradation, not after truncation.** A handoff must preserve current CANON, repository/branch, completed commits, current macro phase, open risks, exact gate status, blockers, verification evidence, and the single best next action.
 28. **Do not interrupt productive work prematurely.** Continue in the current Chat while context remains reliable; trigger handoff only when it materially protects continuity and execution quality.
+
+
+## Visual source fail-closed
+29. **Approved visual source only.** Parking Remaster production visuals must derive from the approved MASTER. If a transfer/edit tool rejects the source, change the transfer route; never substitute or regenerate a different parking scene.
+30. **Separate source transfer failure from image-edit failure.** A URL allowlist/upload-wrapper error is not evidence that the visual edit method failed. Record it as an input-route blocker and preserve the intended edit pipeline.

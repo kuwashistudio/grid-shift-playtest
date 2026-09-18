@@ -1,6 +1,6 @@
 {
   "gate": "VISUAL_PRODUCTION_GATE",
-  "status": "BLOCKED_EXPECTED",
+  "status": "BLOCKED_INPUT_TRANSFER",
   "verified_at": "2026-09-18",
   "reason": "Canonical master is present, but current runtime references missing patch/sprite/tutorial assets and no reusable production sprite set exists in the repository.",
   "current_master": {
@@ -14,5 +14,25 @@
     "visual_QA",
     "then_author_Level_2_only"
   ],
-  "validator": "scripts/validate_visual_assets.py"
+  "validator": "scripts/validate_visual_assets.py",
+  "updated_at": "2026-09-18",
+  "latest_attempts": [
+    {
+      "route": "Adobe asset_openai_file_upload from GitHub raw URL",
+      "status": "FAILED",
+      "reason": "Connector wrapper/backend fileParams type contract mismatch."
+    },
+    {
+      "route": "Adobe image_instruct_edit directly from GitHub raw URL",
+      "status": "FAILED_BEFORE_EDIT",
+      "reason": "raw.githubusercontent.com is not on Adobe trusted URL allowlist."
+    }
+  ],
+  "source_integrity": {
+    "github_master_present": true,
+    "file_library_original_reconfirmed": true,
+    "replacement_image_used": false,
+    "image_mutation_occurred": false
+  },
+  "next_gate": "VP-2A: stage the stable ChatGPT File Library master reference into Adobe, then make one clean-plate candidate."
 }
