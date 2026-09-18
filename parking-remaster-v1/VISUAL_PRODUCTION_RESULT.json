@@ -34,7 +34,7 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "Run and directly review MASTER-only Image Quilting. If it fails visually, research a deterministic structure-aware reconstruction rather than returning to LaMa tuning.",
+  "next_gate": "Package exact canonical MASTER + sprites locally; evaluate small deterministic exemplar/structure-aware methods without CI wait. Promote only after direct visual QA.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
@@ -45,7 +45,8 @@
     "grabcut_sprite_set": "PROVISIONAL_PASS_FULL_SIZE_ALPHA_QA_REQUIRED",
     "lama_hybrid_frequency_separation": "REJECTED_VISUAL_QA",
     "lama_independent_local_margin_7": "REJECTED_VISUAL_QA",
-    "lama_independent_local_shadow_margin_26": "REJECTED_VISUAL_QA"
+    "lama_independent_local_shadow_margin_26": "REJECTED_VISUAL_QA",
+    "bmquilting_master_only": "RETIRED_INTEGRATION_FAILURE"
   },
   "hybrid_frequency_separation": {
     "ci_run_id": 35382261854,
@@ -68,5 +69,21 @@
     },
     "conclusion": "Bounded LaMa repair exhausted. Do not tune LaMa masks/margins further."
   },
-  "active_clean_plate_route": "MASTER_ONLY_IMAGE_QUILTING"
+  "active_clean_plate_route": "LOCAL_MASTER_DIRECT_EXPERIMENTS",
+  "bmquilting": {
+    "commit": "9fd5f97bef7472580e68fdadc15822f7ac896203",
+    "license": "MIT",
+    "run_1": {
+      "id": 35383592714,
+      "status": "FAIL",
+      "reason": "Built wheel installed but package was not importable."
+    },
+    "repair": "Pinned source checkout + PYTHONPATH to src.",
+    "run_2": {
+      "id": 35383759791,
+      "status": "FAIL",
+      "reason": "Library seam-blend path raises TypeError in create_adaptive_blend_mask under current NumPy/OpenCV stack."
+    },
+    "conclusion": "One bounded integration repair exhausted. Do not patch third-party library further."
+  }
 }

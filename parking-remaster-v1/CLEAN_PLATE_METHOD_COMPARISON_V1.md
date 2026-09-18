@@ -170,3 +170,29 @@ This was the one allowed bounded repair inside the same method.
 Do not return to standard/sequential/refined/hybrid/local/margin tuning unless new external evidence materially changes the method.
 
 Active route: MASTER-only exemplar texture synthesis / Image Quilting.
+
+
+### bmquilting MASTER-only Image Quilting
+**RETIRED — integration failure after one bounded repair**
+
+Pinned:
+- commit `9fd5f97bef7472580e68fdadc15822f7ac896203`
+- MIT
+
+Run 1:
+- dependency install succeeded;
+- built wheel was not importable.
+
+Bounded repair:
+- clone exact commit;
+- expose `src/` via PYTHONPATH.
+
+Run 2:
+- import succeeded;
+- fill execution reached library internals;
+- seam-blend code raised `TypeError: only 0-dimensional arrays can be converted to Python scalars` in `create_adaptive_blend_mask` with the current NumPy/OpenCV stack.
+
+Do not patch the third-party library further. The generic Image Quilting idea remains available, but this implementation is retired.
+
+### Process change
+The canonical MASTER and full sprite set are now packaged for direct local experimentation. Future candidate algorithms should be executed and visually rejected/accepted locally first; CI is added only after a method actually looks production-worthy.
