@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "updated": "2026-09-18",
+  "production_greenlight": false,
+  "decision_state": "PRE_PRODUCTION",
+  "critical_risks": [
+    {
+      "id": "R1",
+      "name": "core_fun",
+      "status": "OPEN",
+      "retire_by": "fresh-player Level 1 + slice play evidence"
+    },
+    {
+      "id": "R2",
+      "name": "first_touch_comprehension",
+      "status": "OPEN",
+      "retire_by": "uncoached fresh-player test"
+    },
+    {
+      "id": "R3",
+      "name": "fair_failure_retry",
+      "status": "OPEN",
+      "retire_by": "slice levels 10-12 + retry evidence"
+    },
+    {
+      "id": "R4",
+      "name": "difficulty_wave_control",
+      "status": "OPEN",
+      "retire_by": "12-main beat chart + human/metric agreement"
+    },
+    {
+      "id": "R5",
+      "name": "content_variety",
+      "status": "OPEN",
+      "retire_by": "14-level slice + duplicate/structure review"
+    },
+    {
+      "id": "R6",
+      "name": "repeatable_level_production",
+      "status": "OPEN",
+      "retire_by": "level schema + solver + measured production cost"
+    },
+    {
+      "id": "R7",
+      "name": "iphone_runtime_stability",
+      "status": "PARTIAL",
+      "retire_by": "target-device repeated solve/restart QA"
+    },
+    {
+      "id": "R8",
+      "name": "longer_term_continuation",
+      "status": "OPEN_LATER",
+      "retire_by": "30-level pilot + controlled-release evidence"
+    }
+  ],
+  "rule": "Content scale remains locked while any R1-R7 critical risk is OPEN."
+}
