@@ -33,35 +33,27 @@ body::before{content:"";position:fixed;inset:-40px;background:linear-gradient(#1
 <div id="flash"></div>
 <div id="clear"><div id="badge">✓</div><button id="restart" aria-label="restart">↻</button></div>
 </div></div>
+<script src="levels.generated.js"></script>
 <script>
 (()=>{
-const W=941,H=1672,stage=document.querySelector('#stage'),wrap=document.querySelector('#wrap');
+const level=window.__PARKING_LEVELS__?.level_001;if(!level)throw new Error('Level data missing: level_001');
+const W=level.board.width,H=level.board.height,stage=document.querySelector('#stage'),wrap=document.querySelector('#wrap');
 const master=document.querySelector('#master'),clear=document.querySelector('#clear');
 function fit(){const vw=innerWidth,vh=innerHeight;const s=Math.max(vw/W,vh/H);const ww=W*s,hh=H*s;Object.assign(wrap.style,{width:ww+'px',height:hh+'px',left:(vw-ww)/2+'px',top:(vh-hh)/2+'px'});stage.style.transform=`scale(${s})`;}
 addEventListener('resize',fit,{passive:true});fit();
 
-const defs=[
- {id:'green_tl',sprite:[112,457,243,728],body:[125,486,230,709],dir:'up'},
- {id:'red_top',sprite:[367,492,513,753],body:[383,525,487,737],dir:'up',first:true},
- {id:'blue_top',sprite:[487,587,753,738],body:[510,617,724,723],dir:'left'},
- {id:'white_tr',sprite:[722,442,878,728],body:[748,481,842,705],dir:'up'},
- {id:'black_ml',sprite:[77,727,243,1043],body:[109,759,216,1019],dir:'up'},
- {id:'yellow_mid',sprite:[367,727,658,883],body:[400,759,639,866],dir:'left'},
- {id:'silver_mid',sprite:[362,877,683,1028],body:[392,904,650,1008],dir:'left'},
- {id:'white_bl',sprite:[257,1017,413,1318],body:[285,1043,389,1284],dir:'up'},
- {id:'blue_bottom',sprite:[392,1172,653,1323],body:[424,1204,628,1299],dir:'left'},
- {id:'green_br',sprite:[617,1017,763,1318],body:[641,1054,736,1287],dir:'up'}
-];
+const bounds=level.board.movement_bounds,inset=level.board.corridor_inset;
+const defs=level.vehicles.map(c=>({...c,first:c.id===level.tutorial.first_focus_vehicle}));
 const v={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
 const baseAngle={up:-Math.PI/2,down:Math.PI/2,left:Math.PI,right:0};
 const cars=new Map();let moved=0,audioCtx=null,hintTimer=null,firstDone=false;
 function intersect(a,b){return !(a[2]<=b[0]||a[0]>=b[2]||a[3]<=b[1]||a[1]>=b[3]);}
 function hitbox(body){const [x1,y1,x2,y2]=body,cx=(x1+x2)/2,cy=(y1+y2)/2,w=Math.max(112,x2-x1),h=Math.max(112,y2-y1);return [cx-w/2,cy-h/2,cx+w/2,cy+h/2]}
 function blocked(c){const [dx,dy]=v[c.dir],b=c.body;let corridor;
-  if(c.dir==='up')corridor=[b[0]+4,445,b[2]-4,b[1]];
-  else if(c.dir==='down')corridor=[b[0]+4,b[3],b[2]-4,1310];
-  else if(c.dir==='left')corridor=[90,b[1]+4,b[0],b[3]-4];
-  else corridor=[b[2],b[1]+4,850,b[3]-4];
+  if(c.dir==='up')corridor=[b[0]+inset,bounds.top,b[2]-inset,b[1]];
+  else if(c.dir==='down')corridor=[b[0]+inset,b[3],b[2]-inset,bounds.bottom];
+  else if(c.dir==='left')corridor=[bounds.left,b[1]+inset,b[0],b[3]-inset];
+  else corridor=[b[2],b[1]+inset,bounds.right,b[3]-inset];
   for(const o of cars.values()){if(o===c||o.moved)continue;if(intersect(corridor,o.body))return o;}return null;
 }
 function audio(){if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}

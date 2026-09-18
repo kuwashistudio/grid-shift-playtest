@@ -1,0 +1,27 @@
+{
+  "gate": "LDP-2_RUNTIME_CONSUMES_LEVEL_DATA",
+  "status": "PASS",
+  "verified_at": "2026-09-18",
+  "architecture": {
+    "canonical_authoring_source": "levels/level_*.json",
+    "generated_runtime_bundle": "levels.generated.js",
+    "runtime_loader": "relative script include",
+    "runtime_network_fetch": false,
+    "reason": "Self-contained YouTube/Playgama bundle compatibility and deterministic startup."
+  },
+  "level_001": {
+    "vehicle_count": 10,
+    "board": {
+      "width": 941,
+      "height": 1672,
+      "movement_bounds": {
+        "left": 90,
+        "right": 850,
+        "top": 445,
+        "bottom": 1310
+      },
+      "corridor_inset": 4
+    },
+    "tutorial_focus": "red_top"
+  }
+}
