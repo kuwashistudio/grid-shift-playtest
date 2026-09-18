@@ -1,23 +1,20 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import re
+import json
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML = ROOT / "index.html"
+LEVEL = ROOT / "levels" / "level_001.json"
+LOGIC = ROOT / "game_logic.js"
 
 EXPECTED_CARS = 10
 MIN_MASTER_HITBOX = 112
 
-CAR_RE = re.compile(
-    r"\{id:'([^']+)'.*?body:\[([0-9]+),([0-9]+),([0-9]+),([0-9]+)\]",
-    re.S,
-)
 
-
-def expand(box: tuple[int, int, int, int]) -> tuple[float, float, float, float]:
+def expand(box):
     x1, y1, x2, y2 = box
     cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
     w = max(MIN_MASTER_HITBOX, x2 - x1)
@@ -25,22 +22,20 @@ def expand(box: tuple[int, int, int, int]) -> tuple[float, float, float, float]:
     return cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2
 
 
-def overlaps(a: tuple[float, float, float, float], b: tuple[float, float, float, float]) -> bool:
+def overlaps(a, b):
     return not (a[2] <= b[0] or a[0] >= b[2] or a[3] <= b[1] or a[1] >= b[3])
 
 
-def require(condition: bool, message: str) -> None:
+def require(condition, message):
     if not condition:
         raise AssertionError(message)
 
 
-def main() -> int:
+def main():
     html = HTML.read_text(encoding="utf-8")
-
-    cars = [
-        (m.group(1), tuple(map(int, m.groups()[1:])))
-        for m in CAR_RE.finditer(html)
-    ]
+    logic = LOGIC.read_text(encoding="utf-8")
+    level = json.loads(LEVEL.read_text(encoding="utf-8"))
+    cars = [(v["id"], tuple(v["body"])) for v in level["vehicles"]]
     require(len(cars) == EXPECTED_CARS, f"expected {EXPECTED_CARS} cars, found {len(cars)}")
 
     boxes = [(name, expand(box)) for name, box in cars]
@@ -49,7 +44,7 @@ def main() -> int:
         require(box[3] - box[1] >= MIN_MASTER_HITBOX, f"{name}: hitbox height regressed")
 
     for i, (name_a, box_a) in enumerate(boxes):
-        for name_b, box_b in boxes[i + 1 :]:
+        for name_b, box_b in boxes[i + 1:]:
             require(not overlaps(box_a, box_b), f"ambiguous hitboxes: {name_a} overlaps {name_b}")
 
     require("function hitbox(body)" in html, "runtime hitbox expansion missing")
@@ -59,14 +54,15 @@ def main() -> int:
     require("if(c.moved||c.bumping)return" in html, "rapid-tap bump lock missing")
     require("translate3d(${tx}px,${ty}px,0) rotate(${a}rad)" in html, "transform-only exit motion missing")
     require("will-change:transform,left,top" not in html, "layout-affecting will-change regression")
+    require('<script src="game_logic.js"></script>' in html, "functional game logic include missing")
+    require("logic.blockerId(level,c.id,activeIds())" in html, "runtime does not use shared JS logic")
+    require("function blockerId" in logic and "function legalMoves" in logic, "pure game logic API missing")
 
-    # Apple 44pt target check for common iPhone portrait CSS widths.
     for width in (375, 390, 393, 430):
-        scale = width / 941
-        minimum_css_px = MIN_MASTER_HITBOX * scale
-        require(minimum_css_px >= 44, f"{width}px viewport target falls below 44px: {minimum_css_px:.2f}")
+        minimum_css_px = MIN_MASTER_HITBOX * width / level["board"]["width"]
+        require(minimum_css_px >= 44, f"{width}px viewport target below 44px: {minimum_css_px:.2f}")
 
-    print("PASS runtime mobile QA: 10 cars, >=44px touch targets, no hitbox overlap, guarded pointer input")
+    print("PASS runtime mobile QA: Level Data targets, no overlap, guarded pointer input, functional logic core")
     return 0
 
 

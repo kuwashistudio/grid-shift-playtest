@@ -1,0 +1,13 @@
+{
+  "gate": "LDP-3_SOLVER_RUNTIME_PARITY",
+  "status": "PENDING_EXECUTION",
+  "method": "Differential exhaustive parity: independent Python solver vs browser/Node game_logic.js",
+  "level": "level_001",
+  "expected_state_count": 1024,
+  "compares": [
+    "legal_moves",
+    "blocker_id_for_each_active_vehicle"
+  ],
+  "architecture": "functional core / imperative shell",
+  "note": "Set PASS only after executing validator against committed files."
+}
