@@ -1,0 +1,70 @@
+name: Parking Remaster Visual Asset Candidate
+
+on:
+  push:
+    branches:
+      - parking-remaster-v1-staging-20260917
+    paths:
+      - 'parking-remaster-v1/scripts/build_visual_asset_candidates.py'
+      - 'parking-remaster-v1/assets/master.webp'
+      - 'parking-remaster-v1/levels/level_001.json'
+      - '.github/workflows/parking-remaster-visual-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: parking-remaster-visual-assets
+  cancel-in-progress: false
+
+jobs:
+  build-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deterministic image stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy==2.2.6" "opencv-python-headless==4.12.0.88"
+
+      - name: Build zero-SaaS visual candidates
+        run: |
+          python parking-remaster-v1/scripts/build_visual_asset_candidates.py
+
+      - name: Validate generated candidate structure
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("parking-remaster-v1")
+          qa=json.loads((root/"VISUAL_FACTORY_CANDIDATE_QA.json").read_text())
+          assert qa["checks"]["sprite_count"] == 10
+          assert qa["checks"]["expected_sprite_count"] == 10
+          assert qa["checks"]["unchanged_outside_mask"] is True
+          assert 0.01 < qa["checks"]["plate_mask_fraction"] < 0.40
+          for item in qa["sprites"].values():
+              assert 0.12 <= item["coverage"] <= 0.90
+          print("PASS candidate structural QA")
+          PY
+
+      - name: Persist candidates on staging
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add parking-remaster-v1/assets/candidates parking-remaster-v1/VISUAL_FACTORY_CANDIDATE_QA.json
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+          else
+            git commit -m "Build zero-SaaS visual asset candidates [skip ci]"
+            git push origin HEAD:parking-remaster-v1-staging-20260917
+          fi

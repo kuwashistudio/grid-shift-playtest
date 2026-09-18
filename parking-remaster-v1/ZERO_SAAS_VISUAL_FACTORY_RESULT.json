@@ -1,0 +1,14 @@
+{
+  "gate": "VP_ZERO_SAAS_FACTORY",
+  "status": "IMPLEMENTED_AWAITING_CI_EXECUTION",
+  "updated_at": "2026-09-18",
+  "selected_first_candidate": "OpenCV GrabCut + Telea/Navier-Stokes inpaint",
+  "paid_saas_dependency": false,
+  "model_checkpoint_dependency": false,
+  "fallback_if_visual_inpaint_fails": "LaMa clean-plate-only build-time evaluation",
+  "artifacts": [
+    "scripts/build_visual_asset_candidates.py",
+    ".github/workflows/parking-remaster-visual-assets.yml",
+    "ZERO_SAAS_VISUAL_FACTORY_RESEARCH_V1.md"
+  ]
+}
