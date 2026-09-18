@@ -1,0 +1,248 @@
+{
+  "gate": "VP_ZERO_SAAS_CANDIDATE",
+  "status": "CANDIDATE_BUILT_VISUAL_REVIEW_REQUIRED",
+  "source": {
+    "path": "assets/master.webp",
+    "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "width": 941,
+    "height": 1672
+  },
+  "method": {
+    "sprite_segmentation": "OpenCV GrabCut with deterministic mask initialization",
+    "clean_plate_candidates": [
+      "OpenCV Telea",
+      "OpenCV Navier-Stokes"
+    ],
+    "external_ai_api": false,
+    "external_model_checkpoint": false,
+    "rng_seed": 20260918,
+    "grabcut_iterations": 5,
+    "inpaint_radius": 5.0,
+    "plate_mask_dilate": 7
+  },
+  "sprites": {
+    "green_tl": {
+      "sprite_rect": [
+        112,
+        457,
+        243,
+        728
+      ],
+      "body_rect": [
+        125,
+        486,
+        230,
+        709
+      ],
+      "coverage": 0.422777,
+      "crop_width": 131,
+      "crop_height": 271,
+      "alpha_nonzero_pixels": 15009,
+      "sha256": "432a0925e75f99a8e16c4ad42d2c12890d647bfe0cd669f61b42151961bb4cc1",
+      "bytes": 83676
+    },
+    "red_top": {
+      "sprite_rect": [
+        367,
+        492,
+        513,
+        753
+      ],
+      "body_rect": [
+        383,
+        525,
+        487,
+        737
+      ],
+      "coverage": 0.524537,
+      "crop_width": 146,
+      "crop_height": 261,
+      "alpha_nonzero_pixels": 19988,
+      "sha256": "50615ab3eb04357420fcc6cab0eac82a7303bbc39b60968e33d2a3b79257da03",
+      "bytes": 90715
+    },
+    "blue_top": {
+      "sprite_rect": [
+        487,
+        587,
+        753,
+        738
+      ],
+      "body_rect": [
+        510,
+        617,
+        724,
+        723
+      ],
+      "coverage": 0.481278,
+      "crop_width": 266,
+      "crop_height": 151,
+      "alpha_nonzero_pixels": 19331,
+      "sha256": "8fd15855fe7cf8072b6292da753f4fa39a95771ee2dde4e26bff92b42b7684d0",
+      "bytes": 83523
+    },
+    "white_tr": {
+      "sprite_rect": [
+        722,
+        442,
+        878,
+        728
+      ],
+      "body_rect": [
+        748,
+        481,
+        842,
+        705
+      ],
+      "coverage": 0.41976,
+      "crop_width": 156,
+      "crop_height": 286,
+      "alpha_nonzero_pixels": 18728,
+      "sha256": "ab9765c76601ba43e7f02c444ddbabb3718fe49d41409e6fd7aa52b8b8a8bfe3",
+      "bytes": 102518
+    },
+    "black_ml": {
+      "sprite_rect": [
+        77,
+        727,
+        243,
+        1043
+      ],
+      "body_rect": [
+        109,
+        759,
+        216,
+        1019
+      ],
+      "coverage": 0.605841,
+      "crop_width": 166,
+      "crop_height": 316,
+      "alpha_nonzero_pixels": 31780,
+      "sha256": "830869d1f08f7aa097a15de753cf16d6d8607f3cf77f8dc26906937a5b6129f9",
+      "bytes": 119448
+    },
+    "yellow_mid": {
+      "sprite_rect": [
+        367,
+        727,
+        658,
+        883
+      ],
+      "body_rect": [
+        400,
+        759,
+        639,
+        866
+      ],
+      "coverage": 0.575227,
+      "crop_width": 291,
+      "crop_height": 156,
+      "alpha_nonzero_pixels": 26113,
+      "sha256": "b3de2cbcde3ea8704415177c709e3681119ab905e4b53bcb1273e67a102dafa7",
+      "bytes": 92251
+    },
+    "silver_mid": {
+      "sprite_rect": [
+        362,
+        877,
+        683,
+        1028
+      ],
+      "body_rect": [
+        392,
+        904,
+        650,
+        1008
+      ],
+      "coverage": 0.483691,
+      "crop_width": 321,
+      "crop_height": 151,
+      "alpha_nonzero_pixels": 23445,
+      "sha256": "b14cccdfae7cc1e7ad8653e6c021d70838a4d6334579b3e0dd31592f0d346359",
+      "bytes": 97196
+    },
+    "white_bl": {
+      "sprite_rect": [
+        257,
+        1017,
+        413,
+        1318
+      ],
+      "body_rect": [
+        285,
+        1043,
+        389,
+        1284
+      ],
+      "coverage": 0.447419,
+      "crop_width": 156,
+      "crop_height": 301,
+      "alpha_nonzero_pixels": 21009,
+      "sha256": "388461d647f621eceb712ea1cfa87d1f023ba0f4e5112567b224a2769ea89e8c",
+      "bytes": 106159
+    },
+    "blue_bottom": {
+      "sprite_rect": [
+        392,
+        1172,
+        653,
+        1323
+      ],
+      "body_rect": [
+        424,
+        1204,
+        628,
+        1299
+      ],
+      "coverage": 0.433889,
+      "crop_width": 261,
+      "crop_height": 151,
+      "alpha_nonzero_pixels": 17100,
+      "sha256": "f56deb267801e8fe02be3abbc1d70422ba6b43c34cf9e2cc3380a2eb63f54021",
+      "bytes": 81278
+    },
+    "green_br": {
+      "sprite_rect": [
+        617,
+        1017,
+        763,
+        1318
+      ],
+      "body_rect": [
+        641,
+        1054,
+        736,
+        1287
+      ],
+      "coverage": 0.419788,
+      "crop_width": 146,
+      "crop_height": 301,
+      "alpha_nonzero_pixels": 18448,
+      "sha256": "cd770ee40999b3a40cdf83a1d37973ca33f9d66a8046bd9df9f8d43b6316f4f5",
+      "bytes": 96380
+    }
+  },
+  "checks": {
+    "sprite_count": 10,
+    "expected_sprite_count": 10,
+    "plate_mask_fraction": 0.163778,
+    "telea_changed_pixels_outside_mask": 0,
+    "ns_changed_pixels_outside_mask": 0,
+    "unchanged_outside_mask": true
+  },
+  "outputs": {
+    "telea": {
+      "path": "assets/candidates/clean_plate_telea.png",
+      "sha256": "e51322c99542ee05bfe219cc12b9c8607e6dc432855ce411cc1381a23c070181",
+      "bytes": 2903069
+    },
+    "navier_stokes": {
+      "path": "assets/candidates/clean_plate_ns.png",
+      "sha256": "61b074f11a6d0e8e015173ed37b42c07631130a9fee105f4f96804e5d51156bf",
+      "bytes": 2788747
+    },
+    "mask": "assets/candidates/car_removal_mask.png",
+    "contact_sheet": "assets/candidates/candidate_contact_sheet.jpg"
+  },
+  "decision_rule": "Do not promote either clean plate or sprites to production until visual review passes. If line/texture reconstruction is inadequate, evaluate LaMa for clean-plate-only build-time use; do not change the approved visual master."
+}
