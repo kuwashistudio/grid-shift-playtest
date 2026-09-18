@@ -1,4 +1,4 @@
-# Parking Remaster — Chat Execution Rules v1
+# Parking Remaster — Chat Execution Rules v2
 
 These rules are mandatory for the remainder of this build.
 
@@ -12,6 +12,11 @@ These rules are mandatory for the remainder of this build.
 8. **Persistent resume point.** After each completed gate, update `BUILD_STATE.md` or a committed manifest so the next turn resumes deterministically.
 9. **Staging first, main last.** All work stays on `parking-remaster-v1-staging-20260917` until all QA gates pass. Main is touched only once at release.
 10. **User wait protection.** Do not bundle several long gates into one turn. Prefer a fast verified result now over a large unverified batch later.
+11. **Atomic means logical change, not artificial byte slicing.** Keep code/behavior changes small, but do not turn one immutable binary asset into dozens of user-visible turns merely for transport.
+12. **Binary transport rule.** For immutable assets under GitHub's normal Git-object range, prefer Git Data API blob/tree/commit writes plus objective hash verification. Do not use the Contents API when it has already shown truncation for the payload.
+13. **Batch transport fallback.** If the Chat/tool payload envelope prevents one-shot binary upload, use the largest already-proven safe transport pack, then verify each pack by Git blob SHA. Do not default back to 20,000-character micro-chunks.
+14. **Automate deterministic assembly.** When transport packs are needed, reconstruction/decoding/hash checks should be performed by a committed deterministic script or CI workflow, not by repeated manual Chat turns.
+15. **Fail closed on assets.** No generated substitute, alternate image, silent recompression, or unverified conversion may replace a canonical visual asset. Final binary size/hash must match the canonical manifest before QA advances.
 
 ## Fixed gate order
 G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 master attached to staging -> G3 atlas attached to staging -> G4 asset-load/render verification -> G5 interaction QA -> G6 full-solve/restart/viewport QA -> G7 main release -> G8 Pages verification.
