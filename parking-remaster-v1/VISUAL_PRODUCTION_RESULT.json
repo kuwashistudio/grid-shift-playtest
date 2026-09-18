@@ -15,7 +15,7 @@
     "then_author_Level_2_only"
   ],
   "validator": "scripts/validate_visual_assets.py",
-  "updated_at": "2026-09-18",
+  "updated_at": "2026-09-19",
   "latest_attempts": [
     {
       "route": "Adobe asset_openai_file_upload from GitHub raw URL",
@@ -34,7 +34,7 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "VP-2C: prototype standard LaMa + deterministic parking-line/EXIT geometry restoration + local pavement texture correction. No long-job polling.",
+  "next_gate": "Evaluate independent local LaMa erase patches inferred from untouched MASTER. If visual QA fails, move to exemplar-based source-texture synthesis; do not retry frequency-separation tuning.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
@@ -42,6 +42,13 @@
     "lama_refined_mask": "REJECTED_VISUAL_QA",
     "lama_sequential": "REJECTED_VISUAL_QA",
     "lama_standard_union_mask": "CURRENT_BEST_REFINEMENT_REQUIRED",
-    "grabcut_sprite_set": "PROVISIONAL_PASS_FULL_SIZE_ALPHA_QA_REQUIRED"
+    "grabcut_sprite_set": "PROVISIONAL_PASS_FULL_SIZE_ALPHA_QA_REQUIRED",
+    "lama_hybrid_frequency_separation": "REJECTED_VISUAL_QA"
+  },
+  "hybrid_frequency_separation": {
+    "ci_run_id": 35382261854,
+    "ci_status": "PASS_EXECUTION",
+    "visual_status": "FAIL",
+    "reason": "Direct review showed large rectangular tonal blocks and broad smearing despite 8/10 structural mismatch metrics improving. Visual quality is worse than standard LaMa."
   }
 }

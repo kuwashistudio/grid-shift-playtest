@@ -126,3 +126,24 @@ If an experiment takes materially longer than a normal atomic gate:
 **VP-2C — Hybrid LaMa + geometry/texture correction prototype**
 
 Do one prototype only. Promote nothing until direct visual QA passes.
+
+
+### LaMa hybrid frequency separation
+**REJECTED — direct visual QA**
+
+CI run 35382261854 executed successfully and all hard pixel-boundary invariants passed.
+
+The numeric low-frequency mismatch metric improved in 8 of 10 car regions, but the actual image became visibly worse:
+- broad rectangular/vertical tonal bands;
+- smeared pavement illumination;
+- large block transitions remain obvious at gameplay scale.
+
+This is an explicit example of why visual QA remains authoritative over proxy metrics.
+
+The frequency-separation route is retired. Do not tune its blur/gain parameters further.
+
+### Current active experiment
+Independent local LaMa erase patches:
+- each patch is inferred from the untouched approved MASTER;
+- no generated result becomes another patch's input;
+- the experiment tests both individual patch quality and the all-patches composite.
