@@ -1,6 +1,6 @@
 {
   "gate": "VS-BRIEF_PER_LEVEL_STRUCTURAL_TARGETS",
-  "status": "PENDING_VERIFICATION",
+  "status": "PASS",
   "verified_at": "2026-09-18",
   "artifacts": [
     "VERTICAL_SLICE_LEVEL_BRIEFS_V1.json",
@@ -9,5 +9,21 @@
     "scripts/validate_candidate_against_brief.py"
   ],
   "principle": "Soft structural envelopes + hard relational waveform rules; no composite human difficulty score.",
-  "next_if_pass": "Author Level 2 only as controlled production proof and measure time/revisions before Level 3."
+  "next_if_pass": "Author Level 2 only as controlled production proof and measure time/revisions before Level 3.",
+  "verification": {
+    "method": "Independent JavaScript recomputation of committed brief envelopes and relational waveform",
+    "result": "PASS",
+    "brief_blob": "5a4aca63bb170d5e85954ae67f11f03242d6d864",
+    "checks": {
+      "level_count_14": "PASS",
+      "level_ids_001_014": "PASS",
+      "level_006_recovery_4_of_4_dimensions": "PASS",
+      "level_008_challenge_4_of_4_dimensions": "PASS",
+      "level_009_recovery_4_of_4_dimensions": "PASS",
+      "level_011_challenge_4_of_4_dimensions": "PASS",
+      "level_012_peak_4_of_4_dimensions": "PASS",
+      "level_010_easy_core_plus_H1_teaching": "PASS",
+      "level_013_pure_reasoning_no_conflict": "PASS"
+    }
+  }
 }

@@ -28,7 +28,7 @@
       "name": "difficulty_wave_control",
       "status": "PARTIAL",
       "retire_by": "12-main beat chart + human/metric agreement",
-      "progress": "Difficulty Features v1 plus a validated 12-Main heartbeat/recovery Beat Chart now exist. Still open: actual authored levels and fresh-player agreement with intended waveform."
+      "progress": "Difficulty Features v1, validated Beat Chart, and independently verified per-level structural envelopes now define the intended 12-Main waveform. Still open: actual authored levels and fresh-player agreement with intended difficulty."
     },
     {
       "id": "R5",
@@ -42,7 +42,7 @@
       "name": "repeatable_level_production",
       "status": "PARTIAL",
       "retire_by": "level schema + solver + measured production cost",
-      "progress": "Level schemas v1/v2, generated runtime bundle, exact solver, exhaustive v1 parity, deterministic shared-exit state-machine parity, and Difficulty Features v1 are in place. Still open: per-level authoring briefs, measured level production cost, duplicate detection, and Vertical Slice repeatability."
+      "progress": "Level schemas, runtime bundle, solver/parity, Difficulty Features, H1 state machine, and per-level authoring briefs are in place. Next evidence is controlled Level 2 production time/revisions; duplicate detection and full Vertical Slice repeatability remain open."
     },
     {
       "id": "R7",
