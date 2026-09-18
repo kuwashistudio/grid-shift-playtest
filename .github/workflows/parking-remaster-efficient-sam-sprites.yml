@@ -61,12 +61,13 @@ jobs:
           assert q["model"]["encoder"]["git_blob"]=="6458f72477ae216a1bd68db41ffa14802c8d54f1"
           assert q["model"]["decoder"]["git_blob"]=="f9310202c916fe5a4ec9a6897edae855caf023f4"
           for vid,data in q["vehicles"].items():
-              assert data["selected"]["body_coverage"] > 0.45, (vid,data["selected"])
-              assert data["selected"]["sprite_leak_fraction"] < 0.02, (vid,data["selected"])
-          print("PASS EfficientSAM sprite structural QA")
+              assert data["selected"]["body_coverage"] > 0.80, (vid,data["selected"])
+              assert data["selected"]["mask_pixels"] > 1000, (vid,data["selected"])
+          print("PASS EfficientSAM sprite structural QA; crop-external mask is diagnostic only because exported RGBA is clipped to canonical sprite crop")
           PY
 
       - name: Upload full sprite comparison
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: parking-remaster-efficient-sam-sprite-review
