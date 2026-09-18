@@ -42,3 +42,10 @@ G2 complete master transfer/reconstruction -> G3 atlas transfer/verify -> G4 ass
 
 ## Chat execution rule
 One atomic subgate per `進めて`. No silent waiting, no background-work implication, no long bundled gates. Persist every PASS or explicit blocker here before replying.
+
+## Current blocker — G2i
+- G2i remains NOT PASS: `master.part-08.b64` is not present on staging.
+- Canonical source image is known in File Library as `レベル1_駐車場脱出パズル.png`, but this Chat session cannot retrieve its raw bytes through the available File Library→Adobe bridge because the exposed wrapper schema requires `files: string[]` while the underlying MCP rejects strings and requires object fileParams; the wrapper then rejects those objects before dispatch.
+- Alternate GitHub branch `parking-remaster-embedded-assets` was checked and rejected as a source because its embedded background does not match canonical master part-00 from the staging transfer.
+- Do NOT generate a replacement image and do NOT advance to part-09.
+- Resume point stays: obtain the existing approved MASTER bytes by a non-generative existing-asset path, then stage/verify only `master.part-08.b64`.
