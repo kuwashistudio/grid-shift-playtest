@@ -58,7 +58,8 @@ def run_fsr(master, removal_mask, algorithm):
     distorted[valid > 0] = src[valid > 0]
 
     start=time.perf_counter()
-    recon = cv2.xphoto.inpaint(distorted, valid, algorithm)
+    recon = np.empty_like(src)
+    cv2.xphoto.inpaint(distorted, valid, recon, algorithm)
     elapsed=time.perf_counter()-start
 
     # Hard invariant: every originally valid pixel remains byte-identical.
