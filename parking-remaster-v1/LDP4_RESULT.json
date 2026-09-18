@@ -5,5 +5,23 @@
   "level": "level_001",
   "extractor": "scripts/extract_difficulty_features.py",
   "baseline": "levels/level_001.difficulty.json",
-  "policy": "Structural feature vector only. Human-facing difficulty weights remain uncalibrated until playtest data."
+  "policy": "Structural feature vector only. Human-facing difficulty weights remain uncalibrated until playtest data.",
+  "verification": {
+    "method": "Independent JavaScript recomputation from canonical level_001.json",
+    "result": "PASS",
+    "level_blob": "75654d67cbdbbc1abe3c2be89ff4174a29d19141",
+    "difficulty_blob": "405e50778c9a265929f673963ed789b16f79d46c",
+    "matched": [
+      "dependency_edge_count",
+      "dependency_depth_vehicles",
+      "longest_dependency_chain",
+      "reachable_state_count",
+      "reachable_transition_count",
+      "branch_histogram",
+      "mean_legal_choices",
+      "forced_state_ratio",
+      "mean_choice_entropy_bits",
+      "solution_count"
+    ]
+  }
 }

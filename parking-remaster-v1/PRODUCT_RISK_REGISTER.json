@@ -25,8 +25,9 @@
     {
       "id": "R4",
       "name": "difficulty_wave_control",
-      "status": "OPEN",
-      "retire_by": "12-main beat chart + human/metric agreement"
+      "status": "PARTIAL",
+      "retire_by": "12-main beat chart + human/metric agreement",
+      "progress": "Deterministic structural Difficulty Features v1 exists and Level 1 baseline is independently verified. Still open: 12-main waveform construction and agreement with fresh-player difficulty observations."
     },
     {
       "id": "R5",
