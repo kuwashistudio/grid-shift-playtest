@@ -29,14 +29,16 @@ ROOT=Path(__file__).resolve().parents[1]
 MASTER=ROOT/"assets"/"master.webp"
 LEVEL=ROOT/"levels"/"level_001.json"
 OLD=ROOT/"assets"/"candidates"/"sprites"
-MODEL=ROOT/".qa"/"models"/"efficient_sam_vitt.onnx"
+MODEL_ENCODER=ROOT/".qa"/"models"/"efficient_sam_vitt_encoder.onnx"
+MODEL_DECODER=ROOT/".qa"/"models"/"efficient_sam_vitt_decoder.onnx"
 OUT=ROOT/".qa"/"efficient_sam_sprites"
 SPRITES=OUT/"sprites"
 
 MASTER_SHA="535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0"
 MODEL_REPO="yformer/EfficientSAM"
 MODEL_COMMIT="d525f622e6f640acf5a0fc37c7ca1f243da5bde0"
-MODEL_GIT_BLOB="97614a537b5c02826b31f385790c4b399d33bbc3"
+MODEL_ENCODER_GIT_BLOB="6458f72477ae216a1bd68db41ffa14802c8d54f1"
+MODEL_DECODER_GIT_BLOB="f9310202c916fe5a4ec9a6897edae855caf023f4"
 PROMPT_SCALES=(1.00,1.10,1.20)
 
 
@@ -142,8 +144,8 @@ def main():
     OUT.mkdir(parents=True,exist_ok=True); SPRITES.mkdir(parents=True,exist_ok=True)
     if sha256(MASTER)!=MASTER_SHA:
         raise SystemExit("FAIL canonical MASTER hash")
-    if not MODEL.exists():
-        raise SystemExit("FAIL EfficientSAM model missing")
+    if not MODEL_ENCODER.exists() or not MODEL_DECODER.exists():
+        raise SystemExit("FAIL EfficientSAM split models missing")
 
     level=json.loads(LEVEL.read_text(encoding="utf-8"))
     bgr=cv2.imread(str(MASTER),cv2.IMREAD_COLOR)
@@ -161,32 +163,38 @@ def main():
             queries.append([[rect[0],rect[1]],[rect[2],rect[3]]])
             query_meta.append((v["id"],scale,body,sprite,rect))
 
-    points=np.array([[queries]],dtype=np.float32).reshape(1,len(queries),2,2)
-    labels=np.tile(np.array([2,3],dtype=np.float32),(1,len(queries),1))
-
     so=ort.SessionOptions(); so.intra_op_num_threads=4
-    sess=ort.InferenceSession(str(MODEL),sess_options=so,providers=["CPUExecutionProvider"])
-    input_names={i.name for i in sess.get_inputs()}
-    if input_names!={"batched_images","batched_point_coords","batched_point_labels"}:
-        raise SystemExit(f"FAIL unexpected model inputs {input_names}")
+    encoder=ort.InferenceSession(str(MODEL_ENCODER),sess_options=so,providers=["CPUExecutionProvider"])
+    decoder=ort.InferenceSession(str(MODEL_DECODER),sess_options=so,providers=["CPUExecutionProvider"])
+    if {i.name for i in encoder.get_inputs()}!={"batched_images"}:
+        raise SystemExit("FAIL unexpected encoder inputs")
+    if {i.name for i in decoder.get_inputs()}!={"image_embeddings","batched_point_coords","batched_point_labels","orig_im_size"}:
+        raise SystemExit("FAIL unexpected decoder inputs")
 
     started=time.perf_counter()
-    outputs=sess.run(None,{
-        "batched_images":image,
-        "batched_point_coords":points,
-        "batched_point_labels":labels,
-    })
-    elapsed=time.perf_counter()-started
-    out_names=[o.name for o in sess.get_outputs()]
-    output_map={name:value for name,value in zip(out_names,outputs)}
-    logits=output_map.get("output_masks",outputs[0])
-    ious=output_map.get("iou_predictions",outputs[1])
+    image_embeddings,=encoder.run(None,{"batched_images":image})
+    encoder_elapsed=time.perf_counter()-started
 
     per_vehicle={v["id"]:[] for v in level["vehicles"]}
+    decoder_elapsed=0.0
     for qi,(vid,scale,body,sprite,rect) in enumerate(query_meta):
-        cand_ious=ious[0,qi]
+        points=np.array([[[[rect[0],rect[1]],[rect[2],rect[3]]]]],dtype=np.float32)
+        labels=np.array([[[2,3]]],dtype=np.float32)
+        t0=time.perf_counter()
+        outputs=decoder.run(None,{
+            "image_embeddings":image_embeddings,
+            "batched_point_coords":points,
+            "batched_point_labels":labels,
+            "orig_im_size":np.array([h,w],dtype=np.int64),
+        })
+        decoder_elapsed+=time.perf_counter()-t0
+        out_names=[o.name for o in decoder.get_outputs()]
+        output_map={name:value for name,value in zip(out_names,outputs)}
+        logits=output_map.get("output_masks",outputs[0])
+        ious=output_map.get("iou_predictions",outputs[1])
+        cand_ious=ious[0,0]
         ci=int(np.argmax(cand_ious))
-        raw=logits[0,qi,ci]>=0
+        raw=logits[0,0,ci]>=0
         clean=component_best_for_body(raw,body)
         m=metrics(clean,body,sprite,float(cand_ious[ci]))
         m.update({"prompt_scale":scale,"prompt_rect":rect,"candidate_index":ci})
@@ -236,11 +244,9 @@ def main():
         "model":{
             "repo":MODEL_REPO,
             "commit":MODEL_COMMIT,
-            "git_blob":MODEL_GIT_BLOB,
             "license":"Apache-2.0",
-            "file":"weights/efficient_sam_vitt.onnx",
-            "sha256":sha256(MODEL),
-            "bytes":MODEL.stat().st_size,
+            "encoder":{"file":"weights/efficient_sam_vitt_encoder.onnx","git_blob":MODEL_ENCODER_GIT_BLOB,"sha256":sha256(MODEL_ENCODER),"bytes":MODEL_ENCODER.stat().st_size},
+            "decoder":{"file":"weights/efficient_sam_vitt_decoder.onnx","git_blob":MODEL_DECODER_GIT_BLOB,"sha256":sha256(MODEL_DECODER),"bytes":MODEL_DECODER.stat().st_size},
             "runtime":"onnxruntime CPUExecutionProvider",
         },
         "method":{
@@ -252,7 +258,7 @@ def main():
             "connected_component_rule":"max overlap with logical body",
             "selection":"predicted IoU + body coverage - sprite leak - implausible area penalty",
         },
-        "inference_seconds":round(elapsed,3),
+        "inference_seconds":{"encoder":round(encoder_elapsed,3),"decoder_total":round(decoder_elapsed,3),"total":round(encoder_elapsed+decoder_elapsed,3)},
         "vehicles":selections,
         "hard_checks":{
             "sprite_count":len(selections),
@@ -263,7 +269,7 @@ def main():
         "decision_rule":"Direct full-size alpha QA is authoritative. EfficientSAM is promoted only if it materially reduces background/road/tutorial leakage without clipping car bodies."
     }
     (OUT/"efficient_sam_qa.json").write_text(json.dumps(qa,indent=2)+"\n",encoding="utf-8")
-    print(json.dumps({"inference_seconds":qa["inference_seconds"],"model_sha256":qa["model"]["sha256"],"vehicle_selected":{k:v["selected"] for k,v in selections.items()}},indent=2))
+    print(json.dumps({"inference_seconds":qa["inference_seconds"],"encoder_sha256":qa["model"]["encoder"]["sha256"],"decoder_sha256":qa["model"]["decoder"]["sha256"],"vehicle_selected":{k:v["selected"] for k,v in selections.items()}},indent=2))
 
 
 if __name__=="__main__":
