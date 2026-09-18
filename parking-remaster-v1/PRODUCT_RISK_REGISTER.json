@@ -19,8 +19,9 @@
     {
       "id": "R3",
       "name": "fair_failure_retry",
-      "status": "OPEN",
-      "retire_by": "slice levels 10-12 + retry evidence"
+      "status": "PARTIAL",
+      "retire_by": "slice levels 10-12 + retry evidence",
+      "progress": "H1 fair-failure mechanic selected: deterministic shared_exit_conflict with no RNG, no autonomous pedestrian/traffic, visible conflict zone, safe alternative action on teaching level, and fast retry target. Still open: implementation parity and fresh-player retry evidence."
     },
     {
       "id": "R4",

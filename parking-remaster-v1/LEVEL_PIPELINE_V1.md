@@ -92,4 +92,4 @@ If generation begins later: generator proposes; solver validates; structural fil
 
 ## Production consequence
 
-The next implementation task is H1: research competitor implementations and player feedback for crossing traffic, pedestrians and conflict-path timing, then select or reject a visible fair-failure mechanic before authoring the failure-teaching portion of the slice.
+The next implementation task is H1-IMPL: extend Level Schema, JavaScript functional core, and Python solver with deterministic shared_exit_conflict state; prove differential parity on synthetic fixtures before authoring Levels 10-12.

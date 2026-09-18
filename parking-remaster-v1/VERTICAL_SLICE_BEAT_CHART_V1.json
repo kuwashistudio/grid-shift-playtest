@@ -181,7 +181,7 @@
       "role": "failure_teach",
       "target_band": "easy",
       "new_mechanics": [
-        "visible_fail_mechanic_TBD"
+        "shared_exit_conflict"
       ],
       "practice": [
         "failure_cause_reading",
@@ -191,7 +191,7 @@
       "peak": false,
       "recovery": false,
       "hard_fail": true,
-      "design_intent": "Safe tutorial for one visible hard-fail mechanic. Must be easy except for the newly taught consequence. Exact hazard type remains research-gated."
+      "design_intent": "Safe tutorial for deterministic shared-exit conflict. One car occupies a clearly marked shared merge zone; launching a conflicting car before the zone clears causes an attributable collision. At least one non-conflicting safe action must be available so the player is never forced to wait."
     },
     {
       "id": "level_011",
@@ -200,11 +200,11 @@
       "target_band": "challenge",
       "new_mechanics": [],
       "practice": [
-        "visible_fail_mechanic_TBD"
+        "shared_exit_conflict"
       ],
       "combine": [
         "vehicle_ordering",
-        "visible_fail_timing"
+        "shared_exit_conflict_timing"
       ],
       "peak": false,
       "recovery": false,
@@ -219,11 +219,11 @@
       "new_mechanics": [],
       "practice": [
         "vehicle_blocking",
-        "visible_fail_mechanic_TBD"
+        "shared_exit_conflict"
       ],
       "combine": [
         "deep_dependency",
-        "visible_fail_timing",
+        "shared_exit_conflict_timing",
         "low_branching"
       ],
       "peak": true,
@@ -256,11 +256,11 @@
       "target_band": "hard",
       "new_mechanics": [],
       "practice": [
-        "visible_fail_mechanic_TBD"
+        "shared_exit_conflict"
       ],
       "combine": [
         "deep_dependency",
-        "visible_fail_timing",
+        "shared_exit_conflict_timing",
         "recovery_cost"
       ],
       "peak": false,
@@ -269,17 +269,29 @@
       "design_intent": "Optional combined mastery test using only previously taught mechanics."
     }
   ],
-  "unresolved_design_decisions": [
+  "unresolved_design_decisions": [],
+  "resolved_design_decisions": [
     {
       "id": "H1",
       "topic": "exact_visible_fail_mechanic",
-      "status": "RESEARCH_GATED",
-      "candidates": [
-        "crossing_traffic",
-        "pedestrian_crossing",
-        "conflict_path_timing"
-      ],
-      "rule": "Do not implement until competitor/player-feedback research identifies the clearest fair-failure option that preserves approved visual language."
+      "status": "DECIDED",
+      "selected": "shared_exit_conflict",
+      "rejected": {
+        "pedestrian_crossing": "Rejected for Vertical Slice first fail: player reviews repeatedly report unfair hit attribution, pedestrian stopping/turning into cars, and tempo loss while waiting.",
+        "crossing_traffic": "Rejected for first fail: free-running external traffic adds waiting/reaction pressure and a second autonomous system before the core ordering puzzle is mastered."
+      },
+      "rationale": "Use only player-launched cars and a visible shared merge zone. This minimizes new visual entities, RNG and autonomous behavior while preserving a clear cause-effect link between the player's second conflicting launch and failure.",
+      "fairness_contract": [
+        "deterministic; no RNG",
+        "no countdown timer",
+        "no autonomous pedestrian/traffic actor",
+        "conflict zone remains visibly telegraphed for the full dangerous interval",
+        "collision is triggered only by a player-initiated conflicting launch while that zone is occupied",
+        "Level 10 must offer at least one non-conflicting legal action while the zone is occupied so waiting is not mandatory",
+        "collision geometry may not exceed visibly understandable vehicle/path geometry",
+        "retry returns control quickly; product target <= 1.5 seconds from fail beat to playable reset",
+        "fresh player should be able to state the cause after first failure in one sentence"
+      ]
     }
   ]
 }

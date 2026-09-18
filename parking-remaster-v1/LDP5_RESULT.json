@@ -8,10 +8,8 @@
     "total": 14
   },
   "validator": "scripts/validate_beat_chart.py",
-  "unresolved": [
-    "H1 exact visible fail mechanic"
-  ],
-  "authoring_locked_until": "H1 research decision + per-level target feature briefs",
+  "unresolved": [],
+  "authoring_locked_until": "Per-level target feature briefs + H1-IMPL schema/solver parity before Levels 10-12.",
   "verification": {
     "method": "Independent JavaScript validation from committed Beat Chart JSON",
     "result": "PASS",
@@ -23,8 +21,11 @@
       "Main peak followed by recovery where applicable",
       "first hard-fail is safe failure_teach",
       "Hard remains optional",
-      "H1 exact fail mechanic remains RESEARCH_GATED"
+      "H1 selected as deterministic shared_exit_conflict"
     ],
     "violations": []
-  }
+  },
+  "resolved_design_decisions": [
+    "H1 shared_exit_conflict"
+  ]
 }

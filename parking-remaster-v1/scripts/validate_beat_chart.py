@@ -51,11 +51,15 @@ def main():
     # Main progression must not depend on Hard.
     require(all(x["track"] == "hard" for x in levels[12:]), "Hard levels must remain after Main slice")
 
-    # Exact failure mechanic remains intentionally unresolved.
-    unresolved = {x["id"]: x for x in chart.get("unresolved_design_decisions", [])}
-    require("H1" in unresolved and unresolved["H1"]["status"] == "RESEARCH_GATED", "H1 must stay research-gated")
+    # H1 is now research-resolved and must use the selected deterministic mechanic.
+    resolved = {x["id"]: x for x in chart.get("resolved_design_decisions", [])}
+    require("H1" in resolved and resolved["H1"]["status"] == "DECIDED", "H1 must be decided")
+    require(resolved["H1"]["selected"] == "shared_exit_conflict", "unexpected H1 mechanic")
+    require(not any(x["id"] == "H1" for x in chart.get("unresolved_design_decisions", [])), "H1 must not remain unresolved")
+    level10 = next(x for x in levels if x["id"] == "level_010")
+    require("shared_exit_conflict" in level10["new_mechanics"], "Level 10 must teach shared_exit_conflict")
 
-    print("PASS Beat Chart v1: 12 Main + 2 Hard, heartbeat/recovery/new-mechanic isolation valid")
+    print("PASS Beat Chart v1: 12 Main + 2 Hard, heartbeat/recovery valid, H1=shared_exit_conflict")
     return 0
 
 
