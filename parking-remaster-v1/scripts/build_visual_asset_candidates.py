@@ -10,6 +10,7 @@ Outputs are intentionally PNG during QA so alpha and unchanged-pixel checks are 
 """
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
 from pathlib import Path
@@ -153,7 +154,18 @@ def make_contact_sheet(master, telea, ns, sprite_paths):
         sheet = np.vstack([top, sprites])
     else:
         sheet = top
-    cv2.imwrite(str(OUT / "candidate_contact_sheet.jpg"), sheet, [cv2.IMWRITE_JPEG_QUALITY, 92])
+    full_path = OUT / "candidate_contact_sheet.jpg"
+    cv2.imwrite(str(full_path), sheet, [cv2.IMWRITE_JPEG_QUALITY, 92])
+
+    # Small deterministic review proxy so Chat/tooling that cannot fetch repository
+    # binaries can still reconstruct and inspect the candidate visually.
+    thumb_w = 420
+    thumb_h = max(1, int(round(sheet.shape[0] * thumb_w / sheet.shape[1])))
+    thumb = cv2.resize(sheet, (thumb_w, thumb_h), interpolation=cv2.INTER_AREA)
+    thumb_path = OUT / "candidate_contact_sheet_thumb.jpg"
+    cv2.imwrite(str(thumb_path), thumb, [cv2.IMWRITE_JPEG_QUALITY, 78])
+    encoded = base64.b64encode(thumb_path.read_bytes()).decode("ascii")
+    (OUT / "candidate_contact_sheet_thumb.b64").write_text(encoded + "\n", encoding="ascii")
 
 
 def main():
