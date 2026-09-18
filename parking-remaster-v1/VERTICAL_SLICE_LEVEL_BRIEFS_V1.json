@@ -1,0 +1,662 @@
+{
+  "version": "1.0",
+  "updated": "2026-09-18",
+  "policy": {
+    "soft_envelopes_are_pre_playtest_hypotheses": true,
+    "hard_relational_rules_define_waveform": true,
+    "no_composite_human_difficulty_score": true,
+    "player_data_required_for_calibration": true
+  },
+  "feature_semantics": {
+    "vehicle_count": "soft",
+    "dependency_depth_moves": "soft",
+    "initial_legal_choice_count": "soft",
+    "mean_legal_choices": "soft",
+    "forced_state_ratio": "soft",
+    "mean_choice_entropy_bits": "soft",
+    "novelty_load": "hard_for_intro_levels",
+    "direction_count": "hard_when_used_as_twist_contract",
+    "conflict_group_count": "hard_when_shared_exit_conflict_is_present",
+    "conflict_member_count": "hard_when_shared_exit_conflict_is_present",
+    "safe_alternative_min_during_conflict": "hard_only_where_explicitly_required"
+  },
+  "briefs": [
+    {
+      "id": "level_001",
+      "role": "onboarding_confidence",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          10,
+          10
+        ],
+        "dependency_depth_moves": [
+          3,
+          3
+        ],
+        "initial_legal_choice_count": [
+          3,
+          3
+        ],
+        "mean_legal_choices": [
+          2.640449,
+          2.640449
+        ],
+        "forced_state_ratio": [
+          0.11236,
+          0.11236
+        ],
+        "mean_choice_entropy_bits": [
+          1.291546,
+          1.291546
+        ]
+      },
+      "hard": {
+        "novelty_load": 4,
+        "hard_fail": false
+      },
+      "note": "Measured baseline; not an authoring target for later challenge levels."
+    },
+    {
+      "id": "level_002",
+      "role": "easy",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          8,
+          10
+        ],
+        "dependency_depth_moves": [
+          2,
+          3
+        ],
+        "initial_legal_choice_count": [
+          3,
+          4
+        ],
+        "mean_legal_choices": [
+          2.5,
+          3.5
+        ],
+        "forced_state_ratio": [
+          0,
+          0.15
+        ],
+        "mean_choice_entropy_bits": [
+          1.2,
+          1.6
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false
+      },
+      "note": "Repeat the core grammar; no novelty."
+    },
+    {
+      "id": "level_003",
+      "role": "easy_normal",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          9,
+          11
+        ],
+        "dependency_depth_moves": [
+          3,
+          4
+        ],
+        "initial_legal_choice_count": [
+          2,
+          3
+        ],
+        "mean_legal_choices": [
+          2.2,
+          3
+        ],
+        "forced_state_ratio": [
+          0.05,
+          0.22
+        ],
+        "mean_choice_entropy_bits": [
+          1.05,
+          1.45
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false
+      },
+      "note": "Increase dependency depth without new rules."
+    },
+    {
+      "id": "level_004",
+      "role": "normal",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          9,
+          11
+        ],
+        "dependency_depth_moves": [
+          3,
+          5
+        ],
+        "initial_legal_choice_count": [
+          1,
+          2
+        ],
+        "mean_legal_choices": [
+          1.8,
+          2.6
+        ],
+        "forced_state_ratio": [
+          0.15,
+          0.35
+        ],
+        "mean_choice_entropy_bits": [
+          0.8,
+          1.3
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false
+      },
+      "note": "Reduce immediate legal choices."
+    },
+    {
+      "id": "level_005",
+      "role": "twist",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          9,
+          11
+        ],
+        "dependency_depth_moves": [
+          3,
+          5
+        ],
+        "initial_legal_choice_count": [
+          2,
+          3
+        ],
+        "mean_legal_choices": [
+          2,
+          2.8
+        ],
+        "forced_state_ratio": [
+          0.1,
+          0.3
+        ],
+        "mean_choice_entropy_bits": [
+          0.9,
+          1.35
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false,
+        "min_direction_count": 3
+      },
+      "note": "Spatial/directional reframing, not a new rule."
+    },
+    {
+      "id": "level_006",
+      "role": "recovery",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          8,
+          10
+        ],
+        "dependency_depth_moves": [
+          1,
+          3
+        ],
+        "initial_legal_choice_count": [
+          3,
+          5
+        ],
+        "mean_legal_choices": [
+          2.8,
+          4
+        ],
+        "forced_state_ratio": [
+          0,
+          0.12
+        ],
+        "mean_choice_entropy_bits": [
+          1.3,
+          1.8
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false
+      },
+      "note": "Deliberate relief after the first ramp."
+    },
+    {
+      "id": "level_007",
+      "role": "normal_plus",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          10,
+          12
+        ],
+        "dependency_depth_moves": [
+          4,
+          5
+        ],
+        "initial_legal_choice_count": [
+          2,
+          3
+        ],
+        "mean_legal_choices": [
+          1.9,
+          2.7
+        ],
+        "forced_state_ratio": [
+          0.15,
+          0.35
+        ],
+        "mean_choice_entropy_bits": [
+          0.85,
+          1.25
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false
+      },
+      "note": "Rebuild challenge using mastered rules."
+    },
+    {
+      "id": "level_008",
+      "role": "challenge",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          10,
+          12
+        ],
+        "dependency_depth_moves": [
+          5,
+          6
+        ],
+        "initial_legal_choice_count": [
+          1,
+          2
+        ],
+        "mean_legal_choices": [
+          1.4,
+          2.2
+        ],
+        "forced_state_ratio": [
+          0.25,
+          0.5
+        ],
+        "mean_choice_entropy_bits": [
+          0.55,
+          1.1
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false
+      },
+      "note": "First reasoning spike; no new mechanic."
+    },
+    {
+      "id": "level_009",
+      "role": "recovery",
+      "track": "main",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          8,
+          10
+        ],
+        "dependency_depth_moves": [
+          1,
+          3
+        ],
+        "initial_legal_choice_count": [
+          3,
+          5
+        ],
+        "mean_legal_choices": [
+          2.8,
+          4
+        ],
+        "forced_state_ratio": [
+          0,
+          0.12
+        ],
+        "mean_choice_entropy_bits": [
+          1.3,
+          1.8
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false
+      },
+      "note": "Strong relief before the failure mechanic lesson."
+    },
+    {
+      "id": "level_010",
+      "role": "failure_teach",
+      "track": "main",
+      "schema_version": 2,
+      "soft": {
+        "vehicle_count": [
+          8,
+          10
+        ],
+        "dependency_depth_moves": [
+          1,
+          3
+        ],
+        "initial_legal_choice_count": [
+          3,
+          5
+        ],
+        "mean_legal_choices": [
+          2.5,
+          3.5
+        ],
+        "forced_state_ratio": [
+          0,
+          0.15
+        ],
+        "mean_choice_entropy_bits": [
+          1.2,
+          1.7
+        ]
+      },
+      "hard": {
+        "novelty_load": 1,
+        "hard_fail": true,
+        "required_mechanic": "shared_exit_conflict",
+        "conflict_group_count": 1,
+        "conflict_member_count": [
+          2,
+          2
+        ],
+        "safe_alternative_min_during_conflict": 1
+      },
+      "note": "The new consequence is the lesson; the underlying puzzle must stay easy."
+    },
+    {
+      "id": "level_011",
+      "role": "learned_challenge",
+      "track": "main",
+      "schema_version": 2,
+      "soft": {
+        "vehicle_count": [
+          9,
+          11
+        ],
+        "dependency_depth_moves": [
+          3,
+          5
+        ],
+        "initial_legal_choice_count": [
+          2,
+          3
+        ],
+        "mean_legal_choices": [
+          1.8,
+          2.7
+        ],
+        "forced_state_ratio": [
+          0.15,
+          0.35
+        ],
+        "mean_choice_entropy_bits": [
+          0.8,
+          1.25
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": true,
+        "required_mechanic": "shared_exit_conflict",
+        "conflict_group_count": 1,
+        "conflict_member_count": [
+          2,
+          2
+        ]
+      },
+      "note": "First genuine combination of ordering and shared-exit conflict."
+    },
+    {
+      "id": "level_012",
+      "role": "chapter_peak",
+      "track": "main",
+      "schema_version": 2,
+      "soft": {
+        "vehicle_count": [
+          10,
+          12
+        ],
+        "dependency_depth_moves": [
+          5,
+          6
+        ],
+        "initial_legal_choice_count": [
+          1,
+          2
+        ],
+        "mean_legal_choices": [
+          1.4,
+          2.2
+        ],
+        "forced_state_ratio": [
+          0.25,
+          0.5
+        ],
+        "mean_choice_entropy_bits": [
+          0.55,
+          1.05
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": true,
+        "required_mechanic": "shared_exit_conflict",
+        "conflict_group_count": 1,
+        "conflict_member_count": [
+          2,
+          3
+        ]
+      },
+      "note": "Peak combines only mastered rules."
+    },
+    {
+      "id": "level_013",
+      "role": "hard",
+      "track": "hard",
+      "schema_version": 1,
+      "soft": {
+        "vehicle_count": [
+          10,
+          12
+        ],
+        "dependency_depth_moves": [
+          6,
+          8
+        ],
+        "initial_legal_choice_count": [
+          1,
+          2
+        ],
+        "mean_legal_choices": [
+          1.2,
+          2
+        ],
+        "forced_state_ratio": [
+          0.35,
+          0.65
+        ],
+        "mean_choice_entropy_bits": [
+          0.4,
+          0.95
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": false,
+        "forbid_mechanic": "shared_exit_conflict"
+      },
+      "note": "Optional pure-reasoning Hard."
+    },
+    {
+      "id": "level_014",
+      "role": "hard",
+      "track": "hard",
+      "schema_version": 2,
+      "soft": {
+        "vehicle_count": [
+          10,
+          12
+        ],
+        "dependency_depth_moves": [
+          5,
+          8
+        ],
+        "initial_legal_choice_count": [
+          1,
+          2
+        ],
+        "mean_legal_choices": [
+          1.2,
+          2
+        ],
+        "forced_state_ratio": [
+          0.3,
+          0.6
+        ],
+        "mean_choice_entropy_bits": [
+          0.4,
+          1
+        ]
+      },
+      "hard": {
+        "novelty_load": 0,
+        "hard_fail": true,
+        "required_mechanic": "shared_exit_conflict",
+        "conflict_group_count": 1,
+        "conflict_member_count": [
+          2,
+          3
+        ]
+      },
+      "note": "Optional combined mastery Hard."
+    }
+  ],
+  "relational_rules": [
+    {
+      "id": "R_L3_DEEPER_THAN_L2",
+      "type": "greater_or_equal_midpoint",
+      "feature": "dependency_depth_moves",
+      "a": "level_003",
+      "b": "level_002"
+    },
+    {
+      "id": "R_L4_FEWER_INITIAL_THAN_L3",
+      "type": "less_or_equal_max",
+      "feature": "initial_legal_choice_count",
+      "a": "level_004",
+      "b": "level_003"
+    },
+    {
+      "id": "R_L6_RECOVERY_FROM_L5",
+      "type": "recovery_envelope",
+      "easier": "level_006",
+      "harder": "level_005",
+      "dimensions": [
+        "dependency_depth_moves",
+        "forced_state_ratio",
+        "mean_legal_choices",
+        "mean_choice_entropy_bits"
+      ],
+      "minimum_directional_dimensions": 3
+    },
+    {
+      "id": "R_L8_SPIKE_FROM_L7",
+      "type": "challenge_envelope",
+      "harder": "level_008",
+      "easier": "level_007",
+      "dimensions": [
+        "dependency_depth_moves",
+        "forced_state_ratio",
+        "mean_legal_choices",
+        "mean_choice_entropy_bits"
+      ],
+      "minimum_directional_dimensions": 3
+    },
+    {
+      "id": "R_L9_STRONG_RECOVERY_FROM_L8",
+      "type": "recovery_envelope",
+      "easier": "level_009",
+      "harder": "level_008",
+      "dimensions": [
+        "dependency_depth_moves",
+        "forced_state_ratio",
+        "mean_legal_choices",
+        "mean_choice_entropy_bits"
+      ],
+      "minimum_directional_dimensions": 4
+    },
+    {
+      "id": "R_L10_CORE_STAYS_EASY",
+      "type": "not_structurally_harder_than",
+      "a": "level_010",
+      "b": "level_009",
+      "dimensions": [
+        "dependency_depth_moves",
+        "forced_state_ratio"
+      ],
+      "allow_equal": true
+    },
+    {
+      "id": "R_L11_CHALLENGE_FROM_L10",
+      "type": "challenge_envelope",
+      "harder": "level_011",
+      "easier": "level_010",
+      "dimensions": [
+        "dependency_depth_moves",
+        "forced_state_ratio",
+        "mean_legal_choices",
+        "mean_choice_entropy_bits"
+      ],
+      "minimum_directional_dimensions": 3
+    },
+    {
+      "id": "R_L12_PEAK_FROM_L11",
+      "type": "challenge_envelope",
+      "harder": "level_012",
+      "easier": "level_011",
+      "dimensions": [
+        "dependency_depth_moves",
+        "forced_state_ratio",
+        "mean_legal_choices",
+        "mean_choice_entropy_bits"
+      ],
+      "minimum_directional_dimensions": 3
+    }
+  ]
+}

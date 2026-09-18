@@ -1,0 +1,13 @@
+{
+  "gate": "VS-BRIEF_PER_LEVEL_STRUCTURAL_TARGETS",
+  "status": "PENDING_VERIFICATION",
+  "verified_at": "2026-09-18",
+  "artifacts": [
+    "VERTICAL_SLICE_LEVEL_BRIEFS_V1.json",
+    "VERTICAL_SLICE_LEVEL_BRIEF_POLICY_V1.md",
+    "scripts/validate_level_briefs.py",
+    "scripts/validate_candidate_against_brief.py"
+  ],
+  "principle": "Soft structural envelopes + hard relational waveform rules; no composite human difficulty score.",
+  "next_if_pass": "Author Level 2 only as controlled production proof and measure time/revisions before Level 3."
+}

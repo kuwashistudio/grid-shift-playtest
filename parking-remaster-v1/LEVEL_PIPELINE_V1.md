@@ -94,4 +94,6 @@ If generation begins later: generator proposes; solver validates; structural fil
 
 H1-IMPL — PASS: Level Schema v2, JavaScript functional core, and Python state rules implement deterministic shared_exit_conflict; synthetic parity and Level 1 regression both pass.
 
-The next implementation task is VS-BRIEF: research and define per-level structural target ranges for Levels 2-14 before authoring any candidate level.
+VS-BRIEF — PENDING VERIFICATION: per-level soft structural envelopes and hard heartbeat relations have been defined for Levels 1-14.
+
+After VS-BRIEF passes, the next task is **Level 2 only** as a controlled-authoring proof. Measure design/data/validation/revision time before authoring Level 3.
