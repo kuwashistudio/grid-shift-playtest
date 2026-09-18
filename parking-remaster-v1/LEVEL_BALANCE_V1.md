@@ -1,5 +1,7 @@
 # Parking Remaster — Level Balance & Progression v1
 
+> This document is subordinate to `PRODUCTION_BLUEPRINT_V1.md`. If scope/order conflicts, the Production Blueprint wins.
+
 Updated: 2026-09-18
 
 ## Goal
@@ -32,18 +34,22 @@ This document separates:
 - King publicly uses blocker statistics, Level Libraries, and Beat Charts to understand difficulty drivers and control when concepts are introduced or combined.
 - Therefore raw car count alone must never be used as the difficulty metric.
 
-## V1 content target — design hypothesis
+## Content scale target — design hypothesis
 
-### Initial release
-- **120 Main levels**
-- **24 optional Hard levels**
-- **144 total curated/validated levels**
-- Architecture must support deterministic expansion to 300, then 1,000+ only after generator/solver validation is proven.
+The 144-level target is **locked behind production validation**. It is not the next implementation step.
+
+Scale sequence:
+1. **Vertical Slice: 12 Main + 2 optional Hard**
+2. **Content Pilot: 30 Main + representative Hard**
+3. **Fresh-player / controlled-release validation**
+4. **Only after evidence supports the game: 120 Main + 24 optional Hard = 144 release levels**
+5. Expand toward 300 and later 1,000+ only when solver/generator quality and real player behavior justify it.
 
 Reason:
-- Enough content for repeated sessions without pretending quantity equals quality.
-- Small enough to hand-review the difficulty waveform and visual readability.
-- Optional Hard track protects the main path from becoming hostile to casual players.
+- Prove fun and repeatability before paying the cost of volume.
+- Detect repetition and difficulty problems while content is still cheap to change.
+- Keep optional Hard challenge from poisoning the Main progression.
+- Follow the project-wide Production Blueprint rather than treating level count as a production mandate.
 
 ## Main-path progression
 
