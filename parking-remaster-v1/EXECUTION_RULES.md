@@ -47,3 +47,8 @@ G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 mast
 ## Visual source fail-closed
 29. **Approved visual source only.** Parking Remaster production visuals must derive from the approved MASTER. If a transfer/edit tool rejects the source, change the transfer route; never substitute or regenerate a different parking scene.
 30. **Separate source transfer failure from image-edit failure.** A URL allowlist/upload-wrapper error is not evidence that the visual edit method failed. Record it as an input-route blocker and preserve the intended edit pipeline.
+
+
+## Long experiment non-blocking rule
+31. **Never make an experimental CI run a blocking wait state.** If a comparison job is materially slow, launch it only as optional evidence and continue with already available work. Repeated polling without another completed action counts as a stopped workflow.
+32. **CI success is not visual PASS.** Image candidates require direct visual inspection before promotion. A successful workflow only proves execution/structural QA.
