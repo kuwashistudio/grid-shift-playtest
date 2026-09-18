@@ -17,6 +17,14 @@ These rules are mandatory for the remainder of this build.
 13. **Batch transport fallback.** If the Chat/tool payload envelope prevents one-shot binary upload, use the largest already-proven safe transport pack, then verify each pack by Git blob SHA. Do not default back to 20,000-character micro-chunks.
 14. **Automate deterministic assembly.** When transport packs are needed, reconstruction/decoding/hash checks should be performed by a committed deterministic script or CI workflow, not by repeated manual Chat turns.
 15. **Fail closed on assets.** No generated substitute, alternate image, silent recompression, or unverified conversion may replace a canonical visual asset. Final binary size/hash must match the canonical manifest before QA advances.
+16. **Research-before-execution rule.** Before any non-trivial gate, determine whether current official documentation, proven implementation patterns, successful comparable projects, or known failure modes could materially improve speed, feasibility, robustness, or quality. If yes, research first and incorporate the best-supported method before mutating the project.
+17. **No knowingly inefficient transport/workflow.** Never choose a repetitive manual method when an equally safe deterministic batch, API, script, CI, or native platform operation can do the same work faster and with objective verification.
+18. **Quality and feasibility are co-equal gates.** A method is not acceptable merely because it works; it must also preserve the approved visual/gameplay target, be realistically maintainable in this Chat-driven workflow, and have an objective QA path.
+19. **Re-evaluate on friction.** If a gate shows repeated truncation, retries, manual repetition, or unexplained delay, stop that method after one bounded repair attempt, research the better route, and change the process before continuing.
+20. **Evidence over improvisation.** Prefer official documentation, reproducible benchmarks, established engineering practices, and successful comparable products over ad-hoc invention. Record material process corrections in this file or BUILD_STATE so they survive Chat handoff.
+
+## Research-before-execution rule
+For every substantive Parking Remaster step, the assistant must continuously ask: “Is there a faster, safer, higher-quality established way to do this?” Research is required whenever the answer could plausibly be yes. Research must serve execution—not delay it—and should end in a concrete implementation choice, validator, benchmark, or QA criterion.
 
 ## Fixed gate order
 G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 master attached to staging -> G3 atlas attached to staging -> G4 asset-load/render verification -> G5 interaction QA -> G6 full-solve/restart/viewport QA -> G7 main release -> G8 Pages verification.
