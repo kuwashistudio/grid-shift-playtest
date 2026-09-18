@@ -59,3 +59,10 @@ One atomic subgate per `進めて`. No silent waiting, no background-work implic
 - Git history inspection confirmed no committed canonical `parking-remaster-v1/assets/master.webp` or `atlas.webp` blob/path; prior G1 only verified them locally before chunk transfer.
 - Therefore G2i remains BLOCKED, not PASS. Do not generate/re-render a replacement MASTER, do not use alternate parking images, and do not advance to part-09.
 - Exact resume requirement: regain raw access to the existing approved File Library source (or the exact canonical 448,118-byte WebP), then create and verify only `.transfer/master.part-08.b64`.
+
+### G2i recovery check update — 2026-09-18 later pass
+- Enumerated all current repository branches. Parking-related branches are `parking-pipeline-proof-20260917`, `parking-remaster-embedded-assets`, and `parking-remaster-v1-staging-20260917` plus `main`.
+- Recursively inspected image files on those branches: no canonical MASTER image file exists. The only binary image found was a 192-byte pipeline probe PNG; embedded-assets contains text-embedded image data already proven non-canonical.
+- Reverse-searched repository code for canonical SHA256, 448118-byte size, 941x1672 dimensions, and `index_embedded_canonical`; no recoverable source file/blob was found through searchable repo contents.
+- Searched active runtime storage paths for the approved File Library image/file-id; no local copy is mounted.
+- Conclusion unchanged: G2i cannot advance until the exact approved File Library image is made available as an actual attachment/raw file in this Chat. Once attached, regenerate canonical WebP deterministically and stage/verify only `master.part-08.b64`.
