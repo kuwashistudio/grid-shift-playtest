@@ -1,0 +1,28 @@
+{
+  "gate": "LDP-1_DATA_PARITY",
+  "status": "PASS",
+  "verified_at": "2026-09-18",
+  "runtime_source": "parking-remaster-v1/index.html",
+  "data_source": "parking-remaster-v1/levels/level_001.json",
+  "checks": {
+    "runtime_car_count": 10,
+    "data_car_count": 10,
+    "vehicle_body_sprite_direction_first": "PASS",
+    "movement_bounds": {
+      "left": 90,
+      "right": 850,
+      "top": 445,
+      "bottom": 1310,
+      "status": "PASS"
+    },
+    "corridor_inset": {
+      "value": 4,
+      "status": "PASS"
+    },
+    "tutorial_focus": {
+      "vehicle": "red_top",
+      "status": "PASS"
+    }
+  },
+  "differences": []
+}
