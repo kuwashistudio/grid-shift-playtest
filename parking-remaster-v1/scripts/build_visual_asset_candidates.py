@@ -157,6 +157,22 @@ def make_contact_sheet(master, telea, ns, sprite_paths):
     full_path = OUT / "candidate_contact_sheet.jpg"
     cv2.imwrite(str(full_path), sheet, [cv2.IMWRITE_JPEG_QUALITY, 92])
 
+    # Separate small visual review proxies. These are not production assets.
+    def write_review_proxy(name, image, width, quality):
+        height = max(1, int(round(image.shape[0] * width / image.shape[1])))
+        small = cv2.resize(image, (width, height), interpolation=cv2.INTER_AREA)
+        jpg = OUT / (name + ".jpg")
+        cv2.imwrite(str(jpg), small, [cv2.IMWRITE_JPEG_QUALITY, quality])
+        encoded = base64.b64encode(jpg.read_bytes()).decode("ascii")
+        (OUT / (name + ".b64")).write_text(encoded + "\\n", encoding="ascii")
+
+    write_review_proxy("review_telea", telea, 220, 58)
+    write_review_proxy("review_ns", ns, 220, 58)
+
+    if tiles:
+        sprite_review = np.vstack([np.hstack(tiles[i:i+5]) for i in range(0, len(tiles), 5)])
+        write_review_proxy("review_sprites", sprite_review, 400, 68)
+
     # Small deterministic review proxy so Chat/tooling that cannot fetch repository
     # binaries can still reconstruct and inspect the candidate visually.
     thumb_w = 420
