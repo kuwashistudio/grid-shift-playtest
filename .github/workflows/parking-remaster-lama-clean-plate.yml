@@ -1,0 +1,58 @@
+name: Parking Remaster LaMa Clean Plate
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/scripts/build_lama_onnx_clean_plate.py'
+      - '.github/workflows/parking-remaster-lama-clean-plate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: parking-remaster-lama-clean-plate
+  cancel-in-progress: true
+
+jobs:
+  lama-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CPU inference stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy==2.2.6" "opencv-python-headless==4.12.0.88" "onnxruntime==1.22.1"
+      - name: Download pinned Apache-2.0 LaMa ONNX model
+        run: |
+          mkdir -p parking-remaster-v1/.qa/models
+          curl -L --fail --retry 3             "https://huggingface.co/Carve/LaMa-ONNX/resolve/a3ee2fc/lama_fp32.onnx?download=true"             -o parking-remaster-v1/.qa/models/lama_fp32.onnx
+          echo "1faef5301d78db7dda502fe59966957ec4b79dd64e16f03ed96913c7a4eb68d6  parking-remaster-v1/.qa/models/lama_fp32.onnx" | sha256sum -c -
+      - name: Build LaMa clean plate candidate
+        run: python parking-remaster-v1/scripts/build_lama_onnx_clean_plate.py
+      - name: Validate hard invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          q=json.loads(Path("parking-remaster-v1/.qa/lama_onnx/lama_qa.json").read_text())
+          assert q["hard_checks"]["unchanged_outside_mask"] is True
+          assert q["hard_checks"]["model_hash_match"] is True
+          assert q["roi"]["aspect_distortion"] is False
+          assert 0.20 < q["mask"]["fraction"] < 0.35
+          print("PASS LaMa hard invariants")
+          PY
+      - name: Upload LaMa visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-lama-review
+          path: parking-remaster-v1/.qa/lama_onnx/
+          if-no-files-found: error
+          retention-days: 7
