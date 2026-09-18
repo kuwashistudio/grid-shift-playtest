@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Independent local-LaMa patch experiment for Parking Remaster.
 
-Each car patch is inferred from the ORIGINAL approved MASTER, never from a
+Each car+cast-shadow patch is inferred from the ORIGINAL approved MASTER, never from a
 previously inpainted result. This avoids sequential error accumulation.
 
 For each target car:
@@ -37,9 +37,9 @@ PATCH_DIR = OUT / "patches"
 MASTER_SHA = "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0"
 MODEL_SHA = "1faef5301d78db7dda502fe59966957ec4b79dd64e16f03ed96913c7a4eb68d6"
 
-MARGIN = 7
-CONTEXT = 120
-EDGE_BLEND = 10
+MARGIN = 26
+CONTEXT = 145
+EDGE_BLEND = 18
 TUTORIAL_RECT = [340, 445, 545, 790]
 
 
