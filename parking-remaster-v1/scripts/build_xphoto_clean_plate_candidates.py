@@ -6,6 +6,7 @@ for visual comparison in GitHub Actions artifacts.
 """
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
 import time
@@ -17,7 +18,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 MASTER = ROOT / "assets" / "master.webp"
 LEVEL = ROOT / "levels" / "level_001.json"
-OUT = ROOT / ".qa" / "xphoto"
+OUT = ROOT / "assets" / "candidates" / "xphoto"
 QA = OUT / "xphoto_qa.json"
 MARGIN = 3
 ROI_MARGIN = 56
@@ -80,6 +81,17 @@ def contact_sheet(master, fast, best, removal_mask):
         panels.append(p)
     sheet=np.hstack(panels)
     cv2.imwrite(str(OUT/"xphoto_compare.jpg"),sheet,[cv2.IMWRITE_JPEG_QUALITY,92])
+
+    def review_proxy(name, image, width=100, quality=42):
+        height=max(1,int(round(image.shape[0]*width/image.shape[1])))
+        small=cv2.resize(image,(width,height),interpolation=cv2.INTER_AREA)
+        jpg=OUT/(name+".jpg")
+        cv2.imwrite(str(jpg),small,[cv2.IMWRITE_JPEG_QUALITY,quality])
+        (OUT/(name+".b64")).write_text(base64.b64encode(jpg.read_bytes()).decode("ascii")+"\n",encoding="ascii")
+
+    review_proxy("review_fsr_fast",fast)
+    review_proxy("review_fsr_best",best)
+    review_proxy("review_master",master)
 
     overlay=master.copy()
     red=np.zeros_like(master); red[:,:,2]=255
