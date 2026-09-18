@@ -28,3 +28,11 @@ For every substantive Parking Remaster step, the assistant must continuously ask
 
 ## Fixed gate order
 G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 master attached to staging -> G3 atlas attached to staging -> G4 asset-load/render verification -> G5 interaction QA -> G6 full-solve/restart/viewport QA -> G7 main release -> G8 Pages verification.
+
+
+## Macro-gate alignment rule
+21. **Every micro-task must advance a Production Blueprint gate.** Before implementation, identify the current macro phase and the exact gate risk being retired. If a task does not materially advance that gate, defer it.
+22. **Do not let local blockers become the roadmap.** Asset transfer, refactors, CI plumbing, format conversion, or other technical chores may consume only the effort justified by the current macro gate. Escalate to a better method or defer if they begin dominating project time.
+23. **Scale only after proof.** Content volume, meta systems, monetization, LiveOps, and production tooling must not start merely because they are foreseeable. They begin only when the prior gate's player/product risk is objectively retired.
+24. **Research the whole system, not only the current bug.** Maintain parallel research on proven studio production practice, player behavior, level design, technical architecture, distribution constraints, and launch validation. Convert useful findings into the Production Blueprint, validators, or gate criteria.
+25. **Vertical Slice before Production.** Parking Remaster remains in pre-production until the representative Vertical Slice gate passes. A polished Level 1 or completed asset transfer alone does not authorize full production.
