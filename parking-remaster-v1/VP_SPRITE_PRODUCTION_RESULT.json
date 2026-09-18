@@ -1,0 +1,74 @@
+{
+  "gate": "VP_SPRITE_PRODUCTION",
+  "status": "PASS",
+  "approved_at": "2026-09-19",
+  "visual_approval": "2026-09-19_EfficientSAM_fullsheet_plus_red_distance_refine_1.5",
+  "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+  "model": {
+    "repo": "yformer/EfficientSAM",
+    "commit": "d525f622e6f640acf5a0fc37c7ca1f243da5bde0",
+    "license": "Apache-2.0",
+    "encoder_git_blob": "6458f72477ae216a1bd68db41ffa14802c8d54f1",
+    "decoder_git_blob": "f9310202c916fe5a4ec9a6897edae855caf023f4"
+  },
+  "method": "EfficientSAM-Ti box prompts; exact MASTER RGB; red_top detached tutorial-glow alpha refinement only",
+  "sprite_count": 10,
+  "sprites": {
+    "green_tl": {
+      "sha256": "9f2040f0cd556ae69b31626c2babc37a2d0bda527aebefb422817f0dca171ce1",
+      "bytes": 39522,
+      "refine": null
+    },
+    "red_top": {
+      "sha256": "8c98eeae34b2056ffe224a8201e5ea3f84a56c8929be92a2459e6598e5155513",
+      "bytes": 47116,
+      "refine": {
+        "yellow_semantic_pixels": 2324,
+        "removed_yellow_pixels": 1477,
+        "distance_threshold_px": 1.5,
+        "refined_body_coverage": 0.919222
+      }
+    },
+    "blue_top": {
+      "sha256": "6f16be56559c8c70a96882146275d02b3aa47461cee101ccc1900f8bcc45eed0",
+      "bytes": 44976,
+      "refine": null
+    },
+    "white_tr": {
+      "sha256": "1abc0748a2faccaefdbb61b8be47bfb301967305c669aaaabd2d25f6617463ed",
+      "bytes": 45870,
+      "refine": null
+    },
+    "black_ml": {
+      "sha256": "c0822664c6e548915285744045563fc7df540a0b3ce8a3cfd408d9c7b9e8025e",
+      "bytes": 53044,
+      "refine": null
+    },
+    "yellow_mid": {
+      "sha256": "e7a41426e5d6ca407a00f900c0baafbd697437955fa8d9acbcf0b3ab87564b60",
+      "bytes": 52708,
+      "refine": null
+    },
+    "silver_mid": {
+      "sha256": "aff37aada85ee0709851241d9113affccb313fb56af893948fa45695ec00c262",
+      "bytes": 49064,
+      "refine": null
+    },
+    "white_bl": {
+      "sha256": "4a0fb45a33cf0506ba577e86210168d65274849b48087413da35df656d8994e5",
+      "bytes": 44826,
+      "refine": null
+    },
+    "blue_bottom": {
+      "sha256": "699c22096bab425dbfb96d4965a71b113e025ab70a051a2f47e4d6c8f0f8f357",
+      "bytes": 42572,
+      "refine": null
+    },
+    "green_br": {
+      "sha256": "5d2e109f6623869a1d86dc099207bfbcc74af8630cc9abd517f8e33f4168c663",
+      "bytes": 45552,
+      "refine": null
+    }
+  },
+  "clean_plate_status": "STILL_BLOCKED_SEPARATE_GATE"
+}
