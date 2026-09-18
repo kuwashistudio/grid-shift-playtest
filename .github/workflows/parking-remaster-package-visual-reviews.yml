@@ -25,6 +25,8 @@ jobs:
           test -f parking-remaster-v1/assets/candidates/review_telea.jpg
           test -f parking-remaster-v1/assets/candidates/review_ns.jpg
           test -f parking-remaster-v1/assets/candidates/review_sprites.jpg
+          test -f parking-remaster-v1/assets/master.webp
+          test "$(find parking-remaster-v1/assets/candidates/sprites -maxdepth 1 -name '*.png' | wc -l)" -eq 10
 
       - name: Upload review bundle
         uses: actions/upload-artifact@v4
@@ -34,6 +36,8 @@ jobs:
             parking-remaster-v1/assets/candidates/review_telea.jpg
             parking-remaster-v1/assets/candidates/review_ns.jpg
             parking-remaster-v1/assets/candidates/review_sprites.jpg
+            parking-remaster-v1/assets/master.webp
+            parking-remaster-v1/assets/candidates/sprites/*.png
             parking-remaster-v1/VISUAL_FACTORY_CANDIDATE_QA.json
           if-no-files-found: error
           retention-days: 3
