@@ -1,0 +1,40 @@
+{
+  "gate": "VP_2D_STRUCTURED_CLEAN_PLATE",
+  "status": "READY_TO_IMPLEMENT",
+  "updated_at": "2026-09-19",
+  "source": {
+    "master": "assets/master.webp",
+    "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "external_image_sources_allowed": false
+  },
+  "research_basis": [
+    "Parking-slot pipelines commonly derive slots from segmented linear markings, then skeleton/Hough/line arrangement.",
+    "Inverse-perspective or top-view reasoning helps geometry, but local test showed rectification does not make generic inpainting sufficient."
+  ],
+  "layers": [
+    {
+      "id": "illumination",
+      "rule": "Fit one smooth lot-wide field from known asphalt pixels only; do not blur through cars before masking.",
+      "acceptance": "No former-car-shaped or broad rectangular brightness bands at iPhone scale."
+    },
+    {
+      "id": "asphalt_texture",
+      "rule": "Sample high-frequency residual from multiple valid MASTER asphalt donors; exclude vehicle, tutorial and paint pixels; deterministic non-periodic placement.",
+      "acceptance": "No repeated-tile pattern or colored vehicle ghosts."
+    },
+    {
+      "id": "markings",
+      "rule": "Detect visible parking markings, fit line/grid structure, restore missing segments as dedicated geometry.",
+      "acceptance": "Parking dividers remain coherent across formerly occluded areas; EXIT and non-parking markings remain faithful."
+    }
+  ],
+  "hard_invariants": [
+    "MASTER hash exact",
+    "outside approved lot/correction regions unchanged",
+    "no generated car art",
+    "no external stock/asphalt texture",
+    "direct full-resolution visual QA before promotion",
+    "Level 2 remains locked"
+  ],
+  "next_atomic_action": "Build marking/lot structure analyzer and persist machine-readable line/grid model before any new clean-plate pixels are promoted."
+}

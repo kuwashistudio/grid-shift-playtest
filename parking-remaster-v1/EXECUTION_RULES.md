@@ -59,3 +59,10 @@ G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 mast
 34. **One-second interaction product target.** On target iPhone testing, aim for the first gameplay control to be available within 1.0 second. Load only what is necessary for immediate interaction; defer nonessential systems/assets.
 35. **First tap does real work.** The first player gesture must perform a gameplay action and may simultaneously unlock/recover audio. Never spend the first tap only on "Tap to Start".
 36. **Screen-recording audio is a release gate.** iPhone Control Center recording necessarily exercises a focus/visibility transition. Audio must recover from WebKit suspended/interrupted states and the saved recording must contain clean, continuous internal game SFX before release.
+
+
+## Structured clean-plate rule
+37. **Clean Plate is now a structured reconstruction problem, not a generic inpainting problem.** Reconstruct lot-wide illumination, asphalt texture, and parking markings as separate layers.
+38. **Use multiple MASTER-derived asphalt donors, never one visibly repeated tile.** Donors must exclude cars/tutorial overlays/paint markings and must be placed deterministically without periodic repetition.
+39. **Parking markings are geometry.** Detect/fix the visible parking-line structure and restore occluded segments as a dedicated vector/marking layer rather than expecting texture synthesis to invent them.
+40. **Retired clean-plate methods stay retired.** LaMa variants, generic OpenCV inpaint, xphoto, bmquilting integration, rectified generic inpaint, and naïve exemplar mosaic fill may not be retried without materially new evidence.

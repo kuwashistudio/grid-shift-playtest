@@ -196,3 +196,40 @@ Do not patch the third-party library further. The generic Image Quilting idea re
 
 ### Process change
 The canonical MASTER and full sprite set are now packaged for direct local experimentation. Future candidate algorithms should be executed and visually rejected/accepted locally first; CI is added only after a method actually looks production-worthy.
+
+
+### Rectified-plane generic inpaint
+**REJECTED — local direct visual QA**
+
+The lot was treated as a planar surface and tested after perspective rectification, but Telea/Navier-Stokes still produced large bands and implausible filled regions. Perspective normalization alone does not solve this image.
+
+### Quarter-resolution exemplar fill
+**REJECTED — local direct visual QA**
+
+A lightweight MASTER-only boundary-matching patch fill completed in about 6.9 seconds at quarter resolution, but the result formed visible mosaic patches and fragmented white parking markings. Scaling this method up would optimize the wrong visual behavior.
+
+### Structured asphalt-field prototype
+**REJECTED AS FINAL OUTPUT; retained as architecture evidence**
+
+A three-layer local prototype separated:
+1. low-frequency pavement illumination;
+2. high-frequency asphalt residual sampled from a clean MASTER donor;
+3. parking markings for later restoration.
+
+This eliminated vehicle-color ghosts, but a single repeated texture donor produced visible periodic blocks and the hole-wise low-frequency estimate produced broad illumination bands.
+
+The useful conclusion is architectural:
+
+**Do not ask one generic inpainting algorithm to reconstruct the entire clean plate.**
+
+The next clean-plate system will explicitly model:
+- one smooth lot-wide illumination field estimated only from known asphalt;
+- multiple real MASTER asphalt donors placed non-periodically;
+- parking markings as a separate geometric/vector layer.
+
+Parking-slot research supports extracting linear markings first and arranging detected line structure into slots rather than treating the whole lot as an unstructured texture problem.
+
+### Active clean-plate route
+`STRUCTURED_ASPHALT_FIELD_PLUS_VECTOR_MARKINGS`
+
+No return to LaMa mask tuning, Telea/Navier-Stokes, xphoto, bmquilting, or naïve exemplar mosaic fill unless new evidence materially changes their failure mode.
