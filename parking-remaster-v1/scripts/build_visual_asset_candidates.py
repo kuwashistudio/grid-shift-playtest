@@ -166,12 +166,12 @@ def make_contact_sheet(master, telea, ns, sprite_paths):
         encoded = base64.b64encode(jpg.read_bytes()).decode("ascii")
         (OUT / (name + ".b64")).write_text(encoded + "\\n", encoding="ascii")
 
-    write_review_proxy("review_telea", telea, 220, 58)
-    write_review_proxy("review_ns", ns, 220, 58)
+    write_review_proxy("review_telea", telea, 120, 45)
+    write_review_proxy("review_ns", ns, 120, 45)
 
     if tiles:
         sprite_review = np.vstack([np.hstack(tiles[i:i+5]) for i in range(0, len(tiles), 5)])
-        write_review_proxy("review_sprites", sprite_review, 400, 68)
+        write_review_proxy("review_sprites", sprite_review, 240, 50)
 
     # Small deterministic review proxy so Chat/tooling that cannot fetch repository
     # binaries can still reconstruct and inspect the candidate visually.
