@@ -1,0 +1,9 @@
+{
+  "gate": "LDP-4_DIFFICULTY_FEATURES_V1",
+  "status": "PASS",
+  "verified_at": "2026-09-18",
+  "level": "level_001",
+  "extractor": "scripts/extract_difficulty_features.py",
+  "baseline": "levels/level_001.difficulty.json",
+  "policy": "Structural feature vector only. Human-facing difficulty weights remain uncalibrated until playtest data."
+}

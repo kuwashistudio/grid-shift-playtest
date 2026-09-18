@@ -78,8 +78,8 @@ Runtime consumes the generated bundle derived from canonical Level JSON; hard-co
 ### LDP-3 — Solver parity — PASS
 Browser/Node functional core and independent Python solver agree on legal moves and blocker IDs across all 1,024 possible Level 1 vehicle subsets.
 
-### LDP-4 — Difficulty features v1
-Add dependency depth, branch distribution, forced-choice ratio, decision entropy, recovery cost and later hazard/timing load.
+### LDP-4 — Difficulty features v1 — PASS
+Deterministic structural feature extraction now reports dependency depth, branch distribution, forced-choice ratio, choice entropy, solution flexibility, novelty load and current recovery cost. No composite human-difficulty score is permitted before playtest calibration.
 
 ### LDP-5 — Vertical Slice authoring
 Only then author Levels 2-14. Every candidate is schema-valid, solver-valid, metadata-complete, duplicate-screened, human-played and intentionally positioned on the Beat Chart.
@@ -92,4 +92,4 @@ If generation begins later: generator proposes; solver validates; structural fil
 
 ## Production consequence
 
-The next implementation task is not Level 2. It is LDP-4: research and implement difficulty features v1 so candidate levels can be compared structurally before Vertical Slice authoring.
+The next implementation task is LDP-5 preparation: research and define the 14-level Vertical Slice Beat Chart and controlled-authoring rules before creating Level 2.
