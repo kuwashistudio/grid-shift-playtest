@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: parking-remaster-efficient-sam-sprites
@@ -63,7 +63,16 @@ jobs:
           for vid,data in q["vehicles"].items():
               assert data["selected"]["body_coverage"] > 0.80, (vid,data["selected"])
               assert data["selected"]["mask_pixels"] > 1000, (vid,data["selected"])
-          print("PASS EfficientSAM sprite structural QA; crop-external mask is diagnostic only because exported RGBA is clipped to canonical sprite crop")
+          red=q["vehicles"]["red_top"]
+          assert red["refine"]["removed_yellow_pixels"] > 500, red["refine"]
+          assert red["refine"]["refined_body_coverage"] > 0.85, red["refine"]
+          prod=json.loads(Path("parking-remaster-v1/VP_SPRITE_PRODUCTION_RESULT.json").read_text())
+          assert prod["status"]=="PASS"
+          assert prod["sprite_count"]==10
+          assert prod["visual_approval"]=="2026-09-19_EfficientSAM_fullsheet_plus_red_distance_refine_1.5"
+          for vid,data in prod["sprites"].items():
+              assert data["bytes"] > 1000, (vid,data)
+          print("PASS EfficientSAM production sprite structural QA")
           PY
 
       - name: Upload full sprite comparison
@@ -74,3 +83,16 @@ jobs:
           path: parking-remaster-v1/.qa/efficient_sam_sprites/
           if-no-files-found: error
           retention-days: 7
+
+      - name: Persist visually approved production sprites
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add parking-remaster-v1/assets/sprites parking-remaster-v1/VP_SPRITE_PRODUCTION_RESULT.json
+          if git diff --cached --quiet; then
+            echo "No sprite production changes"
+          else
+            git commit -m "Promote EfficientSAM production car sprites [skip ci]"
+            git push origin HEAD:parking-remaster-v1-staging-20260917
+          fi
