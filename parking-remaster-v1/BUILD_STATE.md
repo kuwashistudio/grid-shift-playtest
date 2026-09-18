@@ -27,12 +27,15 @@
 - G2f PASS — master part-05, 20,000 bytes, Git blob `5cfcd7519dea5e680bc5013449c0fb3803a82fc5`.
 - G2g PASS — master part-06, 20,000 bytes, Git blob `5d4772af4650a2d5233084eb7932391ea200d4ec`.
 - G2h PASS — `master.part-07.b64` staged and verified at 20,000 bytes with Git blob `dd418eb48a2d07979a7727bf3bac6185cf6f167c`, exactly matching deterministic local part-07. SHA256 `85dc35f7763ea6889aa6ad52dbd3c239fb12da92587168e29a5a7593b9022170`. Earlier `part-07a` / `part-07b` repair halves may remain as redundant transfer artifacts and are not required for reconstruction.
+- G2i PASS — `master.part-08.b64` staged via Git Data API and fetched back at exactly 20,000 chars; Git blob `2d21cc678cec1a352d3ba9336ec2e517cd63c70d`, exactly matching the locally computed Git blob SHA.
 
-## Master transfer plan
-Canonical master base64 is 597,492 characters split locally into `part-00` ... `part-29`; each full part is 20,000 chars except the final one.
-- NEXT: G2i — stage/verify `part-08` only.
-- Continue one verified chunk per `進めて` through part-29.
-- G2-final — reconstruct `assets/master.webp` from verified chunks, using `part-04a + part-04b` as canonical part-04; use full `part-07`; verify 448,118 bytes and SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`; then remove transfer chunks/redundant halves.
+## Master transfer plan — optimized 2026-09-18
+Canonical master base64 is 597,492 characters. Legacy transfer parts 00-08 remain valid evidence, but the one-20k-chunk-per-turn strategy is retired.
+- Git Data API blob/tree/commit write was proven on part-08 and must be preferred over Contents API writes for binary/base64 transport.
+- NEXT: G2J-FAST — probe and stage the largest safe remaining transport pack beginning at canonical offset 180,000 (part-09 start), targeting 100,000 characters first. If verified, continue in similarly large packs rather than one 20,000-char part per turn.
+- After remaining canonical base64 is present, use deterministic automated assembly/decoding and verify final `assets/master.webp` is exactly 448,118 bytes with SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`.
+- Existing canonical exception remains: legacy part-04 reconstructs from `part-04a + part-04b`; legacy full part-07 is canonical.
+- After final binary verification, remove redundant transfer artifacts in one cleanup change.
 
 ## Functional scope already implemented locally
 - 10 tappable cars, direction-aware blockage detection, blocked bump feedback, legal exit animation, audio/vibration, inactivity hint, win state/restart, QA hooks, auto-solve hook.
@@ -43,26 +46,11 @@ G2 complete master transfer/reconstruction -> G3 atlas transfer/verify -> G4 ass
 ## Chat execution rule
 One atomic subgate per `進めて`. No silent waiting, no background-work implication, no long bundled gates. Persist every PASS or explicit blocker here before replying.
 
-## Current blocker — G2i
-- G2i remains NOT PASS: `master.part-08.b64` is not present on staging.
-- Canonical source image is known in File Library as `レベル1_駐車場脱出パズル.png`, but this Chat session cannot retrieve its raw bytes through the available File Library→Adobe bridge because the exposed wrapper schema requires `files: string[]` while the underlying MCP rejects strings and requires object fileParams; the wrapper then rejects those objects before dispatch.
-- Alternate GitHub branch `parking-remaster-embedded-assets` was checked and rejected as a source because its embedded background does not match canonical master part-00 from the staging transfer.
-- Do NOT generate a replacement image and do NOT advance to part-09.
-- Resume point stays: obtain the existing approved MASTER bytes by a non-generative existing-asset path, then stage/verify only `master.part-08.b64`.
-
-### G2i blocker evidence update — 2026-09-18
-- Exact approved MASTER source re-found in File Library: `レベル1：駐車場脱出パズル.png` / file id `file_0000000007f882069c1aa954fad4866d`.
-- File Library can index the image, but raw-byte open (`mclick`) fails in this session.
-- File Library→Adobe bridge is unusable here because wrapper schema accepts `files: string[]` while the underlying MCP requires fileParam objects; both plain file-id strings and JSON-string/object repair attempts fail validation.
-- Adobe Creative Cloud search found no existing copy by exact name or broad Parking/駐車場/レベル1 queries.
-- `/mnt/data` is empty in this Chat session.
-- Git history inspection confirmed no committed canonical `parking-remaster-v1/assets/master.webp` or `atlas.webp` blob/path; prior G1 only verified them locally before chunk transfer.
-- Therefore G2i remains BLOCKED, not PASS. Do not generate/re-render a replacement MASTER, do not use alternate parking images, and do not advance to part-09.
-- Exact resume requirement: regain raw access to the existing approved File Library source (or the exact canonical 448,118-byte WebP), then create and verify only `.transfer/master.part-08.b64`.
-
-### G2i recovery check update — 2026-09-18 later pass
-- Enumerated all current repository branches. Parking-related branches are `parking-pipeline-proof-20260917`, `parking-remaster-embedded-assets`, and `parking-remaster-v1-staging-20260917` plus `main`.
-- Recursively inspected image files on those branches: no canonical MASTER image file exists. The only binary image found was a 192-byte pipeline probe PNG; embedded-assets contains text-embedded image data already proven non-canonical.
-- Reverse-searched repository code for canonical SHA256, 448118-byte size, 941x1672 dimensions, and `index_embedded_canonical`; no recoverable source file/blob was found through searchable repo contents.
-- Searched active runtime storage paths for the approved File Library image/file-id; no local copy is mounted.
-- Conclusion unchanged: G2i cannot advance until the exact approved File Library image is made available as an actual attachment/raw file in this Chat. Once attached, regenerate canonical WebP deterministically and stage/verify only `master.part-08.b64`.
+## G2i blocker — RESOLVED 2026-09-18
+- The approved source image became available in this Chat runtime at 941x1672 RGBA.
+- Deterministic Pillow WebP `quality=90, method=6` regeneration produced exactly 448,118 bytes and canonical SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`.
+- Canonical base64 length re-verified at 597,492 characters.
+- Legacy parts 00-07 recomputed to the same known Git blob SHAs, proving source identity; part-08 computed Git blob SHA `2d21cc678cec1a352d3ba9336ec2e517cd63c70d`.
+- `master.part-08.b64` was then written through Git Data API, attached to staging, fetched back, and verified at 20,000 chars with that exact blob SHA.
+- Research-backed process correction: preserve small logical commits, but transport immutable binary data in the largest proven safe batch and automate deterministic reconstruction/hash QA.
+- NEXT remains G2J-FAST as defined above; do not revert to one 20,000-char turn unless a larger Git-blob payload actually fails.
