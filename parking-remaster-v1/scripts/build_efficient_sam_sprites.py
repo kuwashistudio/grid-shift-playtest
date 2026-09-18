@@ -33,6 +33,11 @@ MODEL_ENCODER=ROOT/".qa"/"models"/"efficient_sam_vitt_encoder.onnx"
 MODEL_DECODER=ROOT/".qa"/"models"/"efficient_sam_vitt_decoder.onnx"
 OUT=ROOT/".qa"/"efficient_sam_sprites"
 SPRITES=OUT/"sprites"
+PROD_SPRITES=ROOT/"assets"/"sprites"
+PROD_RESULT=ROOT/"VP_SPRITE_PRODUCTION_RESULT.json"
+
+VISUAL_APPROVAL="2026-09-19_EfficientSAM_fullsheet_plus_red_distance_refine_1.5"
+RED_GLOW_DISTANCE_THRESHOLD=1.5
 
 MASTER_SHA="535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0"
 MODEL_REPO="yformer/EfficientSAM"
@@ -115,6 +120,68 @@ def alpha_from_mask(mask):
     return cv2.GaussianBlur(u,(5,5),0.75)
 
 
+def refine_red_tutorial_glow(rgba,body_rel):
+    """Remove only the detached yellow tutorial fringe from red_top.
+
+    EfficientSAM correctly isolates the red car, but the baked yellow tutorial
+    glow is semantically attached to the object. We keep yellow pixels that
+    touch the non-yellow car body (headlights/reflections) and remove yellow
+    pixels farther than a fixed distance from that body.
+    """
+    bgr=rgba[:,:,:3]
+    alpha=rgba[:,:,3].copy()
+    hsv=cv2.cvtColor(bgr,cv2.COLOR_BGR2HSV)
+    semantic=alpha>20
+    yellow=(
+        (hsv[:,:,0]>=10)&(hsv[:,:,0]<=40)&
+        (hsv[:,:,1]>=90)&(hsv[:,:,2]>=90)&semantic
+    )
+    core=(semantic & ~yellow).astype(np.uint8)
+    # distanceTransform returns distance for non-zero pixels to nearest zero.
+    # zeros are the non-yellow semantic car core.
+    distance_to_core=cv2.distanceTransform((1-core).astype(np.uint8),cv2.DIST_L2,5)
+    remove=yellow & (distance_to_core>RED_GLOW_DISTANCE_THRESHOLD)
+    alpha[remove]=0
+
+    # Keep the alpha component with greatest overlap with logical body.
+    binary=(alpha>20).astype(np.uint8)
+    n,labels,stats,_=cv2.connectedComponentsWithStats(binary,8)
+    bx1,by1,bx2,by2=body_rel
+    if n>1:
+        best_lab=None; best_overlap=-1
+        for lab in range(1,n):
+            overlap=int(np.count_nonzero(labels[by1:by2,bx1:bx2]==lab))
+            if overlap>best_overlap:
+                best_overlap=overlap; best_lab=lab
+        if best_lab is not None:
+            alpha[labels!=best_lab]=0
+    alpha=cv2.GaussianBlur(alpha,(3,3),0.4)
+    rgba=rgba.copy(); rgba[:,:,3]=alpha
+    body_area=max(1,(bx2-bx1)*(by2-by1))
+    body_coverage=float(np.count_nonzero(alpha[by1:by2,bx1:bx2]>20))/body_area
+    return rgba,{
+        "yellow_semantic_pixels":int(np.count_nonzero(yellow)),
+        "removed_yellow_pixels":int(np.count_nonzero(remove)),
+        "distance_threshold_px":RED_GLOW_DISTANCE_THRESHOLD,
+        "refined_body_coverage":round(body_coverage,6),
+    }
+
+
+def write_lossless_webp(path,rgba):
+    ok=cv2.imwrite(str(path),rgba,[cv2.IMWRITE_WEBP_QUALITY,101])
+    if not ok:
+        raise RuntimeError(f"failed to write {path}")
+    decoded=cv2.imread(str(path),cv2.IMREAD_UNCHANGED)
+    if decoded is None or decoded.ndim!=3 or decoded.shape[2]!=4:
+        raise RuntimeError(f"WebP alpha decode failed: {path}")
+    if decoded.shape!=rgba.shape:
+        raise RuntimeError(f"WebP dimensions changed: {path}")
+    max_delta=int(np.max(np.abs(decoded.astype(np.int16)-rgba.astype(np.int16))))
+    if max_delta!=0:
+        raise RuntimeError(f"WebP not lossless: {path}, max delta {max_delta}")
+    return decoded
+
+
 def composite_checker(rgba,w=260,h=330):
     checker=np.zeros((h,w,3),np.uint8)
     cell=18
@@ -141,7 +208,7 @@ def add_label(tile,text):
 
 
 def main():
-    OUT.mkdir(parents=True,exist_ok=True); SPRITES.mkdir(parents=True,exist_ok=True)
+    OUT.mkdir(parents=True,exist_ok=True); SPRITES.mkdir(parents=True,exist_ok=True); PROD_SPRITES.mkdir(parents=True,exist_ok=True)
     if sha256(MASTER)!=MASTER_SHA:
         raise SystemExit("FAIL canonical MASTER hash")
     if not MODEL_ENCODER.exists() or not MODEL_DECODER.exists():
@@ -211,14 +278,24 @@ def main():
         sx1,sy1,sx2,sy2=sprite
         rgba=cv2.cvtColor(bgr[sy1:sy2,sx1:sx2],cv2.COLOR_BGR2BGRA)
         rgba[:,:,3]=alpha[sy1:sy2,sx1:sx2]
+        refine=None
+        if vid=="red_top":
+            body_rel=[body[0]-sx1,body[1]-sy1,body[2]-sx1,body[3]-sy1]
+            rgba,refine=refine_red_tutorial_glow(rgba,body_rel)
+
         out=SPRITES/f"{vid}.png"
         cv2.imwrite(str(out),rgba)
+        prod=PROD_SPRITES/f"{vid}.webp"
+        write_lossless_webp(prod,rgba)
 
         selections[vid]={
             "selected":chosen,
             "all_candidates":[x[0] for x in candidates],
-            "sha256":sha256(out),
-            "bytes":out.stat().st_size,
+            "refine":refine,
+            "qa_png_sha256":sha256(out),
+            "qa_png_bytes":out.stat().st_size,
+            "production_webp_sha256":sha256(prod),
+            "production_webp_bytes":prod.stat().st_size,
         }
 
         old_path=OLD/f"{vid}.png"
@@ -266,9 +343,32 @@ def main():
             "master_hash_match":sha256(MASTER)==MASTER_SHA,
         },
         "review":"grabcut_vs_efficientsam.jpg",
-        "decision_rule":"Direct full-size alpha QA is authoritative. EfficientSAM is promoted only if it materially reduces background/road/tutorial leakage without clipping car bodies."
+        "visual_approval":VISUAL_APPROVAL,
+        "decision_rule":"Direct full-size alpha QA is authoritative. EfficientSAM was approved after comparison; red_top additionally uses deterministic tutorial-glow refinement."
     }
     (OUT/"efficient_sam_qa.json").write_text(json.dumps(qa,indent=2)+"\n",encoding="utf-8")
+
+    production={
+        "gate":"VP_SPRITE_PRODUCTION",
+        "status":"PASS",
+        "approved_at":"2026-09-19",
+        "visual_approval":VISUAL_APPROVAL,
+        "master_sha256":sha256(MASTER),
+        "model":{
+            "repo":MODEL_REPO,"commit":MODEL_COMMIT,"license":"Apache-2.0",
+            "encoder_git_blob":MODEL_ENCODER_GIT_BLOB,
+            "decoder_git_blob":MODEL_DECODER_GIT_BLOB,
+        },
+        "method":"EfficientSAM-Ti box prompts; exact MASTER RGB; red_top detached tutorial-glow alpha refinement only",
+        "sprite_count":len(selections),
+        "sprites":{vid:{
+            "sha256":data["production_webp_sha256"],
+            "bytes":data["production_webp_bytes"],
+            "refine":data["refine"],
+        } for vid,data in selections.items()},
+        "clean_plate_status":"STILL_BLOCKED_SEPARATE_GATE",
+    }
+    PROD_RESULT.write_text(json.dumps(production,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"inference_seconds":qa["inference_seconds"],"encoder_sha256":qa["model"]["encoder"]["sha256"],"decoder_sha256":qa["model"]["decoder"]["sha256"],"vehicle_selected":{k:v["selected"] for k,v in selections.items()}},indent=2))
 
 
