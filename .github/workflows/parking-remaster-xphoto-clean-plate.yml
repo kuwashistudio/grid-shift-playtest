@@ -1,0 +1,61 @@
+name: Parking Remaster xphoto Clean Plate
+
+on:
+  push:
+    branches:
+      - parking-remaster-v1-staging-20260917
+    paths:
+      - 'parking-remaster-v1/scripts/build_xphoto_clean_plate_candidates.py'
+      - 'parking-remaster-v1/assets/master.webp'
+      - 'parking-remaster-v1/levels/level_001.json'
+      - '.github/workflows/parking-remaster-xphoto-clean-plate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: parking-remaster-xphoto-clean-plate
+  cancel-in-progress: false
+
+jobs:
+  build-xphoto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install OpenCV contrib
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy==2.2.6" "opencv-contrib-python-headless==4.12.0.88"
+
+      - name: Build FSR candidates
+        run: python parking-remaster-v1/scripts/build_xphoto_clean_plate_candidates.py
+
+      - name: Validate hard invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          q=json.loads(Path("parking-remaster-v1/.qa/xphoto/xphoto_qa.json").read_text())
+          assert q["source"]["sha256"]=="535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0"
+          assert q["hard_checks"]["unchanged_outside_mask"] is True
+          assert q["hard_checks"]["all_10_sprite_rects_masked"] is True
+          assert 0.05 < q["mask"]["fraction"] < 0.40
+          print("PASS xphoto hard invariants")
+          PY
+
+      - name: Upload xphoto visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-xphoto-review
+          path: parking-remaster-v1/.qa/xphoto/
+          if-no-files-found: error
+          retention-days: 7
