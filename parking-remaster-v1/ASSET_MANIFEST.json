@@ -5,7 +5,7 @@
   "artifacts": {
     "index.html": {
       "bytes": 10119,
-      "sha256": "69ad284e7a0b7b84fb12c07163f3c23904e7e85eabb4c7cb303338ea6c902c58",
+      "sha256": "358e41514dea77f3d8e07eb5e9facfe17f7df23fadccf57c323aa5e829a04e04",
       "git_blob": "419b868d01047e17f89a111cd987abe4532794a8",
       "note": "Runtime consumes generated canonical Level Data and delegates blocker/legal logic to game_logic.js functional core."
     },
@@ -21,16 +21,16 @@
     },
     "levels.generated.js": {
       "bytes": 1568,
-      "sha256": "1d61c1c71df5a1b89efce6a507dde86d3204973c3527d7b0b9a648cff6033c3d",
+      "sha256": "fa401fa53c4024fcaea03a1b742779ad99bb87b56b665e34a4eb8526d4017e42",
       "git_blob": "74ac6b6e0cddbce738c6679b37961eaa5159f791",
       "source": "levels/level_*.json",
       "note": "Generated self-contained level bundle for deterministic relative-path startup."
     },
     "game_logic.js": {
       "bytes": 1649,
-      "sha256": "f8cdfc7a824b88c40352cdb16c33cf79a8fb09797c927adf0110ebfe3d6ddf6c",
+      "sha256": "97e12aa6fad9a323f34d597b295ac50cec27d60536d91a24e27e2d9d9bc77777",
       "git_blob": "944153dc20e3f63b0b412d01045329c6627e3ea7",
-      "note": "Pure deterministic collision/legal-move core shared by browser runtime and differential parity testing."
+      "note": "Pure deterministic collision/legal-move core; Python solver parity verified across all 1,024 Level 1 states."
     }
   },
   "next_gate": "G2 attach canonical master.webp to staging"

@@ -3,9 +3,9 @@
   "status": "PASS",
   "verified_at": "2026-09-18",
   "runtime": {
-    "bytes": 10855,
-    "sha256": "09cf02b9731b768ef422bb7b5d03bd433999baba5b86388be004a9aa1c619d18",
-    "git_blob": "6e9fe6956fbfbbb17467ca3fa58d220f13e1cdfa"
+    "bytes": 10119,
+    "sha256": "358e41514dea77f3d8e07eb5e9facfe17f7df23fadccf57c323aa5e829a04e04",
+    "git_blob": "419b868d01047e17f89a111cd987abe4532794a8"
   },
   "checks": {
     "car_count": 10,
@@ -20,6 +20,12 @@
     "pointerdown": true,
     "rapid_tap_guard": true,
     "transform_only_exit": true,
-    "vibration_required_for_gameplay": false
+    "vibration_required_for_gameplay": false,
+    "functional_core": "PASS",
+    "solver_runtime_parity": {
+      "states": 1024,
+      "mismatches": 0,
+      "status": "PASS"
+    }
   }
 }
