@@ -1,0 +1,28 @@
+name: Parking Remaster Production Sprite Integrity
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/assets/sprites/**'
+      - 'parking-remaster-v1/VP_SPRITE_PRODUCTION_RESULT.json'
+      - 'parking-remaster-v1/scripts/validate_production_sprites.py'
+      - '.github/workflows/parking-remaster-sprite-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify production sprite provenance and hashes
+        run: python parking-remaster-v1/scripts/validate_production_sprites.py
