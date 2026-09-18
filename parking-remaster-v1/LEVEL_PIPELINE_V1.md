@@ -82,7 +82,7 @@ Browser/Node functional core and independent Python solver agree on legal moves 
 Deterministic structural feature extraction now reports dependency depth, branch distribution, forced-choice ratio, choice entropy, solution flexibility, novelty load and current recovery cost. No composite human-difficulty score is permitted before playtest calibration.
 
 ### LDP-5 — Vertical Slice authoring preparation — PASS
-The 12 Main + 2 Hard Beat Chart is now machine-readable and validated. Levels 2-14 are still not authorized for bulk authoring: first resolve H1 (the exact visible fail mechanic) and create per-level target feature briefs. Every candidate remains schema-valid, solver-valid, metadata-complete, duplicate-screened, human-played and intentionally positioned on the Beat Chart.
+The 12 Main + 2 Hard Beat Chart is machine-readable and validated. H1 is now resolved and its shared_exit_conflict state machine is parity-tested. Levels 2-14 are still not authorized for bulk authoring: first create per-level target feature briefs. Every candidate remains schema-valid, solver-valid, metadata-complete, duplicate-screened, human-played and intentionally positioned on the Beat Chart.
 
 ## Generation policy
 
@@ -92,4 +92,6 @@ If generation begins later: generator proposes; solver validates; structural fil
 
 ## Production consequence
 
-The next implementation task is H1-IMPL: extend Level Schema, JavaScript functional core, and Python solver with deterministic shared_exit_conflict state; prove differential parity on synthetic fixtures before authoring Levels 10-12.
+H1-IMPL — PASS: Level Schema v2, JavaScript functional core, and Python state rules implement deterministic shared_exit_conflict; synthetic parity and Level 1 regression both pass.
+
+The next implementation task is VS-BRIEF: research and define per-level structural target ranges for Levels 2-14 before authoring any candidate level.

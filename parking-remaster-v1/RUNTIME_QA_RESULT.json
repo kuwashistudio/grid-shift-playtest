@@ -26,6 +26,13 @@
       "states": 1024,
       "mismatches": 0,
       "status": "PASS"
+    },
+    "shared_exit_conflict_extension": {
+      "fixture_python_js_parity": "PASS",
+      "level_001_regression_states": 1024,
+      "level_001_regression_mismatches": 0,
+      "schema_v2_fixture_validation": "PASS",
+      "status": "PASS"
     }
   }
 }

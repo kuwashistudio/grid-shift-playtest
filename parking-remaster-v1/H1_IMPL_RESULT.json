@@ -1,6 +1,6 @@
 {
   "gate": "H1_IMPL_SHARED_EXIT_CONFLICT_STATE",
-  "status": "PENDING_EXECUTION",
+  "status": "PASS",
   "verified_at": "2026-09-18",
   "architecture": "explicit event state; rendering time is non-authoritative",
   "schema": "schemas/level_v2.schema.json",
@@ -14,5 +14,22 @@
     "safe_c launches without waiting",
     "exit_complete merge_a clears group",
     "merge_b launches safely"
-  ]
+  ],
+  "verification": {
+    "fixture_python_js_parity": "PASS",
+    "fixture_trace_mismatches": 0,
+    "schema_v2_fixture_validation": "PASS",
+    "level_001_regression": {
+      "states": 1024,
+      "mismatches": 0,
+      "status": "PASS"
+    },
+    "committed_blobs": {
+      "game_logic_js": "15cca8544b9ac624a0916127ada292601507f588",
+      "solve_level_py": "c1c26cbbc43592161760a007fe7ccec296426e0d",
+      "schema_v2": "6b7f05606fd59fa44ed3d25af86ff1f5edab830c",
+      "fixture": "1a4ca3cfacfe2e7cb11b8a0ad632cc31ceddee04"
+    },
+    "conclusion": "shared_exit_conflict is deterministic event-state logic; animation frame timing is non-authoritative."
+  }
 }

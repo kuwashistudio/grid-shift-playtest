@@ -21,7 +21,7 @@
       "name": "fair_failure_retry",
       "status": "PARTIAL",
       "retire_by": "slice levels 10-12 + retry evidence",
-      "progress": "H1 fair-failure mechanic selected: deterministic shared_exit_conflict with no RNG, no autonomous pedestrian/traffic, visible conflict zone, safe alternative action on teaching level, and fast retry target. Still open: implementation parity and fresh-player retry evidence."
+      "progress": "H1 shared_exit_conflict is now implemented in Level Schema v2, JavaScript functional core, and Python state rules. Synthetic Python/JS parity PASS; Level 1 1,024-state regression PASS. Still open: actual Levels 10-12 presentation, <=1.5s retry experience, and fresh-player understanding/retry evidence."
     },
     {
       "id": "R4",
@@ -42,7 +42,7 @@
       "name": "repeatable_level_production",
       "status": "PARTIAL",
       "retire_by": "level schema + solver + measured production cost",
-      "progress": "Level schema, generated runtime bundle, exact solver, and exhaustive solver/runtime parity are in place. Still open: difficulty feature validation, measured level production cost, and Vertical Slice repeatability."
+      "progress": "Level schemas v1/v2, generated runtime bundle, exact solver, exhaustive v1 parity, deterministic shared-exit state-machine parity, and Difficulty Features v1 are in place. Still open: per-level authoring briefs, measured level production cost, duplicate detection, and Vertical Slice repeatability."
     },
     {
       "id": "R7",
