@@ -44,12 +44,16 @@ def load_segment(index: int) -> str:
         if lo <= index <= hi:
             payload = read_ascii(path)
             count = hi - lo + 1
-            expected_full = 20_000 * count
-            if len(payload) != expected_full:
+            expected = 20_000 * count
+            if hi == 29:
+                expected -= 2_508
+            if len(payload) != expected:
                 raise ValueError(
-                    f"{path.name}: expected {expected_full} chars for {count} full parts, got {len(payload)}"
+                    f"{path.name}: expected {expected} chars for parts {lo:02d}-{hi:02d}, got {len(payload)}"
                 )
             offset = (index - lo) * 20_000
+            if index == 29:
+                return payload[offset:]
             return payload[offset:offset + 20_000]
 
     raise FileNotFoundError(f"missing canonical segment part-{index:02d}")

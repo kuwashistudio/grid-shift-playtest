@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "canonical_master": {
+    "base64_length": 597492,
+    "binary_bytes": 448118,
+    "binary_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "binary_git_blob_sha1": "f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe"
+  },
+  "already_staged_parts": "00-08",
+  "remaining_packs": [
+    {
+      "file": "master.pack-09-13.b64",
+      "start": 180000,
+      "end_exclusive": 280000,
+      "length": 100000,
+      "git_blob_sha1": "ebff90555a02e6e22b61eddad812dec8e382a944",
+      "sha256_text": "218cfbb427bd4d51e1c3437b0883959d996d616fa9d36212420bba55e56e0ce6"
+    },
+    {
+      "file": "master.pack-14-18.b64",
+      "start": 280000,
+      "end_exclusive": 380000,
+      "length": 100000,
+      "git_blob_sha1": "85abc47112fb3faf37dc838981b7372fd90f86f7",
+      "sha256_text": "76390b64bce8ec66d28b56bce1f2f73daa545e3d8334916066acc9883a3b5afb"
+    },
+    {
+      "file": "master.pack-19-23.b64",
+      "start": 380000,
+      "end_exclusive": 480000,
+      "length": 100000,
+      "git_blob_sha1": "9faac1a8d85051dec6c6999f4ffe12c7f04af1e5",
+      "sha256_text": "f9a76a02821c41085a8011f40d13f54d0b1ecd841c55984c97511da9ae5833bf"
+    },
+    {
+      "file": "master.pack-24-28.b64",
+      "start": 480000,
+      "end_exclusive": 580000,
+      "length": 100000,
+      "git_blob_sha1": "c6ebe2550f99cd3a21331f42a6ff5ba052b54602",
+      "sha256_text": "996908848ab726b9a5b0f9bff8a4e8b6f2eeccbbae0775791894eb4cc9739264"
+    },
+    {
+      "file": "master.pack-29-29.b64",
+      "start": 580000,
+      "end_exclusive": 597492,
+      "length": 17492,
+      "git_blob_sha1": "30146b9b716ddb8fb253c6f60156a05640e4db9e",
+      "sha256_text": "0660d7e53043ab385f0f927840827fa1edfbefe276a4160cad422bc0ecbb24fd"
+    }
+  ],
+  "completion_marker": "parking-remaster-v1/.transfer/MASTER_TRANSFER_COMPLETE"
+}
