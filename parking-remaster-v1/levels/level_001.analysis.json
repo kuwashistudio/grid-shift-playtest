@@ -1,0 +1,41 @@
+{
+  "level_id": "level_001",
+  "solver_model": "deterministic finite-state removal search v0",
+  "solvable": true,
+  "solution_count": 7210,
+  "canonical_solution": [
+    "green_tl",
+    "red_top",
+    "blue_top",
+    "white_tr",
+    "black_ml",
+    "yellow_mid",
+    "silver_mid",
+    "white_bl",
+    "blue_bottom",
+    "green_br"
+  ],
+  "states_explored": 90,
+  "initial_legal_moves": [
+    "green_tl",
+    "red_top",
+    "white_tr"
+  ],
+  "initial_blockers": {
+    "green_tl": null,
+    "red_top": null,
+    "blue_top": "green_tl",
+    "white_tr": null,
+    "black_ml": "green_tl",
+    "yellow_mid": "black_ml",
+    "silver_mid": "black_ml",
+    "white_bl": "red_top",
+    "blue_bottom": "white_bl",
+    "green_br": "blue_top"
+  },
+  "interpretation": [
+    "Level 1 is intentionally highly permissive and appropriate as onboarding/confidence content.",
+    "Its 7210 valid clear orders mean it is not a meaningful challenge benchmark.",
+    "Future challenge levels need substantially lower branching and/or additional visible decision consequences."
+  ]
+}

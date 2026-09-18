@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kuwashistudio.github.io/parking-remaster/schemas/level_v1.schema.json",
+  "title": "Parking Remaster Level v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "chapter",
+    "sequence",
+    "role",
+    "objective",
+    "board",
+    "mechanics",
+    "tutorial",
+    "vehicles",
+    "design"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^level_[0-9]{3,}$"
+    },
+    "chapter": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "role": {
+      "enum": [
+        "onboarding_confidence",
+        "easy",
+        "easy_normal",
+        "normal",
+        "twist",
+        "recovery",
+        "normal_plus",
+        "challenge",
+        "failure_teach",
+        "learned_challenge",
+        "chapter_peak",
+        "hard"
+      ]
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "const": "clear_all_vehicles"
+        }
+      }
+    },
+    "board": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height",
+        "movement_bounds",
+        "corridor_inset"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "movement_bounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ],
+          "properties": {
+            "left": {
+              "type": "number"
+            },
+            "right": {
+              "type": "number"
+            },
+            "top": {
+              "type": "number"
+            },
+            "bottom": {
+              "type": "number"
+            }
+          }
+        },
+        "corridor_inset": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "mechanics": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "tutorial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hard_fail_enabled"
+      ],
+      "properties": {
+        "first_focus_vehicle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hard_fail_enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "vehicles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/vehicle"
+      }
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "introduced",
+        "mastered",
+        "combined",
+        "target_band",
+        "expected_player_experience"
+      ],
+      "properties": {
+        "introduced": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "mastered": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "combined": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "target_band": {
+          "enum": [
+            "very_easy",
+            "easy",
+            "normal",
+            "challenge",
+            "hard",
+            "peak"
+          ]
+        },
+        "expected_player_experience": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "rect": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "vehicle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "body",
+        "sprite",
+        "dir"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body": {
+          "$ref": "#/$defs/rect"
+        },
+        "sprite": {
+          "$ref": "#/$defs/rect"
+        },
+        "dir": {
+          "enum": [
+            "up",
+            "down",
+            "left",
+            "right"
+          ]
+        },
+        "first": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
