@@ -1,0 +1,18 @@
+{
+  "gate": "VISUAL_PRODUCTION_GATE",
+  "status": "BLOCKED_EXPECTED",
+  "verified_at": "2026-09-18",
+  "reason": "Canonical master is present, but current runtime references missing patch/sprite/tutorial assets and no reusable production sprite set exists in the repository.",
+  "current_master": {
+    "bytes": 448118,
+    "git_blob": "f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe"
+  },
+  "required_next": [
+    "derive_or_recover_clean_plate",
+    "derive_or_recover_10_transparent_car_sprites",
+    "rebuild_Level_1_without_patch_dependency",
+    "visual_QA",
+    "then_author_Level_2_only"
+  ],
+  "validator": "scripts/validate_visual_assets.py"
+}

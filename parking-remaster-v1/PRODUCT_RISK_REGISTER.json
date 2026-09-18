@@ -42,13 +42,14 @@
       "name": "repeatable_level_production",
       "status": "PARTIAL",
       "retire_by": "level schema + solver + measured production cost",
-      "progress": "Level schemas, runtime bundle, solver/parity, Difficulty Features, H1 state machine, and per-level authoring briefs are in place. Next evidence is controlled Level 2 production time/revisions; duplicate detection and full Vertical Slice repeatability remain open."
+      "progress": "Logic/data production pipeline is advanced, but repository audit exposed an unretired visual-production risk: current runtime references missing patch/sprite assets and cannot yet render arbitrary levels from reusable assets. Visual Production Gate VP-2..VP-5 is now required before Level 2."
     },
     {
       "id": "R7",
       "name": "iphone_runtime_stability",
       "status": "PARTIAL",
-      "retire_by": "target-device repeated solve/restart QA"
+      "retire_by": "target-device repeated solve/restart QA",
+      "progress": "Static/input QA exists, but full target-device runtime cannot be considered production-stable while required interaction sprites/patches are absent. Re-test after clean-plate + sprite runtime migration."
     },
     {
       "id": "R8",

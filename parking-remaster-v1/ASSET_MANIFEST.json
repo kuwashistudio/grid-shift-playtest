@@ -17,7 +17,9 @@
     "assets/atlas.webp": {
       "bytes": 148094,
       "sha256": "87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2",
-      "format_check": "WebP with alpha"
+      "format_check": "WebP with alpha",
+      "status": "MISSING_IN_REPO",
+      "note": "Canonical hash is retained as historical expectation, but repository audit found no atlas file. Do not claim attached/present."
     },
     "levels.generated.js": {
       "bytes": 1568,
@@ -33,5 +35,14 @@
       "note": "Pure deterministic functional core extended with shared_exit_conflict event state; synthetic Python/JS parity PASS and Level 1 1,024-state regression PASS."
     }
   },
-  "next_gate": "G2 attach canonical master.webp to staging"
+  "next_gate": "Visual Production VP-2/VP-3: derive/recover clean plate and reusable MASTER-derived sprite set before Level 2.",
+  "repository_audit": {
+    "verified_at": "2026-09-18",
+    "master_webp": "PRESENT",
+    "atlas_webp": "MISSING_IN_REPO",
+    "sprite_directory": "MISSING",
+    "patch_directory": "MISSING",
+    "tutorial_cover": "MISSING",
+    "runtime_visual_asset_status": "FAIL_CLOSED"
+  }
 }

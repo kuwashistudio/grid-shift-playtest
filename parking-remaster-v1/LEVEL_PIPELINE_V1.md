@@ -97,3 +97,12 @@ H1-IMPL — PASS: Level Schema v2, JavaScript functional core, and Python state 
 VS-BRIEF — PASS: per-level soft structural envelopes and hard heartbeat relations are defined and independently verified for Levels 1-14.
 
 After VS-BRIEF passes, the next task is **Level 2 only** as a controlled-authoring proof. Measure design/data/validation/revision time before authoring Level 3.
+
+
+## Visual Production prerequisite — ACTIVE
+
+2026-09-18 repository audit found that the canonical master.webp is present, but the runtime-referenced patch/sprite/tutorial assets and atlas are absent. Level 2 authoring is therefore paused before mutation.
+
+The production path is clean plate + reusable MASTER-derived sprites. See `VISUAL_PRODUCTION_GATE_V1.md`.
+
+**Next gate: VP-2/VP-3 visual asset recovery/derivation. Level 2 remains locked until Level 1 can be rebuilt from reusable production assets.**

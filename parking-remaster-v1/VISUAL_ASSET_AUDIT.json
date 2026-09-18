@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "audited_at": "2026-09-18",
+  "branch": "parking-remaster-v1-staging-20260917",
+  "branch_head_at_audit": "24e80893f2743294f61452013270b5afb2e09f2a",
+  "status": "FAIL_CLOSED",
+  "canonical_present": [
+    {
+      "path": "assets/master.webp",
+      "bytes": 448118,
+      "git_blob": "f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe",
+      "status": "PRESENT"
+    }
+  ],
+  "runtime_references_missing": [
+    {
+      "pattern": "assets/patches/{car_id}.webp",
+      "count_expected": 10,
+      "status": "MISSING_DIRECTORY"
+    },
+    {
+      "pattern": "assets/sprites/{car_id}.webp",
+      "count_expected": 10,
+      "status": "MISSING_DIRECTORY"
+    },
+    {
+      "path": "assets/tutorial_cover.webp",
+      "status": "MISSING"
+    },
+    {
+      "path": "assets/atlas.webp",
+      "expected_bytes": 148094,
+      "expected_sha256": "87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2",
+      "status": "MISSING_IN_REPO"
+    }
+  ],
+  "github_history_search": {
+    "current_default_code_search_for": [
+      "atlas.webp",
+      "tutorial_cover.webp",
+      "assets/sprites",
+      "assets/patches",
+      "green_tl.webp",
+      "red_top.webp"
+    ],
+    "matches": 0,
+    "old_parking_remaster_asset_directory": "NOT_FOUND",
+    "conclusion": "No recoverable committed sprite/patch/atlas asset set was found in repository code/history searches."
+  },
+  "consequence": "Current Level 1 static master can display, but interaction-created patch/sprite resources are absent. Multi-level visual production is not greenlit."
+}
