@@ -105,4 +105,6 @@ After VS-BRIEF passes, the next task is **Level 2 only** as a controlled-authori
 
 The production path is clean plate + reusable MASTER-derived sprites. See `VISUAL_PRODUCTION_GATE_V1.md`.
 
-**Next gate: VP-2/VP-3 visual asset recovery/derivation. Level 2 remains locked until Level 1 can be rebuilt from reusable production assets.**
+**VP-3 Sprite Gate — PASS (2026-09-19).** Ten MASTER-derived production car sprites are committed under `assets/sprites/` and hash-locked by `VP_SPRITE_PRODUCTION_RESULT.json`.
+
+**Next gate: VP-2 Clean Plate only.** Level 2 remains locked until Level 1 can be rebuilt from production clean plate + the PASS sprite set with no patch dependency.

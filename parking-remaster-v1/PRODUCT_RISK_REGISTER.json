@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated": "2026-09-18",
+  "updated": "2026-09-19",
   "production_greenlight": false,
   "decision_state": "PRE_PRODUCTION",
   "critical_risks": [
@@ -43,14 +43,14 @@
       "name": "repeatable_level_production",
       "status": "PARTIAL",
       "retire_by": "level schema + solver + measured production cost",
-      "progress": "Logic/data production pipeline is advanced, but repository audit exposed an unretired visual-production risk: current runtime references missing patch/sprite assets and cannot yet render arbitrary levels from reusable assets. Visual Production Gate VP-2..VP-5 is now required before Level 2."
+      "progress": "Logic/data pipeline remains advanced. Visual production has retired one major risk: the reusable 10-car MASTER-derived production sprite set is now PASS, hash-locked, and committed. Remaining visual blocker is clean_plate.webp plus Level 1 rebuild without patch dependency; Level 2 remains locked."
     },
     {
       "id": "R7",
       "name": "iphone_runtime_stability",
       "status": "PARTIAL",
       "retire_by": "target-device repeated solve/restart QA",
-      "progress": "Runtime QA passes after instant-start/audio hardening. iOS/WebKit suspended/interrupted AudioContext states are handled by dirtying/recreating context on the next user gesture after visibility/page transitions; mute and compressor are present. Still open: missing production visual assets plus target-iPhone screen-recording verification of clean internal SFX."
+      "progress": "Runtime QA passes after instant-start/audio hardening, and the 10 production car sprites are now present. Still open: production clean plate + Level 1 clean-plate/sprite rebuild, then target-iPhone repeated solve/restart and saved screen-recording verification of clean internal SFX."
     },
     {
       "id": "R8",

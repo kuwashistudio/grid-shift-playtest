@@ -1,17 +1,17 @@
 {
   "gate": "VISUAL_PRODUCTION_GATE",
-  "status": "CLEAN_PLATE_METHOD_SELECTED_FOR_REFINEMENT",
+  "status": "SPRITES_PASS_CLEAN_PLATE_BLOCKED",
   "verified_at": "2026-09-18",
-  "reason": "Canonical master is present, but current runtime references missing patch/sprite/tutorial assets and no reusable production sprite set exists in the repository.",
+  "reason": "Reusable production sprite set is now PASS and committed. Overall Visual Production remains fail-closed because production clean_plate.webp is still missing and runtime has not yet been rebuilt without Level-1-only patch dependency.",
   "current_master": {
     "bytes": 448118,
     "git_blob": "f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe"
   },
   "required_next": [
-    "derive_or_recover_clean_plate",
-    "derive_or_recover_10_transparent_car_sprites",
-    "rebuild_Level_1_without_patch_dependency",
-    "visual_QA",
+    "derive_production_clean_plate",
+    "rebuild_Level_1_from_clean_plate_plus_production_sprites",
+    "remove_patch_dependency",
+    "visual_QA_against_MASTER",
     "then_author_Level_2_only"
   ],
   "validator": "scripts/validate_visual_assets.py",
@@ -34,7 +34,7 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "Package exact canonical MASTER + sprites locally; evaluate small deterministic exemplar/structure-aware methods without CI wait. Promote only after direct visual QA.",
+  "next_gate": "Clean Plate structural reconstruction from the approved MASTER: detect/fit parking markings and reconstruct asphalt/parking-cell background without returning to generic inpainting. Level 2 remains locked.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
@@ -42,11 +42,12 @@
     "lama_refined_mask": "REJECTED_VISUAL_QA",
     "lama_sequential": "REJECTED_VISUAL_QA",
     "lama_standard_union_mask": "CURRENT_BEST_REFINEMENT_REQUIRED",
-    "grabcut_sprite_set": "PROVISIONAL_PASS_FULL_SIZE_ALPHA_QA_REQUIRED",
+    "grabcut_sprite_set": "REJECTED_FULL_SIZE_ALPHA_QA",
     "lama_hybrid_frequency_separation": "REJECTED_VISUAL_QA",
     "lama_independent_local_margin_7": "REJECTED_VISUAL_QA",
     "lama_independent_local_shadow_margin_26": "REJECTED_VISUAL_QA",
-    "bmquilting_master_only": "RETIRED_INTEGRATION_FAILURE"
+    "bmquilting_master_only": "RETIRED_INTEGRATION_FAILURE",
+    "efficientsam_ti_sprite_set": "PASS_PRODUCTION"
   },
   "hybrid_frequency_separation": {
     "ci_run_id": 35382261854,
@@ -69,7 +70,7 @@
     },
     "conclusion": "Bounded LaMa repair exhausted. Do not tune LaMa masks/margins further."
   },
-  "active_clean_plate_route": "LOCAL_MASTER_DIRECT_EXPERIMENTS",
+  "active_clean_plate_route": "PARKING_GRID_CELL_STRUCTURE_RECONSTRUCTION",
   "bmquilting": {
     "commit": "9fd5f97bef7472580e68fdadc15822f7ac896203",
     "license": "MIT",
@@ -85,5 +86,28 @@
       "reason": "Library seam-blend path raises TypeError in create_adaptive_blend_mask under current NumPy/OpenCV stack."
     },
     "conclusion": "One bounded integration repair exhausted. Do not patch third-party library further."
+  },
+  "sprite_gate": {
+    "status": "PASS",
+    "run_id": 35400261077,
+    "promotion_commit": "17e2ba0f79a28e0903fa1e930e0b6fc831b33b05",
+    "production_result": "VP_SPRITE_PRODUCTION_RESULT.json",
+    "validator": "scripts/validate_production_sprites.py",
+    "count": 10,
+    "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "model": {
+      "repo": "yformer/EfficientSAM",
+      "commit": "d525f622e6f640acf5a0fc37c7ca1f243da5bde0",
+      "license": "Apache-2.0",
+      "encoder_git_blob": "6458f72477ae216a1bd68db41ffa14802c8d54f1",
+      "decoder_git_blob": "f9310202c916fe5a4ec9a6897edae855caf023f4"
+    },
+    "visual_approval": "2026-09-19_EfficientSAM_fullsheet_plus_red_distance_refine_1.5",
+    "red_top_refine": {
+      "yellow_semantic_pixels": 2324,
+      "removed_yellow_pixels": 1477,
+      "distance_threshold_px": 1.5,
+      "refined_body_coverage": 0.919222
+    }
   }
 }

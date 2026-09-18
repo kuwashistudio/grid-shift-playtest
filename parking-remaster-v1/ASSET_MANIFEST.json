@@ -33,16 +33,27 @@
       "sha256": "25fda2dbba4dd20878781d6d8eb95d700466057ca26601fd1bfd0f50e46341e4",
       "git_blob": "15cca8544b9ac624a0916127ada292601507f588",
       "note": "Pure deterministic functional core extended with shared_exit_conflict event state; synthetic Python/JS parity PASS and Level 1 1,024-state regression PASS."
+    },
+    "assets/sprites/": {
+      "status": "PRESENT_PASS",
+      "count": 10,
+      "source": "VP_SPRITE_PRODUCTION_RESULT.json",
+      "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+      "method": "EfficientSAM-Ti alpha extraction; exact MASTER RGB; red_top deterministic tutorial-glow alpha refinement",
+      "encoding": "Pillow WebP lossless=True quality=100 method=6 exact=True",
+      "visual_approval": "2026-09-19_EfficientSAM_fullsheet_plus_red_distance_refine_1.5"
     }
   },
-  "next_gate": "Visual Production VP-2/VP-3: derive/recover clean plate and reusable MASTER-derived sprite set before Level 2.",
+  "next_gate": "Visual Production VP-2 Clean Plate: derive production clean plate, then rebuild Level 1 from clean plate + the PASS 10-car sprite set before Level 2.",
   "repository_audit": {
-    "verified_at": "2026-09-18",
+    "verified_at": "2026-09-19",
     "master_webp": "PRESENT",
     "atlas_webp": "MISSING_IN_REPO",
-    "sprite_directory": "MISSING",
+    "sprite_directory": "PRESENT_PASS_10",
     "patch_directory": "MISSING",
     "tutorial_cover": "MISSING",
-    "runtime_visual_asset_status": "FAIL_CLOSED"
+    "runtime_visual_asset_status": "FAIL_CLOSED_CLEAN_PLATE_ONLY",
+    "sprite_production_result": "PASS",
+    "clean_plate_webp": "MISSING_IN_REPO"
   }
 }
