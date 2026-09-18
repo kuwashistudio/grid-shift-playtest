@@ -1,0 +1,39 @@
+name: Parking Remaster Package Visual Reviews
+
+on:
+  push:
+    branches:
+      - parking-remaster-v1-staging-20260917
+    paths:
+      - '.github/workflows/parking-remaster-package-visual-reviews.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+
+      - name: Verify review files
+        run: |
+          test -f parking-remaster-v1/assets/candidates/review_telea.jpg
+          test -f parking-remaster-v1/assets/candidates/review_ns.jpg
+          test -f parking-remaster-v1/assets/candidates/review_sprites.jpg
+
+      - name: Upload review bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-visual-review-bundle
+          path: |
+            parking-remaster-v1/assets/candidates/review_telea.jpg
+            parking-remaster-v1/assets/candidates/review_ns.jpg
+            parking-remaster-v1/assets/candidates/review_sprites.jpg
+            parking-remaster-v1/VISUAL_FACTORY_CANDIDATE_QA.json
+          if-no-files-found: error
+          retention-days: 3
