@@ -65,3 +65,12 @@ PASS only if:
 
 ## Implementation principle
 Benchmark the successful interaction grammar, not the monetization clutter. The target is a clean, fast, deterministic parking-order puzzle that feels understandable on the first tap and remains stable through repeated solves.
+
+
+## iPhone touch target and haptics audit — 2026-09-18
+- Apple HIG requires touch-first interaction on iPhone and recommends frequently used controls at 44x44 pt or larger.
+- The original car hitboxes had narrow dimensions down to 94 MASTER pixels, which shrink below 44 pt on common iPhone portrait widths.
+- Runtime hitboxes were expanded invisibly to a minimum 112x112 MASTER pixels where needed. At 375 CSS px viewport width this yields about 44.6 CSS px; at 390 px it yields about 46.4 px.
+- Pairwise geometry check across all 10 expanded hitboxes reports zero overlaps, so easier tapping does not introduce ambiguous target selection.
+- Safari/iOS Safari does not implement the standard Vibration API according to current WebKit/MDN compatibility data. Therefore `navigator.vibrate()` is optional enhancement only; no gameplay meaning or QA PASS may depend on haptic feedback.
+- Do not add checkbox/switch-based Safari haptic hacks or other nonstandard vibration workarounds. They increase fragility and are unnecessary because blocked/legal feedback is already conveyed visually and audibly.
