@@ -57,6 +57,19 @@ jobs:
           print("PASS candidate structural QA")
           PY
 
+      - name: Upload visual review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-visual-review
+          path: |
+            parking-remaster-v1/assets/candidates/review_telea.jpg
+            parking-remaster-v1/assets/candidates/review_ns.jpg
+            parking-remaster-v1/assets/candidates/review_sprites.jpg
+            parking-remaster-v1/assets/candidates/candidate_contact_sheet.jpg
+            parking-remaster-v1/VISUAL_FACTORY_CANDIDATE_QA.json
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Persist candidates on staging
         run: |
           git config user.name "github-actions[bot]"
