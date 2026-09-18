@@ -26,6 +26,13 @@
     "independent_source_audit": "PASS",
     "existing_runtime_workflow_run_35354568944": "PASS",
     "target_iphone_controls_ready_under_1000ms": "PENDING",
-    "target_iphone_saved_screen_recording_audio": "PENDING"
+    "target_iphone_saved_screen_recording_audio": "PENDING",
+    "runtime_ci_run_35354768630": {
+      "status": "PASS",
+      "checks": [
+        "validate_runtime_mobile.py",
+        "validate_instant_start_audio.py"
+      ]
+    }
   }
 }

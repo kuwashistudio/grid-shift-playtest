@@ -54,6 +54,12 @@
       "mute_toggle": true,
       "screen_recording_saved_file_test": "PENDING_TARGET_IPHONE",
       "status": "IMPLEMENTED_PENDING_DEVICE_CAPTURE"
+    },
+    "instant_start_audio_ci": {
+      "run_id": 35354768630,
+      "runtime_mobile_validator": "PASS",
+      "instant_start_audio_validator": "PASS",
+      "status": "PASS"
     }
   }
 }
