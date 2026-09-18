@@ -1,0 +1,70 @@
+name: Parking Remaster EfficientSAM Sprite QA
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/scripts/build_efficient_sam_sprites.py'
+      - '.github/workflows/parking-remaster-efficient-sam-sprites.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: parking-remaster-efficient-sam-sprites
+  cancel-in-progress: true
+
+jobs:
+  efficient-sam:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install CPU segmentation stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy==2.2.6" "opencv-python-headless==4.12.0.88" "onnxruntime==1.22.1"
+
+      - name: Download pinned official EfficientSAM-Ti ONNX
+        run: |
+          mkdir -p parking-remaster-v1/.qa/models
+          curl -L --fail --retry 3 \
+            "https://raw.githubusercontent.com/yformer/EfficientSAM/d525f622e6f640acf5a0fc37c7ca1f243da5bde0/weights/efficient_sam_vitt.onnx" \
+            -o parking-remaster-v1/.qa/models/efficient_sam_vitt.onnx
+          test "$(stat -c%s parking-remaster-v1/.qa/models/efficient_sam_vitt.onnx)" -eq 41365520
+
+      - name: Build EfficientSAM sprite candidates
+        run: python parking-remaster-v1/scripts/build_efficient_sam_sprites.py
+
+      - name: Validate structural invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          q=json.loads(Path("parking-remaster-v1/.qa/efficient_sam_sprites/efficient_sam_qa.json").read_text())
+          assert q["hard_checks"]["sprite_count"]==10
+          assert q["hard_checks"]["expected_sprite_count"]==10
+          assert q["hard_checks"]["master_hash_match"] is True
+          assert q["model"]["commit"]=="d525f622e6f640acf5a0fc37c7ca1f243da5bde0"
+          assert q["model"]["git_blob"]=="97614a537b5c02826b31f385790c4b399d33bbc3"
+          for vid,data in q["vehicles"].items():
+              assert data["selected"]["body_coverage"] > 0.45, (vid,data["selected"])
+              assert data["selected"]["sprite_leak_fraction"] < 0.02, (vid,data["selected"])
+          print("PASS EfficientSAM sprite structural QA")
+          PY
+
+      - name: Upload full sprite comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-efficient-sam-sprite-review
+          path: parking-remaster-v1/.qa/efficient_sam_sprites/
+          if-no-files-found: error
+          retention-days: 7
