@@ -1,0 +1,72 @@
+name: Parking Remaster Independent Local LaMa Patches
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/scripts/build_lama_independent_patches.py'
+      - '.github/workflows/parking-remaster-lama-independent-patches.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: parking-remaster-lama-independent-patches
+  cancel-in-progress: true
+
+jobs:
+  independent-patches:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache pinned LaMa model
+        uses: actions/cache@v4
+        with:
+          path: parking-remaster-v1/.qa/models/lama_fp32.onnx
+          key: parking-lama-1faef5301d78db7dda502fe59966957ec4b79dd64e16f03ed96913c7a4eb68d6
+
+      - name: Install CPU inference stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy==2.2.6" "opencv-python-headless==4.12.0.88" "onnxruntime==1.22.1"
+
+      - name: Ensure pinned Apache-2.0 LaMa ONNX
+        run: |
+          mkdir -p parking-remaster-v1/.qa/models
+          if [ ! -f parking-remaster-v1/.qa/models/lama_fp32.onnx ]; then
+            curl -L --fail --retry 3               "https://huggingface.co/Carve/LaMa-ONNX/resolve/a3ee2fc/lama_fp32.onnx?download=true"               -o parking-remaster-v1/.qa/models/lama_fp32.onnx
+          fi
+          echo "1faef5301d78db7dda502fe59966957ec4b79dd64e16f03ed96913c7a4eb68d6  parking-remaster-v1/.qa/models/lama_fp32.onnx" | sha256sum -c -
+
+      - name: Build independent local patches
+        run: python parking-remaster-v1/scripts/build_lama_independent_patches.py
+
+      - name: Validate hard invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          q=json.loads(Path("parking-remaster-v1/.qa/lama_independent_patches/independent_qa.json").read_text())
+          assert q["hard_checks"]["unchanged_outside_union_mask"] is True
+          assert q["hard_checks"]["model_hash_match"] is True
+          assert q["hard_checks"]["patch_count"] == 10
+          assert q["method"]["no_sequential_generated_input"] is True
+          print("PASS independent patch hard invariants")
+          PY
+
+      - name: Upload independent patch visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-independent-patches-review
+          path: parking-remaster-v1/.qa/lama_independent_patches/
+          if-no-files-found: error
+          retention-days: 7
