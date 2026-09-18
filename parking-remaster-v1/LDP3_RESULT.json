@@ -1,13 +1,21 @@
 {
   "gate": "LDP-3_SOLVER_RUNTIME_PARITY",
-  "status": "PENDING_EXECUTION",
-  "method": "Differential exhaustive parity: independent Python solver vs browser/Node game_logic.js",
+  "status": "PASS",
+  "verified_at": "2026-09-18",
+  "method": "Differential exhaustive parity: independent Python solver vs JS functional core",
   "level": "level_001",
-  "expected_state_count": 1024,
+  "state_count": 1024,
+  "mismatches": 0,
   "compares": [
     "legal_moves",
     "blocker_id_for_each_active_vehicle"
   ],
   "architecture": "functional core / imperative shell",
-  "note": "Set PASS only after executing validator against committed files."
+  "evidence": {
+    "js_logic_blob": "944153dc20e3f63b0b412d01045329c6627e3ea7",
+    "runtime_blob": "419b868d01047e17f89a111cd987abe4532794a8",
+    "validator": "scripts/validate_solver_runtime_parity.py",
+    "node_evaluator": "scripts/eval_js_logic.mjs"
+  },
+  "conclusion": "All possible subsets of the 10 Level 1 vehicles produced identical legal moves and blocker IDs in Python and JavaScript."
 }

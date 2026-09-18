@@ -69,14 +69,14 @@ Never label a level Hard solely because the solver explores many states.
 
 ## Next migration gates
 
-### LDP-1 — Data parity
-Level 1 JSON must reproduce the current runtime logical state exactly. Add an automated parity validator before switching runtime source of truth.
+### LDP-1 — Data parity — PASS
+Level 1 JSON reproduces the approved Level 1 logical state exactly.
 
-### LDP-2 — Runtime consumes data
-Remove bespoke defs as the source of truth. Runtime loads the level record while preserving all approved Level 1 visual/interaction QA.
+### LDP-2 — Runtime consumes data — PASS
+Runtime consumes the generated bundle derived from canonical Level JSON; hard-coded vehicle defs and runtime JSON fetch are removed.
 
-### LDP-3 — Solver parity
-Runtime and solver legal-move logic must agree for representative states.
+### LDP-3 — Solver parity — PASS
+Browser/Node functional core and independent Python solver agree on legal moves and blocker IDs across all 1,024 possible Level 1 vehicle subsets.
 
 ### LDP-4 — Difficulty features v1
 Add dependency depth, branch distribution, forced-choice ratio, decision entropy, recovery cost and later hazard/timing load.
@@ -92,4 +92,4 @@ If generation begins later: generator proposes; solver validates; structural fil
 
 ## Production consequence
 
-The next implementation task is not Level 2. It is LDP-1: prove level_001.json is an exact logical mirror of the approved Level 1 runtime.
+The next implementation task is not Level 2. It is LDP-4: research and implement difficulty features v1 so candidate levels can be compared structurally before Vertical Slice authoring.

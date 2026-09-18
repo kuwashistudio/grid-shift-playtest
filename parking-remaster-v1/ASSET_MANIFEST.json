@@ -4,10 +4,10 @@
   "source": "reconstructed from index_embedded_canonical.html",
   "artifacts": {
     "index.html": {
-      "bytes": 10464,
-      "sha256": "a29933cb455c264ac6636b372f446cfff1990b65bfaa023d4428735c808566ca",
-      "git_blob": "a4f230f45194652041a6b50dd402893e45e55257",
-      "note": "Runtime now consumes canonical Level Data via generated local JS bundle; no hard-coded vehicle defs or runtime JSON fetch."
+      "bytes": 10119,
+      "sha256": "69ad284e7a0b7b84fb12c07163f3c23904e7e85eabb4c7cb303338ea6c902c58",
+      "git_blob": "419b868d01047e17f89a111cd987abe4532794a8",
+      "note": "Runtime consumes generated canonical Level Data and delegates blocker/legal logic to game_logic.js functional core."
     },
     "assets/master.webp": {
       "bytes": 448118,
@@ -25,6 +25,12 @@
       "git_blob": "74ac6b6e0cddbce738c6679b37961eaa5159f791",
       "source": "levels/level_*.json",
       "note": "Generated self-contained level bundle for deterministic relative-path startup."
+    },
+    "game_logic.js": {
+      "bytes": 1649,
+      "sha256": "f8cdfc7a824b88c40352cdb16c33cf79a8fb09797c927adf0110ebfe3d6ddf6c",
+      "git_blob": "944153dc20e3f63b0b412d01045329c6627e3ea7",
+      "note": "Pure deterministic collision/legal-move core shared by browser runtime and differential parity testing."
     }
   },
   "next_gate": "G2 attach canonical master.webp to staging"

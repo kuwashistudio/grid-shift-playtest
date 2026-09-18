@@ -37,8 +37,9 @@
     {
       "id": "R6",
       "name": "repeatable_level_production",
-      "status": "OPEN",
-      "retire_by": "level schema + solver + measured production cost"
+      "status": "PARTIAL",
+      "retire_by": "level schema + solver + measured production cost",
+      "progress": "Level schema, generated runtime bundle, exact solver, and exhaustive solver/runtime parity are in place. Still open: difficulty feature validation, measured level production cost, and Vertical Slice repeatability."
     },
     {
       "id": "R7",

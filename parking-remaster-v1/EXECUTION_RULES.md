@@ -36,3 +36,9 @@ G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 mast
 23. **Scale only after proof.** Content volume, meta systems, monetization, LiveOps, and production tooling must not start merely because they are foreseeable. They begin only when the prior gate's player/product risk is objectively retired.
 24. **Research the whole system, not only the current bug.** Maintain parallel research on proven studio production practice, player behavior, level design, technical architecture, distribution constraints, and launch validation. Convert useful findings into the Production Blueprint, validators, or gate criteria.
 25. **Vertical Slice before Production.** Parking Remaster remains in pre-production until the representative Vertical Slice gate passes. A polished Level 1 or completed asset transfer alone does not authorize full production.
+
+
+## Self-triggered handoff rule
+26. **The assistant owns Chat handoff timing.** The user is not expected to know or monitor the Chat/context limit. Before context complexity threatens continuity, the assistant must proactively produce a formal HANDOFF PACKAGE/prompt for the next Chat without waiting to be asked.
+27. **Handoff before degradation, not after truncation.** A handoff must preserve current CANON, repository/branch, completed commits, current macro phase, open risks, exact gate status, blockers, verification evidence, and the single best next action.
+28. **Do not interrupt productive work prematurely.** Continue in the current Chat while context remains reliable; trigger handoff only when it materially protects continuity and execution quality.
