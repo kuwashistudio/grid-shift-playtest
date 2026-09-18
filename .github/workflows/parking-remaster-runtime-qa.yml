@@ -1,0 +1,26 @@
+name: Parking Remaster Runtime QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - parking-remaster-v1-staging-20260917
+    paths:
+      - "parking-remaster-v1/index.html"
+      - "parking-remaster-v1/scripts/validate_runtime_mobile.py"
+      - ".github/workflows/parking-remaster-runtime-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  runtime-mobile-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate touch targets and interaction guards
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_runtime_mobile.py
