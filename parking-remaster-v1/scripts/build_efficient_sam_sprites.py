@@ -24,6 +24,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 import onnxruntime as ort
+from PIL import Image
 
 ROOT=Path(__file__).resolve().parents[1]
 MASTER=ROOT/"assets"/"master.webp"
@@ -167,19 +168,24 @@ def refine_red_tutorial_glow(rgba,body_rel):
     }
 
 
-def write_lossless_webp(path,rgba):
-    ok=cv2.imwrite(str(path),rgba,[cv2.IMWRITE_WEBP_QUALITY,101])
-    if not ok:
-        raise RuntimeError(f"failed to write {path}")
-    decoded=cv2.imread(str(path),cv2.IMREAD_UNCHANGED)
-    if decoded is None or decoded.ndim!=3 or decoded.shape[2]!=4:
-        raise RuntimeError(f"WebP alpha decode failed: {path}")
+def write_lossless_webp(path,bgra):
+    """Write exact RGBA through Pillow/libwebp and verify byte-equivalent pixels."""
+    rgba=cv2.cvtColor(bgra,cv2.COLOR_BGRA2RGBA)
+    Image.fromarray(rgba,mode="RGBA").save(
+        path,
+        format="WEBP",
+        lossless=True,
+        quality=100,
+        method=6,
+        exact=True,
+    )
+    decoded=np.array(Image.open(path).convert("RGBA"))
     if decoded.shape!=rgba.shape:
         raise RuntimeError(f"WebP dimensions changed: {path}")
     max_delta=int(np.max(np.abs(decoded.astype(np.int16)-rgba.astype(np.int16))))
     if max_delta!=0:
-        raise RuntimeError(f"WebP not lossless: {path}, max delta {max_delta}")
-    return decoded
+        raise RuntimeError(f"WebP not exact lossless: {path}, max delta {max_delta}")
+    return cv2.cvtColor(decoded,cv2.COLOR_RGBA2BGRA)
 
 
 def composite_checker(rgba,w=260,h=330):
