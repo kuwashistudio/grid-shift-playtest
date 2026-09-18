@@ -1,0 +1,15 @@
+{
+  "gate": "LDP-5_BEAT_CHART_PREPARATION",
+  "status": "PASS",
+  "verified_at": "2026-09-18",
+  "scope": {
+    "main": 12,
+    "hard": 2,
+    "total": 14
+  },
+  "validator": "scripts/validate_beat_chart.py",
+  "unresolved": [
+    "H1 exact visible fail mechanic"
+  ],
+  "authoring_locked_until": "H1 research decision + per-level target feature briefs"
+}

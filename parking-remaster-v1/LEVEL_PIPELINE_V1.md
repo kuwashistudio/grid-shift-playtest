@@ -81,8 +81,8 @@ Browser/Node functional core and independent Python solver agree on legal moves 
 ### LDP-4 — Difficulty features v1 — PASS
 Deterministic structural feature extraction now reports dependency depth, branch distribution, forced-choice ratio, choice entropy, solution flexibility, novelty load and current recovery cost. No composite human-difficulty score is permitted before playtest calibration.
 
-### LDP-5 — Vertical Slice authoring
-Only then author Levels 2-14. Every candidate is schema-valid, solver-valid, metadata-complete, duplicate-screened, human-played and intentionally positioned on the Beat Chart.
+### LDP-5 — Vertical Slice authoring preparation — PASS
+The 12 Main + 2 Hard Beat Chart is now machine-readable and validated. Levels 2-14 are still not authorized for bulk authoring: first resolve H1 (the exact visible fail mechanic) and create per-level target feature briefs. Every candidate remains schema-valid, solver-valid, metadata-complete, duplicate-screened, human-played and intentionally positioned on the Beat Chart.
 
 ## Generation policy
 
@@ -92,4 +92,4 @@ If generation begins later: generator proposes; solver validates; structural fil
 
 ## Production consequence
 
-The next implementation task is LDP-5 preparation: research and define the 14-level Vertical Slice Beat Chart and controlled-authoring rules before creating Level 2.
+The next implementation task is H1: research competitor implementations and player feedback for crossing traffic, pedestrians and conflict-path timing, then select or reject a visible fair-failure mechanic before authoring the failure-teaching portion of the slice.

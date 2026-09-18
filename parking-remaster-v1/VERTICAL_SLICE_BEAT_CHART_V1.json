@@ -1,0 +1,285 @@
+{
+  "version": "1.0",
+  "updated": "2026-09-18",
+  "scope": {
+    "main_levels": 12,
+    "optional_hard_levels": 2,
+    "total": 14
+  },
+  "principles": {
+    "heartbeat_curve": true,
+    "new_mechanic_intro_must_be_easy": true,
+    "no_major_new_mechanic_on_peak": true,
+    "no_consecutive_peaks": true,
+    "recovery_after_challenge": true,
+    "hard_optional_never_blocks_main": true,
+    "visible_failure_only": true
+  },
+  "levels": [
+    {
+      "id": "level_001",
+      "track": "main",
+      "role": "onboarding_confidence",
+      "target_band": "very_easy",
+      "new_mechanics": [
+        "vehicle_blocking",
+        "blocked_feedback",
+        "legal_exit",
+        "clear_all"
+      ],
+      "practice": [
+        "tap_vehicle"
+      ],
+      "combine": [],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "Immediate comprehension and high success. Multiple legal starts; no hard fail."
+    },
+    {
+      "id": "level_002",
+      "track": "main",
+      "role": "easy",
+      "target_band": "easy",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking",
+        "legal_exit"
+      ],
+      "combine": [],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "Repeat core grammar with slightly more intentional ordering; no novelty."
+    },
+    {
+      "id": "level_003",
+      "track": "main",
+      "role": "easy_normal",
+      "target_band": "easy",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "longer_dependency_chain"
+      ],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "First clear increase in dependency depth without adding rules."
+    },
+    {
+      "id": "level_004",
+      "track": "main",
+      "role": "normal",
+      "target_band": "normal",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "reduced_initial_choices"
+      ],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "Teach that fewer immediate legal moves can require more deliberate reading."
+    },
+    {
+      "id": "level_005",
+      "track": "main",
+      "role": "twist",
+      "target_band": "normal",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "direction_mix",
+        "spatial_reframing"
+      ],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "Twist the mastered core through layout/direction, not a new rule."
+    },
+    {
+      "id": "level_006",
+      "track": "main",
+      "role": "recovery",
+      "target_band": "easy",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "wider_choice_space"
+      ],
+      "peak": false,
+      "recovery": true,
+      "hard_fail": false,
+      "design_intent": "Deliberate confidence recovery after the first sustained ramp."
+    },
+    {
+      "id": "level_007",
+      "track": "main",
+      "role": "normal_plus",
+      "target_band": "normal",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "deeper_dependency",
+        "moderate_ambiguity"
+      ],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "Rebuild challenge using only mastered core logic."
+    },
+    {
+      "id": "level_008",
+      "track": "main",
+      "role": "challenge",
+      "target_band": "challenge",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "low_branching",
+        "deep_dependency",
+        "spatial_reframing"
+      ],
+      "peak": true,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "First real reasoning spike; no new mechanic so failure to solve is attributable to mastery, not novelty."
+    },
+    {
+      "id": "level_009",
+      "track": "main",
+      "role": "recovery",
+      "target_band": "easy",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "clear_readable_paths"
+      ],
+      "peak": false,
+      "recovery": true,
+      "hard_fail": false,
+      "design_intent": "Strong relief after Level 8; prepare cognitive capacity for first genuine fail mechanic."
+    },
+    {
+      "id": "level_010",
+      "track": "main",
+      "role": "failure_teach",
+      "target_band": "easy",
+      "new_mechanics": [
+        "visible_fail_mechanic_TBD"
+      ],
+      "practice": [
+        "failure_cause_reading",
+        "instant_retry"
+      ],
+      "combine": [],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": true,
+      "design_intent": "Safe tutorial for one visible hard-fail mechanic. Must be easy except for the newly taught consequence. Exact hazard type remains research-gated."
+    },
+    {
+      "id": "level_011",
+      "track": "main",
+      "role": "learned_challenge",
+      "target_band": "challenge",
+      "new_mechanics": [],
+      "practice": [
+        "visible_fail_mechanic_TBD"
+      ],
+      "combine": [
+        "vehicle_ordering",
+        "visible_fail_timing"
+      ],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": true,
+      "design_intent": "Use the same learned fail mechanic in a real decision context; no second new rule."
+    },
+    {
+      "id": "level_012",
+      "track": "main",
+      "role": "chapter_peak",
+      "target_band": "peak",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking",
+        "visible_fail_mechanic_TBD"
+      ],
+      "combine": [
+        "deep_dependency",
+        "visible_fail_timing",
+        "low_branching"
+      ],
+      "peak": true,
+      "recovery": false,
+      "hard_fail": true,
+      "design_intent": "Vertical Slice climax using only already taught rules. No surprise mechanic."
+    },
+    {
+      "id": "level_013",
+      "track": "hard",
+      "role": "hard",
+      "target_band": "hard",
+      "new_mechanics": [],
+      "practice": [
+        "vehicle_blocking"
+      ],
+      "combine": [
+        "deep_dependency",
+        "very_low_branching"
+      ],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": false,
+      "design_intent": "Optional pure-reasoning hard test. Must not gate Main progression."
+    },
+    {
+      "id": "level_014",
+      "track": "hard",
+      "role": "hard",
+      "target_band": "hard",
+      "new_mechanics": [],
+      "practice": [
+        "visible_fail_mechanic_TBD"
+      ],
+      "combine": [
+        "deep_dependency",
+        "visible_fail_timing",
+        "recovery_cost"
+      ],
+      "peak": false,
+      "recovery": false,
+      "hard_fail": true,
+      "design_intent": "Optional combined mastery test using only previously taught mechanics."
+    }
+  ],
+  "unresolved_design_decisions": [
+    {
+      "id": "H1",
+      "topic": "exact_visible_fail_mechanic",
+      "status": "RESEARCH_GATED",
+      "candidates": [
+        "crossing_traffic",
+        "pedestrian_crossing",
+        "conflict_path_timing"
+      ],
+      "rule": "Do not implement until competitor/player-feedback research identifies the clearest fair-failure option that preserves approved visual language."
+    }
+  ]
+}
