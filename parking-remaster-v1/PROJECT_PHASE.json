@@ -1,0 +1,20 @@
+{
+  "canon_version": "1.0",
+  "updated": "2026-09-18",
+  "project": "Parking Remaster",
+  "macro_phase": "PHASE_1_CORE_FUN_PROOF",
+  "production_started": false,
+  "current_macro_goal": "Reach a representative, externally testable vertical slice before scaling content.",
+  "next_macro_gate": "PHASE_2_VERTICAL_SLICE",
+  "vertical_slice_scope": {
+    "main_levels": 12,
+    "optional_hard_levels": 2
+  },
+  "content_scale_locked": true,
+  "full_content_target_after_validation": {
+    "main_levels": 120,
+    "optional_hard_levels": 24,
+    "total": 144
+  },
+  "rule": "Every micro-task must map to a Production Blueprint phase/gate. Local technical work may not silently become the project roadmap."
+}
