@@ -1,0 +1,59 @@
+name: Parking Remaster MASTER-only Image Quilting
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/scripts/build_master_quilting_clean_plate.py'
+      - '.github/workflows/parking-remaster-quilting.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: parking-remaster-master-quilting
+  cancel-in-progress: true
+
+jobs:
+  quilting:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pinned MIT quilting implementation
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "git+https://github.com/bmad4ever/bmquilting.git@9fd5f97bef7472580e68fdadc15822f7ac896203"
+
+      - name: Build MASTER-only quilting candidates
+        run: python parking-remaster-v1/scripts/build_master_quilting_clean_plate.py
+
+      - name: Validate hard invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          q=json.loads(Path("parking-remaster-v1/.qa/quilting/quilting_qa.json").read_text())
+          assert q["library"]["pinned_commit"]=="9fd5f97bef7472580e68fdadc15822f7ac896203"
+          assert q["library"]["license"]=="MIT"
+          assert q["hard_checks"]["unchanged_outside_mask"] is True
+          assert q["hard_checks"]["external_image_source_used"] is False
+          assert q["hard_checks"]["ai_model_used"] is False
+          print("PASS MASTER-only quilting hard invariants")
+          PY
+
+      - name: Upload quilting visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-quilting-review
+          path: parking-remaster-v1/.qa/quilting/
+          if-no-files-found: error
+          retention-days: 7
