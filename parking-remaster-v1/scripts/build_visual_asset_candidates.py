@@ -140,7 +140,7 @@ def make_contact_sheet(master, telea, ns, sprite_paths):
         canvas_rgb = canvas[y:y+rh, x:x+rw, :3].astype(np.float32)
         fg = resized[:, :, :3].astype(np.float32)
         canvas[y:y+rh, x:x+rw, :3] = (fg * alpha + canvas_rgb * (1 - alpha)).astype(np.uint8)
-        canvas_bgr = canvas[:, :, :3]
+        canvas_bgr = np.ascontiguousarray(canvas[:, :, :3])
         cv2.putText(canvas_bgr, path.stem[:12], (5, 173), cv2.FONT_HERSHEY_SIMPLEX, 0.38, (30, 30, 30), 1, cv2.LINE_AA)
         tiles.append(canvas_bgr)
 
