@@ -4,10 +4,10 @@
   "source": "reconstructed from index_embedded_canonical.html",
   "artifacts": {
     "index.html": {
-      "bytes": 10855,
-      "sha256": "09cf02b9731b768ef422bb7b5d03bd433999baba5b86388be004a9aa1c619d18",
-      "git_blob": "6e9fe6956fbfbbb17467ca3fa58d220f13e1cdfa",
-      "note": "Research-hardened mobile runtime: pointer input guard, transform-only car motion, >=112 MASTER-px invisible hitboxes for >=44 CSS-px targets on 375px+ iPhone widths."
+      "bytes": 10464,
+      "sha256": "a29933cb455c264ac6636b372f446cfff1990b65bfaa023d4428735c808566ca",
+      "git_blob": "a4f230f45194652041a6b50dd402893e45e55257",
+      "note": "Runtime now consumes canonical Level Data via generated local JS bundle; no hard-coded vehicle defs or runtime JSON fetch."
     },
     "assets/master.webp": {
       "bytes": 448118,
@@ -18,6 +18,13 @@
       "bytes": 148094,
       "sha256": "87144f255b6917ea2bfcf69273e4633199aaea0606258e0a27f637bd576ba4b2",
       "format_check": "WebP with alpha"
+    },
+    "levels.generated.js": {
+      "bytes": 1568,
+      "sha256": "1d61c1c71df5a1b89efce6a507dde86d3204973c3527d7b0b9a648cff6033c3d",
+      "git_blob": "74ac6b6e0cddbce738c6679b37961eaa5159f791",
+      "source": "levels/level_*.json",
+      "note": "Generated self-contained level bundle for deterministic relative-path startup."
     }
   },
   "next_gate": "G2 attach canonical master.webp to staging"
