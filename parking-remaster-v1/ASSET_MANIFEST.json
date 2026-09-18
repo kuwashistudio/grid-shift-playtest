@@ -4,10 +4,10 @@
   "source": "reconstructed from index_embedded_canonical.html",
   "artifacts": {
     "index.html": {
-      "bytes": 10685,
-      "sha256": "5f9f0dc5a97681942a7dc681935ec8496a0eb17fb5cfeb933a4e5cb276ab5020",
-      "git_blob": "a594fb29ba55fb4ccf08338bf8b8d60f7a9c72f6",
-      "note": "Touch input hardened; car exit animation uses transform-only motion after research-backed mobile performance audit."
+      "bytes": 10855,
+      "sha256": "09cf02b9731b768ef422bb7b5d03bd433999baba5b86388be004a9aa1c619d18",
+      "git_blob": "6e9fe6956fbfbbb17467ca3fa58d220f13e1cdfa",
+      "note": "Research-hardened mobile runtime: pointer input guard, transform-only car motion, >=112 MASTER-px invisible hitboxes for >=44 CSS-px targets on 375px+ iPhone widths."
     },
     "assets/master.webp": {
       "bytes": 448118,

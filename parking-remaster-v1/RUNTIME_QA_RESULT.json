@@ -1,0 +1,25 @@
+{
+  "gate": "runtime-mobile-static-qa",
+  "status": "PASS",
+  "verified_at": "2026-09-18",
+  "runtime": {
+    "bytes": 10855,
+    "sha256": "09cf02b9731b768ef422bb7b5d03bd433999baba5b86388be004a9aa1c619d18",
+    "git_blob": "6e9fe6956fbfbbb17467ca3fa58d220f13e1cdfa"
+  },
+  "checks": {
+    "car_count": 10,
+    "minimum_master_hitbox": 112,
+    "hitbox_overlaps": [],
+    "minimum_css_target_px_by_viewport_width": {
+      "375": 44.63,
+      "390": 46.42,
+      "393": 46.78,
+      "430": 51.18
+    },
+    "pointerdown": true,
+    "rapid_tap_guard": true,
+    "transform_only_exit": true,
+    "vibration_required_for_gameplay": false
+  }
+}
