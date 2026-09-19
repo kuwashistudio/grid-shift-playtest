@@ -1,0 +1,19 @@
+{
+  "gate": "VP_2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS",
+  "status": "PASS_MACHINE_VECTOR_MODEL_VISUAL_REVIEW_REQUIRED",
+  "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+  "vertical_line_count": 4,
+  "horizontal_line_count": 4,
+  "all_lines_have_multiple_seed_support": true,
+  "overlay": {
+    "path": "assets/qa/vp2d2_vector_geometry_overlay.jpg",
+    "sha256": "801f108ecce5cdd96391183b95233a2a9612bb3421cdc045be65ac047a13fa39",
+    "bytes": 566867
+  },
+  "review": {
+    "path": "assets/qa/vp2d2_vector_geometry_review.jpg",
+    "sha256": "ca305acedb9dbe0080cdff31d5b81f09cf323f22224efb30ce0ee9afdd24d938",
+    "bytes": 291153
+  },
+  "next": "Direct visual review controls. If the vectors coincide with visible paint and hidden continuations are plausible, record VP-2D2 PASS and retire the candidate detector workflow."
+}

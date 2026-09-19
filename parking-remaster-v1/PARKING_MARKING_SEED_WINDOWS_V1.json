@@ -1,0 +1,117 @@
+{
+  "gate": "VP_2D2_BOUNDED_REPAIR_SEEDS",
+  "status": "LOCKED_AFTER_DIRECT_MASTER_REVIEW",
+  "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+  "vertical_seed_windows": {
+    "V0": [
+      [
+        245,
+        278,
+        470,
+        710
+      ],
+      [
+        220,
+        260,
+        1030,
+        1170
+      ],
+      [
+        215,
+        245,
+        1324,
+        1400
+      ]
+    ],
+    "V1": [
+      [
+        400,
+        445,
+        1030,
+        1170
+      ],
+      [
+        385,
+        415,
+        1324,
+        1400
+      ]
+    ],
+    "V2": [
+      [
+        600,
+        635,
+        445,
+        585
+      ],
+      [
+        585,
+        630,
+        1030,
+        1170
+      ],
+      [
+        600,
+        630,
+        1324,
+        1400
+      ]
+    ],
+    "V3": [
+      [
+        735,
+        775,
+        740,
+        1005
+      ],
+      [
+        775,
+        805,
+        1030,
+        1170
+      ],
+      [
+        745,
+        790,
+        1324,
+        1400
+      ]
+    ]
+  },
+  "horizontal_seed_windows": {
+    "H0": [
+      [
+        245,
+        850,
+        742,
+        775
+      ]
+    ],
+    "H1": [
+      [
+        90,
+        850,
+        892,
+        930
+      ]
+    ],
+    "H2": [
+      [
+        90,
+        850,
+        1045,
+        1082
+      ]
+    ],
+    "H3": [
+      [
+        90,
+        850,
+        1304,
+        1342
+      ]
+    ]
+  },
+  "basis": "Each window covers a directly reviewed visible white parking-marking fragment; vehicle/tutorial pixels are excluded before snapping.",
+  "no_more_repairs_after_this": true
+}
