@@ -1,0 +1,27 @@
+{
+  "gate": "TARGET_IPHONE_CORE_FUN_EVIDENCE",
+  "status": "HARNESS_IMPLEMENTED_PHYSICAL_AND_HUMAN_PENDING",
+  "implemented_at": "2026-09-19",
+  "normal_runtime_changed": "Only SFX evidence counters + inert iphone_qa.js include; QA script exits immediately unless ?qa=iphone.",
+  "qa_mode": "?qa=iphone",
+  "metrics": [
+    "navigation -> controls ready ms",
+    "script -> controls ready ms",
+    "first player action ms",
+    "AudioContext state/context/reset counts",
+    "engine/horn/win SFX invocation counts",
+    "current level/HUD/car count",
+    "Level transitions",
+    "visibility/page lifecycle"
+  ],
+  "evidence_export": "COPY JSON button using Clipboard API",
+  "physical_recording_checks": [
+    "microphone off",
+    "engine audible in saved recording",
+    "horn audible in saved recording",
+    "win audible in saved recording"
+  ],
+  "fresh_player_runtime": "normal URL without QA mode",
+  "level3_locked": true,
+  "next": "Validate harness in CI/browser. Physical iPhone recording and fresh-player observation still require the real device/person."
+}

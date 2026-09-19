@@ -54,7 +54,8 @@ const cars=new Map();let moved=0,hintTimer=null,transitionTimer=null;
 const progressionQA={transitions:[],restarts:[]};
 const startup={scriptStartMs:performance.now(),controlsReadyMs:null,firstPlayerActionMs:null};
 let audioCtx=null,audioBus=null,audioResetNeeded=false,audioEnabled=true;
-const audioQA={contextsCreated:0,interruptionsObserved:0,resetsRequested:0,lastState:'none'};
+const audioQA={contextsCreated:0,interruptionsObserved:0,resetsRequested:0,lastState:'none',sfx:{engine:0,horn:0,win:0}};
+function markSfx(name){if(audioQA.sfx[name]!==undefined)audioQA.sfx[name]++}
 function hitbox(body){const [x1,y1,x2,y2]=body,cx=(x1+x2)/2,cy=(y1+y2)/2,w=Math.max(112,x2-x1),h=Math.max(112,y2-y1);return [cx-w/2,cy-h/2,cx+w/2,cy+h/2]}
 function activeIds(){return [...cars.values()].filter(o=>!o.moved).map(o=>o.id)}
 function blocked(c){const id=logic.blockerId(level,c.id,activeIds());return id?cars.get(id):null}
@@ -86,9 +87,9 @@ function withAudio(build){
   const run=()=>{if(ctx===audioCtx&&ctx.state==='running'&&audioEnabled)try{build(ctx,audioBus)}catch(e){}};
   if(ctx.state==='running')run();else ctx.resume().then(run).catch(()=>{audioResetNeeded=true});
 }
-function engine(){withAudio((ctx,bus)=>{const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.setValueAtTime(78,t);o.frequency.exponentialRampToValueAtTime(138,t+.52);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055,t+.04);g.gain.exponentialRampToValueAtTime(.0001,t+.64);o.connect(g).connect(bus);o.start(t);o.stop(t+.66)})}
-function horn(){withAudio((ctx,bus)=>{const t=ctx.currentTime;[0,.065].forEach((d,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.value=i?392:330;g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.035,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.13);o.connect(g).connect(bus);o.start(t+d);o.stop(t+d+.14)})})}
-function winSound(){withAudio((ctx,bus)=>{const t=ctx.currentTime;[523,659,784].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+i*.09);g.gain.exponentialRampToValueAtTime(.044,t+i*.09+.02);g.gain.exponentialRampToValueAtTime(.0001,t+i*.09+.25);o.connect(g).connect(bus);o.start(t+i*.09);o.stop(t+i*.09+.26)})})}
+function engine(){markSfx('engine');withAudio((ctx,bus)=>{const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.setValueAtTime(78,t);o.frequency.exponentialRampToValueAtTime(138,t+.52);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055,t+.04);g.gain.exponentialRampToValueAtTime(.0001,t+.64);o.connect(g).connect(bus);o.start(t);o.stop(t+.66)})}
+function horn(){markSfx('horn');withAudio((ctx,bus)=>{const t=ctx.currentTime;[0,.065].forEach((d,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.value=i?392:330;g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.035,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.13);o.connect(g).connect(bus);o.start(t+d);o.stop(t+d+.14)})})}
+function winSound(){markSfx('win');withAudio((ctx,bus)=>{const t=ctx.currentTime;[523,659,784].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+i*.09);g.gain.exponentialRampToValueAtTime(.044,t+i*.09+.02);g.gain.exponentialRampToValueAtTime(.0001,t+i*.09+.25);o.connect(g).connect(bus);o.start(t+i*.09);o.stop(t+i*.09+.26)})})}
 function markAudioInterruption(){
   if(!audioCtx)return;
   audioResetNeeded=true;audioQA.resetsRequested++;
@@ -137,4 +138,5 @@ if(new URLSearchParams(location.search).get('auto')==='1'){
 }
 })();
 </script>
+<script src="iphone_qa.js"></script>
 </body></html>

@@ -1,0 +1,36 @@
+{
+  "gate": "TARGET_IPHONE_CORE_FUN_EVIDENCE",
+  "status": "PENDING_PHYSICAL_AND_HUMAN",
+  "physical_iphone": {
+    "model": null,
+    "ios_version": null,
+    "safari_version": null,
+    "test_date": null,
+    "qa_json": null,
+    "controls_ready_from_navigation_ms": null,
+    "controls_ready_target_ms": 1000,
+    "controls_ready_pass": null,
+    "screen_recording_microphone_off": null,
+    "saved_recording_audio": {
+      "engine": null,
+      "horn": null,
+      "win": null
+    },
+    "physical_audio_pass": null
+  },
+  "fresh_player": {
+    "tester_label": null,
+    "prior_project_exposure": false,
+    "coached": false,
+    "first_action_without_instruction": null,
+    "blocked_feedback_understood": null,
+    "avoidable_waiting_observed": null,
+    "continued_into_level_002_voluntarily": null,
+    "asked_for_rule_explanation": null,
+    "accidental_or_ambiguous_taps": null,
+    "spontaneous_comment_after_level_001": null,
+    "spontaneous_comment_after_entering_level_002": null
+  },
+  "decision": null,
+  "level3_locked": true
+}

@@ -16,6 +16,8 @@ on:
       - "parking-remaster-v1/scripts/validate_runtime_clean_plate.py"
       - "parking-remaster-v1/scripts/validate_inline_runtime_syntax.py"
       - "parking-remaster-v1/scripts/validate_level2_progression_runtime.py"
+      - "parking-remaster-v1/iphone_qa.js"
+      - "parking-remaster-v1/scripts/validate_iphone_qa_harness.py"
       - ".github/workflows/parking-remaster-runtime-qa.yml"
 
 permissions:
@@ -34,6 +36,9 @@ jobs:
       - name: Validate inline runtime JavaScript syntax
         working-directory: parking-remaster-v1
         run: python scripts/validate_inline_runtime_syntax.py
+      - name: Validate target-iPhone QA harness contract
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_iphone_qa_harness.py
       - name: Validate Level 2 progression structure
         working-directory: parking-remaster-v1
         run: python scripts/validate_level2_progression_runtime.py
