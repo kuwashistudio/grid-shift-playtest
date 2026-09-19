@@ -1,0 +1,29 @@
+{
+  "gate": "VP_2_CLEAN_PLATE_PRODUCTION",
+  "status": "PASS",
+  "approved_at": "2026-09-19",
+  "source_run_id": 35383429547,
+  "source_artifact": "parking-remaster-independent-patches-review",
+  "source_png_sha256": "6d944bf96b6dc893657d7089b48e759b3573acdf0e859ccb279c565958236822",
+  "source_dimensions": [
+    941,
+    1672
+  ],
+  "target_scale_review": {
+    "width_px": 390,
+    "status": "PASS",
+    "reason": "Former-car tonal rectangles visible at full source resolution are not materially visible at actual iPhone gameplay width; EXIT, parking lines and pavement read coherently."
+  },
+  "encoding": {
+    "library": "Pillow 12.3.0",
+    "format": "WebP",
+    "quality": 84,
+    "method": 6
+  },
+  "output": {
+    "path": "assets/clean_plate.webp",
+    "sha256": "9cd2ba1d2a88774850f707e7f023762c53f7d427e122e4a08691492c74103839",
+    "bytes": 254928
+  },
+  "rule": "Target-device gameplay scale is authoritative for production visual acceptance; do not reopen full-resolution inpainting experiments unless an artifact is visible during actual gameplay."
+}
