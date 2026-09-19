@@ -31,6 +31,7 @@ jobs:
         with:
           name: parking-remaster-vp2d2-anchor-qa
           path: |
+            parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_overlay.jpg
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_1.jpg
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_2.jpg
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_3.jpg
@@ -53,5 +54,9 @@ jobs:
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_2.b64 \
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_3.jpg \
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_3.b64
-          git commit -m "Build VP-2D2 anchor candidates [skip ci]"
-          git push origin HEAD:parking-remaster-v1-staging-20260917
+          if git diff --cached --quiet; then
+            echo "No generated diffs to commit"
+          else
+            git commit -m "Build VP-2D2 anchor candidates [skip ci]"
+            git push origin HEAD:parking-remaster-v1-staging-20260917
+          fi
