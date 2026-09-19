@@ -31,6 +31,7 @@ jobs:
         with:
           name: parking-remaster-vp2d2-anchor-qa
           path: |
+            parking-remaster-v1/assets/master.webp
             parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_overlay.jpg
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_1.jpg
             parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_2.jpg
