@@ -1,7 +1,7 @@
 # Parking Remaster — Visual Production Gate v1
 
-Updated: 2026-09-18
-Status: ACTIVE / PRODUCTION BLOCKER
+Updated: 2026-09-19
+Status: ACTIVE / CLEAN-PLATE-ONLY BLOCKER
 Parent: PRODUCTION_BLUEPRINT_V1.md / VERTICAL_SLICE_GATE_V1.md
 
 ## Why this gate exists
@@ -23,15 +23,14 @@ Present:
   - Git blob `f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe`
   - canonical approved visual master
 
-Missing:
-- `assets/patches/*.webp` — runtime references 10 car-specific files
-- `assets/sprites/*.webp` — runtime references 10 car-specific files
-- `assets/tutorial_cover.webp`
-- `assets/atlas.webp`
+Current repository state:
+- `assets/master.webp` — PRESENT / canonical
+- `assets/sprites/*.webp` — PRESENT / 10 / VP-3 PASS
+- `assets/clean_plate.webp` — MISSING
+- old `assets/patches/*.webp` dependency — still present in runtime and must be retired during VP-4
+- historical `assets/atlas.webp` — missing and no longer required by the production architecture
 
-Repository code/history search found no committed recoverable atlas/sprite/patch set.
-
-Therefore current visual runtime is **FAIL-CLOSED** for production.
+Therefore current visual runtime remains **FAIL-CLOSED**, but the only missing production visual asset is the clean plate.
 
 ## Research / production conclusion
 
@@ -117,10 +116,12 @@ Pixel-perfect equality is not expected in reconstructed under-car regions that w
 - only original car regions altered;
 - visual inspection PASS.
 
-### VP-3 — Sprite set
-- all 10 MASTER cars have reusable transparent sprites;
-- alpha edges/shadows visually acceptable;
-- deterministic sprite metadata.
+### VP-3 — Sprite set — **PASS / CLOSED**
+- 10 MASTER-derived production WebP sprites are committed;
+- EfficientSAM-Ti supplies alpha only; RGB remains exact MASTER pixels;
+- red_top uses deterministic 1.5px detached tutorial-glow alpha cleanup;
+- Pillow exact-lossless WebP round-trip QA passed;
+- visual approval: `2026-09-19_EfficientSAM_fullsheet_plus_red_distance_refine_1.5`.
 
 ### VP-4 — Level 1 rebuild
 - runtime no longer needs patches;
@@ -144,8 +145,28 @@ Only after VP-5 may Level 3 authoring begin.
 
 ## Current next action
 
-Recover or re-derive the reusable visual asset set from the approved MASTER.
+**VP-2 only: finish one production clean plate.**
 
-The approved MASTER itself exists in GitHub and the original approved source remains identifiable in the user's File Library, but the previously expected atlas is not present in GitHub/File Library search results.
+Sprite extraction is closed. Do not revisit GrabCut/MobileSAM/EfficientSAM unless a regression is found.
 
-If an exact atlas cannot be recovered, use the MASTER-derived extraction path and validate visually before commit.
+Clean-plate methods already rejected by direct visual QA include:
+- OpenCV Telea / Navier-Stokes / xphoto;
+- standard, sequential, refined and local LaMa variants;
+- low-frequency/frequency-separation correction;
+- independent local LaMa including shadow-expanded bounded repair;
+- bmquilting integration after one bounded repair;
+- rectified-plane generic inpaint;
+- quarter-resolution exemplar fill;
+- multi-donor asphalt quilting;
+- precise-alpha harmonic fill at multiple shadow margins.
+
+The next candidate may use a one-time constrained visual edit of the approved MASTER **only to derive the clean plate**. It is not a runtime dependency and not a per-level generation system.
+
+Acceptance remains fail-closed:
+- same 941x1672 composition;
+- cars/tutorial glow removed;
+- EXIT, walls, vegetation, drains, manhole, pavement markings, lighting language and camera preserved;
+- no new objects;
+- no redesign/restyle;
+- non-target visual drift must be low enough to pass direct comparison;
+- only after PASS may the file be committed as `assets/clean_plate.webp`.

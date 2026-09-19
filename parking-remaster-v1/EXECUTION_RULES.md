@@ -66,3 +66,9 @@ G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 mast
 38. **Use multiple MASTER-derived asphalt donors, never one visibly repeated tile.** Donors must exclude cars/tutorial overlays/paint markings and must be placed deterministically without periodic repetition.
 39. **Parking markings are geometry.** Detect/fix the visible parking-line structure and restore occluded segments as a dedicated vector/marking layer rather than expecting texture synthesis to invent them.
 40. **Retired clean-plate methods stay retired.** LaMa variants, generic OpenCV inpaint, xphoto, bmquilting integration, rectified generic inpaint, and naïve exemplar mosaic fill may not be retried without materially new evidence.
+
+
+## One-time clean-plate exception
+37. **A one-time constrained image edit may be evaluated for VP-2 only after deterministic reconstruction methods have been exhausted.** It is not permission to generate per-level backgrounds or replace the approved VISUAL MASTER.
+38. **The output must pass drift QA.** Camera, crop, architecture, road, vegetation, drains, manhole, EXIT treatment and overall visual language must remain materially unchanged; otherwise reject it.
+39. **After clean-plate approval, visual production becomes deterministic again.** All future levels reuse the same clean plate + the same PASS sprite set + Level Data.

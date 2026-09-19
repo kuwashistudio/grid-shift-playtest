@@ -34,7 +34,7 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "VP-2D: derive a parking-lot structure model from visible MASTER markings, fit a smooth illumination field from known asphalt only, use multiple non-periodic MASTER asphalt donors, then restore parking markings as vectors. No generic inpaint fallback.",
+  "next_gate": "Create one constrained car-free edit from the approved MASTER, compare against MASTER, and promote only if non-target drift is acceptably low. This is a one-time build asset, not recurring production generation.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
@@ -70,7 +70,7 @@
     },
     "conclusion": "Bounded LaMa repair exhausted. Do not tune LaMa masks/margins further."
   },
-  "active_clean_plate_route": "STRUCTURED_ASPHALT_FIELD_PLUS_VECTOR_MARKINGS",
+  "active_clean_plate_route": "ONE_TIME_CONSTRAINED_MASTER_EDIT_WITH_STRICT_DRIFT_QA",
   "bmquilting": {
     "commit": "9fd5f97bef7472580e68fdadc15822f7ac896203",
     "license": "MIT",
@@ -124,6 +124,19 @@
       "status": "REJECTED_AS_FINAL_METHOD",
       "reason": "Removed car-color ghosts, but broad illumination bands and periodic texture repetition remained.",
       "useful_finding": "Clean plate should be decomposed into illumination field + multi-donor asphalt texture + vector parking markings."
+    },
+    "precise_alpha_harmonic_shadow_margins": {
+      "status": "REJECTED_VISUAL_QA",
+      "variants_px": [
+        12,
+        24,
+        36
+      ],
+      "reason": "Precise EfficientSAM car silhouettes removed the large rectangular artifacts, but recognizable dark former-car/cast-shadow shapes remained at all tested margins; increasing the margin did not solve the visual attribution problem."
+    },
+    "multi_donor_asphalt_quilting": {
+      "status": "REJECTED_VISUAL_QA",
+      "reason": "Real MASTER donor texture avoided semantic car ghosts but produced obvious mosaic/patch repetition and destroyed hidden parking-line continuity."
     }
   }
 }
