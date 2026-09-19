@@ -1,0 +1,38 @@
+{
+  "gate": "VP_2D_PARKING_STRUCTURE_VISUAL_QA",
+  "status": "REJECTED_AFTER_BOUNDED_REPAIR",
+  "reviewed_at": "2026-09-19",
+  "source": {
+    "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "bounded_repair_run_id": 35420304694,
+    "result_overlay_sha256": "078efd7a59376373eeb231c81c6a8100df127431d8cdc3668a2098dd4f1208ee"
+  },
+  "machine_improvement": {
+    "known_asphalt_pixels_before": 77258,
+    "known_asphalt_pixels_after": 107886,
+    "donor_candidates_before": 0,
+    "donor_candidates_after": 6,
+    "final_orientation_families_deg": [
+      -88.233,
+      -61.463,
+      -1.231
+    ],
+    "final_chosen_grid_pair": [
+      0,
+      2
+    ]
+  },
+  "visual_failure": [
+    "substantial accepted segments still follow vehicle body/edge structure",
+    "substantial accepted segments still follow lot curb/boundary/high-contrast non-marking structure",
+    "candidate grid geometry is unsafe for hidden parking-marking synthesis"
+  ],
+  "decision": "RETIRE_GLOBAL_HOUGH_FIRST_ROUTE",
+  "no_more_repairs": true,
+  "retained_only_as_provisional": [
+    "known asphalt mask/statistics",
+    "second-order illumination fit",
+    "six MASTER-only donor windows"
+  ],
+  "next_gate": "VP-2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS"
+}

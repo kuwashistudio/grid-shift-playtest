@@ -34,20 +34,21 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "VP-2D: infer parking-slot/line geometry from visible MASTER markings, fit known-asphalt illumination, and select MASTER-only donor texture regions. No generic inpaint.",
+  "next_gate": "VP-2D2: anchor-first projective parking-marking model. Validate actual paint endpoints/corners on MASTER before fitting vector marking families. No further global Hough tuning.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
     "open_cv_xphoto_fsr": "REJECTED_VISUAL_QA",
     "lama_refined_mask": "REJECTED_VISUAL_QA",
     "lama_sequential": "REJECTED_VISUAL_QA",
-    "lama_standard_union_mask": "CURRENT_BEST_REFINEMENT_REQUIRED",
+    "lama_standard_union_mask": "REJECTED_RETIRED",
     "grabcut_sprite_set": "REJECTED_FULL_SIZE_ALPHA_QA",
     "lama_hybrid_frequency_separation": "REJECTED_VISUAL_QA",
     "lama_independent_local_margin_7": "REJECTED_VISUAL_QA",
     "lama_independent_local_shadow_margin_26": "REJECTED_VISUAL_QA",
     "bmquilting_master_only": "RETIRED_INTEGRATION_FAILURE",
-    "efficientsam_ti_sprite_set": "PASS_PRODUCTION"
+    "efficientsam_ti_sprite_set": "PASS_PRODUCTION",
+    "vp2d_global_hough_structure": "REJECTED_VISUAL_QA_AFTER_BOUNDED_REPAIR"
   },
   "hybrid_frequency_separation": {
     "ci_run_id": 35382261854,
@@ -160,5 +161,18 @@
     "method": "Independent Local LaMa shadow-expanded margin 26",
     "reason": "The exact source method had already failed direct full-resolution visual QA. A target-scale-only late workflow may not reverse a later CANON rejection.",
     "rule": "Late CI cannot auto-promote a candidate whose method/result is already REJECTED in the current CANON."
+  },
+  "vp2d_hough_structure": {
+    "status": "RETIRED",
+    "initial_run_id": 35420113042,
+    "bounded_repair_run_id": 35420304694,
+    "bounded_repair_execution": "SUCCESS",
+    "visual_status": "FAIL",
+    "useful_partial_metrics": {
+      "known_asphalt_pixels": 107886,
+      "master_only_donor_candidates": 6
+    },
+    "reason": "Direct overlay review still showed many detections on vehicle edges, curb/boundary and other non-parking geometry. Numeric improvement is not sufficient.",
+    "next_representation": "ANCHOR_FIRST_PROJECTIVE_MARKINGS"
   }
 }

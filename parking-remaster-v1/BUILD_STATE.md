@@ -20,17 +20,20 @@ Scope: `parking-remaster-v1/` plus dedicated workflows only. Do not modify GRID 
 
 `STRUCTURED_ASPHALT_FIELD_PLUS_VECTOR_MARKINGS`
 
-Next exact gate: VP-2D Parking Structure Model.
-1. Detect visible parking-marking lines in the exact MASTER.
-2. Group dominant line families and infer slot/grid structure.
-3. Fit known-asphalt illumination only from valid pavement pixels.
-4. Select multiple MASTER-only asphalt donor regions deterministically.
-5. Persist the model as machine-readable artifacts and visually review the detection overlay on the MASTER.
-6. Only then proceed to asphalt/marking reconstruction.
+VP-2D global Hough structure model: **REJECTED AFTER ONE BOUNDED REPAIR**.
+Machine execution succeeded, and the bounded repair improved known-asphalt/donor metrics, but direct overlay review still showed substantial vehicle/curb-edge contamination. Do not tune the Hough route again.
+
+Next exact gate: **VP-2D2 Anchor-First Projective Marking Model**.
+1. Detect candidate white-paint endpoints/corners, not arbitrary long edges.
+2. Validate the small anchor set directly on the exact MASTER.
+3. Reject anchors inside/near car, tutorial and curb/boundary exclusion zones.
+4. Infer projective marking families from validated anchors and geometric consistency.
+5. Persist hidden-line hypotheses as vector geometry only.
+6. Do not create/promote clean_plate.webp until the anchor/vector overlay passes direct visual QA.
 
 ## Retired routes
 
-Do not return to Adobe/Firefly, Telea, Navier-Stokes, xphoto FSR, any LaMa mask/margin tuning, Poisson/seamlessClone as the primary solution, rectified-plane generic inpainting, naïve exemplar mosaic fill, bmquilting patching, or sprite regeneration.
+Do not return to Adobe/Firefly, Telea, Navier-Stokes, xphoto FSR, any LaMa mask/margin tuning, Poisson/seamlessClone as the primary solution, rectified-plane generic inpainting, naïve exemplar mosaic fill, bmquilting patching, sprite regeneration, or the VP-2D global Hough-first detector.
 
 ## Stale-CI protection
 

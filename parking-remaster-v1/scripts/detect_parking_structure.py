@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""VP-2D Parking Structure Model.
+"""VP-2D Parking Structure Model — HISTORICAL REJECTED EXPERIMENT.
+
+RETIRED after one bounded repair and direct visual QA on 2026-09-19.
+Do not tune or reuse its Hough line/grid output as production geometry.
+The JSON/overlay artifacts remain as diagnostic evidence.
 
 Deterministic, MASTER-only analysis. This script does NOT create or promote a
 clean plate. It extracts visible parking-marking geometry, line families,

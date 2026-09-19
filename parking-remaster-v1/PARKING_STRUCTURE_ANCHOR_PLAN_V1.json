@@ -1,0 +1,30 @@
+{
+  "gate": "VP_2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS",
+  "status": "READY_TO_IMPLEMENT",
+  "source": {
+    "master": "assets/master.webp",
+    "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "external_image_sources_allowed": false
+  },
+  "research_representation": [
+    "Directional marking-point methods infer parking slots from position/orientation plus geometric rules.",
+    "Polygon/vertex parking-slot representations avoid treating every high-contrast image edge as a parking marking."
+  ],
+  "implementation_contract": [
+    "candidate primitives are paint endpoints/corners/junctions, not global Hough lines",
+    "use exact MASTER only",
+    "exclude production car sprite/body regions plus tutorial and validated curb/boundary masks",
+    "small candidate anchor set must receive direct MASTER overlay visual QA",
+    "fit projective vector marking families only from visually valid anchors",
+    "output geometry/statistics only; do not promote clean_plate.webp",
+    "one bounded repair maximum for this representation"
+  ],
+  "acceptance": [
+    "anchors visibly sit on actual parking paint, not cars/curbs",
+    "projective family overlay agrees with visible marking fragments",
+    "hidden-line hypotheses are geometrically supported by at least two independent visible anchors/tracks",
+    "EXIT and non-parking markings remain protected",
+    "direct visual QA PASS"
+  ],
+  "next_after_pass": "VP-2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION"
+}

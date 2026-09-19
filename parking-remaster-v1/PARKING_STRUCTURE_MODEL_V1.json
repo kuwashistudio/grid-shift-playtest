@@ -1,6 +1,6 @@
 {
   "gate": "VP_2D_PARKING_STRUCTURE_MODEL",
-  "status": "MODEL_BUILT_VISUAL_QA_REQUIRED",
+  "status": "REJECTED_GLOBAL_HOUGH_GEOMETRY_AFTER_VISUAL_QA",
   "source": {
     "path": "assets/master.webp",
     "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
@@ -116,7 +116,7 @@
           228,
           1331
         ],
-        "length_px": 158.0,
+        "length_px": 158,
         "paint_support": 0.9702,
         "angle_deg": 0.363,
         "family_id": 2
@@ -129,7 +129,7 @@
           227,
           1330
         ],
-        "length_px": 157.0,
+        "length_px": 157,
         "paint_support": 0.9728,
         "angle_deg": -0.365,
         "family_id": 2
@@ -142,9 +142,9 @@
           228,
           1332
         ],
-        "length_px": 157.0,
+        "length_px": 157,
         "paint_support": 0.9728,
-        "angle_deg": 0.0,
+        "angle_deg": 0,
         "family_id": 2
       },
       {
@@ -155,7 +155,7 @@
           224,
           1327
         ],
-        "length_px": 152.0,
+        "length_px": 152,
         "paint_support": 0.9777,
         "angle_deg": -0.377,
         "family_id": 2
@@ -168,9 +168,9 @@
           224,
           1329
         ],
-        "length_px": 152.0,
+        "length_px": 152,
         "paint_support": 0.9777,
-        "angle_deg": 0.0,
+        "angle_deg": 0,
         "family_id": 2
       },
       {
@@ -259,9 +259,9 @@
           326,
           787
         ],
-        "length_px": 148.0,
+        "length_px": 148,
         "paint_support": 0.8474,
-        "angle_deg": -90.0,
+        "angle_deg": -90,
         "family_id": 0
       },
       {
@@ -272,7 +272,7 @@
           78,
           571
         ],
-        "length_px": 141.0,
+        "length_px": 141,
         "paint_support": 0.8888,
         "angle_deg": 89.594,
         "family_id": 0
@@ -324,7 +324,7 @@
           226,
           1333
         ],
-        "length_px": 136.0,
+        "length_px": 136,
         "paint_support": 0.8607,
         "angle_deg": -0.421,
         "family_id": 2
@@ -402,7 +402,7 @@
           192,
           1208
         ],
-        "length_px": 150.0,
+        "length_px": 150,
         "paint_support": 0.7191,
         "angle_deg": -36.87,
         "family_id": 1
@@ -792,9 +792,9 @@
           71,
           1075
         ],
-        "length_px": 106.0,
+        "length_px": 106,
         "paint_support": 0.6957,
-        "angle_deg": -90.0,
+        "angle_deg": -90,
         "family_id": 0
       },
       {
@@ -883,9 +883,9 @@
           287,
           978
         ],
-        "length_px": 91.0,
+        "length_px": 91,
         "paint_support": 0.7818,
-        "angle_deg": -90.0,
+        "angle_deg": -90,
         "family_id": 0
       },
       {
@@ -1350,7 +1350,7 @@
         {
           "rho_px": 1081.6,
           "support_segments": 1,
-          "support_length_px": 150.0,
+          "support_length_px": 150,
           "representative_segment": [
             72,
             1298,
@@ -1458,7 +1458,7 @@
         583.7
       ],
       [
-        326.0,
+        326,
         603.3
       ],
       [
@@ -1482,7 +1482,7 @@
         795.3
       ],
       [
-        317.0,
+        317,
         819.9
       ],
       [
@@ -1521,9 +1521,9 @@
         "y2"
       ],
       "coordinate_normalization": {
-        "x_center": 470.0,
+        "x_center": 470,
         "y_center": 882.5,
-        "x_halfspan": 400.0,
+        "x_halfspan": 400,
         "y_halfspan": 452.5
       },
       "coefficients_L": [
@@ -1556,7 +1556,7 @@
         ],
         "coverage": 0.936,
         "paint_fraction": 0.01196,
-        "L_median": 51.0,
+        "L_median": 51,
         "L_std": 13.2,
         "score": 2.28026
       },
@@ -1568,8 +1568,8 @@
           1134
         ],
         "coverage": 0.9922,
-        "paint_fraction": 0.0,
-        "L_median": 47.0,
+        "paint_fraction": 0,
+        "L_median": 47,
         "L_std": 6.58,
         "score": 2.25133
       },
@@ -1581,8 +1581,8 @@
           1166
         ],
         "coverage": 0.9868,
-        "paint_fraction": 0.0,
-        "L_median": 42.0,
+        "paint_fraction": 0,
+        "L_median": 42,
         "L_std": 5.12,
         "score": 2.17148
       },
@@ -1595,7 +1595,7 @@
         ],
         "coverage": 0.834,
         "paint_fraction": 0.00684,
-        "L_median": 45.0,
+        "L_median": 45,
         "L_std": 15.71,
         "score": 2.05079
       },
@@ -1607,8 +1607,8 @@
           846
         ],
         "coverage": 0.9265,
-        "paint_fraction": 0.0,
-        "L_median": 43.0,
+        "paint_fraction": 0,
+        "L_median": 43,
         "L_std": 5.13,
         "score": 2.04735
       },
@@ -1620,12 +1620,24 @@
           846
         ],
         "coverage": 0.8594,
-        "paint_fraction": 0.0,
-        "L_median": 45.0,
+        "paint_fraction": 0,
+        "L_median": 45,
         "L_std": 5.98,
         "score": 1.93164
       }
     ]
   },
-  "production_rule": "This artifact is geometry/statistics only. It may not promote clean_plate.webp. Next gate must reconstruct asphalt/markings and pass direct visual QA."
+  "production_rule": "This artifact is geometry/statistics only. It may not promote clean_plate.webp. Next gate must reconstruct asphalt/markings and pass direct visual QA.",
+  "visual_qa": {
+    "status": "FAIL",
+    "bounded_repair_exhausted": true,
+    "reason": "Overlay still contains substantial vehicle-edge, curb/boundary and other non-parking-line detections. Candidate grid nodes cannot be trusted for hidden-marking synthesis.",
+    "production_use_allowed": false
+  },
+  "retention_policy": {
+    "marking_detection": "HISTORICAL_DIAGNOSTIC_ONLY",
+    "known_asphalt": "PROVISIONAL_MAY_BE_REEVALUATED",
+    "illumination_model": "PROVISIONAL_MAY_BE_REEVALUATED",
+    "donor_candidates": "PROVISIONAL_MAY_BE_REEVALUATED"
+  }
 }

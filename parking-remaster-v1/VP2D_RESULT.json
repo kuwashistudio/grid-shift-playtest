@@ -1,6 +1,6 @@
 {
   "gate": "VP_2D_PARKING_STRUCTURE_MODEL",
-  "status": "PASS_MACHINE_ANALYSIS_VISUAL_REVIEW_REQUIRED",
+  "status": "REJECTED_AFTER_BOUNDED_REPAIR",
   "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
   "accepted_segments": 80,
   "family_count": 3,
@@ -18,5 +18,36 @@
     "bytes": 7615,
     "base64_path": "assets/qa/vp2d_parking_structure_review.b64"
   },
-  "next": "Directly inspect overlay. If parking marking families/lot geometry are materially correct, close VP-2D and proceed to structured asphalt + vector marking reconstruction; otherwise perform one bounded detector adjustment."
+  "next": "VP-2D2: anchor-first projective parking-marking model. Detect/validate painted marking endpoints and corners first, then infer hidden vector markings geometrically. No further Hough tuning.",
+  "visual_qa": {
+    "reviewed_at": "2026-09-19",
+    "status": "FAIL",
+    "authority": "direct MASTER overlay review",
+    "observation": "Many accepted Hough segments follow vehicle/curb/high-contrast non-marking edges rather than true painted parking markings. Grid geometry is therefore unsafe for hidden-line synthesis.",
+    "bounded_repair_exhausted": true
+  },
+  "bounded_repair": {
+    "ci_run_id": 35420304694,
+    "machine_execution": "SUCCESS",
+    "accepted_segments": 80,
+    "family_count": 3,
+    "family_angles_deg": [
+      -88.233,
+      -61.463,
+      -1.231
+    ],
+    "chosen_grid_pair": [
+      0,
+      2
+    ],
+    "grid_node_count": 16,
+    "known_asphalt_pixels": 107886,
+    "donor_candidate_count": 6
+  },
+  "reusable_subresults": {
+    "known_asphalt_mask": "PROVISIONAL_ONLY",
+    "illumination_fit": "PROVISIONAL_ONLY",
+    "master_only_donor_windows": "PROVISIONAL_ONLY",
+    "hough_line_geometry": "REJECTED_DO_NOT_REUSE_AS_PRODUCTION_GEOMETRY"
+  }
 }
