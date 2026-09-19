@@ -334,9 +334,9 @@ def main():
     cv2.putText(overlay,txt,(18,52),cv2.FONT_HERSHEY_SIMPLEX,.86,(255,255,255),2,cv2.LINE_AA)
     cv2.imwrite(str(OVERLAY),overlay,[cv2.IMWRITE_JPEG_QUALITY,90])
 
-    rw=220; rh=max(1,int(round(h*rw/w)))
+    rw=140; rh=max(1,int(round(h*rw/w)))
     review=cv2.resize(overlay,(rw,rh),interpolation=cv2.INTER_AREA)
-    cv2.imwrite(str(OVERLAY_REVIEW),review,[cv2.IMWRITE_JPEG_QUALITY,52])
+    cv2.imwrite(str(OVERLAY_REVIEW),review,[cv2.IMWRITE_JPEG_QUALITY,48])
     b64=base64.b64encode(OVERLAY_REVIEW.read_bytes()).decode("ascii")
     OVERLAY_B64.write_text("\n".join(b64[i:i+76] for i in range(0,len(b64),76))+"\n",encoding="ascii")
 
