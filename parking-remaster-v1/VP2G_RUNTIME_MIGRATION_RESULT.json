@@ -1,0 +1,26 @@
+{
+  "gate": "VP_2G_RUNTIME_CLEAN_PLATE_MIGRATION",
+  "status": "IMPLEMENTED_PENDING_CI",
+  "implemented_at": "2026-09-19",
+  "production_background": "assets/clean_plate.webp",
+  "production_background_sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
+  "sprite_source": "Level Data -> assets/sprites/{id}.webp",
+  "architecture": "persistent sprite DOM elements over production clean plate",
+  "obsolete_dependencies_removed": [
+    "assets/master.webp runtime rendering",
+    "assets/patches/{id}.webp",
+    "assets/tutorial_cover.webp",
+    "patch() reveal path"
+  ],
+  "preserved": [
+    "game_logic.js",
+    "levels/level_001.json",
+    "levels.generated.js",
+    "Instant Start",
+    "first tap gameplay+audio unlock",
+    "iOS AudioContext interruption recovery"
+  ],
+  "runtime_visual_note": "Baked tutorial arrow/glow is no longer part of the background; dynamic hintPulse now mounts over red_top and is removed when the first-focus car exits.",
+  "level2_changed": false,
+  "next": "Run runtime CI. Close VP-2G only if clean-plate architecture, mobile input, Instant Start/audio, Level Data binding, and all 1024 Level-1 solver/JS states pass."
+}

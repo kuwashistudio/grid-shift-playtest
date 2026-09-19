@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#1a211d">
-<link rel="preload" as="image" href="assets/master.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/clean_plate.webp" fetchpriority="high">
 <title>Parking Remaster — Level 1</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -12,10 +12,8 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111814;tou
 body::before{content:"";position:fixed;inset:-40px;background:linear-gradient(#18201a,#0d120f);filter:blur(24px)}
 #wrap{position:fixed;overflow:hidden;background:#111;box-shadow:0 18px 60px #0009}
 #stage{position:absolute;left:0;top:0;width:941px;height:1672px;transform-origin:0 0;overflow:hidden;user-select:none;-webkit-user-select:none}
-#master{position:absolute;inset:0;width:941px;height:1672px;display:block;pointer-events:none}
-.patch,.car{position:absolute;display:block;pointer-events:none;transform-origin:50% 50%}
-.patch{z-index:4}
-.car{z-index:7;filter:drop-shadow(0 7px 6px rgba(0,0,0,.38));will-change:transform}
+#background{position:absolute;inset:0;width:941px;height:1672px;display:block;pointer-events:none}
+.car{position:absolute;z-index:7;display:block;pointer-events:none;transform-origin:50% 50%;filter:drop-shadow(0 7px 6px rgba(0,0,0,.38));will-change:transform}
 .hot{position:absolute;z-index:12;border:0;background:transparent;padding:0;margin:0;border-radius:26px;outline:0;cursor:pointer;touch-action:none}
 #hintPulse{position:absolute;z-index:10;left:366px;top:490px;width:148px;height:268px;border-radius:42px;pointer-events:none;animation:pulse 1.55s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,208,33,0)}50%{box-shadow:0 0 0 18px rgba(255,208,33,.17)}}
@@ -32,7 +30,8 @@ body::before{content:"";position:fixed;inset:-40px;background:linear-gradient(#1
 </head>
 <body>
 <div id="wrap"><div id="stage">
-<img id="master" src="assets/master.webp" alt="" decoding="sync" fetchpriority="high">
+<img id="background" src="assets/clean_plate.webp" alt="" decoding="sync" fetchpriority="high">
+<div id="hintPulse"></div>
 <div id="flash"></div>
 <div id="clear"><div id="badge">✓</div><button id="restart" aria-label="restart">↻</button></div>
 <button id="sound" aria-label="mute sound" aria-pressed="false">🔊</button>
@@ -43,14 +42,14 @@ body::before{content:"";position:fixed;inset:-40px;background:linear-gradient(#1
 (()=>{
 const level=window.__PARKING_LEVELS__?.level_001,logic=window.ParkingLogic;if(!level)throw new Error('Level data missing: level_001');if(!logic)throw new Error('ParkingLogic missing');
 const W=level.board.width,H=level.board.height,stage=document.querySelector('#stage'),wrap=document.querySelector('#wrap');
-const master=document.querySelector('#master'),clear=document.querySelector('#clear'),soundBtn=document.querySelector('#sound');
+const clear=document.querySelector('#clear'),soundBtn=document.querySelector('#sound');
 function fit(){const vw=innerWidth,vh=innerHeight;const s=Math.max(vw/W,vh/H);const ww=W*s,hh=H*s;Object.assign(wrap.style,{width:ww+'px',height:hh+'px',left:(vw-ww)/2+'px',top:(vh-hh)/2+'px'});stage.style.transform=`scale(${s})`;}
 addEventListener('resize',fit,{passive:true});fit();
 
 const defs=level.vehicles.map(c=>({...c,first:c.id===level.tutorial.first_focus_vehicle}));
 const v={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
 const baseAngle={up:-Math.PI/2,down:Math.PI/2,left:Math.PI,right:0};
-const cars=new Map();let moved=0,hintTimer=null,firstDone=false;
+const cars=new Map();let moved=0,hintTimer=null;
 const startup={scriptStartMs:performance.now(),controlsReadyMs:null,firstPlayerActionMs:null};
 let audioCtx=null,audioBus=null,audioResetNeeded=false,audioEnabled=true;
 const audioQA={contextsCreated:0,interruptionsObserved:0,resetsRequested:0,lastState:'none'};
@@ -96,16 +95,14 @@ function markAudioInterruption(){
 document.addEventListener('visibilitychange',()=>{if(document.hidden)markAudioInterruption();else if(audioCtx)audioResetNeeded=true},{passive:true});
 addEventListener('pagehide',markAudioInterruption,{passive:true});
 addEventListener('pageshow',()=>{if(audioCtx)audioResetNeeded=true},{passive:true});
-function add(c){c={...c,moved:false,bumping:false,patch:null,spriteEl:null};const [x1,y1,x2,y2]=hitbox(c.body);const b=document.createElement('button');b.className='hot';Object.assign(b.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px'});b.addEventListener('pointerdown',e=>{e.preventDefault();if(startup.firstPlayerActionMs===null)startup.firstPlayerActionMs=performance.now();ensureAudioOnGesture();tap(c)});stage.appendChild(b);c.hot=b;cars.set(c.id,c)}
+function add(c){c={...c,moved:false,bumping:false,spriteEl:null};const [x1,y1,x2,y2]=hitbox(c.body);const b=document.createElement('button');b.className='hot';Object.assign(b.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px'});b.addEventListener('pointerdown',e=>{e.preventDefault();if(startup.firstPlayerActionMs===null)startup.firstPlayerActionMs=performance.now();ensureAudioOnGesture();tap(c)});stage.appendChild(b);c.hot=b;cars.set(c.id,c);sprite(c)}
 defs.forEach(add);startup.controlsReadyMs=performance.now();
-function patch(c,show){if(!c.patch){const [x1,y1,x2,y2]=c.sprite;const im=document.createElement('img');im.className='patch';im.src=`assets/patches/${c.id}.webp`;Object.assign(im.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px',display:'none'});stage.appendChild(im);c.patch=im}c.patch.style.display=show?'block':'none'}
-function sprite(c){const [x1,y1,x2,y2]=c.sprite;const im=document.createElement('img');im.className='car';im.src=`assets/sprites/${c.id}.webp`;Object.assign(im.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px'});stage.appendChild(im);c.spriteEl=im;return im}
-function coverTutorial(){if(firstDone)return;firstDone=true;const im=document.createElement('img');im.className='patch';im.src='assets/tutorial_cover.webp';Object.assign(im.style,{left:'330px',top:'440px',width:'220px',height:'350px',zIndex:5});stage.appendChild(im)}
+function sprite(c){if(c.spriteEl)return c.spriteEl;const [x1,y1,x2,y2]=c.sprite;const im=document.createElement('img');im.className='car';im.src=`assets/sprites/${c.id}.webp`;im.alt='';im.decoding='async';im.draggable=false;Object.assign(im.style,{left:x1+'px',top:y1+'px',width:(x2-x1)+'px',height:(y2-y1)+'px'});stage.appendChild(im);c.spriteEl=im;return im});stage.appendChild(im)}
 function tap(c){if(c.moved||c.bumping)return;clearTimeout(hintTimer);const hit=blocked(c);if(hit){bump(c);return}exitCar(c)}
-function bump(c){c.bumping=true;horn();navigator.vibrate?.(28);patch(c,true);const s=sprite(c),[dx,dy]=v[c.dir],cleanup=()=>{s.remove();c.spriteEl=null;patch(c,false);c.bumping=false};s.animate([{transform:'translate3d(0,0,0)'},{transform:`translate3d(${dx*14}px,${dy*14}px,0)`},{transform:'translate3d(0,0,0)'}],{duration:330,easing:'cubic-bezier(.2,.8,.3,1)'}).finished.then(cleanup,cleanup);const f=document.querySelector('#flash');f.style.background='rgba(255,60,45,.085)';setTimeout(()=>f.style.background='rgba(255,60,45,0)',120)}
+function bump(c){c.bumping=true;horn();navigator.vibrate?.(28);const s=c.spriteEl||sprite(c),[dx,dy]=v[c.dir],cleanup=()=>{s.style.transform='';c.bumping=false};s.animate([{transform:'translate3d(0,0,0)'},{transform:`translate3d(${dx*14}px,${dy*14}px,0)`},{transform:'translate3d(0,0,0)'}],{duration:330,easing:'cubic-bezier(.2,.8,.3,1)'}).finished.then(cleanup,cleanup);const f=document.querySelector('#flash');f.style.background='rgba(255,60,45,.085)';setTimeout(()=>f.style.background='rgba(255,60,45,0)',120)}
 function bez(p0,p1,p2,p3,t){const q=1-t;return [q*q*q*p0[0]+3*q*q*t*p1[0]+3*q*t*t*p2[0]+t*t*t*p3[0],q*q*q*p0[1]+3*q*q*t*p1[1]+3*q*t*t*p2[1]+t*t*t*p3[1]]}
 function tan(p0,p1,p2,p3,t){const q=1-t;return [3*q*q*(p1[0]-p0[0])+6*q*t*(p2[0]-p1[0])+3*t*t*(p3[0]-p2[0]),3*q*q*(p1[1]-p0[1])+6*q*t*(p2[1]-p1[1])+3*t*t*(p3[1]-p2[1])]}
-function exitCar(c){c.moved=true;c.hot.disabled=true;moved++;engine();navigator.vibrate?.(12);if(c.first)coverTutorial();patch(c,true);const s=sprite(c);const [x1,y1,x2,y2]=c.sprite,w=x2-x1,h=y2-y1,p0=[x1+w/2,y1+h/2],[dx,dy]=v[c.dir];
+function exitCar(c){c.moved=true;c.hot.disabled=true;moved++;engine();navigator.vibrate?.(12);if(c.first)document.querySelector('#hintPulse')?.remove();const s=c.spriteEl||sprite(c);const [x1,y1,x2,y2]=c.sprite,w=x2-x1,h=y2-y1,p0=[x1+w/2,y1+h/2],[dx,dy]=v[c.dir];
   const lead=c.dir==='up'?125:150;const p1=[p0[0]+dx*lead,p0[1]+dy*lead];
   let p2,p3,p4;
   p2=[p1[0]+(470-p1[0])*.58,Math.max(500,p1[1]-130)];p3=[470,445];p4=[470,285];

@@ -7,8 +7,10 @@ on:
       - parking-remaster-v1-staging-20260917
     paths:
       - "parking-remaster-v1/index.html"
+      - "parking-remaster-v1/assets/clean_plate.webp"
       - "parking-remaster-v1/scripts/validate_runtime_mobile.py"
       - "parking-remaster-v1/scripts/validate_instant_start_audio.py"
+      - "parking-remaster-v1/scripts/validate_runtime_clean_plate.py"
       - ".github/workflows/parking-remaster-runtime-qa.yml"
 
 permissions:
@@ -19,13 +21,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Validate clean-plate runtime migration
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_runtime_clean_plate.py
+      - name: Validate visual production asset architecture
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_visual_assets.py
       - name: Validate touch targets and interaction guards
         working-directory: parking-remaster-v1
         run: python scripts/validate_runtime_mobile.py
-
       - name: Validate instant-start and iPhone audio recovery
         working-directory: parking-remaster-v1
         run: python scripts/validate_instant_start_audio.py
+      - name: Validate Level Data runtime binding
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_level_data_runtime.py
+      - name: Validate exhaustive Level 1 solver/JS parity
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_solver_runtime_parity.py

@@ -10,7 +10,9 @@ def req(cond,msg):
         raise AssertionError(msg)
 
 def main():
-    req('src="assets/master.webp"' in HTML,"master board missing")
+    req('src="assets/clean_plate.webp"' in HTML,"production clean plate background missing")
+    req('href="assets/clean_plate.webp"' in HTML,"production clean plate preload missing")
+    req('assets/patches/' not in HTML and 'tutorial_cover.webp' not in HTML,"obsolete patch/reveal dependency present")
     req("defs.forEach(add);startup.controlsReadyMs=performance.now()" in HTML,"controls-ready marker missing")
     req("startup.firstPlayerActionMs" in HTML,"first player action measurement missing")
     forbidden=['id="start"','id="menu"','id="mode-select"','id="modeSelect"','class="splash"','class="main-menu"','Tap to start','PLAY</button>']
