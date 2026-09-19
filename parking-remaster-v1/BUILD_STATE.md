@@ -9,7 +9,7 @@ Scope: `parking-remaster-v1/` plus dedicated workflows only. Do not modify GRID 
 
 - Visual authority: `assets/master.webp`, 941x1672, SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`.
 - VP-3 reusable car sprites: **PASS / CLOSED**. Ten production sprites exist in `assets/sprites/`; source/model details are in `VP_SPRITE_PRODUCTION_RESULT.json`.
-- VP-2 clean plate: **CANDIDATE PASS / PRODUCTION MISSING**. `assets/candidates/clean_plate_structured_v1.webp` passed direct visual QA; `assets/clean_plate.webp` is still intentionally absent until VP-2F.
+- VP-2 clean plate: **PASS / CLOSED / LOCKED**. Production `assets/clean_plate.webp` is byte-identical to the approved VP-2E candidate, SHA256 `5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175`, 941x1672, 1,652,822 bytes.
 - Current runtime still contains the old Level-1 patch/reveal architecture. Do not migrate runtime until clean plate PASS.
 - Level 1 solver/runtime parity: 1,024/1,024 states, mismatches 0.
 - Instant Start + iOS AudioContext interruption recovery are implemented; final iPhone screen-recording audio verification remains PENDING.
@@ -44,12 +44,26 @@ VP-2E Structured Asphalt + Vector Marking Reconstruction: **PASS CANDIDATE / CLO
 - No external imagery, learned inpainting, global Hough, Poisson or seamlessClone was used.
 - Candidate is locked; do not tune it after this visual approval.
 
-Next exact gate: **VP-2F Clean Plate Promotion Integrity**.
-1. Copy the approved candidate bytes exactly to `assets/clean_plate.webp`.
-2. Verify candidate/production SHA equality, dimensions and lossless decode.
-3. Persist production result/manifest and stale-CI guard.
-4. Do not alter runtime or Level 2 in VP-2F.
-5. Runtime patch/reveal removal becomes the following separate gate.
+VP-2F Clean Plate Promotion Integrity: **PASS / CLOSED**.
+- Production path: `assets/clean_plate.webp`.
+- Same Git blob as approved candidate: `01c6a6b0ae1df57292beb76f33431eb53cca57ec`.
+- SHA256: `5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175`.
+- Dimensions: 941x1672.
+- Bytes: 1,652,822.
+- CI run `35427201597`: SUCCESS.
+- candidate/production bytes: IDENTICAL.
+- decoded RGB: IDENTICAL.
+- WebP decode: PASS.
+- Runtime unchanged; Level 2 unchanged.
+- Production clean plate is locked. Do not regenerate/re-encode/overwrite it without reopening the visual-production gate.
+
+Next exact gate: **VP-2G Runtime Clean Plate Migration**.
+1. Replace old Level-1 patch/reveal background dependency with locked `assets/clean_plate.webp`.
+2. Render locked production sprites from Level Data.
+3. Preserve Level-1 game logic/parity, Instant Start, first-tap gameplay/audio unlock, and iOS AudioContext recovery.
+4. Remove only obsolete visual patch/reveal code/assets after the new path is verified.
+5. Run desktop/static checks plus direct iPhone-oriented visual/runtime QA.
+6. Keep Level 2 locked until VP-2G PASS.
 
 ## Retired routes
 

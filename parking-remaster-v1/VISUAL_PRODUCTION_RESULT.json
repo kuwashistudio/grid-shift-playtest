@@ -1,18 +1,18 @@
 {
   "gate": "VISUAL_PRODUCTION_GATE",
-  "status": "SPRITES_PASS_GEOMETRY_PASS_CLEAN_PLATE_CANDIDATE_PASS_PROMOTION_PENDING",
+  "status": "SPRITES_PASS_GEOMETRY_PASS_CLEAN_PLATE_PASS_RUNTIME_MIGRATION_PENDING",
   "verified_at": "2026-09-19",
-  "reason": "Production sprites and VP-2D2 marking geometry are PASS. VP-2E structured clean-plate candidate passed direct full-resolution, 390px iPhone, and Level-1 rebuild visual QA. Production assets/clean_plate.webp has not yet been written; promotion is intentionally a separate gate.",
+  "reason": "Production sprites, VP-2D2 marking geometry, and production clean plate are PASS and locked. assets/clean_plate.webp is byte-identical to the visually approved VP-2E candidate and passed VP-2F integrity CI. Runtime still uses the old Level-1 patch/reveal path and has not been migrated.",
   "current_master": {
     "bytes": 448118,
     "git_blob": "f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe"
   },
   "required_next": [
-    "derive_production_clean_plate",
-    "rebuild_Level_1_from_clean_plate_plus_production_sprites",
-    "remove_patch_dependency",
-    "visual_QA_against_MASTER",
-    "then_author_Level_2_only"
+    "migrate_Level_1_runtime_to_locked_clean_plate_plus_production_sprites",
+    "remove_old_patch_reveal_background_dependency",
+    "verify_gameplay_and_visual_parity",
+    "verify_Instant_Start_and_iOS_audio_recovery_unchanged",
+    "then_author_Level_2_only_after_runtime_gate_PASS"
   ],
   "validator": "scripts/validate_visual_assets.py",
   "updated_at": "2026-09-19",
@@ -34,7 +34,7 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "VP-2F: promote the exact approved VP-2E candidate bytes to assets/clean_plate.webp and verify production integrity. Do not migrate runtime in the same gate.",
+  "next_gate": "VP-2G: migrate Level-1 runtime background from patch/reveal architecture to locked assets/clean_plate.webp + locked production sprites. Preserve game logic, Instant Start and iOS audio recovery. Do not author Level 2 in the same gate.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
@@ -200,7 +200,25 @@
     "visual_qa": "VP2E_VISUAL_QA_RESULT.json",
     "outside_mask_max_rgb_delta": 0,
     "tutorial_yellow_pixels_remaining": 79,
-    "production_promoted": false,
-    "locked_for_promotion": true
+    "production_promoted": true,
+    "locked_for_promotion": false
+  },
+  "production_clean_plate": {
+    "status": "PASS_LOCKED",
+    "path": "assets/clean_plate.webp",
+    "source_candidate": "assets/candidates/clean_plate_structured_v1.webp",
+    "sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
+    "bytes": 1652822,
+    "dimensions": [
+      941,
+      1672
+    ],
+    "git_blob": "01c6a6b0ae1df57292beb76f33431eb53cca57ec",
+    "promotion_commit": "44b12b801b1f44e4fab005576c2018c22a56e789",
+    "integrity_ci_run_id": 35427201597,
+    "integrity_result": "VP2F_CLEAN_PLATE_INTEGRITY_RESULT.json",
+    "candidate_production_byte_identical": true,
+    "decoded_rgb_identical": true,
+    "locked": true
   }
 }

@@ -1,6 +1,6 @@
 {
   "gate": "VP_2F_CLEAN_PLATE_PROMOTION_INTEGRITY",
-  "status": "PROMOTED_PENDING_CI_INTEGRITY",
+  "status": "PASS_CLOSED",
   "promoted_at": "2026-09-19",
   "source_candidate": "assets/candidates/clean_plate_structured_v1.webp",
   "production": "assets/clean_plate.webp",
@@ -15,5 +15,17 @@
   "production_git_blob": "01c6a6b0ae1df57292beb76f33431eb53cca57ec",
   "runtime_changed": false,
   "level2_changed": false,
-  "next": "Run validate_clean_plate_promotion.py in CI and close VP-2F only if exact bytes, SHA, dimensions and decode all PASS."
+  "next": "VP-2G Runtime Clean Plate Migration: replace old Level-1 patch/reveal background path with production clean plate + locked sprites without changing game logic.",
+  "integrity_ci_run_id": 35427201597,
+  "integrity_result": "VP2F_CLEAN_PLATE_INTEGRITY_RESULT.json",
+  "actual_sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
+  "actual_bytes": 1652822,
+  "actual_dimensions": [
+    941,
+    1672
+  ],
+  "candidate_production_byte_identical": true,
+  "decoded_rgb_identical": true,
+  "webp_decode": "PASS",
+  "locked": true
 }
