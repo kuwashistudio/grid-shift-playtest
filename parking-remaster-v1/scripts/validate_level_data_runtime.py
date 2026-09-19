@@ -7,7 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML = ROOT / "index.html"
-LEVEL = ROOT / "levels" / "level_001.json"
+LEVEL_DIR = ROOT / "levels"
+LEVEL1 = LEVEL_DIR / "level_001.json"
 BUNDLE = ROOT / "levels.generated.js"
 LOGIC = ROOT / "game_logic.js"
 
@@ -19,7 +20,13 @@ def require(cond, msg):
 
 def main():
     html = HTML.read_text(encoding="utf-8")
-    level = json.loads(LEVEL.read_text(encoding="utf-8"))
+    level = json.loads(LEVEL1.read_text(encoding="utf-8"))
+    canonical={}
+    for path in sorted(LEVEL_DIR.glob("level_*.json")):
+        if path.name.endswith(".analysis.json") or path.name.endswith(".parity.json"):
+            continue
+        obj=json.loads(path.read_text(encoding="utf-8"))
+        canonical[obj["id"]]=obj
     bundle = BUNDLE.read_text(encoding="utf-8")
     logic = LOGIC.read_text(encoding="utf-8")
 
@@ -27,7 +34,7 @@ def main():
     line = next((x for x in bundle.splitlines() if x.startswith(prefix)), None)
     require(line is not None and line.endswith(";"), "generated level payload missing")
     generated = json.loads(line[len(prefix):-1])
-    require(generated == {level["id"]: level}, "generated bundle differs from canonical JSON")
+    require(generated == canonical, "generated bundle differs from canonical level JSON set")
 
     require('<script src="game_logic.js"></script>' in html, "relative logic include missing")
     require('<script src="levels.generated.js"></script>' in html, "relative generated bundle include missing")
@@ -39,7 +46,7 @@ def main():
     require("level.board.corridor_inset" in logic, "functional core does not consume corridor inset")
     require("fetch(" not in html, "runtime JSON/network fetch introduced")
 
-    print("PASS LDP-2: canonical JSON -> generated local JS + pure logic -> runtime; no hard-coded defs/fetch")
+    print(f"PASS LDP-2: {len(canonical)} canonical level JSON files -> generated local JS; Level 1 runtime remains data-driven")
     return 0
 
 

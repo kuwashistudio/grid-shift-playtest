@@ -1,0 +1,77 @@
+name: Parking Remaster Level 002 Authoring Proof
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/levels/level_002.json'
+      - 'parking-remaster-v1/levels.generated.js'
+      - 'parking-remaster-v1/scripts/validate_level_schema.py'
+      - 'parking-remaster-v1/scripts/validate_level_layout.py'
+      - 'parking-remaster-v1/scripts/render_level_preview.py'
+      - 'parking-remaster-v1/scripts/validate_solver_runtime_parity.py'
+      - 'parking-remaster-v1/scripts/validate_level_data_runtime.py'
+      - '.github/workflows/parking-remaster-level002-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  level002-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install validation dependencies
+        run: python -m pip install "jsonschema==4.25.1" "Pillow==11.3.0"
+      - name: Validate Level 2 schema
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_level_schema.py levels/level_002.json schemas/level_v1.schema.json
+      - name: Validate layout and locked production sprites
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_level_layout.py levels/level_002.json --compare levels/level_001.json
+      - name: Verify generated level bundle is synchronized
+        working-directory: parking-remaster-v1
+        run: |
+          cp levels.generated.js /tmp/levels.generated.js
+          python scripts/build_level_bundle.py
+          cmp -s levels.generated.js /tmp/levels.generated.js
+      - name: Solve Level 2 exactly
+        working-directory: parking-remaster-v1
+        run: python scripts/solve_level.py levels/level_002.json --write-analysis /tmp/level_002.analysis.json
+      - name: Extract Level 2 difficulty features
+        working-directory: parking-remaster-v1
+        run: python scripts/extract_difficulty_features.py levels/level_002.json --write /tmp/LEVEL_002_DIFFICULTY_FEATURES.json
+      - name: Check Level 2 against canonical brief
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_candidate_against_brief.py /tmp/LEVEL_002_DIFFICULTY_FEATURES.json --level levels/level_002.json > /tmp/LEVEL_002_BRIEF_CHECK.json
+      - name: Validate Level Data bundle/runtime contract
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_level_data_runtime.py
+      - name: Exhaustive Level 2 Python/JS parity
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_solver_runtime_parity.py --level levels/level_002.json
+      - name: Render production-sprite visual QA
+        working-directory: parking-remaster-v1
+        run: python scripts/render_level_preview.py levels/level_002.json --out-dir /tmp/level002-qa
+      - name: Upload Level 2 proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-level002-proof
+          path: |
+            /tmp/level_002.analysis.json
+            /tmp/LEVEL_002_DIFFICULTY_FEATURES.json
+            /tmp/LEVEL_002_BRIEF_CHECK.json
+            /tmp/level002-qa/level_002_lot_full.jpg
+            /tmp/level002-qa/level_002_lot_390.jpg
+          if-no-files-found: error
+          retention-days: 7

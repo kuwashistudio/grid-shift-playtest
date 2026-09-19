@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
@@ -9,7 +10,7 @@ from pathlib import Path
 from solve_level import build_rules
 
 ROOT = Path(__file__).resolve().parents[1]
-LEVEL = ROOT / "levels" / "level_001.json"
+DEFAULT_LEVEL = ROOT / "levels" / "level_001.json"
 JS_EVAL = ROOT / "scripts" / "eval_js_logic.mjs"
 
 
@@ -19,7 +20,11 @@ def require(cond, message):
 
 
 def main():
-    level = json.loads(LEVEL.read_text(encoding="utf-8"))
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--level",type=Path,default=DEFAULT_LEVEL)
+    args=ap.parse_args()
+    level_path=args.level if args.level.is_absolute() else (ROOT/args.level)
+    level = json.loads(level_path.read_text(encoding="utf-8"))
     ids, blocker, legal = build_rules(level)
     require(len(ids) <= 14, "exhaustive parity guard exceeded")
 
@@ -28,7 +33,7 @@ def main():
         states.append([vid for i, vid in enumerate(ids) if mask & (1 << i)])
 
     proc = subprocess.run(
-        ["node", str(JS_EVAL), str(LEVEL)],
+        ["node", str(JS_EVAL), str(level_path)],
         input=json.dumps(states),
         text=True,
         capture_output=True,
@@ -54,7 +59,7 @@ def main():
                 break
 
     require(not mismatches, f"solver/runtime parity mismatch: {mismatches}")
-    print(f"PASS LDP-3: Python solver vs JS functional core parity across {len(states)} states")
+    print(f"PASS LDP-3: {level['id']} Python solver vs JS functional core parity across {len(states)} states")
     return 0
 
 
