@@ -48,6 +48,7 @@ for(const id of l1){
 }
 await page.waitForFunction(()=>window.__parkingQA.currentLevel()==='level_002',{timeout:7000});
 await page.waitForFunction(()=>document.querySelectorAll('.car').length===9);
+await page.waitForTimeout(450);
 const level2=await page.evaluate(()=>({
   level:window.__parkingQA.currentLevel(),
   hud:window.__parkingProgressQA.hud(),
@@ -78,9 +79,11 @@ for(const id of l2){
   await page.waitForTimeout(35);
 }
 await page.waitForFunction(()=>document.querySelector('#clear').classList.contains('show'),{timeout:5000});
+await page.waitForTimeout(450);
 await page.screenshot({path:outDir+'/03_level2_clear.png'});
 await page.locator('#restart').tap();
 await page.waitForFunction(()=>window.__parkingQA.currentLevel()==='level_002'&&document.querySelectorAll('.car').length===9);
+await page.waitForTimeout(450);
 const restarted=await page.evaluate(()=>({
   level:window.__parkingQA.currentLevel(),
   hud:window.__parkingProgressQA.hud(),
