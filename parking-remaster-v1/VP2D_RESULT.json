@@ -1,0 +1,22 @@
+{
+  "gate": "VP_2D_PARKING_STRUCTURE_MODEL",
+  "status": "PASS_MACHINE_ANALYSIS_VISUAL_REVIEW_REQUIRED",
+  "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+  "accepted_segments": 80,
+  "family_count": 3,
+  "grid_node_count": 18,
+  "known_asphalt_pixels": 77258,
+  "donor_candidate_count": 0,
+  "overlay": {
+    "path": "assets/qa/vp2d_parking_structure_overlay.jpg",
+    "sha256": "75fce4dd2c5e82da2692115337a5505f05d5f422ae37d97ca65962ed2f778cfb",
+    "bytes": 510811
+  },
+  "review": {
+    "path": "assets/qa/vp2d_parking_structure_review.jpg",
+    "sha256": "b72087c1a42448e907b7b94ea60b07f1207c6da4daa2e22fac1453845534c0d2",
+    "bytes": 16780,
+    "base64_path": "assets/qa/vp2d_parking_structure_review.b64"
+  },
+  "next": "Directly inspect overlay. If parking marking families/lot geometry are materially correct, close VP-2D and proceed to structured asphalt + vector marking reconstruction; otherwise perform one bounded detector adjustment."
+}
