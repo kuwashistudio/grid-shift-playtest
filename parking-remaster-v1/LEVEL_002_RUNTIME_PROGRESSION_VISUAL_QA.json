@@ -1,0 +1,35 @@
+{
+  "gate": "LEVEL_002_RUNTIME_PROGRESSION_VISUAL_QA",
+  "status": "PASS",
+  "reviewed_at": "2026-09-19",
+  "source": {
+    "browser_run_id": 35428737282,
+    "artifact_id": 10579728988,
+    "artifact_digest": "sha256:f37613e40c8e9b33fd0a7cd0f94f58e8fc23b1591a65a5bdd8304825d15eec17",
+    "viewport": "390x844 touch-emulated Chromium"
+  },
+  "frames": [
+    {
+      "file": "01_level1_initial.png",
+      "status": "PASS",
+      "observation": "Immediate playable Level 1 with dynamic LEVEL 1 HUD and tutorial focus."
+    },
+    {
+      "file": "02_level2_after_transition.png",
+      "status": "PASS",
+      "observation": "Settled Level 2 frame: LEVEL 2 HUD, nine production sprites, no previous clear overlay residue."
+    },
+    {
+      "file": "03_level2_clear.png",
+      "status": "PASS",
+      "observation": "Level 2 fully cleared; check badge and restart control are visible over the clean parking lot."
+    },
+    {
+      "file": "04_level2_restarted.png",
+      "status": "PASS",
+      "observation": "Settled restart returns to Level 2 with all nine cars restored and LEVEL 2 HUD retained."
+    }
+  ],
+  "clean_plate_mutated": false,
+  "decision": "PASS_LEVEL_002_RUNTIME_PROGRESSION"
+}

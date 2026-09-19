@@ -14,7 +14,7 @@ Scope: `parking-remaster-v1/` plus dedicated workflows only. Do not modify GRID 
 - Level 1 solver/runtime parity: 1,024/1,024 states, mismatches 0.
 - Instant Start + iOS AudioContext interruption recovery are implemented; final iPhone screen-recording audio verification remains PENDING.
 - H1 failure mechanic: `shared_exit_conflict`, deterministic event-state machine, Python/JS parity PASS.
-- Vertical Slice remains 12 Main + 2 optional Hard. Level 2 and bulk authoring remain locked.
+- Vertical Slice remains 12 Main + 2 optional Hard. Level 2 authoring + runtime progression are PASS; Level 3 and bulk authoring remain LOCKED pending Phase-1 physical-iPhone/fresh-player evidence.
 
 ## Active visual-production route
 
@@ -110,10 +110,28 @@ A post-handoff one-shot workflow attempted to promote Independent Local LaMa mar
 - Human difficulty/fun remains unproven until fresh-player evidence.
 - Level 3 remains LOCKED.
 
-Next exact gate: **Level 2 Runtime Progression Proof**.
-1. Make runtime able to progress from Level 1 to Level 2 without a pre-game menu.
-2. Keep Instant Start: initial load is still immediately playable Level 1.
-3. Render Level 2 from the canonical bundled data and locked production sprites.
-4. Cover/replace the baked Level-1 HUD number dynamically for Level 2 without changing the locked clean plate.
-5. Verify clear -> Level 2 transition, restart semantics, touch targets, audio recovery, and Level-2 solver/runtime behavior.
-6. Do not author Level 3 in the same gate.
+Level 2 Runtime Progression Proof: **PASS / CLOSED**.
+- Initial load remains immediate playable Level 1; no menu/start gate.
+- Locked clean plate is unchanged.
+- Dynamic DOM HUD covers the baked level label and renders LEVEL 1 / LEVEL 2 from current sequence.
+- Level 1 clear automatically advances to Level 2 after the existing clear beat.
+- Level 2 renders canonical 9-car data; initial legal set matches solver.
+- Level 2 clear shows existing check/restart UI.
+- Restart from Level 2 stays on Level 2 and restores the deterministic 9-car initial state.
+- Static runtime CI `35428604081`: SUCCESS.
+- Settled 390x844 touch browser run `35428737282`: SUCCESS.
+- Level 1 JS/Python parity: 1,024/1,024.
+- Level 2 JS/Python parity: 512/512.
+- Page errors: 0; request failures: 0.
+- Direct visual QA of Level 1, settled Level 2, Level 2 clear and settled Level 2 restart: PASS.
+- Physical target-iPhone controls/audio verification remains PENDING.
+- Fresh-player Core Fun Review remains PENDING.
+- Level 3 remains LOCKED.
+
+Next exact gate: **Target-iPhone Core Fun Evidence**.
+1. Keep the current two-level runtime frozen except for test-enabling fixes.
+2. Verify on a physical target iPhone that first controls are available within 1.0s.
+3. Save an iPhone screen recording with microphone OFF and confirm engine/horn/win audio survives the recording.
+4. Run at least one fresh-player observation without coaching: first action comprehension, blocked-feedback comprehension, avoidable waiting, desire to continue into Level 2.
+5. Record evidence separately from solver/Chromium results; do not substitute emulation for physical/human evidence.
+6. Do not author Level 3 until this Phase-1 evidence is reviewed.

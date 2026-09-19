@@ -57,6 +57,32 @@
       "audio_state": "running",
       "page_errors": 0,
       "request_failures": 0
+    },
+    "runtime_ci_run_35428604081": {
+      "status": "PASS",
+      "checks": [
+        "validate_inline_runtime_syntax.py",
+        "validate_level2_progression_runtime.py",
+        "validate_runtime_clean_plate.py",
+        "validate_visual_assets.py",
+        "validate_runtime_mobile.py",
+        "validate_instant_start_audio.py",
+        "validate_level_data_runtime.py",
+        "Level 1 1024-state parity",
+        "Level 2 512-state parity"
+      ]
+    },
+    "level2_progression_browser_run_35428737282": {
+      "status": "PASS",
+      "viewport": "390x844",
+      "hasTouch": true,
+      "initial_controls_ready_delta_ms": 0.9,
+      "first_screen": "level_001",
+      "automatic_next_level": "level_002",
+      "level2_restart_preserves_level": true,
+      "audio_state_after_level2_restart": "running",
+      "page_errors": 0,
+      "request_failures": 0
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "gate": "LEVEL_002_RUNTIME_PROGRESSION_PROOF",
-  "status": "IMPLEMENTED_PENDING_CI_AND_BROWSER_QA",
+  "status": "PASS_CLOSED",
   "implemented_at": "2026-09-19",
   "initial_level": "level_001",
   "next_level": "level_002",
@@ -16,5 +16,86 @@
     "Level 1 logic",
     "Level 2 canonical data"
   ],
-  "next": "Run static runtime QA plus 390x844 touch progression browser proof, then direct visual review."
+  "next": "Do not author Level 3 yet. Next close the physical target-iPhone controls/audio evidence and fresh-player core-fun review required by Phase 1.",
+  "closed_at": "2026-09-19",
+  "static_runtime_ci": {
+    "run_id": 35428604081,
+    "status": "SUCCESS",
+    "checks": [
+      "inline JavaScript syntax",
+      "Level 2 progression structure",
+      "clean-plate runtime integrity",
+      "visual asset architecture",
+      "mobile touch targets",
+      "Instant Start / iOS audio recovery contract",
+      "Level Data bundle/runtime contract",
+      "Level 1 exhaustive JS/Python parity 1024 states",
+      "Level 2 exhaustive JS/Python parity 512 states"
+    ]
+  },
+  "browser_proof": {
+    "functional_run_id": 35428640688,
+    "settled_visual_run_id": 35428737282,
+    "status": "PASS",
+    "artifact_id": 10579728988,
+    "artifact_digest": "sha256:f37613e40c8e9b33fd0a7cd0f94f58e8fc23b1591a65a5bdd8304825d15eec17",
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "isMobile": true,
+      "hasTouch": true
+    },
+    "initial": {
+      "current_level": "level_001",
+      "hud": "LEVEL 1",
+      "cars": 10,
+      "first_focus_hint": true,
+      "first_player_action": null,
+      "controls_ready_delta_ms": 0.9
+    },
+    "level1_to_level2": {
+      "automatic": true,
+      "pregame_menu": false,
+      "hud": "LEVEL 2",
+      "cars": 9,
+      "first_focus_hint": false,
+      "initial_legal": [
+        "white_bl",
+        "silver_mid",
+        "green_br",
+        "black_ml"
+      ]
+    },
+    "level2_clear_restart": {
+      "clear_badge": true,
+      "restart_visible": true,
+      "restart_returns_to": "level_002",
+      "restored_cars": 9,
+      "restored_legal": [
+        "white_bl",
+        "silver_mid",
+        "green_br",
+        "black_ml"
+      ],
+      "audio_state": "running",
+      "audio_contexts": 1
+    },
+    "page_errors": 0,
+    "request_failures": 0,
+    "direct_visual_qa": "PASS"
+  },
+  "hud_visual_qa": {
+    "status": "PASS",
+    "implementation": "DOM overlay; locked clean plate unchanged",
+    "observations": [
+      "LEVEL 1 overlay fully replaces the baked label in the playable crop.",
+      "After progression the steady frame reads LEVEL 2 with no residual LEVEL 1 text.",
+      "Level 2 steady gameplay frame contains nine production sprites and no clear-overlay residue.",
+      "Level 2 clear frame shows the existing check badge and restart control.",
+      "After restart the steady frame returns to the same Level 2 layout."
+    ]
+  },
+  "physical_iphone_status": "PENDING",
+  "fresh_player_status": "PENDING",
+  "next_gate": "TARGET_IPHONE_CORE_FUN_EVIDENCE"
 }

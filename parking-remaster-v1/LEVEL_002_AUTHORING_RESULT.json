@@ -83,6 +83,12 @@
     "note": "The only CI repair was pipeline sidecar filtering; the selected Level 2 layout itself required no post-CI content revision."
   },
   "research_guard": "Solver/simulation features are authoring controls, not proof of human difficulty or fun. Fresh-player evidence remains required.",
-  "next_gate": "LEVEL_002_RUNTIME_PROGRESSION_PROOF",
-  "level3_locked": true
+  "next_gate": "TARGET_IPHONE_CORE_FUN_EVIDENCE",
+  "level3_locked": true,
+  "runtime_progression": {
+    "status": "PASS",
+    "result": "LEVEL_002_RUNTIME_PROGRESSION_RESULT.json",
+    "static_ci_run_id": 35428604081,
+    "browser_visual_run_id": 35428737282
+  }
 }
