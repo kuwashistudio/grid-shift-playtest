@@ -181,3 +181,35 @@ Next exact gate: **Physical iPhone Evidence Capture**.
 4. Read `nav→controls` from the QA panel; target <=1000ms.
 5. Tap COPY JSON and paste the JSON plus the three saved-recording audio yes/no results into Chat.
 6. Do not author Level 3 yet; fresh-player evidence remains the following human-only checkpoint.
+
+
+## REAL-DEVICE GAMEPLAY REVIEW — REJECTED (2026-09-19)
+
+A physical iPhone screen recording invalidated the previous Core Fun direction.
+
+The current runtime is **not accepted as a game-design proof**, even though its engineering gates passed.
+
+Observed failures:
+- legal/blocked logic is not visually aligned with the movement path;
+- successful cars curve diagonally across parking geometry toward a shared exit;
+- repeated ~2.45s removal animations make the loop mostly tap -> wait;
+- blocking cannot be reasoned from what the player sees;
+- cars are removed one-by-one rather than creating a legible traffic-jam interaction;
+- Level progression/checkmark is technically correct but does not create gameplay.
+
+**Current Level 1/2 gameplay design: REJECTED.**
+**Level 3: FORBIDDEN.**
+Fresh-player and physical-audio evidence on this rejected gameplay are no longer the next priority.
+
+Keep:
+- approved visual MASTER;
+- locked clean plate;
+- production sprites;
+- useful Level Data / solver / CI infrastructure.
+
+Reject as CANON:
+- hidden directional blocker rule as the player-facing core;
+- shared curved Bezier exit path;
+- long one-car-at-a-time exit wait.
+
+Next exact gate: **CORE GAMEPLAY REBUILD BENCHMARK** — research successful Parking Jam / car-out / tap-away mechanics, choose one visible physical rule, then prototype only a replacement Level 1.
