@@ -10,7 +10,7 @@ Scope: `parking-remaster-v1/` plus dedicated workflows only. Do not modify GRID 
 - Visual authority: `assets/master.webp`, 941x1672, SHA256 `535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0`.
 - VP-3 reusable car sprites: **PASS / CLOSED**. Ten production sprites exist in `assets/sprites/`; source/model details are in `VP_SPRITE_PRODUCTION_RESULT.json`.
 - VP-2 clean plate: **PASS / CLOSED / LOCKED**. Production `assets/clean_plate.webp` is byte-identical to the approved VP-2E candidate, SHA256 `5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175`, 941x1672, 1,652,822 bytes.
-- Current runtime still contains the old Level-1 patch/reveal architecture. Do not migrate runtime until clean plate PASS.
+- Level 1 runtime: **CLEAN PLATE + PERSISTENT PRODUCTION SPRITES / PASS / CLOSED**. The old patch/reveal architecture is removed from runtime; no patch DOM/network dependency remains.
 - Level 1 solver/runtime parity: 1,024/1,024 states, mismatches 0.
 - Instant Start + iOS AudioContext interruption recovery are implemented; final iPhone screen-recording audio verification remains PENDING.
 - H1 failure mechanic: `shared_exit_conflict`, deterministic event-state machine, Python/JS parity PASS.
@@ -57,13 +57,29 @@ VP-2F Clean Plate Promotion Integrity: **PASS / CLOSED**.
 - Runtime unchanged; Level 2 unchanged.
 - Production clean plate is locked. Do not regenerate/re-encode/overwrite it without reopening the visual-production gate.
 
-Next exact gate: **VP-2G Runtime Clean Plate Migration**.
-1. Replace old Level-1 patch/reveal background dependency with locked `assets/clean_plate.webp`.
-2. Render locked production sprites from Level Data.
-3. Preserve Level-1 game logic/parity, Instant Start, first-tap gameplay/audio unlock, and iOS AudioContext recovery.
-4. Remove only obsolete visual patch/reveal code/assets after the new path is verified.
-5. Run desktop/static checks plus direct iPhone-oriented visual/runtime QA.
-6. Keep Level 2 locked until VP-2G PASS.
+VP-2G Runtime Clean Plate Migration: **PASS / CLOSED**.
+- Runtime background: locked `assets/clean_plate.webp`.
+- Cars: persistent `assets/sprites/{id}.webp` DOM elements created from Level Data.
+- Old `assets/master.webp` rendering, `patch()`, `assets/patches/*`, and `tutorial_cover.webp` runtime dependencies: REMOVED.
+- Dynamic first-focus hint replaces the baked tutorial arrow/glow and disappears on the first-focus red car action.
+- Static runtime CI run `35427622680`: SUCCESS.
+- 390x844 touch-emulated Chromium run `35427622654`: SUCCESS.
+- Initial runtime: 10 cars / 0 patches / legal = green_tl, red_top, white_tr.
+- First red_top tap: gameplay move starts, AudioContext created/running, same sprite animates, hint removed.
+- Exit completion: 9 cars / 0 patches / red sprite reference cleared.
+- Browser page errors: 0. Request failures: 0.
+- Direct review of initial / mid-exit / after-exit screenshots: PASS.
+- One bounded repair was used after the first browser run exposed a malformed migration tail; a permanent inline-JS `node --check` gate was added.
+- Level-1 Python/JS solver parity remains 1,024/1,024.
+- Real target-iPhone saved screen-recording audio remains PENDING and is not falsely closed by Chromium emulation.
+
+Next exact gate: **Level 2 Controlled Authoring Proof**.
+1. Create **Level 2 only**, role `easy`, schema v1.
+2. No new mechanic; novelty_load = 0; hard_fail = false.
+3. Author from `VERTICAL_SLICE_LEVEL_BRIEFS_V1.json`, not by cloning Level 1 blindly.
+4. Run schema/solver/state validation, extract difficulty features, compare to Level-2 soft envelope, and perform visual/readability QA.
+5. Measure production/revision effort before authoring Level 3.
+6. Keep macro phase `PHASE_1_CORE_FUN_PROOF` and `production_started=false` until real target-iPhone/fresh-player evidence justifies promotion.
 
 ## Retired routes
 

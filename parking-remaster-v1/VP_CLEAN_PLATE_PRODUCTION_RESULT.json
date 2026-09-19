@@ -20,6 +20,9 @@
   "tutorial_yellow_pixels_remaining": 79,
   "locked": true,
   "mutation_rule": "Do not regenerate, re-encode, overwrite or auto-promote another clean plate without reopening the visual-production gate and obtaining new direct visual QA.",
-  "runtime_migration_status": "PENDING_SEPARATE_GATE",
-  "next_gate": "VP_2G_RUNTIME_CLEAN_PLATE_MIGRATION"
+  "runtime_migration_status": "PASS",
+  "next_gate": "LEVEL_002_CONTROLLED_AUTHORING_PROOF",
+  "runtime_migration_result": "VP2G_RUNTIME_MIGRATION_RESULT.json",
+  "runtime_static_ci_run_id": 35427622680,
+  "runtime_browser_run_id": 35427622654
 }

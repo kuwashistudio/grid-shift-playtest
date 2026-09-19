@@ -1,0 +1,76 @@
+{
+  "gate": "VP_2G_RUNTIME_BROWSER_VISUAL_QA",
+  "status": "PASS",
+  "reviewed_at": "2026-09-19",
+  "static_ci_run_id": 35427622680,
+  "browser_run_id": 35427622654,
+  "artifact_id": 10580160074,
+  "artifact_digest": "sha256:be799ad6746a5e4879487d0ffe38bfa383b5db5b3c795161dd52a0300ce5787d",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "isMobile": true,
+    "hasTouch": true
+  },
+  "initial": {
+    "background": "assets/clean_plate.webp",
+    "production_sprite_count": 10,
+    "patch_node_count": 0,
+    "dynamic_first_focus_hint": true,
+    "controls_ready_delta_ms": 1.2,
+    "legal_moves": [
+      "green_tl",
+      "red_top",
+      "white_tr"
+    ]
+  },
+  "tap_red_top": {
+    "gameplay_move_started": true,
+    "same_sprite_element_retained": true,
+    "hint_removed": true,
+    "audio_context_created": true,
+    "audio_state": "running",
+    "patch_node_count": 0
+  },
+  "after_exit": {
+    "production_sprite_count": 9,
+    "red_top_sprite_reference_cleared": true,
+    "patch_node_count": 0,
+    "legal_moves": [
+      "green_tl",
+      "white_tr",
+      "white_bl"
+    ]
+  },
+  "browser_health": {
+    "page_errors": 0,
+    "request_failures": 0
+  },
+  "visual_checks": [
+    {
+      "frame": "initial_390x844.png",
+      "status": "PASS",
+      "observation": "Clean plate + ten production sprites form a coherent initial parking scene; no double-car rendering or patch seams."
+    },
+    {
+      "frame": "red_top_mid_exit_390x844.png",
+      "status": "PASS",
+      "observation": "The same red_top sprite moves over the exposed clean plate; the vacated slot appears naturally and the dynamic hint is gone."
+    },
+    {
+      "frame": "after_red_top_exit_390x844.png",
+      "status": "PASS",
+      "observation": "Nine remaining sprites render coherently; the red slot is cleanly exposed with no reveal patch or ghost image."
+    }
+  ],
+  "bounded_repair": {
+    "first_run_id": 35427539088,
+    "first_status": "FAIL",
+    "root_cause": "migration regex left an extraneous JavaScript tail after sprite()",
+    "repair_count": 1,
+    "repair": "remove malformed tail and add inline node --check gate",
+    "second_run_id": 35427622654,
+    "second_status": "PASS"
+  },
+  "decision": "VP_2G_PASS"
+}

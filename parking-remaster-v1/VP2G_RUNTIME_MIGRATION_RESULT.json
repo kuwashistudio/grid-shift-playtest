@@ -1,6 +1,6 @@
 {
   "gate": "VP_2G_RUNTIME_CLEAN_PLATE_MIGRATION",
-  "status": "BOUNDED_REPAIR_1_PENDING_CI",
+  "status": "PASS_CLOSED",
   "implemented_at": "2026-09-19",
   "production_background": "assets/clean_plate.webp",
   "production_background_sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
@@ -22,7 +22,7 @@
   ],
   "runtime_visual_note": "Baked tutorial arrow/glow is no longer part of the background; dynamic hintPulse now mounts over red_top and is removed when the first-focus car exits.",
   "level2_changed": false,
-  "next": "Re-run static runtime QA and 390px Playwright touch smoke. No second implementation change unless new evidence requires it.",
+  "next": "Create Level 2 only as the first controlled-authoring proof from VERTICAL_SLICE_LEVEL_BRIEFS_V1.json. Keep macro phase PHASE_1_CORE_FUN_PROOF until target-iPhone/fresh-player evidence closes the core-fun questions.",
   "first_browser_run": {
     "run_id": 35427539088,
     "status": "FAIL",
@@ -31,5 +31,75 @@
     "gameplay_logic_impacted": false,
     "repair": "Remove malformed tail; add node --check inline-JS syntax gate; reduce browser smoke failure latency.",
     "repair_count": 1
+  },
+  "closed_at": "2026-09-19",
+  "static_runtime_ci": {
+    "run_id": 35427622680,
+    "status": "SUCCESS",
+    "checks": [
+      "inline JavaScript node --check",
+      "clean-plate runtime migration structure",
+      "visual production asset architecture",
+      "mobile touch targets / interaction guards",
+      "Instant Start / iPhone audio recovery static contract",
+      "Level Data runtime binding",
+      "exhaustive 1024-state Python solver / JS logic parity"
+    ]
+  },
+  "browser_smoke": {
+    "run_id": 35427622654,
+    "artifact_id": 10580160074,
+    "artifact_digest": "sha256:be799ad6746a5e4879487d0ffe38bfa383b5db5b3c795161dd52a0300ce5787d",
+    "status": "PASS",
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "isMobile": true,
+      "hasTouch": true
+    },
+    "controls_ready_delta_ms": 1.2,
+    "initial": {
+      "car_count": 10,
+      "patch_count": 0,
+      "legal": [
+        "green_tl",
+        "red_top",
+        "white_tr"
+      ],
+      "hint": true
+    },
+    "first_red_top_tap": {
+      "moved": true,
+      "sprite_present": true,
+      "hint_removed": true,
+      "audio_contexts": 1,
+      "audio_state": "running",
+      "patch_count": 0,
+      "car_count": 10
+    },
+    "after_exit": {
+      "car_count": 9,
+      "red_sprite_null": true,
+      "patch_count": 0,
+      "legal": [
+        "green_tl",
+        "white_tr",
+        "white_bl"
+      ]
+    },
+    "page_errors": [],
+    "request_failures": [],
+    "screenshots": [
+      "initial_390x844.png",
+      "red_top_mid_exit_390x844.png",
+      "after_red_top_exit_390x844.png"
+    ],
+    "direct_visual_qa": "PASS"
+  },
+  "obsolete_assets": {
+    "patch_runtime_dependency": false,
+    "tutorial_cover_runtime_dependency": false,
+    "patch_directory_present_in_assets_listing": false,
+    "tutorial_cover_present_in_assets_listing": false
   }
 }

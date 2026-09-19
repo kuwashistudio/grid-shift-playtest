@@ -16,16 +16,17 @@
       "gameplay action",
       "audio unlock/recovery"
     ],
-    "master_image_preload": true,
     "audio_context_recreate_after_visibility_interruption": true,
     "dynamics_compressor": true,
     "mute_button": true,
-    "square_sawtooth_core_sfx_removed": true
+    "square_sawtooth_core_sfx_removed": true,
+    "production_background_preload": true,
+    "production_background": "assets/clean_plate.webp"
   },
   "verification": {
     "independent_source_audit": "PASS",
     "existing_runtime_workflow_run_35354568944": "PASS",
-    "target_iphone_controls_ready_under_1000ms": "PENDING",
+    "target_iphone_controls_ready_under_1000ms": "PENDING_PHYSICAL_DEVICE_CONFIRMATION",
     "target_iphone_saved_screen_recording_audio": "PENDING",
     "runtime_ci_run_35354768630": {
       "status": "PASS",
@@ -33,6 +34,29 @@
         "validate_runtime_mobile.py",
         "validate_instant_start_audio.py"
       ]
+    },
+    "runtime_ci_run_35427622680": {
+      "status": "PASS",
+      "checks": [
+        "validate_inline_runtime_syntax.py",
+        "validate_runtime_clean_plate.py",
+        "validate_visual_assets.py",
+        "validate_runtime_mobile.py",
+        "validate_instant_start_audio.py",
+        "validate_level_data_runtime.py",
+        "validate_solver_runtime_parity.py"
+      ]
+    },
+    "mobile_browser_emulation_run_35427622654": {
+      "status": "PASS",
+      "viewport": "390x844",
+      "hasTouch": true,
+      "controls_ready_delta_ms": 1.2,
+      "first_tap_gameplay": true,
+      "audio_context_created": true,
+      "audio_state": "running",
+      "page_errors": 0,
+      "request_failures": 0
     }
   }
 }
