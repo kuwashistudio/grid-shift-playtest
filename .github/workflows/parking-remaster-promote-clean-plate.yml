@@ -1,0 +1,102 @@
+name: Parking Remaster Promote Clean Plate
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - '.github/workflows/parking-remaster-promote-clean-plate.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+
+      - name: Download already-reviewed clean plate artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: parking-remaster-independent-patches-review
+          path: parking-remaster-v1/.qa/promote_clean_plate
+          github-token: ${{ github.token }}
+          repository: kuwashistudio/grid-shift-playtest
+          run-id: 35383429547
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Encode target-scale-approved production WebP
+        run: |
+          python -m pip install "Pillow==12.3.0"
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib, json
+
+          root=Path("parking-remaster-v1")
+          src=root/".qa/promote_clean_plate/clean_plate_independent_patches.png"
+          out=root/"assets/clean_plate.webp"
+          result=root/"VP_CLEAN_PLATE_PRODUCTION_RESULT.json"
+
+          def sha(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          expected_src="6d944bf96b6dc893657d7089b48e759b3573acdf0e859ccb279c565958236822"
+          if sha(src)!=expected_src:
+              raise SystemExit(f"FAIL source hash {sha(src)}")
+
+          im=Image.open(src).convert("RGB")
+          if im.size!=(941,1672):
+              raise SystemExit(f"FAIL dimensions {im.size}")
+
+          im.save(out,"WEBP",quality=84,method=6)
+          expected_out="9cd2ba1d2a88774850f707e7f023762c53f7d427e122e4a08691492c74103839"
+          got=sha(out)
+          if got!=expected_out:
+              raise SystemExit(f"FAIL output hash {got}")
+
+          payload={
+              "gate":"VP_2_CLEAN_PLATE_PRODUCTION",
+              "status":"PASS",
+              "approved_at":"2026-09-19",
+              "source_run_id":35383429547,
+              "source_artifact":"parking-remaster-independent-patches-review",
+              "source_png_sha256":expected_src,
+              "source_dimensions":[941,1672],
+              "target_scale_review":{
+                  "width_px":390,
+                  "status":"PASS",
+                  "reason":"Former-car tonal rectangles visible at full source resolution are not materially visible at actual iPhone gameplay width; EXIT, parking lines and pavement read coherently."
+              },
+              "encoding":{
+                  "library":"Pillow 12.3.0",
+                  "format":"WebP",
+                  "quality":84,
+                  "method":6
+              },
+              "output":{
+                  "path":"assets/clean_plate.webp",
+                  "sha256":got,
+                  "bytes":out.stat().st_size
+              },
+              "rule":"Target-device gameplay scale is authoritative for production visual acceptance; do not reopen full-resolution inpainting experiments unless an artifact is visible during actual gameplay."
+          }
+          result.write_text(json.dumps(payload,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps(payload,indent=2))
+          PY
+
+      - name: Commit promoted clean plate
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add parking-remaster-v1/assets/clean_plate.webp parking-remaster-v1/VP_CLEAN_PLATE_PRODUCTION_RESULT.json
+          git commit -m "Promote target-scale approved clean plate [skip ci]"
+          git push origin HEAD:parking-remaster-v1-staging-20260917
