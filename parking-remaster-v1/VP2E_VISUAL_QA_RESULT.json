@@ -1,0 +1,53 @@
+{
+  "gate": "VP_2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION",
+  "status": "PASS_CANDIDATE",
+  "reviewed_at": "2026-09-19",
+  "source": {
+    "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "candidate_path": "assets/candidates/clean_plate_structured_v1.webp",
+    "candidate_sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
+    "candidate_bytes": 1652822,
+    "ci_run_id": 35426568201,
+    "artifact_id": 10579146501
+  },
+  "invariants": {
+    "exact_production_sprite_hashes": true,
+    "approved_vp2d2_geometry": true,
+    "outside_removal_mask_max_rgb_delta": 0,
+    "external_image_source_used": false,
+    "learned_inpainting_used": false,
+    "poisson_or_seamless_clone_used": false,
+    "production_clean_plate_written": false,
+    "tutorial_yellow_pixels_before": 59120,
+    "tutorial_yellow_pixels_remaining": 79
+  },
+  "visual_checks": [
+    {
+      "check": "full_resolution_clean_plate",
+      "status": "PASS",
+      "reason": "No former-car silhouettes, rectangular fill blocks or repeated texture tiles are visually attributable to removed cars."
+    },
+    {
+      "check": "iphone_390px_clean_plate",
+      "status": "PASS",
+      "reason": "Parking surface reads coherently at target scale; reconstruction boundaries are not salient."
+    },
+    {
+      "check": "full_resolution_level1_rebuild",
+      "status": "PASS",
+      "reason": "Production sprites return to coherent positions and retain approved visual identity."
+    },
+    {
+      "check": "iphone_level1_rebuild",
+      "status": "PASS",
+      "reason": "Initial gameplay composition remains coherent at target iPhone scale."
+    },
+    {
+      "check": "static_scene_protection",
+      "status": "PASS",
+      "reason": "EXIT marking, drain, curbs, road and all pixels outside removal mask remain original; tutorial yellow arrow/glow is intentionally removed as non-background gameplay guidance."
+    }
+  ],
+  "decision": "ALLOW_EXACT_CANDIDATE_PROMOTION_IN_SEPARATE_GATE",
+  "next_gate": "VP_2F_CLEAN_PLATE_PROMOTION_INTEGRITY"
+}

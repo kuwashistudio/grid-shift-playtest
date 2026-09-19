@@ -1,7 +1,7 @@
 # Parking Remaster — VP-2E Structured Clean Plate Research v1
 
 Updated: 2026-09-19
-Status: candidate method implemented
+Status: PASS CANDIDATE / CLOSED
 
 ## Constraint
 
@@ -29,3 +29,22 @@ This representation is materially different from retired patch quilting: no dono
 - no Poisson/seamlessClone in the candidate generator;
 - no write to assets/clean_plate.webp;
 - direct full-resolution + iPhone-scale + Level-1 rebuild visual QA controls promotion.
+
+
+## CI and direct visual QA
+
+GitHub Actions run `35426568201` reproduced the candidate using the exact locked production sprite WebPs and the approved VP-2D2 geometry.
+
+Approved candidate:
+- `assets/candidates/clean_plate_structured_v1.webp`
+- SHA256 `5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175`
+- 1,652,822 bytes
+- 941x1672
+
+Direct review passed at:
+- full-resolution clean plate;
+- 390px iPhone scale;
+- full-resolution Level-1 rebuild with production sprites;
+- 390px Level-1 rebuild.
+
+The first normalized-Gaussian local prototype remains rejected. No further parameter tuning is authorized for the approved regular-grid candidate. Production promotion is deliberately separate.

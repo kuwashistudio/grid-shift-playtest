@@ -1,6 +1,6 @@
 {
   "gate": "VP_2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION",
-  "status": "CANDIDATE_BUILT_VISUAL_QA_REQUIRED",
+  "status": "PASS_CANDIDATE_VISUAL_QA",
   "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
   "candidate": {
     "path": "assets/candidates/clean_plate_structured_v1.webp",
@@ -113,9 +113,9 @@
     ],
     "parking_line_count": 8,
     "paint_bgr_median": [
-      127.0,
-      147.0,
-      167.0
+      127,
+      147,
+      167
     ]
   },
   "invariants": {
@@ -135,5 +135,35 @@
     "level1_rebuild": "assets/qa/vp2e_level1_rebuild_review.jpg",
     "level1_rebuild_iphone": "assets/qa/vp2e_level1_rebuild_iphone.jpg"
   },
-  "next": "Direct full-resolution clean-plate and iPhone-scale review, plus Level-1 rebuild review. Do not promote assets/clean_plate.webp unless all visual checks PASS."
+  "next": "VP-2F promotion gate: copy the exact approved candidate bytes to assets/clean_plate.webp, verify SHA/dimensions/outside-mask invariant and lock the production clean plate. Runtime migration remains a later separate gate.",
+  "visual_qa": {
+    "reviewed_at": "2026-09-19",
+    "authority": "direct inspection of CI-generated exact-MASTER candidate",
+    "ci_run_id": 35426568201,
+    "artifact_id": 10579146501,
+    "checks": {
+      "full_resolution": {
+        "status": "PASS",
+        "observation": "No recognizable former-car silhouettes, LaMa-style rectangular ghosts, or repeating quilt tiles. Some expected broad asphalt illumination/texture variation remains but does not read as vehicle-shaped reconstruction."
+      },
+      "iphone_390px": {
+        "status": "PASS",
+        "observation": "At target iPhone width the reconstructed lot reads as one coherent parking surface; removal regions are not salient."
+      },
+      "level1_rebuild_full": {
+        "status": "PASS",
+        "observation": "Locked production sprites align correctly on the candidate and the scene returns to the approved MASTER composition. Tutorial yellow arrow/glow is intentionally absent from the reusable background."
+      },
+      "level1_rebuild_iphone": {
+        "status": "PASS",
+        "observation": "Initial gameplay composition remains visually coherent at target scale."
+      },
+      "outside_mask_integrity": {
+        "status": "PASS",
+        "max_rgb_delta": 0
+      }
+    },
+    "promotion_allowed": true,
+    "production_clean_plate_written": false
+  }
 }

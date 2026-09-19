@@ -1,8 +1,8 @@
 {
   "gate": "VISUAL_PRODUCTION_GATE",
-  "status": "SPRITES_PASS_GEOMETRY_PASS_CLEAN_PLATE_BLOCKED",
+  "status": "SPRITES_PASS_GEOMETRY_PASS_CLEAN_PLATE_CANDIDATE_PASS_PROMOTION_PENDING",
   "verified_at": "2026-09-19",
-  "reason": "Reusable production sprites are PASS and locked. VP-2D2 parking-marking vector geometry is PASS after one bounded repair and direct visual QA. Production clean_plate.webp is still missing/not approved.",
+  "reason": "Production sprites and VP-2D2 marking geometry are PASS. VP-2E structured clean-plate candidate passed direct full-resolution, 390px iPhone, and Level-1 rebuild visual QA. Production assets/clean_plate.webp has not yet been written; promotion is intentionally a separate gate.",
   "current_master": {
     "bytes": 448118,
     "git_blob": "f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe"
@@ -34,7 +34,7 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "VP-2E: reconstruct a clean-plate candidate from MASTER-only asphalt/illumination plus the approved VP-2D2 vector marking model; direct visual QA before any promotion.",
+  "next_gate": "VP-2F: promote the exact approved VP-2E candidate bytes to assets/clean_plate.webp and verify production integrity. Do not migrate runtime in the same gate.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
@@ -49,7 +49,8 @@
     "bmquilting_master_only": "RETIRED_INTEGRATION_FAILURE",
     "efficientsam_ti_sprite_set": "PASS_PRODUCTION",
     "vp2d_global_hough_structure": "REJECTED_VISUAL_QA_AFTER_BOUNDED_REPAIR",
-    "vp2d2_anchor_first_vector_geometry": "PASS_VISUAL_QA"
+    "vp2d2_anchor_first_vector_geometry": "PASS_VISUAL_QA",
+    "vp2e_regular_grid_multiband_master_texture": "PASS_CANDIDATE_VISUAL_QA"
   },
   "hybrid_frequency_separation": {
     "ci_run_id": 35382261854,
@@ -188,5 +189,18 @@
     "initial_candidate_pass": "FAIL_4_OF_24_VALID",
     "bounded_repair_method": "VISUALLY_VALIDATED_SEED_WINDOWS_PLUS_LOCAL_NEUTRAL_BRIGHTNESS_SNAP_PLUS_ROBUST_VECTOR_LINE_FIT",
     "locked": true
+  },
+  "vp2e_clean_plate_candidate": {
+    "status": "PASS_CANDIDATE",
+    "candidate": "assets/candidates/clean_plate_structured_v1.webp",
+    "sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
+    "bytes": 1652822,
+    "ci_run_id": 35426568201,
+    "artifact_id": 10579146501,
+    "visual_qa": "VP2E_VISUAL_QA_RESULT.json",
+    "outside_mask_max_rgb_delta": 0,
+    "tutorial_yellow_pixels_remaining": 79,
+    "production_promoted": false,
+    "locked_for_promotion": true
   }
 }
