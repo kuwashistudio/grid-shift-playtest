@@ -1,0 +1,31 @@
+import { chromium } from 'playwright';
+const assert=(x,m)=>{if(!x)throw new Error(m)};
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'networkidle'});
+await page.waitForFunction(()=>window.__singleCarQA);
+const initial=await page.evaluate(()=>window.__singleCarQA.state());
+assert(Math.abs(initial.x-120)<.1&&Math.abs(initial.y-508)<.1,'bad initial position');
+assert(Math.abs(initial.heading+Math.PI/2)<.01,'bad initial heading');
+await page.screenshot({path:'01-initial.png'});
+await page.evaluate(()=>window.__singleCarQA.start());
+await page.waitForTimeout(1700);
+const mid=await page.evaluate(()=>window.__singleCarQA.state());
+await page.screenshot({path:'02-turning.png'});
+assert(mid.y<420,'car did not move forward out of bay');
+assert(mid.heading>-1.55,'car did not begin steering');
+assert(Math.abs(mid.steer)>0.02,'steering angle remained zero');
+await page.waitForFunction(()=>window.__singleCarQA.state().done===true,{timeout:9000});
+const done=await page.evaluate(()=>({state:window.__singleCarQA.state(),history:window.__singleCarQA.history()}));
+await page.screenshot({path:'03-exited.png'});
+assert(done.state.x>452,'car did not exit');
+assert(done.state.heading>-0.45&&done.state.heading<0.45,'car did not straighten toward exit');
+assert(done.state.maxSteerSeen<=30*Math.PI/180+.001,'steering exceeded clamp');
+let maxStep=0;
+for(let i=1;i<done.history.length;i++){
+ const a=done.history[i-1],b=done.history[i];
+ maxStep=Math.max(maxStep,Math.hypot(b.x-a.x,b.y-a.y));
+}
+assert(maxStep<5,'teleport-like frame displacement');
+console.log(JSON.stringify({status:'PASS',initial,mid,final:done.state,maxStepPx:+maxStep.toFixed(2),samples:done.history.length},null,2));
+await browser.close();
