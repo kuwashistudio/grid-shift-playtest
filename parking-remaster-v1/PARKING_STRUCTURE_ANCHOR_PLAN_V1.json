@@ -1,6 +1,6 @@
 {
   "gate": "VP_2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS",
-  "status": "READY_TO_IMPLEMENT",
+  "status": "PASS",
   "source": {
     "master": "assets/master.webp",
     "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
@@ -26,5 +26,21 @@
     "EXIT and non-parking markings remain protected",
     "direct visual QA PASS"
   ],
-  "next_after_pass": "VP-2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION"
+  "next_after_pass": "VP-2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION",
+  "closed_at": "2026-09-19",
+  "visual_qa_result": "VP2D2_VISUAL_QA_RESULT.json",
+  "production_model": "PARKING_PROJECTIVE_MARKING_MODEL_V1.json",
+  "bounded_repair": {
+    "used": true,
+    "method": "VISUALLY_VALIDATED_SEED_WINDOWS_PLUS_LOCAL_NEUTRAL_BRIGHTNESS_SNAP_PLUS_ROBUST_VECTOR_LINE_FIT",
+    "second_repair_allowed": false
+  },
+  "acceptance_result": {
+    "anchors_on_actual_parking_paint": "PASS_AFTER_BOUNDED_REPAIR",
+    "vector_overlay_matches_visible_markings": "PASS",
+    "hidden_lines_have_multiple_visible_support_regions": "PASS",
+    "exit_and_nonparking_marks_protected": "PASS_NO_PIXEL_EDIT",
+    "direct_visual_qa": "PASS"
+  },
+  "next_gate": "VP_2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION"
 }

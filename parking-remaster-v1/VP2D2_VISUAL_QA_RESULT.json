@@ -1,0 +1,85 @@
+{
+  "gate": "VP_2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS",
+  "status": "PASS",
+  "reviewed_at": "2026-09-19",
+  "authority": "direct visual QA of CI-generated overlay against exact canonical MASTER",
+  "source": {
+    "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "ci_run_id": 35423556122,
+    "artifact_id": 10578046923,
+    "artifact_name": "parking-remaster-vp2d2-vector-qa",
+    "overlay_sha256": "801f108ecce5cdd96391183b95233a2a9612bb3421cdc045be65ac047a13fa39",
+    "review_sha256": "ca305acedb9dbe0080cdff31d5b81f09cf323f22224efb30ce0ee9afdd24d938"
+  },
+  "initial_candidate_pass": {
+    "status": "FAIL",
+    "candidate_count": 24,
+    "visually_valid_ids": [
+      "A13",
+      "A17",
+      "A20",
+      "A23"
+    ],
+    "reason": "Only four candidates were unambiguous true parking-paint anchors, all on V3; precision and spatial coverage were insufficient.",
+    "bounded_repair_used": true
+  },
+  "bounded_repair": {
+    "method": "VISUALLY_VALIDATED_SEED_WINDOWS_PLUS_LOCAL_NEUTRAL_BRIGHTNESS_SNAP_PLUS_ROBUST_VECTOR_LINE_FIT",
+    "machine_status": "SUCCESS",
+    "vertical_lines": [
+      "V0",
+      "V1",
+      "V2",
+      "V3"
+    ],
+    "horizontal_lines": [
+      "H0",
+      "H1",
+      "H2",
+      "H3"
+    ],
+    "all_vertical_lines_supported_by_multiple_separated_visible_seed_regions": true,
+    "global_hough_used": false,
+    "learned_model_used": false,
+    "external_image_source_used": false,
+    "second_repair_allowed": false
+  },
+  "visual_checks": [
+    {
+      "id": "V0",
+      "status": "PASS",
+      "observation": "vector coincides with the visible left parking divider across separated upper/lower fragments"
+    },
+    {
+      "id": "V1",
+      "status": "PASS",
+      "observation": "hidden continuation is supported by a visible mid/lower fragment and an independent lower-edge stub; overlay is coherent through occluded cars"
+    },
+    {
+      "id": "V2",
+      "status": "PASS",
+      "observation": "vector coincides with visible top, lower and bottom parking-paint fragments"
+    },
+    {
+      "id": "V3",
+      "status": "PASS",
+      "observation": "vector coincides with the visible right parking divider and the four originally validated anchors"
+    },
+    {
+      "id": "H0_H3",
+      "status": "PASS",
+      "observation": "all four horizontal vectors coincide with the visible parking-row markings"
+    },
+    {
+      "id": "NON_PARKING_MARKS",
+      "status": "PASS",
+      "observation": "no pixels are edited in this gate; EXIT, arrow, drain, curb and road markings remain untouched"
+    }
+  ],
+  "model": "PARKING_PROJECTIVE_MARKING_MODEL_V1.json",
+  "production_scope": "APPROVED_FOR_STRUCTURED_CLEAN_PLATE_RECONSTRUCTION_ONLY",
+  "clean_plate_status": "STILL_BLOCKED_MISSING",
+  "runtime_migration": "LOCKED",
+  "level_2": "LOCKED",
+  "next_gate": "VP_2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION"
+}

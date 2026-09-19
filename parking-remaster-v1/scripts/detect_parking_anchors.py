@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""VP-2D2 anchor-first parking-marking candidate detector.
+"""VP-2D2 initial anchor candidate detector — HISTORICAL FAILED PASS.
+
+Direct visual QA accepted only A13/A17/A20/A23 of 24 candidates.
+Do not tune or use this candidate set as production geometry.
+The approved bounded-repair model is produced by fit_parking_marking_geometry.py.
+
+VP-2D2 anchor-first parking-marking candidate detector.
 
 This deliberately avoids global Hough line detection. It extracts a small set
 of candidate paint endpoints/corners from the exact MASTER, after excluding
