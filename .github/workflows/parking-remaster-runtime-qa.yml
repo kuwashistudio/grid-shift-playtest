@@ -8,10 +8,14 @@ on:
     paths:
       - "parking-remaster-v1/index.html"
       - "parking-remaster-v1/assets/clean_plate.webp"
+      - "parking-remaster-v1/levels.generated.js"
+      - "parking-remaster-v1/levels/level_001.json"
+      - "parking-remaster-v1/levels/level_002.json"
       - "parking-remaster-v1/scripts/validate_runtime_mobile.py"
       - "parking-remaster-v1/scripts/validate_instant_start_audio.py"
       - "parking-remaster-v1/scripts/validate_runtime_clean_plate.py"
       - "parking-remaster-v1/scripts/validate_inline_runtime_syntax.py"
+      - "parking-remaster-v1/scripts/validate_level2_progression_runtime.py"
       - ".github/workflows/parking-remaster-runtime-qa.yml"
 
 permissions:
@@ -30,6 +34,9 @@ jobs:
       - name: Validate inline runtime JavaScript syntax
         working-directory: parking-remaster-v1
         run: python scripts/validate_inline_runtime_syntax.py
+      - name: Validate Level 2 progression structure
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_level2_progression_runtime.py
       - name: Validate clean-plate runtime migration
         working-directory: parking-remaster-v1
         run: python scripts/validate_runtime_clean_plate.py
@@ -47,4 +54,7 @@ jobs:
         run: python scripts/validate_level_data_runtime.py
       - name: Validate exhaustive Level 1 solver/JS parity
         working-directory: parking-remaster-v1
-        run: python scripts/validate_solver_runtime_parity.py
+        run: python scripts/validate_solver_runtime_parity.py --level levels/level_001.json
+      - name: Validate exhaustive Level 2 solver/JS parity
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_solver_runtime_parity.py --level levels/level_002.json

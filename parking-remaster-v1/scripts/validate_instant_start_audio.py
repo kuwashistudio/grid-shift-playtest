@@ -6,14 +6,14 @@ ROOT=Path(__file__).resolve().parents[1]
 HTML=(ROOT/"index.html").read_text(encoding="utf-8")
 
 def req(cond,msg):
-    if not cond:
-        raise AssertionError(msg)
+    if not cond: raise AssertionError(msg)
 
 def main():
     req('src="assets/clean_plate.webp"' in HTML,"production clean plate background missing")
     req('href="assets/clean_plate.webp"' in HTML,"production clean plate preload missing")
     req('assets/patches/' not in HTML and 'tutorial_cover.webp' not in HTML,"obsolete patch/reveal dependency present")
-    req("defs.forEach(add);startup.controlsReadyMs=performance.now()" in HTML,"controls-ready marker missing")
+    req("loadLevel('level_001',{recordTransition:false});startup.controlsReadyMs=performance.now()" in HTML,"Level 1 immediate-load controls-ready marker missing")
+    req("loadLevel('level_002')" in HTML,"Level 1 to Level 2 automatic progression missing")
     req("startup.firstPlayerActionMs" in HTML,"first player action measurement missing")
     forbidden=['id="start"','id="menu"','id="mode-select"','id="modeSelect"','class="splash"','class="main-menu"','Tap to start','PLAY</button>']
     for token in forbidden:
@@ -27,12 +27,10 @@ def main():
     req('id="sound"' in HTML,"mute button missing")
     req("audioEnabled=!audioEnabled" in HTML,"mute toggle behavior missing")
     req("audioCtx.suspend()" in HTML,"audio suspension missing")
-    print("PASS instant-start/audio gate: no pre-game screen; first car tap is gameplay+audio unlock; iOS interruption recovery present")
+    print("PASS instant-start/audio: immediate Level 1, no pre-game screen, first tap gameplay+audio, iOS recovery retained")
     return 0
 
 if __name__=="__main__":
-    try:
-        raise SystemExit(main())
+    try: raise SystemExit(main())
     except Exception as e:
-        print(f"FAIL {e}",file=sys.stderr)
-        raise SystemExit(1)
+        print(f"FAIL {e}",file=sys.stderr);raise SystemExit(1)
