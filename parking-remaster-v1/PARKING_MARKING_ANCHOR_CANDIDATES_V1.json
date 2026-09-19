@@ -1,0 +1,345 @@
+{
+  "gate": "VP_2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS",
+  "status": "CANDIDATES_BUILT_VISUAL_REVIEW_REQUIRED",
+  "source": {
+    "path": "assets/master.webp",
+    "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+    "width": 941,
+    "height": 1672
+  },
+  "method": {
+    "representation": "paint endpoints/corners only; no Hough line detection",
+    "inner_roi": [
+      130,
+      470,
+      815,
+      1275
+    ],
+    "car_exclusion_margin_px": 30,
+    "tutorial_rect": [
+      330,
+      435,
+      550,
+      800
+    ],
+    "paint_rule": {
+      "Lab_L_floor": 105,
+      "HSV_S_max": 105
+    },
+    "endpoint": "morphological skeleton endpoint",
+    "corner": "Shi-Tomasi inside retained paint components",
+    "candidate_cap": 30
+  },
+  "candidate_count": 24,
+  "candidates": [
+    {
+      "x": 686,
+      "y": 500,
+      "score": 8.9801,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1084,
+      "nearest_car_exclusion_distance_px": 6.0,
+      "boundary_distance_px": 30.0,
+      "candidate_id": "A01"
+    },
+    {
+      "x": 579,
+      "y": 509,
+      "score": 57.3677,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.3059,
+      "nearest_car_exclusion_distance_px": 36.0,
+      "boundary_distance_px": 39.0,
+      "candidate_id": "A02"
+    },
+    {
+      "x": 325,
+      "y": 530,
+      "score": 18.9104,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1001,
+      "nearest_car_exclusion_distance_px": 12.0,
+      "boundary_distance_px": 60.0,
+      "candidate_id": "A03"
+    },
+    {
+      "x": 643,
+      "y": 538,
+      "score": 75.9566,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.3141,
+      "nearest_car_exclusion_distance_px": 19.0,
+      "boundary_distance_px": 68.0,
+      "candidate_id": "A04"
+    },
+    {
+      "x": 680,
+      "y": 546,
+      "score": 36.2548,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1824,
+      "nearest_car_exclusion_distance_px": 11.0,
+      "boundary_distance_px": 76.0,
+      "candidate_id": "A05"
+    },
+    {
+      "x": 585,
+      "y": 548,
+      "score": 61.2195,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.369,
+      "nearest_car_exclusion_distance_px": 9.0,
+      "boundary_distance_px": 78.0,
+      "candidate_id": "A06"
+    },
+    {
+      "x": 550,
+      "y": 552,
+      "score": 3.6761,
+      "sources": [
+        "skeleton_endpoint"
+      ],
+      "paint_occupancy_27px": 0.0823,
+      "nearest_car_exclusion_distance_px": 5.0,
+      "boundary_distance_px": 82.0,
+      "candidate_id": "A07"
+    },
+    {
+      "x": 320,
+      "y": 570,
+      "score": 70.6892,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.4705,
+      "nearest_car_exclusion_distance_px": 17.0,
+      "boundary_distance_px": 100.0,
+      "candidate_id": "A08"
+    },
+    {
+      "x": 283,
+      "y": 625,
+      "score": 62.4576,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.2853,
+      "nearest_car_exclusion_distance_px": 10.0,
+      "boundary_distance_px": 153.0,
+      "candidate_id": "A09"
+    },
+    {
+      "x": 322,
+      "y": 682,
+      "score": 41.7001,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1975,
+      "nearest_car_exclusion_distance_px": 15.0,
+      "boundary_distance_px": 192.0,
+      "candidate_id": "A10"
+    },
+    {
+      "x": 292,
+      "y": 713,
+      "score": 46.0735,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.2853,
+      "nearest_car_exclusion_distance_px": 19.0,
+      "boundary_distance_px": 162.0,
+      "candidate_id": "A11"
+    },
+    {
+      "x": 314,
+      "y": 745,
+      "score": 44.2705,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1632,
+      "nearest_car_exclusion_distance_px": 23.0,
+      "boundary_distance_px": 184.0,
+      "candidate_id": "A12"
+    },
+    {
+      "x": 749,
+      "y": 788,
+      "score": 20.6238,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1646,
+      "nearest_car_exclusion_distance_px": 20.0,
+      "boundary_distance_px": 66.0,
+      "candidate_id": "A13"
+    },
+    {
+      "x": 327,
+      "y": 791,
+      "score": 16.8902,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1495,
+      "nearest_car_exclusion_distance_px": 10.0,
+      "boundary_distance_px": 197.0,
+      "candidate_id": "A14"
+    },
+    {
+      "x": 287,
+      "y": 800,
+      "score": 103.875,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.6187,
+      "nearest_car_exclusion_distance_px": 14.0,
+      "boundary_distance_px": 157.0,
+      "candidate_id": "A15"
+    },
+    {
+      "x": 325,
+      "y": 824,
+      "score": 41.0473,
+      "sources": [
+        "skeleton_endpoint"
+      ],
+      "paint_occupancy_27px": 0.1824,
+      "nearest_car_exclusion_distance_px": 12.0,
+      "boundary_distance_px": 195.0,
+      "candidate_id": "A16"
+    },
+    {
+      "x": 752,
+      "y": 863,
+      "score": 32.737,
+      "sources": [
+        "skeleton_endpoint"
+      ],
+      "paint_occupancy_27px": 0.1687,
+      "nearest_car_exclusion_distance_px": 39.0,
+      "boundary_distance_px": 63.0,
+      "candidate_id": "A17"
+    },
+    {
+      "x": 321,
+      "y": 871,
+      "score": 99.3375,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.4801,
+      "nearest_car_exclusion_distance_px": 11.0,
+      "boundary_distance_px": 191.0,
+      "candidate_id": "A18"
+    },
+    {
+      "x": 279,
+      "y": 893,
+      "score": 54.0174,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.3141,
+      "nearest_car_exclusion_distance_px": 6.0,
+      "boundary_distance_px": 149.0,
+      "candidate_id": "A19"
+    },
+    {
+      "x": 754,
+      "y": 921,
+      "score": 66.7125,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.4129,
+      "nearest_car_exclusion_distance_px": 41.0,
+      "boundary_distance_px": 61.0,
+      "candidate_id": "A20"
+    },
+    {
+      "x": 326,
+      "y": 927,
+      "score": 52.3775,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.2675,
+      "nearest_car_exclusion_distance_px": 6.0,
+      "boundary_distance_px": 196.0,
+      "candidate_id": "A21"
+    },
+    {
+      "x": 290,
+      "y": 938,
+      "score": 16.9839,
+      "sources": [
+        "skeleton_endpoint"
+      ],
+      "paint_occupancy_27px": 0.2071,
+      "nearest_car_exclusion_distance_px": 17.0,
+      "boundary_distance_px": 160.0,
+      "candidate_id": "A22"
+    },
+    {
+      "x": 746,
+      "y": 958,
+      "score": 98.7925,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.5405,
+      "nearest_car_exclusion_distance_px": 29.0,
+      "boundary_distance_px": 69.0,
+      "candidate_id": "A23"
+    },
+    {
+      "x": 326,
+      "y": 967,
+      "score": 29.4876,
+      "sources": [
+        "skeleton_endpoint",
+        "shi_tomasi"
+      ],
+      "paint_occupancy_27px": 0.1975,
+      "nearest_car_exclusion_distance_px": 6.0,
+      "boundary_distance_px": 196.0,
+      "candidate_id": "A24"
+    }
+  ],
+  "rule": "Candidate IDs must be directly reviewed on MASTER. Only visually confirmed parking-paint anchors may enter projective fitting."
+}

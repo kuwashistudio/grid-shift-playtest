@@ -1,0 +1,17 @@
+{
+  "gate": "VP_2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS",
+  "status": "PASS_MACHINE_CANDIDATES_VISUAL_REVIEW_REQUIRED",
+  "candidate_count": 24,
+  "overlay": {
+    "path": "assets/qa/vp2d2_anchor_candidates_overlay.jpg",
+    "sha256": "6c7ead0a4a362ffceca7c56187e4b82799709db822a463edc045535c5fa173a9",
+    "bytes": 498307
+  },
+  "review": {
+    "path": "assets/qa/vp2d2_anchor_candidates_review.jpg",
+    "sha256": "f85b46d13e8e2c0f09a0078fe5f68fce5d896c853d923fd58e1f388c331b822c",
+    "bytes": 34487,
+    "base64_path": "assets/qa/vp2d2_anchor_candidates_review.b64"
+  },
+  "next": "Directly inspect numbered anchors on MASTER. Persist only visually valid parking-paint anchor IDs, then fit projective families from that validated subset."
+}
