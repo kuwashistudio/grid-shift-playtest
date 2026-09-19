@@ -1,0 +1,67 @@
+{
+  "gate": "SINGLE_CAR_SMALL_LOT_MOTION_PROTOTYPE",
+  "status": "PASS_AWAITING_USER_VISUAL_REVIEW",
+  "date": "2026-09-19",
+  "scope": "One car + small purpose-built parking lot only. Not a puzzle proof and not a production-art proof.",
+  "staging_head_before_closure": "5a823f1e619c5a9e8929454f8488a27ca00b253c",
+  "browser_proof": {
+    "run_id": 35432226695,
+    "status": "SUCCESS",
+    "artifact_id": 10580599592,
+    "artifact_digest": "sha256:e07d7ccda5f2858d35905e63d2702569a1c58c769af830c1432f7c1e82a78a66",
+    "initial": {
+      "x": 157,
+      "y": 508,
+      "heading_rad": -1.5707963267948966
+    },
+    "mid": {
+      "x": 184.49,
+      "y": 297.23,
+      "heading_rad": -1.01097,
+      "speed": 69.4,
+      "steer_rad": 0.49311
+    },
+    "final": {
+      "x": 452.65,
+      "y": 230.09,
+      "heading_rad": -0.0054,
+      "steer_rad": 0.00167
+    },
+    "max_steer_seen_rad": 0.5133,
+    "max_frame_displacement_px": 1.64,
+    "samples": 391
+  },
+  "motion_model": {
+    "type": "kinematic bicycle model",
+    "lateral_slide_translation": false,
+    "forward_motion_integrated": true,
+    "steering_angle_integrated": true,
+    "steering_clamp_deg": 30,
+    "steering_visualized_on_front_wheels": true,
+    "acceleration_deceleration": true,
+    "dynamic_shadow_follows_vehicle": true
+  },
+  "layout": {
+    "purpose_built_game_lot": true,
+    "car_centered_in_parking_bay": true,
+    "exit_arrows_match_exit_direction": true,
+    "fixed_aspect_ratio_rendering": true
+  },
+  "published": {
+    "pages_commit": "53fd982293e85551e487166df89c5f8fa617bdc3",
+    "pages_run_id": 35432319789,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v1/",
+    "grid_shift_root_unchanged": true,
+    "root_index_blob": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d"
+  },
+  "explicit_nonclaims": [
+    "Not proof that the full game is fun.",
+    "Not proof of final photoreal art quality.",
+    "No multi-car collision/blocking puzzle yet.",
+    "No reverse/cutback maneuver yet.",
+    "No vehicle-class variation yet."
+  ],
+  "next_gate": "USER_VISUAL_MOTION_REVIEW",
+  "level3_locked": true
+}

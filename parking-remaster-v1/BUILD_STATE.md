@@ -213,3 +213,25 @@ Reject as CANON:
 - long one-car-at-a-time exit wait.
 
 Next exact gate: **CORE GAMEPLAY REBUILD BENCHMARK** — research successful Parking Jam / car-out / tap-away mechanics, choose one visible physical rule, then prototype only a replacement Level 1.
+
+
+## Single-Car Small-Lot Motion Prototype — PASS / USER VISUAL REVIEW NEXT
+
+- Purpose-built isolated prototype only; rejected Level 1/2 gameplay remains rejected.
+- One car starts centered inside a correctly dimensioned parking bay.
+- Motion uses a kinematic bicycle model rather than Bezier/translate path animation.
+- No independent lateral slide: position advances along current vehicle heading; heading changes from velocity / wheelbase / steering angle.
+- Front wheels visibly steer; max steering is clamped to 30°.
+- Vehicle accelerates, turns, straightens, and exits to the right.
+- Dynamic shadow moves with the car instead of leaving a baked shadow behind.
+- Browser proof run `35432226695`: SUCCESS.
+- Visual proof reviewed: initial placement, turning frame, and exit direction PASS.
+- Reference browser result: mid heading -1.011rad with steer 0.493rad; final heading -0.0054rad; max frame displacement 1.64px.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v1/`
+- Pages deploy run `35432319789`: SUCCESS.
+- GRID SHIFT root remains unchanged.
+- This is **not** a puzzle, full-game, or final-art PASS.
+- Level 3 remains LOCKED.
+
+Next exact gate: **User Visual Motion Review**.
+Judge only whether this single car now reads as a car actually driving/turning rather than an image sliding. Do not expand to multiple cars until that is accepted.
