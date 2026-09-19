@@ -1,0 +1,139 @@
+{
+  "gate": "VP_2E_STRUCTURED_ASPHALT_PLUS_VECTOR_MARKING_RECONSTRUCTION",
+  "status": "CANDIDATE_BUILT_VISUAL_QA_REQUIRED",
+  "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+  "candidate": {
+    "path": "assets/candidates/clean_plate_structured_v1.webp",
+    "sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
+    "bytes": 1652822,
+    "width": 941,
+    "height": 1672
+  },
+  "inputs": {
+    "sprite_gate": "PASS",
+    "geometry_gate": "PASS",
+    "sprite_checks": {
+      "green_tl": {
+        "sha256": "9f2040f0cd556ae69b31626c2babc37a2d0bda527aebefb422817f0dca171ce1",
+        "alpha_pixels": 27790
+      },
+      "red_top": {
+        "sha256": "8c98eeae34b2056ffe224a8201e5ea3f84a56c8929be92a2459e6598e5155513",
+        "alpha_pixels": 21392
+      },
+      "blue_top": {
+        "sha256": "6f16be56559c8c70a96882146275d02b3aa47461cee101ccc1900f8bcc45eed0",
+        "alpha_pixels": 24765
+      },
+      "white_tr": {
+        "sha256": "1abc0748a2faccaefdbb61b8be47bfb301967305c669aaaabd2d25f6617463ed",
+        "alpha_pixels": 27319
+      },
+      "black_ml": {
+        "sha256": "c0822664c6e548915285744045563fc7df540a0b3ce8a3cfd408d9c7b9e8025e",
+        "alpha_pixels": 33976
+      },
+      "yellow_mid": {
+        "sha256": "e7a41426e5d6ca407a00f900c0baafbd697437955fa8d9acbcf0b3ab87564b60",
+        "alpha_pixels": 28784
+      },
+      "silver_mid": {
+        "sha256": "aff37aada85ee0709851241d9113affccb313fb56af893948fa45695ec00c262",
+        "alpha_pixels": 30577
+      },
+      "white_bl": {
+        "sha256": "4a0fb45a33cf0506ba577e86210168d65274849b48087413da35df656d8994e5",
+        "alpha_pixels": 28975
+      },
+      "blue_bottom": {
+        "sha256": "699c22096bab425dbfb96d4965a71b113e025ab70a051a2f47e4d6c8f0f8f357",
+        "alpha_pixels": 22517
+      },
+      "green_br": {
+        "sha256": "5d2e109f6623869a1d86dc099207bfbcc74af8630cc9abd517f8e33f4168c663",
+        "alpha_pixels": 26268
+      }
+    }
+  },
+  "method": {
+    "shadow_radius_px": 32,
+    "regular_grid_step_px": 40,
+    "known_illumination_cells": 172,
+    "trusted_asphalt_pixels": 75202,
+    "texture_band_std_L": [
+      2.948305,
+      3.131575,
+      5.381762
+    ],
+    "boundary_affine_corrections": [
+      {
+        "component": 1,
+        "area": 374722,
+        "ring_samples": 6774,
+        "lab_affine": [
+          [
+            -0.950924,
+            3.078096,
+            -0.607723
+          ],
+          [
+            -0.073787,
+            -0.052002,
+            0.09798
+          ],
+          [
+            -0.034157,
+            0.20323,
+            -0.202177
+          ]
+        ]
+      },
+      {
+        "component": 2,
+        "area": 110021,
+        "ring_samples": 2491,
+        "lab_affine": [
+          [
+            -0.22618,
+            7.588941,
+            -3.688112
+          ],
+          [
+            -0.53555,
+            -0.330907,
+            -0.027781
+          ],
+          [
+            -0.464046,
+            -1.130582,
+            1.450338
+          ]
+        ]
+      }
+    ],
+    "parking_line_count": 8,
+    "paint_bgr_median": [
+      127.0,
+      147.0,
+      167.0
+    ]
+  },
+  "invariants": {
+    "outside_removal_mask_max_rgb_delta": 0,
+    "external_image_source_used": false,
+    "learned_inpainting_used": false,
+    "global_hough_used": false,
+    "poisson_or_seamless_clone_used": false,
+    "production_clean_plate_written": false,
+    "tutorial_yellow_pixels_before": 59120,
+    "tutorial_yellow_pixels_remaining": 79
+  },
+  "reviews": {
+    "full_lot": "assets/qa/vp2e_structured_clean_plate_review.jpg",
+    "iphone": "assets/qa/vp2e_structured_clean_plate_iphone.jpg",
+    "mask": "assets/qa/vp2e_removal_mask_review.jpg",
+    "level1_rebuild": "assets/qa/vp2e_level1_rebuild_review.jpg",
+    "level1_rebuild_iphone": "assets/qa/vp2e_level1_rebuild_iphone.jpg"
+  },
+  "next": "Direct full-resolution clean-plate and iPhone-scale review, plus Level-1 rebuild review. Do not promote assets/clean_plate.webp unless all visual checks PASS."
+}
