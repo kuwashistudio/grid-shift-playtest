@@ -158,3 +158,26 @@ Next exact gate: **Isolated iPhone Preview Publish**.
 3. Include only runtime-required assets plus `iphone_qa.js`; do not expose build/research internals unnecessarily.
 4. Verify normal URL and `?qa=iphone` both load over the public Pages URL.
 5. Only after public preview PASS perform physical iPhone recording / fresh-player evidence.
+
+
+## Isolated iPhone Preview Publish — PASS / CLOSED
+
+- GitHub Pages branch: `main`.
+- New isolated folder only: `parking-remaster-v1/`.
+- Published Pages commit: `fc56c6f471552a97038fa78df7271c35df237eda`.
+- Pages build/deployment run `35429691411`: SUCCESS.
+- Published runtime files: 15.
+- Runtime files reuse the exact PASS staging Git blobs; no regeneration/re-encoding.
+- GRID SHIFT root `index.html` before/after blob: `f0e258de3de4dcfa9cc91529a33722f4954a0d5d` — unchanged.
+- Existing `parking-remaster/` folder was not modified.
+- Normal preview: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/`.
+- Physical QA preview: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/?qa=iphone`.
+- Level 3 remains LOCKED.
+
+Next exact gate: **Physical iPhone Evidence Capture**.
+1. Open the QA preview on the target iPhone.
+2. Start iOS screen recording with microphone OFF, return to Safari, reload once, and play enough to trigger horn + engine + Level-1 win.
+3. Verify the saved Photos recording itself contains horn, engine and win audio.
+4. Read `nav→controls` from the QA panel; target <=1000ms.
+5. Tap COPY JSON and paste the JSON plus the three saved-recording audio yes/no results into Chat.
+6. Do not author Level 3 yet; fresh-player evidence remains the following human-only checkpoint.

@@ -23,7 +23,7 @@
   ],
   "fresh_player_runtime": "normal URL without QA mode",
   "level3_locked": true,
-  "next": "Publish the current Parking Remaster runtime to an isolated GitHub Pages subfolder without changing GRID SHIFT root runtime, then perform physical iPhone evidence capture.",
+  "next": "Open the published QA URL on the target iPhone, perform microphone-off screen recording, copy QA JSON, and provide physical results. Fresh-player observation remains separate and still pending.",
   "closed_subgate_at": "2026-09-19",
   "static_runtime_ci": {
     "run_id": 35429048848,
@@ -55,6 +55,10 @@
   "runtime_visibility_rule": "Normal URL: no QA panel/hook. ?qa=iphone: QA panel + COPY JSON.",
   "physical_iphone_status": "PENDING_REAL_DEVICE",
   "fresh_player_status": "PENDING_REAL_PERSON",
-  "public_test_url_status": "PENDING_ISOLATED_PREVIEW_PUBLISH",
-  "next_gate": "ISOLATED_IPHONE_PREVIEW_PUBLISH"
+  "public_test_url_status": "PASS_PUBLISHED",
+  "next_gate": "PHYSICAL_IPHONE_EVIDENCE_CAPTURE",
+  "public_test_url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/",
+  "public_qa_url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/?qa=iphone",
+  "public_pages_commit": "fc56c6f471552a97038fa78df7271c35df237eda",
+  "public_pages_build_run_id": 35429691411
 }

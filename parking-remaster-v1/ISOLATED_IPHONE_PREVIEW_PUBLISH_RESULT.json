@@ -1,0 +1,26 @@
+{
+  "gate": "ISOLATED_IPHONE_PREVIEW_PUBLISH",
+  "status": "PASS_CLOSED",
+  "published_at": "2026-09-19",
+  "repository": "kuwashistudio/grid-shift-playtest",
+  "pages_branch": "main",
+  "pages_subfolder": "parking-remaster-v1/",
+  "pages_commit": "fc56c6f471552a97038fa78df7271c35df237eda",
+  "pages_build_run_id": 35429691411,
+  "pages_build_status": "SUCCESS",
+  "normal_url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/",
+  "qa_url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/?qa=iphone",
+  "published_runtime_files": 15,
+  "source_staging_head": "0d272d836ac3a7d82e581527a058fa83c3584f39",
+  "byte_identity_method": "Existing staging Git blobs reused directly on main; no runtime file re-encode/regeneration.",
+  "isolation": {
+    "grid_shift_root_index_unchanged": true,
+    "root_index_blob_before": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d",
+    "root_index_blob_after": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d",
+    "preexisting_parking_remaster_folder_unchanged": true,
+    "new_folder_only": "parking-remaster-v1/"
+  },
+  "qa_mode": "?qa=iphone",
+  "next_gate": "PHYSICAL_IPHONE_EVIDENCE_CAPTURE",
+  "level3_locked": true
+}
