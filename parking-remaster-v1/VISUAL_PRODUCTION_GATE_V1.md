@@ -8,12 +8,17 @@ Parent: PRODUCTION_BLUEPRINT_V1.md / VERTICAL_SLICE_GATE_V1.md
 
 A Vertical Slice must prove a cohesive representative player experience **and** a repeatable way to build the rest of the game.
 
-The current Level 1 runtime contains valid gameplay logic, but the visual implementation is still a Level-1-specific transition hack:
-- the approved MASTER contains the parked cars baked into the image;
-- when a car moves, runtime expects a background patch and a movable transparent sprite;
-- those patch/sprite files are currently absent from the staging branch.
+The current Level 1 runtime contains valid gameplay logic, and **VP-3 reusable car sprites are now PASS**. The remaining visual blocker is the reusable car-free clean plate.
 
-Producing Level 2 logic before solving this would create a false sense of progress. We would have level data that cannot be rendered at the approved quality.
+Current production state:
+- approved MASTER is present and hash-locked;
+- 10 reusable transparent car sprites are present in `assets/sprites/`;
+- sprites were extracted from exact MASTER RGB using EfficientSAM-Ti alpha masks;
+- `red_top` additionally uses a deterministic tutorial-glow alpha refinement;
+- exact-lossless transparent WebP encoding is verified;
+- current runtime still depends on the old Level-1 patch reveal architecture because `clean_plate.webp` is not yet approved.
+
+Producing Level 2 before solving the clean plate would still create a false sense of progress.
 
 ## Repository audit — 2026-09-18
 

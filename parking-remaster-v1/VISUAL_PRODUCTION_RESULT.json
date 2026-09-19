@@ -34,7 +34,7 @@
     "replacement_image_used": false,
     "image_mutation_occurred": false
   },
-  "next_gate": "Create one constrained car-free edit from the approved MASTER, compare against MASTER, and promote only if non-target drift is acceptably low. This is a one-time build asset, not recurring production generation.",
+  "next_gate": "VP-2E: infer parking-slot/line geometry from visible MASTER markings, then reconstruct only hidden asphalt + vector markings locally. No generic inpaint.",
   "visual_method_comparison": {
     "open_cv_telea": "REJECTED_VISUAL_QA",
     "open_cv_navier_stokes": "REJECTED_VISUAL_QA",
@@ -70,7 +70,7 @@
     },
     "conclusion": "Bounded LaMa repair exhausted. Do not tune LaMa masks/margins further."
   },
-  "active_clean_plate_route": "ONE_TIME_CONSTRAINED_MASTER_EDIT_WITH_STRICT_DRIFT_QA",
+  "active_clean_plate_route": "PARKING_CELL_STRUCTURE_RECONSTRUCTION",
   "bmquilting": {
     "commit": "9fd5f97bef7472580e68fdadc15822f7ac896203",
     "license": "MIT",
@@ -108,7 +108,12 @@
       "removed_yellow_pixels": 1477,
       "distance_threshold_px": 1.5,
       "refined_body_coverage": 0.919222
-    }
+    },
+    "ci_run_id": 35400261077,
+    "branch_head_after_promotion": "d5697a32074e8e60f20fb8cad51f3a27a818deca",
+    "production_count": 10,
+    "production_directory": "assets/sprites/",
+    "locked": true
   },
   "clean_plate_local_experiments": {
     "rectified_plane_telea_ns": {
@@ -137,6 +142,14 @@
     "multi_donor_asphalt_quilting": {
       "status": "REJECTED_VISUAL_QA",
       "reason": "Real MASTER donor texture avoided semantic car ghosts but produced obvious mosaic/patch repetition and destroyed hidden parking-line continuity."
+    },
+    "structured_global_lowfield_v1": {
+      "status": "REJECTED_VISUAL_QA",
+      "reason": "No car ghosts, but large circular/smoky illumination artifacts and no reliable hidden-line restoration."
+    },
+    "local_polynomial_v2": {
+      "status": "REJECTED_VISUAL_QA",
+      "reason": "Eliminated circular artifacts but asphalt became too uniform; residual shadow rectangles and broken parking markings remained."
     }
   }
 }

@@ -233,3 +233,48 @@ Parking-slot research supports extracting linear markings first and arranging de
 `STRUCTURED_ASPHALT_FIELD_PLUS_VECTOR_MARKINGS`
 
 No return to LaMa mask tuning, Telea/Navier-Stokes, xphoto, bmquilting, or naïve exemplar mosaic fill unless new evidence materially changes their failure mode.
+
+
+### Structured procedural asphalt — local prototype v1
+**REJECTED — direct local visual QA**
+
+Method:
+- car/tutorial holes only;
+- low-frequency illumination estimated from downsampled known MASTER pixels;
+- deterministic multiscale asphalt noise matched to MASTER residual statistics.
+
+Result:
+- substantially cleaner than failed semantic inpaint variants;
+- no car ghosts;
+- but broad circular/smoky illumination fields appeared across the lot;
+- hidden parking lines were not reconstructed.
+
+Conclusion: global low-frequency illumination reconstruction is retired.
+
+### Local polynomial asphalt — local prototype v2
+**REJECTED — direct local visual QA**
+
+Method:
+- local polynomial illumination estimate from known surrounding MASTER asphalt;
+- deterministic MASTER-matched texture residual;
+- no AI model.
+
+Result:
+- removed the broad circular artifacts;
+- no semantic car ghosts;
+- but the repaired asphalt became too uniform;
+- old shadow rectangles remained around some former vehicle locations;
+- parking markings still broke inside erased regions.
+
+Conclusion:
+The remaining Clean Plate problem is now specifically **structure restoration**, not object removal.
+
+### Active Clean Plate direction
+Do not continue generic inpainting.
+
+Next prototype must model the parking lot as structured cells/markings:
+1. detect visible parking-marking line families from the approved MASTER;
+2. establish canonical slot/row geometry;
+3. synthesize only hidden asphalt from real MASTER statistics/donors;
+4. restore hidden parking markings deterministically as vector/geometry elements;
+5. visually test the empty plate and Level 1 reconstruction separately.
