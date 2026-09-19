@@ -32,8 +32,8 @@ OVERLAY_B64 = QA_DIR / "vp2d_parking_structure_review.b64"
 MASTER_SHA = "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0"
 LOT_ROI = [70, 430, 870, 1335]
 TUTORIAL_RECT = [330, 435, 550, 800]
-CAR_MARGIN = 16
-DONOR_W, DONOR_H = 96, 96
+CAR_MARGIN = 28
+DONOR_W, DONOR_H = 64, 64
 SEED = 20260919
 
 def sha256(path: Path) -> str:
@@ -190,7 +190,8 @@ def main():
             cv2.line(mask,(l[0],l[1]),(l[2],l[3]),255,7,cv2.LINE_AA)
             denom=max(1,int(np.count_nonzero(mask)))
             support=float(np.count_nonzero((mask>0)&(paint_d>0)))/denom
-            if support<0.34: continue
+            exclusion_overlap=float(np.count_nonzero((mask>0)&(exclude>0)))/denom
+            if support<0.34 or exclusion_overlap>0.02: continue
             angle=segment_angle_deg(l)
             candidates.append((l,length,support,angle))
     if len(candidates)<6:
@@ -207,18 +208,32 @@ def main():
         fid=fam["family_id"]
         tracks[str(fid)]=representative_tracks(lines,labels,fid)
 
-    # Candidate intersections from the two strongest families.
-    intersections=[]
-    if len(families)>=2:
-        f0=[lines[i] for i in range(len(lines)) if int(labels[i])==0]
-        f1=[lines[i] for i in range(len(lines)) if int(labels[i])==1]
-        for a0 in f0:
-            for b0 in f1:
-                p=line_intersection(a0,b0)
-                if p is None: continue
-                px,py=p
-                if x1<=px<x2 and y1<=py<y2 and exclude[int(py),int(px)]==0:
-                    intersections.append([round(float(px),1),round(float(py),1)])
+    # Choose the family pair that produces the broadest plausible in-lot
+    # intersection distribution rather than blindly using the two longest families.
+    pair_trials=[]
+    for fa in range(len(families)):
+        for fb in range(fa+1,len(families)):
+            aa=[lines[i] for i in range(len(lines)) if int(labels[i])==fa]
+            bb=[lines[i] for i in range(len(lines)) if int(labels[i])==fb]
+            pts=[]
+            for la in aa:
+                for lb in bb:
+                    p=line_intersection(la,lb)
+                    if p is None: continue
+                    px,py=p
+                    if x1<=px<x2 and y1<=py<y2 and exclude[int(py),int(px)]==0:
+                        pts.append([float(px),float(py)])
+            if pts:
+                ar=np.asarray(pts,dtype=np.float64)
+                spread=float(np.std(ar[:,0])+np.std(ar[:,1]))
+                ad=abs(families[fa]["angle_deg"]-families[fb]["angle_deg"])
+                ad=min(ad,180-ad)
+                score=len(pts)*max(spread,1.0)*max(math.sin(math.radians(ad)),0.05)
+            else:
+                score=0.0
+            pair_trials.append({"pair":[fa,fb],"raw_intersections":len(pts),"score":score,"points":pts})
+    best_pair=max(pair_trials,key=lambda z:z["score"]) if pair_trials else {"pair":[],"points":[],"score":0.0,"raw_intersections":0}
+    intersections=[[round(p[0],1),round(p[1],1)] for p in best_pair["points"]]
     # Deduplicate intersections spatially.
     grid_nodes=[]
     for p in sorted(intersections,key=lambda q:(q[1],q[0])):
@@ -228,9 +243,9 @@ def main():
 
     # Known asphalt: inside lot, away from vehicles/tutorial/paint, modest saturation,
     # and not extreme dark/light semantic objects.
-    asphalt=(valid)&(paint_d==0)&(S<=72)&(L>=max(35,l_lo-8))&(L<=min(205,l_hi+8))
+    asphalt=(valid)&(paint_d==0)&(S<=92)&(L>=max(30,l_lo-15))&(L<=min(220,l_hi+15))
     asphalt_u8=asphalt.astype(np.uint8)*255
-    asphalt_u8=cv2.erode(asphalt_u8,np.ones((5,5),np.uint8),iterations=1)
+    asphalt_u8=cv2.erode(asphalt_u8,np.ones((3,3),np.uint8),iterations=1)
     asphalt=asphalt_u8>0
 
     yy,xx=np.nonzero(asphalt)
@@ -256,17 +271,17 @@ def main():
 
     # MASTER-only donor candidates.
     donors=[]
-    for cy in range(y1+DONOR_H//2,y2-DONOR_H//2,42):
-        for cx in range(x1+DONOR_W//2,x2-DONOR_W//2,42):
+    for cy in range(y1+DONOR_H//2,y2-DONOR_H//2,32):
+        for cx in range(x1+DONOR_W//2,x2-DONOR_W//2,32):
             ax=cx-DONOR_W//2; ay=cy-DONOR_H//2
             win=asphalt[ay:ay+DONOR_H,ax:ax+DONOR_W]
             cov=float(win.mean())
-            if cov<0.88: continue
+            if cov<0.78: continue
             pp=float((paint_d[ay:ay+DONOR_H,ax:ax+DONOR_W]>0).mean())
-            if pp>0.015: continue
+            if pp>0.03: continue
             lwin=L[ay:ay+DONOR_H,ax:ax+DONOR_W]
             vals=lwin[win]
-            if len(vals)<DONOR_W*DONOR_H*.85: continue
+            if len(vals)<DONOR_W*DONOR_H*.70: continue
             local_std=float(np.std(vals))
             local_med=float(np.median(vals))
             score=cov*2.2 + min(local_std/25.0,1.0)*0.45 - abs(local_med-float(np.median(zz)))/120.0
@@ -275,7 +290,7 @@ def main():
     selected=[]
     for d in donors:
         cx=(d["rect"][0]+d["rect"][2])/2; cy=(d["rect"][1]+d["rect"][3])/2
-        if all((cx-(s["rect"][0]+s["rect"][2])/2)**2+(cy-(s["rect"][1]+s["rect"][3])/2)**2>105**2 for s in selected):
+        if all((cx-(s["rect"][0]+s["rect"][2])/2)**2+(cy-(s["rect"][1]+s["rect"][3])/2)**2>80**2 for s in selected):
             selected.append(d)
         if len(selected)>=10: break
 
@@ -301,12 +316,18 @@ def main():
             "segments":line_payload,
             "families":families,
             "tracks":tracks,
+            "grid_pair_selection":{
+                "chosen_pair":best_pair["pair"],
+                "raw_intersections":best_pair["raw_intersections"],
+                "score":round(float(best_pair["score"]),3),
+                "trials":[{"pair":p["pair"],"raw_intersections":p["raw_intersections"],"score":round(float(p["score"]),3)} for p in pair_trials]
+            },
             "grid_nodes":grid_nodes
         },
         "known_asphalt":{
             "pixel_count":int(np.count_nonzero(asphalt)),
             "fraction_of_lot":round(float(np.count_nonzero(asphalt))/float((x2-x1)*(y2-y1)),6),
-            "selection":"lot ROI minus vehicle/tutorial/paint; S<=72; robust L range; 5px erosion",
+            "selection":"lot ROI minus expanded vehicle/tutorial/paint; S<=92; robust L range; 3px erosion",
             "illumination_model":illum,
             "donor_window_size":[DONOR_W,DONOR_H],
             "donor_candidates":selected
