@@ -1,7 +1,19 @@
 # Parking Remaster — Clean Plate Method Comparison v1
 
-Updated: 2026-09-18
+Updated: 2026-09-19
 Status: CANON METHOD DECISION
+
+
+## 2026-09-19 CANON NOTICE
+
+This file retains historical experiment observations, but any historical wording such as **CURRENT BEST**, **current experiment**, or **provisional sprite pass** is superseded by the current production state below:
+
+- **VP-3 CAR SPRITES = PASS / CLOSED** — EfficientSAM-Ti production sprites are locked in `assets/sprites/`.
+- **VP-2 CLEAN PLATE = BLOCKED** — no production `assets/clean_plate.webp` is approved.
+- Independent Local LaMa margin 7 and margin 26 are both **REJECTED by direct visual QA** and may not be promoted later by target-scale-only review.
+- LaMa, Telea/Navier-Stokes, xphoto, bmquilting and naïve exemplar routes are retired.
+- Active route: `STRUCTURED_ASPHALT_FIELD_PLUS_VECTOR_MARKINGS`; next gate is VP-2D parking-structure modeling.
+- Direct visual QA remains authoritative; a stale/late CI result cannot override the latest CANON.
 
 ## Direct visual QA completed
 
@@ -52,7 +64,7 @@ Observed:
 - sequential processing compounds local errors.
 
 ### LaMa standard union-mask
-**CURRENT BEST / NOT YET PRODUCTION PASS**
+**REJECTED / RETIRED — historical comparison only**
 
 Observed:
 - cars are actually removed;
@@ -68,19 +80,11 @@ Remaining defects:
 
 ## Sprite extraction result
 
-The OpenCV GrabCut-derived 10-car sprite set received a first visual contact-sheet review.
+**PRODUCTION PASS / CLOSED**
 
-Status: **PROVISIONAL PASS — FULL-SIZE ALPHA QA STILL REQUIRED**
+The old GrabCut provisional result is historical and rejected at full-size alpha QA. The production sprite set is the 10-car EfficientSAM-Ti set recorded in `VP_SPRITE_PRODUCTION_RESULT.json`, with the red_top deterministic 1.5px tutorial-glow refinement and exact-lossless Pillow WebP round-trip QA.
 
-Observed:
-- all 10 expected car identities/colors are recognizable;
-- gross background leakage is not obvious at review scale;
-- no regenerated/replacement vehicle art was introduced.
-
-Before production promotion:
-- inspect full-size alpha edges for each sprite;
-- check shadows/halos;
-- verify Level 1 reconstruction against MASTER.
+Do not reopen sprite extraction unless a regression is found.
 
 ## Research after visual QA
 
@@ -93,9 +97,9 @@ ZITS targets structural inpainting and restores edges/lines before texture gener
 ### Resynthesizer
 GIMP Resynthesizer is a mature texture-synthesis/inpainting system, but GPL-3.0 and GIMP/plugin integration add pipeline weight. It remains a fallback experiment, not the primary route.
 
-## Selected next architecture
+## Historical selected architecture — superseded
 
-**Hybrid deterministic clean-plate finishing**
+**Hybrid deterministic clean-plate finishing (historical; not active)**
 
 1. Keep standard LaMa union-mask output as the coarse car-removal base.
 2. Detect/protect/reconstruct static geometric markings separately:
@@ -121,9 +125,9 @@ If an experiment takes materially longer than a normal atomic gate:
 - inspect the result later;
 - never repeatedly poll it while no other progress occurs.
 
-## Next gate
+## Historical next gate — superseded
 
-**VP-2C — Hybrid LaMa + geometry/texture correction prototype**
+**VP-2C — Hybrid LaMa + geometry/texture correction prototype (completed and rejected)**
 
 Do one prototype only. Promote nothing until direct visual QA passes.
 
@@ -142,7 +146,7 @@ This is an explicit example of why visual QA remains authoritative over proxy me
 
 The frequency-separation route is retired. Do not tune its blur/gain parameters further.
 
-### Current active experiment
+### Historical experiment — retired
 Independent local LaMa erase patches:
 - each patch is inferred from the untouched approved MASTER;
 - no generated result becomes another patch's input;
@@ -169,7 +173,7 @@ This was the one allowed bounded repair inside the same method.
 **LaMa clean-plate tuning is now retired.**
 Do not return to standard/sequential/refined/hybrid/local/margin tuning unless new external evidence materially changes the method.
 
-Active route: MASTER-only exemplar texture synthesis / Image Quilting.
+Historical transition only: MASTER-only exemplar texture synthesis / Image Quilting was subsequently tested and rejected.
 
 
 ### bmquilting MASTER-only Image Quilting
@@ -269,7 +273,7 @@ Result:
 Conclusion:
 The remaining Clean Plate problem is now specifically **structure restoration**, not object removal.
 
-### Active Clean Plate direction
+### Active Clean Plate direction — CURRENT
 Do not continue generic inpainting.
 
 Next prototype must model the parking lot as structured cells/markings:

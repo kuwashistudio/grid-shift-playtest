@@ -1,0 +1,26 @@
+{
+  "gate": "CANON_CONSISTENCY_REPAIR_2026_09_19",
+  "status": "PASS",
+  "branch": "parking-remaster-v1-staging-20260917",
+  "detected_conflict": {
+    "stale_clean_plate_commit": "30b89835af5c1078906164be144b5532401fc39f",
+    "promotion_workflow_commit": "05f16cf104d7f3433837e9738a851416c65cbe8a",
+    "source_run_id": 35383429547,
+    "source_method": "Independent Local LaMa shadow-expanded margin 26",
+    "conflict": "Source method was already REJECTED by direct visual QA in the authoritative handoff/CANON."
+  },
+  "repairs": [
+    "delete assets/clean_plate.webp stale promotion",
+    "delete VP_CLEAN_PLATE_PRODUCTION_RESULT.json stale PASS record",
+    "delete one-shot parking-remaster-promote-clean-plate workflow",
+    "mark legacy LaMa/GrabCut wording historical/superseded",
+    "restore Visual Production status to SPRITES_PASS_CLEAN_PLATE_BLOCKED",
+    "lock next gate to VP-2D Parking Structure Model"
+  ],
+  "protected_state": {
+    "sprites": "PASS_LOCKED",
+    "clean_plate": "BLOCKED_MISSING",
+    "runtime_migration": "LOCKED_UNTIL_CLEAN_PLATE_PASS",
+    "level_2": "LOCKED"
+  }
+}
