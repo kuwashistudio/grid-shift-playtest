@@ -30,6 +30,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add parking-remaster-v1/PARKING_MARKING_ANCHOR_CANDIDATES_V1.json                   parking-remaster-v1/VP2D2_ANCHOR_RESULT.json                   parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_overlay.jpg                   parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_review.jpg                   parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_review.b64
+          git add \
+            parking-remaster-v1/PARKING_MARKING_ANCHOR_CANDIDATES_V1.json \
+            parking-remaster-v1/VP2D2_ANCHOR_RESULT.json \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_overlay.jpg \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_review.jpg \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_candidates_review.b64 \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_1.jpg \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_1.b64 \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_2.jpg \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_2.b64 \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_3.jpg \
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_3.b64
           git commit -m "Build VP-2D2 anchor candidates [skip ci]"
           git push origin HEAD:parking-remaster-v1-staging-20260917
