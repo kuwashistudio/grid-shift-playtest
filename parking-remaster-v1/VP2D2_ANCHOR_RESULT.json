@@ -13,5 +13,40 @@
     "bytes": 34487,
     "base64_path": "assets/qa/vp2d2_anchor_candidates_review.b64"
   },
+  "review_tiles": [
+    {
+      "index": 1,
+      "y_range_master": [
+        445,
+        733
+      ],
+      "jpg_path": "assets/qa/vp2d2_anchor_review_tile_1.jpg",
+      "jpg_sha256": "29b82775428d58d4548a817d8d0ec667c406b5b1a0229e980d4494b4dd788941",
+      "jpg_bytes": 6560,
+      "base64_path": "assets/qa/vp2d2_anchor_review_tile_1.b64"
+    },
+    {
+      "index": 2,
+      "y_range_master": [
+        733,
+        1021
+      ],
+      "jpg_path": "assets/qa/vp2d2_anchor_review_tile_2.jpg",
+      "jpg_sha256": "e02b9d809fa5b7d97edfeed2bf31ea8d147c0561e4b713a16a107c7f1bf61b3b",
+      "jpg_bytes": 6046,
+      "base64_path": "assets/qa/vp2d2_anchor_review_tile_2.b64"
+    },
+    {
+      "index": 3,
+      "y_range_master": [
+        1021,
+        1310
+      ],
+      "jpg_path": "assets/qa/vp2d2_anchor_review_tile_3.jpg",
+      "jpg_sha256": "a6def1d3a1299372c073570c65c7fd9d8a250e0b0817a67e906c249514da3413",
+      "jpg_bytes": 5169,
+      "base64_path": "assets/qa/vp2d2_anchor_review_tile_3.b64"
+    }
+  ],
   "next": "Directly inspect numbered anchors on MASTER. Persist only visually valid parking-paint anchor IDs, then fit projective families from that validated subset."
 }
