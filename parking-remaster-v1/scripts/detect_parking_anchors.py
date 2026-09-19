@@ -251,12 +251,40 @@ def main():
     b64=base64.b64encode(REVIEW.read_bytes()).decode("ascii")
     REVIEW_B64.write_text("\n".join(b64[i:i+76] for i in range(0,len(b64),76))+"\n",encoding="ascii")
 
+    # Three compact review tiles keep candidate IDs legible while staying small
+    # enough for direct tool-assisted visual inspection.
+    tile_meta=[]
+    lot_h=ly2-ly1
+    for idx,(sy,ey) in enumerate([
+        (ly1,ly1+lot_h//3),
+        (ly1+lot_h//3,ly1+2*lot_h//3),
+        (ly1+2*lot_h//3,ly2)
+    ],1):
+        tcrop=overlay[sy:ey,lx1:lx2]
+        tw=300
+        th=max(1,int(round(tcrop.shape[0]*tw/tcrop.shape[1])))
+        tile=cv2.resize(tcrop,(tw,th),interpolation=cv2.INTER_AREA)
+        tjpg=QA_DIR/f"vp2d2_anchor_review_tile_{idx}.jpg"
+        tb64=QA_DIR/f"vp2d2_anchor_review_tile_{idx}.b64"
+        cv2.imwrite(str(tjpg),tile,[cv2.IMWRITE_JPEG_QUALITY,48])
+        enc=base64.b64encode(tjpg.read_bytes()).decode("ascii")
+        tb64.write_text("\n".join(enc[i:i+76] for i in range(0,len(enc),76))+"\n",encoding="ascii")
+        tile_meta.append({
+            "index":idx,
+            "y_range_master":[sy,ey],
+            "jpg_path":str(tjpg.relative_to(ROOT)),
+            "jpg_sha256":sha256(tjpg),
+            "jpg_bytes":tjpg.stat().st_size,
+            "base64_path":str(tb64.relative_to(ROOT))
+        })
+
     result={
         "gate":"VP_2D2_ANCHOR_FIRST_PROJECTIVE_MARKINGS",
         "status":"PASS_MACHINE_CANDIDATES_VISUAL_REVIEW_REQUIRED",
         "candidate_count":len(selected),
         "overlay":{"path":str(OVERLAY.relative_to(ROOT)),"sha256":sha256(OVERLAY),"bytes":OVERLAY.stat().st_size},
         "review":{"path":str(REVIEW.relative_to(ROOT)),"sha256":sha256(REVIEW),"bytes":REVIEW.stat().st_size,"base64_path":str(REVIEW_B64.relative_to(ROOT))},
+        "review_tiles":tile_meta,
         "next":"Directly inspect numbered anchors on MASTER. Persist only visually valid parking-paint anchor IDs, then fit projective families from that validated subset."
     }
     RESULT.write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8")
