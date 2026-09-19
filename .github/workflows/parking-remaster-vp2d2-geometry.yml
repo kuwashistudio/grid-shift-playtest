@@ -1,0 +1,56 @@
+name: Parking Remaster VP2D2 Vector Geometry
+
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/scripts/fit_parking_marking_geometry.py'
+      - '.github/workflows/parking-remaster-vp2d2-geometry.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install deterministic CV dependencies
+        run: python -m pip install "numpy==2.2.6" "opencv-python-headless==4.12.0.88"
+      - name: Build vector geometry
+        run: python parking-remaster-v1/scripts/fit_parking_marking_geometry.py
+      - name: Upload vector visual QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-vp2d2-vector-qa
+          path: |
+            parking-remaster-v1/assets/master.webp
+            parking-remaster-v1/assets/qa/vp2d2_vector_geometry_overlay.jpg
+            parking-remaster-v1/assets/qa/vp2d2_vector_geometry_review.jpg
+            parking-remaster-v1/PARKING_PROJECTIVE_MARKING_MODEL_V1.json
+            parking-remaster-v1/VP2D2_GEOMETRY_RESULT.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Commit reproducible geometry
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            parking-remaster-v1/PARKING_MARKING_SEED_WINDOWS_V1.json \
+            parking-remaster-v1/PARKING_PROJECTIVE_MARKING_MODEL_V1.json \
+            parking-remaster-v1/VP2D2_GEOMETRY_RESULT.json \
+            parking-remaster-v1/assets/qa/vp2d2_vector_geometry_overlay.jpg \
+            parking-remaster-v1/assets/qa/vp2d2_vector_geometry_review.jpg
+          if git diff --cached --quiet; then
+            echo "No generated diffs to commit"
+          else
+            git commit -m "Build VP-2D2 vector marking model [skip ci]"
+            git push origin HEAD:parking-remaster-v1-staging-20260917
+          fi

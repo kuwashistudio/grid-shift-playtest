@@ -1,0 +1,17 @@
+{
+  "gate": "VP_2D2_INITIAL_ANCHOR_CANDIDATE_VISUAL_QA",
+  "status": "FAIL_BOUNDED_REPAIR_USED",
+  "reviewed_at": "2026-09-19",
+  "master_sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+  "candidate_count": 24,
+  "visually_valid_parking_paint_ids": [
+    "A13",
+    "A17",
+    "A20",
+    "A23"
+  ],
+  "invalid_or_unreliable_count": 20,
+  "reason": "Only four candidates were clearly on true white parking paint, all on the same right-side stripe. The set lacked precision and coverage for projective reconstruction.",
+  "bounded_repair": "Replace generic candidate search with directly reviewed narrow paint seed windows, local neutral-brightness snapping, and robust vector fitting.",
+  "no_second_repair": true
+}
