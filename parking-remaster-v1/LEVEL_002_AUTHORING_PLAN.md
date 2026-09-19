@@ -34,3 +34,10 @@ King's public level-design workflow emphasizes theory, thought, tools and testin
 
 ## Gate
 CI must prove schema, production-sprite hashes/layout readability, solver success, JS/Python parity, bundle sync and brief fit. Direct review of the CI-rendered full-lot and 390px lot preview must then PASS before Level 2 is closed.
+
+
+## CI repair 1
+
+Initial proof run `35428195203` passed Level-2 schema and layout checks, then exposed a pre-existing bundle-builder bug: `level_001.difficulty.json` matched the broad `level_*.json` glob and was treated as canonical level data. Level content was not the cause.
+
+Bounded repair: both bundle generation and canonical-bundle validation now exclude `.analysis.json`, `.parity.json`, and `.difficulty.json` sidecars.

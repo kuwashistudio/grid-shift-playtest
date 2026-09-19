@@ -11,7 +11,7 @@ OUT = ROOT / 'levels.generated.js'
 def main():
     levels = {}
     for path in sorted(LEVEL_DIR.glob('level_*.json')):
-        if path.name.endswith('.analysis.json') or path.name.endswith('.parity.json'):
+        if path.name.endswith(('.analysis.json', '.parity.json', '.difficulty.json')):
             continue
         level = json.loads(path.read_text(encoding='utf-8'))
         level_id = level.get('id')
