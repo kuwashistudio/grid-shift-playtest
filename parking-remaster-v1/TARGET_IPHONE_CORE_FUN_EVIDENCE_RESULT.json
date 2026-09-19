@@ -1,6 +1,6 @@
 {
   "gate": "TARGET_IPHONE_CORE_FUN_EVIDENCE",
-  "status": "HARNESS_IMPLEMENTED_PHYSICAL_AND_HUMAN_PENDING",
+  "status": "HARNESS_PASS_PHYSICAL_AND_HUMAN_PENDING",
   "implemented_at": "2026-09-19",
   "normal_runtime_changed": "Only SFX evidence counters + inert iphone_qa.js include; QA script exits immediately unless ?qa=iphone.",
   "qa_mode": "?qa=iphone",
@@ -23,5 +23,38 @@
   ],
   "fresh_player_runtime": "normal URL without QA mode",
   "level3_locked": true,
-  "next": "Validate harness in CI/browser. Physical iPhone recording and fresh-player observation still require the real device/person."
+  "next": "Publish the current Parking Remaster runtime to an isolated GitHub Pages subfolder without changing GRID SHIFT root runtime, then perform physical iPhone evidence capture.",
+  "closed_subgate_at": "2026-09-19",
+  "static_runtime_ci": {
+    "run_id": 35429048848,
+    "status": "SUCCESS",
+    "note": "QA harness contract plus full Level 1/2 runtime regression passed."
+  },
+  "browser_harness_ci": {
+    "run_id": 35429048869,
+    "status": "SUCCESS",
+    "artifact_id": 10579234918,
+    "artifact_digest": "sha256:466dae22d470d7492b1a03b63e3cc0bd4c235d6481b9c9e16a8372fb00b3105e",
+    "normal_panel_present": false,
+    "iphone_qa_panel_present": true,
+    "chromium_reference": {
+      "controls_ready_from_navigation_ms": 28,
+      "controls_ready_from_script_ms": 2.1,
+      "audio_after_test": {
+        "state": "running",
+        "contexts_created": 1,
+        "sfx": {
+          "engine": 1,
+          "horn": 1,
+          "win": 0
+        }
+      }
+    },
+    "direct_visual_qa": "PASS"
+  },
+  "runtime_visibility_rule": "Normal URL: no QA panel/hook. ?qa=iphone: QA panel + COPY JSON.",
+  "physical_iphone_status": "PENDING_REAL_DEVICE",
+  "fresh_player_status": "PENDING_REAL_PERSON",
+  "public_test_url_status": "PENDING_ISOLATED_PREVIEW_PUBLISH",
+  "next_gate": "ISOLATED_IPHONE_PREVIEW_PUBLISH"
 }

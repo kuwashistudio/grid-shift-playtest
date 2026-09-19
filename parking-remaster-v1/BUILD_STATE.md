@@ -135,3 +135,26 @@ Next exact gate: **Target-iPhone Core Fun Evidence**.
 4. Run at least one fresh-player observation without coaching: first action comprehension, blocked-feedback comprehension, avoidable waiting, desire to continue into Level 2.
 5. Record evidence separately from solver/Chromium results; do not substitute emulation for physical/human evidence.
 6. Do not author Level 3 until this Phase-1 evidence is reviewed.
+
+
+## Target-iPhone Evidence Harness — PASS / PHYSICAL EVIDENCE PENDING
+
+- Opt-in QA mode: `?qa=iphone`.
+- Normal runtime: QA panel/hook absent.
+- QA mode records navigation -> controls-ready ms, script -> controls-ready ms, first player action, AudioContext state/context/reset counts, engine/horn/win invocation counts, level/HUD/car count, progression and visibility lifecycle.
+- COPY JSON exports a machine-readable evidence snapshot.
+- Static regression CI `35429048848`: SUCCESS.
+- Browser harness CI `35429048869`: SUCCESS.
+- Browser reference only (not physical proof): nav -> controls 28ms; AudioContext running; engine=1, horn=1 after test actions.
+- Direct screenshot review: PASS.
+- Physical iPhone saved-recording audio remains PENDING.
+- Fresh-player observation remains PENDING.
+- Main branch currently has no `parking-remaster-v1/` folder, so a Pages-accessible isolated preview is not yet published.
+- Level 3 remains LOCKED.
+
+Next exact gate: **Isolated iPhone Preview Publish**.
+1. Publish only the Parking Remaster runtime under a new `parking-remaster-v1/` subfolder on the Pages-serving branch.
+2. Do not modify or replace GRID SHIFT root files.
+3. Include only runtime-required assets plus `iphone_qa.js`; do not expose build/research internals unnecessarily.
+4. Verify normal URL and `?qa=iphone` both load over the public Pages URL.
+5. Only after public preview PASS perform physical iPhone recording / fresh-player evidence.

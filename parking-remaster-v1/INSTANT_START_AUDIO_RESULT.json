@@ -83,6 +83,19 @@
       "audio_state_after_level2_restart": "running",
       "page_errors": 0,
       "request_failures": 0
+    },
+    "iphone_qa_harness_run_35429048869": {
+      "status": "PASS",
+      "normal_runtime_panel": false,
+      "qa_mode_panel": true,
+      "chromium_reference_controls_ready_from_navigation_ms": 28,
+      "chromium_reference_audio_state": "running",
+      "chromium_reference_sfx_counts": {
+        "engine": 1,
+        "horn": 1,
+        "win": 0
+      },
+      "physical_device_substitution": false
     }
   }
 }
