@@ -9,7 +9,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#161a18;font-family:system-ui,-apple-system,sans-serif;touch-action:manipulation}
 body{display:grid;place-items:center}
-#shell{position:relative;width:min(100vw,430px);height:min(100vh,760px);overflow:hidden;background:#222}
+#shell{position:relative;width:min(100vw,calc(100vh * 420 / 680),420px);aspect-ratio:420/680;overflow:hidden;background:#222}
 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 #reset{position:absolute;right:14px;top:max(14px,env(safe-area-inset-top));width:48px;height:48px;border:0;border-radius:50%;background:rgba(245,245,238,.88);color:#161a18;font-size:27px;font-weight:700;box-shadow:0 4px 18px #0006;opacity:.9}
 #reset:active{transform:scale(.94)}
@@ -29,8 +29,8 @@ const canvas=document.querySelector('#c'),shell=document.querySelector('#shell')
 const ctx=canvas.getContext('2d',{alpha:false});
 const WORLD={w:420,h:680};
 const CAR={length:94,width:44,wheelbase:66,maxSteer:30*Math.PI/180};
-const START={x:120,y:508,heading:-Math.PI/2};
-const PATH=[[120,508],[120,445],[120,380],[124,330],[142,286],[178,252],[230,232],[300,228],[375,228],[470,228]];
+const START={x:157,y:508,heading:-Math.PI/2};
+const PATH=[[157,508],[157,445],[157,380],[160,330],[180,286],[215,252],[260,235],[320,230],[390,230],[470,230]];
 let state,raf,last=0,history=[];
 
 function reset(){
@@ -78,7 +78,7 @@ function drawLot(){
   ctx.beginPath();ctx.moveTo(330,170);ctx.lineTo(330,315);ctx.stroke();
   // subtle directional chevrons
   ctx.fillStyle='rgba(244,240,220,.20)';
-  for(const x of [300,350,400]){ctx.beginPath();ctx.moveTo(x-12,224);ctx.lineTo(x+3,214);ctx.lineTo(x+3,222);ctx.lineTo(x+18,222);ctx.lineTo(x+18,234);ctx.lineTo(x+3,234);ctx.lineTo(x+3,242);ctx.closePath();ctx.fill()}
+  for(const x of [300,350,400]){ctx.beginPath();ctx.moveTo(x+18,228);ctx.lineTo(x+3,216);ctx.lineTo(x+3,223);ctx.lineTo(x-14,223);ctx.lineTo(x-14,233);ctx.lineTo(x+3,233);ctx.lineTo(x+3,240);ctx.closePath();ctx.fill()}
   // parked-space wheel stops
   ctx.fillStyle='#9a968d';
   for(const x of [83,157,231]){ctx.fillRect(x-18,588,36,7)}
@@ -144,7 +144,7 @@ function step(t){
   state.y+=Math.sin(state.heading)*state.speed*dt;
   history.push({t:+(t-state.startedAt).toFixed(1),x:+state.x.toFixed(2),y:+state.y.toFixed(2),heading:+state.heading.toFixed(4),speed:+state.speed.toFixed(2),steer:+state.steer.toFixed(4)});
   if(state.x>452){
-    state.running=false;state.done=true;state.speed=0;state.completedAt=t;hint.textContent='↻  RESET TO RUN AGAIN';hint.classList.remove('hide');draw();return;
+    state.running=false;state.done=true;state.speed=0;state.completedAt=t;hint.classList.add('hide');draw();return;
   }
   draw();raf=requestAnimationFrame(step);
 }
