@@ -1,0 +1,41 @@
+{
+  "level_id": "level_002",
+  "solvable": true,
+  "solution_count": 11340,
+  "canonical_solution": [
+    "white_bl",
+    "silver_mid",
+    "yellow_mid",
+    "green_tl",
+    "green_br",
+    "red_top",
+    "blue_bottom",
+    "black_ml",
+    "blue_top"
+  ],
+  "states_explored": 126,
+  "initial_legal_moves": [
+    "white_bl",
+    "silver_mid",
+    "green_br",
+    "black_ml"
+  ],
+  "initial_blockers": {
+    "yellow_mid": "silver_mid",
+    "white_bl": null,
+    "silver_mid": null,
+    "green_tl": "white_bl",
+    "red_top": "green_br",
+    "blue_bottom": "red_top",
+    "green_br": null,
+    "black_ml": null,
+    "blue_top": "green_br"
+  },
+  "structural_metrics_v0": {
+    "vehicle_count": 9,
+    "initial_legal_choice_count": 4,
+    "mean_legal_choices_per_nonterminal_state": 3,
+    "forced_state_ratio": 0.072,
+    "solution_count": 11340
+  }
+}

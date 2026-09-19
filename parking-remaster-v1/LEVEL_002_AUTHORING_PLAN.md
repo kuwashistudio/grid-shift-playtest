@@ -1,7 +1,7 @@
 # Level 2 Controlled Authoring Proof
 
 Updated: 2026-09-19
-Status: CANDIDATE_IMPLEMENTED_PENDING_CI_AND_VISUAL_QA
+Status: PASS / CLOSED
 
 ## Role
 - id: level_002
@@ -41,3 +41,33 @@ CI must prove schema, production-sprite hashes/layout readability, solver succes
 Initial proof run `35428195203` passed Level-2 schema and layout checks, then exposed a pre-existing bundle-builder bug: `level_001.difficulty.json` matched the broad `level_*.json` glob and was treated as canonical level data. Level content was not the cause.
 
 Bounded repair: both bundle generation and canonical-bundle validation now exclude `.analysis.json`, `.parity.json`, and `.difficulty.json` sidecars.
+
+
+## Final proof
+
+Passing CI run: `35428271296` (17 seconds, SUCCESS).
+
+All required checks passed:
+- schema v1;
+- production sprite hashes and non-overlapping expanded hitboxes;
+- generated bundle sync;
+- exact solver;
+- Level-2 brief hard + soft checks;
+- all 512 Level-2 subset states Python/JS parity;
+- production-sprite full-lot visual QA;
+- 390px visual QA.
+
+Exact results:
+- 9 vehicles;
+- 11,340 complete clear orders;
+- 126 reachable states;
+- dependency depth = 2 moves;
+- initial legal choices = 4;
+- mean legal choices = 3.000;
+- forced-state ratio = 0.072;
+- mean choice entropy = 1.483870 bits;
+- novelty load = 0.
+
+Direct visual review: PASS.
+
+The locked clean plate's baked top HUD still reads Level 1 outside the lot crop. That is not hidden or treated as solved. The next gate must prove Level-2 runtime progression and dynamic level-number presentation without modifying the locked clean plate.

@@ -1,0 +1,40 @@
+{
+  "model_version": "difficulty_features_v1",
+  "level_id": "level_002",
+  "designer_target_band": "easy",
+  "structural_features": {
+    "vehicle_count": 9,
+    "dependency_edge_count": 5,
+    "dependency_depth_vehicles": 3,
+    "dependency_depth_moves": 2,
+    "longest_dependency_chain": [
+      "green_br",
+      "red_top",
+      "blue_bottom"
+    ],
+    "initial_legal_choice_count": 4,
+    "reachable_state_count": 126,
+    "reachable_transition_count": 375,
+    "branch_histogram": {
+      "1": 9,
+      "2": 30,
+      "3": 46,
+      "4": 32,
+      "5": 8
+    },
+    "mean_legal_choices": 3,
+    "max_legal_choices": 5,
+    "forced_state_ratio": 0.072,
+    "mean_choice_entropy_bits": 1.48387,
+    "solution_count": 11340,
+    "log2_solution_count": 13.469133,
+    "solution_order_fraction": 0.03125,
+    "novelty_load": 0,
+    "hard_fail_recovery_cost": 0
+  },
+  "interpretation_guards": [
+    "These are structural features, not a human difficulty score.",
+    "Do not rank player-facing difficulty from solution_count alone.",
+    "Weights must be calibrated later using fresh-player and controlled-release data."
+  ]
+}

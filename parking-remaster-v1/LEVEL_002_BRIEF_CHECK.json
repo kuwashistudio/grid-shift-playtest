@@ -1,0 +1,8 @@
+{
+  "level_id": "level_002",
+  "hard_status": "PASS",
+  "hard_errors": [],
+  "soft_status": "PASS",
+  "soft_outliers": [],
+  "policy": "Soft envelope outliers require design review; they are not automatic human-difficulty failures."
+}

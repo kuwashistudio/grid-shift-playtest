@@ -1,0 +1,26 @@
+{
+  "gate": "LEVEL_002_VISUAL_READABILITY_QA",
+  "status": "PASS",
+  "reviewed_at": "2026-09-19",
+  "source": {
+    "ci_run_id": 35428271296,
+    "artifact_id": 10579822956,
+    "artifact_digest": "sha256:e86ffdc253be3bc68010af9034108962bd6bf90c200debe05675ebe1696a562b",
+    "production_background": "assets/clean_plate.webp",
+    "production_sprites": "assets/sprites/{id}.webp"
+  },
+  "views": [
+    {
+      "file": "level_002_lot_full.jpg",
+      "status": "PASS",
+      "observation": "Nine production sprites align with visible parking geometry; no sprite overlap, duplicate-car artifact, or unreadable crowding."
+    },
+    {
+      "file": "level_002_lot_390.jpg",
+      "status": "PASS",
+      "observation": "At 390px width the board remains readable, with clear open space and distinct vehicle silhouettes."
+    }
+  ],
+  "hud_note": "The approved clean plate still contains the Level 1 HUD outside this lot-only QA crop. Level-number progression must be handled by the next runtime/progression gate without mutating the locked clean plate.",
+  "decision": "PASS_LEVEL_002_LAYOUT"
+}

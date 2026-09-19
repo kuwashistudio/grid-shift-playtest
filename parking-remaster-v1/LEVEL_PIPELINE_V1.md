@@ -96,7 +96,7 @@ H1-IMPL — PASS: Level Schema v2, JavaScript functional core, and Python state 
 
 VS-BRIEF — PASS: per-level soft structural envelopes and hard heartbeat relations are defined and independently verified for Levels 1-14.
 
-After VS-BRIEF passes, the next task is **Level 2 only** as a controlled-authoring proof. Measure design/data/validation/revision time before authoring Level 3.
+**Level 2 Controlled Authoring Proof — PASS (2026-09-19).** `levels/level_002.json` is schema-valid, exactly solvable, inside all six soft structural envelopes, 512-state JS/Python parity PASS, and direct full-lot/390px visual QA PASS. The first CI run exposed and repaired a pre-existing sidecar-filtering bug; the Level-2 content itself required no post-CI revision. Level 3 remains locked until Level-2 runtime/progression is proven.
 
 
 ## Visual Production prerequisite — ACTIVE
@@ -107,4 +107,4 @@ The production path is clean plate + reusable MASTER-derived sprites. See `VISUA
 
 **VP-3 Sprite Gate — PASS (2026-09-19).** Ten MASTER-derived production car sprites are committed under `assets/sprites/` and hash-locked by `VP_SPRITE_PRODUCTION_RESULT.json`.
 
-**Next gate: VP-2 Clean Plate only.** Level 2 remains locked until Level 1 can be rebuilt from production clean plate + the PASS sprite set with no patch dependency.
+**Visual prerequisite — PASS.** Clean plate, sprites, and Level-1 clean-plate runtime migration are complete. **Next gate: Level 2 Runtime Progression Proof.**

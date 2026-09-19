@@ -88,3 +88,32 @@ Do not return to Adobe/Firefly, Telea, Navier-Stokes, xphoto FSR, any LaMa mask/
 ## Stale-CI protection
 
 A post-handoff one-shot workflow attempted to promote Independent Local LaMa margin 26 (run 35383429547), even though that exact method was already rejected by direct visual QA. That promotion is invalid under CANON and is removed/disabled by the 2026-09-19 consistency repair. Late CI may not overwrite a later human/visual decision.
+
+
+## Level 2 Controlled Authoring Proof — PASS / CLOSED
+
+- Canonical data: `levels/level_002.json`.
+- Role: easy; schema v1; no new mechanic; novelty_load 0; hard fail false.
+- Cars: 9.
+- Initial legal choices: 4.
+- Dependency depth: 2 moves.
+- Mean legal choices: 3.000.
+- Forced-state ratio: 0.072.
+- Mean choice entropy: 1.483870 bits.
+- Exact solution orders: 11,340.
+- Reachable states: 126.
+- Level-1 exact body-rect reuse: 0.
+- Level-2 Python/JS parity: 512/512 states.
+- Passing proof CI: `35428271296` SUCCESS.
+- Direct full-lot + 390px production-sprite visual QA: PASS.
+- One infrastructure repair was needed for old `.difficulty.json` sidecar filtering; Level-2 content itself required 0 post-CI revisions.
+- Human difficulty/fun remains unproven until fresh-player evidence.
+- Level 3 remains LOCKED.
+
+Next exact gate: **Level 2 Runtime Progression Proof**.
+1. Make runtime able to progress from Level 1 to Level 2 without a pre-game menu.
+2. Keep Instant Start: initial load is still immediately playable Level 1.
+3. Render Level 2 from the canonical bundled data and locked production sprites.
+4. Cover/replace the baked Level-1 HUD number dynamically for Level 2 without changing the locked clean plate.
+5. Verify clear -> Level 2 transition, restart semantics, touch targets, audio recovery, and Level-2 solver/runtime behavior.
+6. Do not author Level 3 in the same gate.
