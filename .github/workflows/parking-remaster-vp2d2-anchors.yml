@@ -26,6 +26,17 @@ jobs:
         run: python -m pip install "numpy==2.2.6" "opencv-python-headless==4.12.0.88"
       - name: Build anchor candidates
         run: python parking-remaster-v1/scripts/detect_parking_anchors.py
+      - name: Upload visual QA tiles
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-vp2d2-anchor-qa
+          path: |
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_1.jpg
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_2.jpg
+            parking-remaster-v1/assets/qa/vp2d2_anchor_review_tile_3.jpg
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Commit candidates and QA overlay
         run: |
           git config user.name "github-actions[bot]"
