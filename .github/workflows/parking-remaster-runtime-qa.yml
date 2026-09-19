@@ -11,6 +11,7 @@ on:
       - "parking-remaster-v1/scripts/validate_runtime_mobile.py"
       - "parking-remaster-v1/scripts/validate_instant_start_audio.py"
       - "parking-remaster-v1/scripts/validate_runtime_clean_plate.py"
+      - "parking-remaster-v1/scripts/validate_inline_runtime_syntax.py"
       - ".github/workflows/parking-remaster-runtime-qa.yml"
 
 permissions:
@@ -26,6 +27,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Validate inline runtime JavaScript syntax
+        working-directory: parking-remaster-v1
+        run: python scripts/validate_inline_runtime_syntax.py
       - name: Validate clean-plate runtime migration
         working-directory: parking-remaster-v1
         run: python scripts/validate_runtime_clean_plate.py

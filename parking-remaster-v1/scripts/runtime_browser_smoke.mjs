@@ -15,12 +15,15 @@ const context=await browser.newContext({
   locale:'en-US'
 });
 const page=await context.newPage();
+page.setDefaultTimeout(5000);
 const pageErrors=[];
 const requestFailures=[];
 page.on('pageerror',e=>pageErrors.push(String(e)));
 page.on('requestfailed',r=>requestFailures.push({url:r.url(),failure:r.failure()?.errorText||'unknown'}));
 
 await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'networkidle'});
+await page.waitForTimeout(250);
+if(pageErrors.length)throw new Error(`page initialization errors: ${JSON.stringify(pageErrors)}`);
 await page.waitForFunction(()=>window.__parkingQA?.cars?.size===10);
 
 const initial=await page.evaluate(()=>({

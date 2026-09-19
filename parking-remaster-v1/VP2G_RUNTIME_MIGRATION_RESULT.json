@@ -1,6 +1,6 @@
 {
   "gate": "VP_2G_RUNTIME_CLEAN_PLATE_MIGRATION",
-  "status": "IMPLEMENTED_PENDING_CI",
+  "status": "BOUNDED_REPAIR_1_PENDING_CI",
   "implemented_at": "2026-09-19",
   "production_background": "assets/clean_plate.webp",
   "production_background_sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
@@ -22,5 +22,14 @@
   ],
   "runtime_visual_note": "Baked tutorial arrow/glow is no longer part of the background; dynamic hintPulse now mounts over red_top and is removed when the first-focus car exits.",
   "level2_changed": false,
-  "next": "Run runtime CI. Close VP-2G only if clean-plate architecture, mobile input, Instant Start/audio, Level Data binding, and all 1024 Level-1 solver/JS states pass."
+  "next": "Re-run static runtime QA and 390px Playwright touch smoke. No second implementation change unless new evidence requires it.",
+  "first_browser_run": {
+    "run_id": 35427539088,
+    "status": "FAIL",
+    "failure": "Runtime initialization timeout caused by malformed sprite() tail left by migration regex.",
+    "root_cause": "Extraneous `});stage.appendChild(im)}` after sprite() function.",
+    "gameplay_logic_impacted": false,
+    "repair": "Remove malformed tail; add node --check inline-JS syntax gate; reduce browser smoke failure latency.",
+    "repair_count": 1
+  }
 }
