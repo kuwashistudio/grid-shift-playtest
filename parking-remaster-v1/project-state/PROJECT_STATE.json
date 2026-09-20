@@ -10,98 +10,21 @@
   "current_gate": "P1-006",
   "last_completed_gate": "GP-000",
   "next_gate": "P1-007",
-  "blockers": [
-    "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
-    "Legacy Level 1/2 gameplay design is REJECTED; Level 3 and multi-car expansion remain locked until the rebuilt core-fun path passes."
-  ],
+  "blockers": ["V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.", "Legacy Level 1/2 gameplay design is REJECTED; Level 3 and multi-car expansion remain locked until the rebuilt core-fun path passes."],
   "staging_head_at_bootstrap": "b874f7256860948bfb17fa0e270379c912b6b24f",
   "latest_verified_commit": "6d36da13be57645e7d6726ebee56c70b8200cdf7",
   "latest_verified_commit_role": "V7.3 audio/motion browser-proof commit. Metadata-only state commits are not gameplay verification.",
-  "latest_verified_ci": {
-    "workflow": "Parking Remaster Engine Roar + Tire Squeal V7.3",
-    "run_id": 35491534202,
-    "status": "SUCCESS",
-    "verified_behavior": {
-      "duration_ms": 1708.9,
-      "snap_left_strokes": 1,
-      "snap_right_strokes": 1,
-      "snap_left_points": 8,
-      "snap_right_points": 8,
-      "audio_context": "running"
-    }
-  },
-  "latest_public_prototype": {
-    "version": "V7.3",
-    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/",
-    "main_commit": "ec36d40dd72451a289886e8225e1c64e18898dd9",
-    "pages_run_id": 35491585246,
-    "pages_status": "SUCCESS"
-  },
+  "latest_verified_ci": {"workflow":"Parking Remaster Engine Roar + Tire Squeal V7.3","run_id":35491534202,"status":"SUCCESS","verified_behavior":{"duration_ms":1708.9,"snap_left_strokes":1,"snap_right_strokes":1,"snap_left_points":8,"snap_right_points":8,"audio_context":"running"}},
+  "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","main_commit":"ec36d40dd72451a289886e8225e1c64e18898dd9","pages_run_id":35491585246,"pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
-  "gate_counts": {
-    "PASS": 7,
-    "IN_PROGRESS": 1,
-    "BLOCKED": 11,
-    "TODO": 0,
-    "total": 19
-  },
-  "canonical_files": {
-    "canon": "parking-remaster-v1/project-state/CANON.md",
-    "gates": "parking-remaster-v1/project-state/GATES.json",
-    "project_state": "parking-remaster-v1/project-state/PROJECT_STATE.json"
-  },
-  "legacy_evidence_sources": [
-    "parking-remaster-v1/BUILD_STATE.md",
-    "parking-remaster-v1/PRODUCTION_BLUEPRINT_V1.md",
-    "parking-remaster-v1/PROJECT_PHASE.json",
-    "parking-remaster-v1/*_RESULT.json"
-  ],
-  "resume_instruction": [
-    "Read parking-remaster-v1/project-state/PROJECT_STATE.json.",
-    "Read parking-remaster-v1/project-state/CANON.md.",
-    "Read parking-remaster-v1/project-state/GATES.json.",
-    "Fetch the latest HEAD of parking-remaster-v1-staging-20260917; do not trust an embedded head value instead of fetching.",
-    "For current_gate P1-006, inspect V7_3_RESULT.json and CI run 35491534202 only as needed.",
-    "Do not implement another gameplay/audio revision before receiving the user's V7.3 physical-iPhone feel judgment.",
-    "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA sub-gates; do not activate P1-007/P1-008 or multi-car gameplay.",
-    "Run parking-remaster-v1/scripts/validate_project_state.py after state changes; CI workflow Parking Remaster Project State enforces machine-checkable invariants.",
-    "Advance exactly one atomic gate or clearly bounded independent sub-gate.",
-    "Commit implementation/evidence first.",
-    "Then update GATES.json if gate status/evidence changed.",
-    "Update PROJECT_STATE.json at the end of the working turn.",
-    "Do not create a long Chat HANDOFF unless GitHub state is unavailable, corrupted, or insufficient."
-  ],
-  "storage_policy": {
-    "persist": ["code", "HTML/CSS/JS", "JSON", "Markdown", "workflow", "small test data", "state metadata", "required lightweight assets"],
-    "avoid_unbounded": ["temporary screenshots", "large videos", "long-lived workflow artifacts", "build caches", "render intermediates", "duplicate backups"]
-  },
-  "critical_guardrails": [
-    "Do not modify GRID SHIFT root/game files outside parking-remaster-v1/ and dedicated Parking Remaster workflows.",
-    "One atomic gate per turn.",
-    "CI/numeric PASS is not human game-quality PASS.",
-    "Physical iPhone feel review outranks synthetic audio/visual metrics.",
-    "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open.",
-    "New research may add a gate only when it reveals a genuinely necessary completion requirement; research must not create an infinite roadmap."
-  ],
-  "updated_at": "2026-09-21T01:02:00+09:00",
-  "persistence_bootstrap": {
-    "status": "PASS",
-    "project_state_initial_commit": "d0966bd437678b5b97d09c709f285dd5574cd6be",
-    "canon_commit": "1d550abbfac6e2a1133b7faeda0387448bf3860a",
-    "gates_initial_commit": "c88e711304c23cc2719f47681e98dfebc7679e26",
-    "execution_rules_commit": "a61480e09c05f87de09bf4f492f3bab53d749522",
-    "gates_close_commit": "ceaf121b881efa709165f34acafbe3cf561520d9",
-    "verification": "Only Parking Remaster state/rules files changed; no gameplay code and no GRID SHIFT files changed."
-  },
-  "parallel_progress": {
-    "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Persistent Project State consistency validator",
-    "implementation_commit": "35c9ceb31fed1cd31de073bff9e3b6c120f4b575",
-    "workflow_commit": "f8d40aa289c363f32cd0c5b049bb5e005875aa08",
-    "workflow": "Parking Remaster Project State",
-    "run_id": 35521319023,
-    "run_status_at_checkpoint": "QUEUED",
-    "purpose": "Prevent stale gate counts, invalid active pointers, premature production activation, and synthetic promotion of the P1-006 human audio gate."
-  },
+  "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
+  "canonical_files": {"canon":"parking-remaster-v1/project-state/CANON.md","gates":"parking-remaster-v1/project-state/GATES.json","project_state":"parking-remaster-v1/project-state/PROJECT_STATE.json"},
+  "legacy_evidence_sources": ["parking-remaster-v1/BUILD_STATE.md","parking-remaster-v1/PRODUCTION_BLUEPRINT_V1.md","parking-remaster-v1/PROJECT_PHASE.json","parking-remaster-v1/*_RESULT.json"],
+  "resume_instruction": ["Read parking-remaster-v1/project-state/PROJECT_STATE.json.","Read parking-remaster-v1/project-state/CANON.md.","Read parking-remaster-v1/project-state/GATES.json.","Fetch the latest HEAD of parking-remaster-v1-staging-20260917; do not trust an embedded head value instead of fetching.","For current_gate P1-006, inspect V7_3_RESULT.json and CI run 35491534202 only as needed.","Do not implement another gameplay/audio revision before receiving the user's V7.3 physical-iPhone feel judgment.","While P1-006 is on USER-HOLD, advance only independent prerequisite/QA sub-gates; do not activate P1-007/P1-008 or multi-car gameplay.","Use parking-remaster-v1/research/VISIBLE_MOVEMENT_RULE_BENCHMARK_20260921.md as the closed P1-008 prerequisite decision; do not re-research the same movement-rule question without contradictory evidence.","Run parking-remaster-v1/scripts/validate_project_state.py after state changes; CI workflow Parking Remaster Project State enforces machine-checkable invariants.","Advance exactly one atomic gate or clearly bounded independent sub-gate.","Commit implementation/evidence first.","Then update GATES.json if gate status/evidence changed.","Update PROJECT_STATE.json at the end of the working turn.","Do not create a long Chat HANDOFF unless GitHub state is unavailable, corrupted, or insufficient."],
+  "storage_policy": {"persist":["code","HTML/CSS/JS","JSON","Markdown","workflow","small test data","state metadata","required lightweight assets"],"avoid_unbounded":["temporary screenshots","large videos","long-lived workflow artifacts","build caches","render intermediates","duplicate backups"]},
+  "critical_guardrails": ["Do not modify GRID SHIFT root/game files outside parking-remaster-v1/ and dedicated Parking Remaster workflows.","One atomic gate per turn.","CI/numeric PASS is not human game-quality PASS.","Physical iPhone feel review outranks synthetic audio/visual metrics.","No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open.","New research may add a gate only when it reveals a genuinely necessary completion requirement; research must not create an infinite roadmap."],
+  "updated_at": "2026-09-21T02:00:00+09:00",
+  "persistence_bootstrap": {"status":"PASS","project_state_initial_commit":"d0966bd437678b5b97d09c709f285dd5574cd6be","canon_commit":"1d550abbfac6e2a1133b7faeda0387448bf3860a","gates_initial_commit":"c88e711304c23cc2719f47681e98dfebc7679e26","execution_rules_commit":"a61480e09c05f87de09bf4f492f3bab53d749522","gates_close_commit":"ceaf121b881efa709165f34acafbe3cf561520d9","verification":"Only Parking Remaster state/rules files changed; no gameplay code and no GRID SHIFT files changed."},
+  "parallel_progress": {"user_hold":"P1-006 physical-iPhone audio feel review remains pending and was not advanced.","latest_independent_subgate":"Visible movement rule benchmark and parity contract","implementation_commit":"ce8164ce56609e5cb8f80ae46eb4939845b0aa62","evidence_file":"parking-remaster-v1/research/VISIBLE_MOVEMENT_RULE_BENCHMARK_20260921.md","decision":"Prototype fixed visible heading + straight swept-footprint clearance first after P1-007 unlocks P1-008; Python/JS parity fixture contract defined in advance.","purpose":"Retire the rejected hidden-ray/shared-Bezier mismatch without implementing multi-car gameplay while audio remains on USER-HOLD."},
   "resume_ready": true
 }
