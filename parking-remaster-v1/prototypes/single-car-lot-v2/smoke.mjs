@@ -34,5 +34,7 @@ assert(result.history.some(x=>x.phase==='shift'),'no shift phase');
 let maxStep=0;
 for(let i=1;i<result.history.length;i++){const a=result.history[i-1],b=result.history[i];maxStep=Math.max(maxStep,Math.hypot(b.x-a.x,b.y-a.y))}
 assert(maxStep<5,'teleport-like displacement');
-console.log(JSON.stringify({status:'PASS',initial,reverse,shift,forward,final:result.state,maxStepPx:+maxStep.toFixed(2),samples:result.history.length},null,2));
+const durationMs=result.state.completedAt-result.state.startedAt;
+assert(durationMs<3800,'maneuver still too slow: '+durationMs+'ms');
+console.log(JSON.stringify({status:'PASS',initial,reverse,shift,forward,final:result.state,durationMs:+durationMs.toFixed(1),maxStepPx:+maxStep.toFixed(2),samples:result.history.length},null,2));
 await browser.close();
