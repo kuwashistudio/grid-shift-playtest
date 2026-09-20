@@ -10,7 +10,7 @@ function resize(){const r=shell.getBoundingClientRect(),d=Math.min(2,devicePixel
 function rr(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
 function drawLot(){const g=ctx.createLinearGradient(0,0,0,WORLD.h);g.addColorStop(0,'#59605c');g.addColorStop(.5,'#444a47');g.addColorStop(1,'#343936');ctx.fillStyle=g;ctx.fillRect(0,0,WORLD.w,WORLD.h);ctx.save();ctx.globalAlpha=.11;for(let i=0;i<580;i++){const x=i*89%419,y=i*157%679,v=40+(i*41%52);ctx.fillStyle=`rgb(${v},${v+2},${v+1})`;ctx.fillRect(x,y,1.1,1.1)}ctx.restore();ctx.fillStyle='#c8c2b6';ctx.fillRect(0,72,WORLD.w,18);ctx.fillStyle='#85827b';ctx.fillRect(0,90,WORLD.w,5);ctx.fillStyle='rgba(255,255,255,.028)';ctx.fillRect(0,285,WORLD.w,170);ctx.strokeStyle='rgba(244,240,220,.9)';ctx.lineWidth=4;ctx.lineCap='round';for(const x of [150,224,298,372]){ctx.beginPath();ctx.moveTo(x,445);ctx.lineTo(x,625);ctx.stroke()}ctx.beginPath();ctx.moveTo(150,445);ctx.lineTo(372,445);ctx.stroke();ctx.fillStyle='#aaa59b';for(const x of [187,261,335]){rr(x-20,590,40,8,3);ctx.fill()}ctx.strokeStyle='rgba(244,240,220,.7)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(365,285);ctx.lineTo(365,455);ctx.stroke()}
 function rearWheel(side){const r=axle(state.x,state.y,state.heading,false),lat=side*(CAR.width/2-2),nx=-Math.sin(state.heading),ny=Math.cos(state.heading);return{x:r.x+nx*lat,y:r.y+ny*lat}}
-function emitSmoke(n=2,strong=1){for(let i=0;i<n;i++){const p=rearWheel(i%2?1:-1);smoke.push({x:p.x+(i%2?2:-2),y:p.y,r:3.5+((state.smokeCount+i)%4),a:.24*strong,vx:(i%2?7:-7),vy:-5-((state.smokeCount+i)%5)});state.smokeCount++;if(smoke.length>180)smoke.shift()}}
+function emitSmoke(n=2,strong=1){for(let i=0;i<n;i++){const p=rearWheel(i%2?1:-1);smoke.push({x:p.x+(i%2?2:-2),y:p.y,r:5.5+((state.smokeCount+i)%5),a:.34*strong,vx:(i%2?7:-7),vy:-5-((state.smokeCount+i)%5)});state.smokeCount++;if(smoke.length>180)smoke.shift()}}
 function addMark(){for(const side of [-1,1]){const p=rearWheel(side);marks.push({x:p.x,y:p.y});if(marks.length>520)marks.shift()}}
 function drawMarks(){ctx.save();ctx.fillStyle='rgba(18,18,16,.22)';for(const m of marks){ctx.beginPath();ctx.arc(m.x,m.y,2.1,0,Math.PI*2);ctx.fill()}ctx.restore()}
 function drawSmoke(){ctx.save();for(const s of smoke){ctx.globalAlpha=s.a;ctx.fillStyle='#e0e2df';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}ctx.restore()}
@@ -20,7 +20,7 @@ function draw(){ctx.setTransform(canvas.width/WORLD.w,0,0,canvas.height/WORLD.h,
 function enter(p){state.phase=p;state.phaseT=0;if(p===1)state.blastStart={x:state.x,y:state.y};if(p===2)state.snapFrontStart=axle(state.x,state.y,state.heading,true)}
 function animate(dt){state.phaseT+=dt;
  if(state.phase===0){ // TAME: stationary, straight, smoke builds
-   state.x=START.x;state.y=START.y;state.heading=START.heading;emitSmoke(3,1.25);addMark();if(state.phaseT>=.36)enter(1);
+   state.x=START.x;state.y=START.y;state.heading=START.heading;emitSmoke(5,1.55);addMark();if(state.phaseT>=.36)enter(1);
  }else if(state.phase===1){ // straight violent launch, absolutely no yaw
    const T=.22,t=clamp(state.phaseT/T,0,1),e=Math.pow(t,1.55);state.x=state.blastStart.x;state.y=state.blastStart.y-172*e;state.heading=START.heading;emitSmoke(1,.45);addMark();if(t>=1)enter(2);
  }else if(state.phase===2){ // only now rotate: front axle barely advances, rear whips around it
@@ -29,7 +29,7 @@ function animate(dt){state.phaseT+=dt;
  }else{ // aligned: second blast
    state.heading=0;state.x+=760*dt;state.y+=(315-state.y)*(1-Math.pow(.10,dt*60));if(state.x>458){state.running=false;state.done=true;state.completedAt=performance.now();hint.classList.add('hide')}
  }}
-function step(t){if(!state.running)return;if(!last)last=t;const dt=Math.min(.016,(t-last)/1000);last=t;animate(dt);for(const s of smoke){s.x+=s.vx*dt;s.y+=s.vy*dt;s.r+=12*dt;s.a*=Math.pow(.84,dt*60)}smoke=smoke.filter(s=>s.a>.012);history.push({t:+(t-state.startedAt).toFixed(1),phase:PHASES[state.phase],x:+state.x.toFixed(2),y:+state.y.toFixed(2),heading:+state.heading.toFixed(5)});draw();if(state.running)raf=requestAnimationFrame(step)}
+function step(t){if(!state.running)return;if(!last)last=t;const dt=Math.min(.016,(t-last)/1000);last=t;animate(dt);for(const s of smoke){s.x+=s.vx*dt;s.y+=s.vy*dt;s.r+=16*dt;s.a*=Math.pow(.90,dt*60)}smoke=smoke.filter(s=>s.a>.012);history.push({t:+(t-state.startedAt).toFixed(1),phase:PHASES[state.phase],x:+state.x.toFixed(2),y:+state.y.toFixed(2),heading:+state.heading.toFixed(5)});draw();if(state.running)raf=requestAnimationFrame(step)}
 function start(){if(state.running||state.done)return;state.running=true;state.startedAt=performance.now();last=0;hint.classList.add('hide');raf=requestAnimationFrame(step)}
 canvas.addEventListener('pointerdown',e=>{const r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*WORLD.w/r.width,y=(e.clientY-r.top)*WORLD.h/r.height;if(Math.hypot(x-state.x,y-state.y)<72)start()});document.querySelector('#reset').addEventListener('click',reset);
 window.__v5QA={state:()=>({...state,phaseName:PHASES[state.phase]}),history:()=>history.slice(),front:()=>axle(state.x,state.y,state.heading,true),rear:()=>axle(state.x,state.y,state.heading,false),start,reset};reset();resize()})();
