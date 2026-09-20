@@ -8,10 +8,10 @@
     "BLOCKED",
     "PASS"
   ],
-  "updated_at": "2026-09-20T14:30:00+09:00",
+  "updated_at": "2026-09-20T14:33:00+09:00",
   "counts": {
-    "PASS": 6,
-    "IN_PROGRESS": 2,
+    "PASS": 7,
+    "IN_PROGRESS": 1,
     "BLOCKED": 11,
     "TODO": 0,
     "total": 19
@@ -20,14 +20,18 @@
     {
       "id": "GP-000",
       "title": "GitHub Persistent Project State bootstrap",
-      "status": "IN_PROGRESS",
+      "status": "PASS",
       "acceptance_criteria": [
         "PROJECT_STATE.json, CANON.md, and GATES.json exist under parking-remaster-v1/project-state/.",
         "Old chat-handoff rules no longer conflict with GitHub-as-authority.",
         "A new Chat can determine current gate, canonical constraints, gate counts, latest verified evidence, and exact resume action from GitHub alone."
       ],
       "evidence": [
-        "Migration requested 2026-09-20; repository structure audited before mutation."
+        "PROJECT_STATE.json committed at d0966bd437678b5b97d09c709f285dd5574cd6be.",
+        "CANON.md committed at 1d550abbfac6e2a1133b7faeda0387448bf3860a.",
+        "GATES.json initial registry committed at c88e711304c23cc2719f47681e98dfebc7679e26.",
+        "EXECUTION_RULES.md switched from long Chat handoff to GitHub persistent state at a61480e09c05f87de09bf4f492f3bab53d749522.",
+        "Compare b874f7256860948bfb17fa0e270379c912b6b24f...a61480e09c05f87de09bf4f492f3bab53d749522 shows only EXECUTION_RULES.md and project-state/{CANON.md,GATES.json,PROJECT_STATE.json}; no gameplay or GRID SHIFT files changed."
       ],
       "blocker": null
     },
