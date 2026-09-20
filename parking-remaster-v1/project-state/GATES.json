@@ -1,0 +1,289 @@
+{
+  "schema_version": "1.0",
+  "project": "Parking Remaster",
+  "authority": "Finite gate registry. Add a new gate only when materially necessary evidence reveals a genuinely new completion requirement.",
+  "status_enum": [
+    "TODO",
+    "IN_PROGRESS",
+    "BLOCKED",
+    "PASS"
+  ],
+  "updated_at": "2026-09-20T14:30:00+09:00",
+  "counts": {
+    "PASS": 6,
+    "IN_PROGRESS": 2,
+    "BLOCKED": 11,
+    "TODO": 0,
+    "total": 19
+  },
+  "gates": [
+    {
+      "id": "GP-000",
+      "title": "GitHub Persistent Project State bootstrap",
+      "status": "IN_PROGRESS",
+      "acceptance_criteria": [
+        "PROJECT_STATE.json, CANON.md, and GATES.json exist under parking-remaster-v1/project-state/.",
+        "Old chat-handoff rules no longer conflict with GitHub-as-authority.",
+        "A new Chat can determine current gate, canonical constraints, gate counts, latest verified evidence, and exact resume action from GitHub alone."
+      ],
+      "evidence": [
+        "Migration requested 2026-09-20; repository structure audited before mutation."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "P0-001",
+      "title": "Product thesis, benchmark, and visual authority",
+      "status": "PASS",
+      "acceptance_criteria": [
+        "Parking Jam / Car Out / Tap Away style successful gameplay is the benchmark family.",
+        "Approved VISUAL MASTER is locked as the only production visual authority.",
+        "Target is iPhone-first HTML5 with immediate understandable play."
+      ],
+      "evidence": [
+        "PRODUCTION_BLUEPRINT_V1.md Phase 0 MOSTLY COMPLETE/current.",
+        "RESEARCH_BENCHMARK.md.",
+        "assets/master.webp Git blob f0bc5be7d4ae9e4995eaa0302d6fd3ec2098babe; SHA-256 535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "P1-001",
+      "title": "Reusable visual production foundation",
+      "status": "PASS",
+      "acceptance_criteria": [
+        "Production clean plate is approved and hash locked.",
+        "Ten MASTER-derived reusable production car sprites are approved and hash locked.",
+        "Old patch/reveal visual runtime dependency is retired."
+      ],
+      "evidence": [
+        "VISUAL_PRODUCTION_RESULT.json status SPRITES_PASS_GEOMETRY_PASS_CLEAN_PLATE_PASS_RUNTIME_MIGRATION_PASS.",
+        "VP2F_PROMOTION_RESULT.json PASS_CLOSED.",
+        "VP2G_RUNTIME_MIGRATION_RESULT.json PASS_CLOSED."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "P1-002",
+      "title": "Level Data, solver, and runtime parity foundation",
+      "status": "PASS",
+      "acceptance_criteria": [
+        "Level Data is the gameplay source of truth.",
+        "Python solver and JavaScript functional core agree on legal state transitions for published content.",
+        "Solver validity is not misrepresented as proof of human fun or difficulty."
+      ],
+      "evidence": [
+        "LEVEL_PIPELINE_V1.md LDP-1 through LDP-5 PASS.",
+        "H1_IMPL_RESULT.json PASS.",
+        "Legacy Level 1 1024-state parity PASS; legacy Level 2 512-state parity PASS."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "P1-003",
+      "title": "Legacy Level 1/2 technical runtime proof",
+      "status": "PASS",
+      "acceptance_criteria": [
+        "Instant Start, progression, restart, production assets, and runtime plumbing were technically demonstrated.",
+        "Result is explicitly classified as technical evidence only, not core-gameplay approval."
+      ],
+      "evidence": [
+        "LEVEL_002_RUNTIME_PROGRESSION_RESULT.json PASS_CLOSED.",
+        "INSTANT_START_AUDIO_RESULT.json browser/runtime checks PASS.",
+        "REAL_DEVICE_GAMEPLAY_REJECTION_20260919.md later rejects the gameplay design while preserving useful infrastructure."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "P1-004",
+      "title": "Real-device core gameplay rejection and rebuild decision",
+      "status": "PASS",
+      "acceptance_criteria": [
+        "Old hidden blocker + shared curved exit gameplay is rejected.",
+        "Level 3 authoring remains locked.",
+        "Core gameplay rebuild must make visible geometry, legal movement, and physical movement agree."
+      ],
+      "evidence": [
+        "REAL_DEVICE_GAMEPLAY_REJECTION_20260919.md: CORE GAMEPLAY INVALID / Level 1/2 REJECTED.",
+        "Fresh-player test on rejected gameplay explicitly deferred."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "P1-005",
+      "title": "Single-car motion and skid-feel proof through V7.2",
+      "status": "PASS",
+      "acceptance_criteria": [
+        "Two-stage charge/blast/snap/reload/exit cadence feels substantially better on physical iPhone.",
+        "Rear snap is rear-dominant and does not pre-turn during straight launch.",
+        "Snap tire marks render as smooth per-wheel arcs rather than polygonal frame segments."
+      ],
+      "evidence": [
+        "User evaluation reached '動きはだいぶ良い'.",
+        "V7_2_RESULT.json: duration about 1715ms; one smooth snap stroke per rear wheel; 8 contact points each.",
+        "V7.2 browser proof run 35490967519 SUCCESS."
+      ],
+      "blocker": null
+    },
+    {
+      "id": "P1-006",
+      "title": "V7.3 engine roar + tire squeal user feel review",
+      "status": "IN_PROGRESS",
+      "acceptance_criteria": [
+        "On physical iPhone, engine reads as a car rev/growl rather than Famicom/tonal synthetic audio.",
+        "Rear snap has an obvious tire squeal / friction sound.",
+        "No regression to accepted motion/skid behavior."
+      ],
+      "evidence": [
+        "V7_3_RESULT.json: audio-only revision.",
+        "Browser proof run 35491534202 SUCCESS; duration 1708.9ms; snap strokes 1/1; contact points 8/8; AudioContext running.",
+        "Public prototype https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/",
+        "Pages run 35491585246 SUCCESS."
+      ],
+      "blocker": "Requires user's physical-iPhone listening judgment. Recording is optional unless diagnosis is needed."
+    },
+    {
+      "id": "P1-007",
+      "title": "Single-car core-fun acceptance",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Motion, sound, responsiveness, and immediate feedback jointly feel satisfying on physical iPhone.",
+        "The accepted single-car interaction becomes the reference motion/audio grammar for rebuilding visible multi-car gameplay."
+      ],
+      "evidence": [],
+      "blocker": "P1-006 must pass first."
+    },
+    {
+      "id": "P1-008",
+      "title": "Visible multi-car movement-rule prototype",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Legal/illegal movement is inferable from visible board geometry.",
+        "Actual car movement follows the same visible rule used by logic/solver.",
+        "No repeated long passive wait and no hidden-ray/shared-Bezier mismatch.",
+        "Only one small prototype is built before restoring a full level."
+      ],
+      "evidence": [
+        "REAL_DEVICE_GAMEPLAY_REJECTION_20260919.md defines the rebuild constraints."
+      ],
+      "blocker": "P1-007 must pass. Multi-car expansion is forbidden before single-car feel is accepted."
+    },
+    {
+      "id": "P1-009",
+      "title": "Rebuilt Level 1 target-iPhone core-fun proof",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Instant Start remains intact.",
+        "Fresh player can infer first useful action without explanation.",
+        "Visible multi-car rule is satisfying and legible on target iPhone.",
+        "Level 1 logic and physical motion are solver/runtime-parity compatible."
+      ],
+      "evidence": [],
+      "blocker": "P1-008 must pass."
+    },
+    {
+      "id": "P2-001",
+      "title": "14-level representative Vertical Slice",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "12 Main + 2 optional Hard levels exist from controlled Level Data authoring.",
+        "All 14 are solver-proven, visually reviewed, and Beat-Chart compliant.",
+        "Difficulty forms the canonical deliberate waveform.",
+        "Failure/retry mechanic is visible, fair, deterministic, and immediate."
+      ],
+      "evidence": [
+        "VERTICAL_SLICE_GATE_V1.md; VERTICAL_SLICE_LEVEL_BRIEFS_V1.json; VERTICAL_SLICE_BEAT_CHART_V1.json."
+      ],
+      "blocker": "P1-009 must pass. Production has not started."
+    },
+    {
+      "id": "P2-002",
+      "title": "Vertical Slice fresh-player greenlight",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Fresh external players progress without developer explanation.",
+        "Failure cause is understood; retry is immediate; continuation desire is demonstrated.",
+        "Target quality and per-level production cost are repeatable and bounded."
+      ],
+      "evidence": [
+        "VERTICAL_SLICE_GATE_V1.md defines GREENLIGHT / REWORK / PIVOT-KILL outcomes."
+      ],
+      "blocker": "P2-001 must pass."
+    },
+    {
+      "id": "P3-001",
+      "title": "Content factory repeatability proof",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Level schema, solver, difficulty features, duplicate detection, Level Library, Beat Chart, regression QA, telemetry specification, and rollback manifest work as one repeatable pipeline.",
+        "Small batch production demonstrates stable time and quality."
+      ],
+      "evidence": [
+        "PRODUCTION_BLUEPRINT_V1.md Phase 3."
+      ],
+      "blocker": "P2-002 must GREENLIGHT production."
+    },
+    {
+      "id": "P4-001",
+      "title": "30-level content pilot",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "30 Main + representative Hard levels preserve difficulty wave, variety, retry behavior, and production quality.",
+        "Internal/external playtest does not reveal repetition or pacing collapse."
+      ],
+      "evidence": [
+        "PRODUCTION_BLUEPRINT_V1.md Phase 4."
+      ],
+      "blocker": "P3-001 must pass."
+    },
+    {
+      "id": "P5-001",
+      "title": "Closed external playtest",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Fresh players validate comprehension, fair failure, retry behavior, remembered satisfaction, and continued play without coaching."
+      ],
+      "evidence": [
+        "PRODUCTION_BLUEPRINT_V1.md Phase 5."
+      ],
+      "blocker": "P4-001 must pass."
+    },
+    {
+      "id": "P6-001",
+      "title": "Controlled release / soft launch",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Real distribution evidence supports core loop, progression, pacing, stability, session behavior, and repeat play."
+      ],
+      "evidence": [
+        "PRODUCTION_BLUEPRINT_V1.md Phase 6."
+      ],
+      "blocker": "P5-001 must pass."
+    },
+    {
+      "id": "P7-001",
+      "title": "Validated 144-level content production",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "120 Main + 24 optional Hard levels are produced only after controlled-release evidence justifies scale.",
+        "Every published level is solver-proven, Beat-Chart compliant, duplicate-screened, visually reviewed, and deliberately placed."
+      ],
+      "evidence": [
+        "PRODUCTION_BLUEPRINT_V1.md Phase 7."
+      ],
+      "blocker": "P6-001 must pass."
+    },
+    {
+      "id": "P8-001",
+      "title": "Release candidate and launch",
+      "status": "BLOCKED",
+      "acceptance_criteria": [
+        "Target-device QA, full content integrity, persistence/recovery, performance, distribution compliance, permitted metrics, rollback build, launch assets, and required privacy/legal checks pass."
+      ],
+      "evidence": [
+        "PRODUCTION_BLUEPRINT_V1.md Phase 8."
+      ],
+      "blocker": "P7-001 must pass."
+    }
+  ]
+}
