@@ -255,3 +255,30 @@ Judge only whether this single car now reads as a car actually driving/turning r
 
 Next exact gate: **User Visual Reverse/Cutback Review**.
 Judge whether backing out, steering, stopping, shifting and driving away now reads as one coherent car maneuver. Do not add multiple cars until accepted.
+
+
+## Fast Cutback Tempo — PASS / USER FEEL REVIEW NEXT
+
+- User rejected v2 tempo as too constant and slow.
+- Vehicle model remains kinematic bicycle; no return to Bezier/translate sliding.
+- Tempo was rebuilt around aggressive acceleration/deceleration and very short shift dwell.
+- Reverse straight target speed: -145.
+- Reverse swing target speed: -128 with 30° max steering.
+- Forward countersteer target speed: 158.
+- Exit target speed: 195.
+- Acceleration/deceleration limits: +620 / -520 units/s².
+- Steering response rate: 14.
+- Shift dwell: 0.08s minimum after near-stop.
+- First fast-tune run `35482031154`: FAIL only because 3861.3ms missed the 3800ms tempo target by 61.3ms.
+- Second tune run `35482085281`: SUCCESS.
+- Full maneuver duration: **2774.5ms**, down from ~6772ms in the prior v2 proof (about 59% shorter).
+- Max frame displacement: 3.26px; no teleport-like movement.
+- Final heading: 0.071rad, still aligned with exit.
+- Visual proof frames reviewed: PASS.
+- Public Pages deploy `35482215715`: SUCCESS.
+- Same public prototype URL: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v2/`
+- GRID SHIFT root remains unchanged.
+- Old rejected multi-car Level 1/2 remains rejected. Level 3 remains LOCKED.
+
+Next exact gate: **User Feel Review — Fast Cutback**.
+Judge whether the ~2.8s maneuver now feels fast/aggressive enough. Do not add multiple cars until the motion tempo itself is accepted.

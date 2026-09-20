@@ -1,0 +1,51 @@
+{
+  "gate": "FAST_CUTBACK_TEMPO",
+  "status": "PASS_AWAITING_USER_FEEL_REVIEW",
+  "date": "2026-09-20",
+  "target": "Make the one-car reverse/cutback maneuver fast, aggressive, and immediately readable without abandoning vehicle-like steering.",
+  "tuning": {
+    "reverse_straight_target_speed": -145,
+    "reverse_swing_target_speed": -128,
+    "forward_countersteer_target_speed": 158,
+    "exit_target_speed": 195,
+    "acceleration_limit_per_s": 620,
+    "deceleration_limit_per_s": 520,
+    "steering_response_rate": 14,
+    "shift_min_hold_s": 0.08,
+    "max_steer_deg": 30
+  },
+  "first_attempt": {
+    "run_id": 35482031154,
+    "status": "FAIL",
+    "reason": "3861.3ms exceeded 3800ms tempo gate"
+  },
+  "final_browser_proof": {
+    "run_id": 35482085281,
+    "status": "SUCCESS",
+    "duration_ms": 2774.5,
+    "previous_v2_duration_ms": 6771.6,
+    "duration_reduction_percent": 59,
+    "max_frame_displacement_px": 3.26,
+    "max_steer_seen_rad": 0.5235910843,
+    "final_heading_rad": 0.0710815545,
+    "artifact_id": 10595998928,
+    "artifact_digest": "sha256:77862a7d94a190be9832018aac509e31381bf36fe37685556f3d27bdc888f58a",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "40c9f52cfefba6f38052b013e70ec74214b746a4",
+    "pages_run_id": 35482215715,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v2/",
+    "grid_shift_root_unchanged": true,
+    "root_index_blob": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d"
+  },
+  "explicit_nonclaims": [
+    "Not final game pacing.",
+    "Not final art.",
+    "Not a multi-car puzzle.",
+    "User feel review on physical iPhone still required."
+  ],
+  "next_gate": "USER_FEEL_REVIEW_FAST_CUTBACK",
+  "level3_locked": true
+}
