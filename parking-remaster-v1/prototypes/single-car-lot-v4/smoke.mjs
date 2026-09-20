@@ -1,0 +1,48 @@
+import { chromium } from 'playwright';
+const assert=(x,m)=>{if(!x)throw new Error(m)};
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'networkidle'});
+await page.waitForFunction(()=>window.__snapDriftQA);
+const initial=await page.evaluate(()=>({s:window.__snapDriftQA.state(),f:window.__snapDriftQA.front(),r:window.__snapDriftQA.rear()}));
+await page.screenshot({path:'01-initial.png'});
+await page.evaluate(()=>window.__snapDriftQA.start());
+await page.waitForTimeout(115);
+const kick=await page.evaluate(()=>({s:window.__snapDriftQA.state(),f:window.__snapDriftQA.front(),r:window.__snapDriftQA.rear()}));
+assert(kick.s.phaseName==='prekick','kick phase ended too early');
+const frontMove=Math.hypot(kick.f.x-initial.f.x,kick.f.y-initial.f.y);
+const rearMove=Math.hypot(kick.r.x-initial.r.x,kick.r.y-initial.r.y);
+assert(frontMove<8,'front axle moved too much during pre-kick: '+frontMove);
+assert(rearMove>20,'rear did not visibly swing before launch: '+rearMove);
+assert(kick.s.smokeCount>=12,'not enough rear smoke before launch');
+await page.screenshot({path:'02-prekick.png'});
+
+await page.waitForFunction(()=>window.__snapDriftQA.state().phaseName==='blast',{timeout:900});
+await page.waitForTimeout(130);
+const blast=await page.evaluate(()=>window.__snapDriftQA.state());
+assert(blast.heading>-1.25&&blast.heading<-0.9,'body should stay visibly crossed-up during straight blast');
+await page.screenshot({path:'03-blast.png'});
+
+await page.waitForFunction(()=>window.__snapDriftQA.state().phaseName==='catch',{timeout:900});
+const catch0=await page.evaluate(()=>({s:window.__snapDriftQA.state(),f:window.__snapDriftQA.front(),r:window.__snapDriftQA.rear()}));
+await page.waitForTimeout(125);
+const catch1=await page.evaluate(()=>({s:window.__snapDriftQA.state(),f:window.__snapDriftQA.front(),r:window.__snapDriftQA.rear()}));
+const catchFront=Math.hypot(catch1.f.x-catch0.f.x,catch1.f.y-catch0.f.y);
+const catchRear=Math.hypot(catch1.r.x-catch0.r.x,catch1.r.y-catch0.r.y);
+assert(catchRear>catchFront*1.6,'catch must read as rear swinging around front axle');
+await page.screenshot({path:'04-catch.png'});
+
+await page.waitForFunction(()=>window.__snapDriftQA.state().done===true,{timeout:1800});
+const result=await page.evaluate(()=>({state:window.__snapDriftQA.state(),history:window.__snapDriftQA.history()}));
+await page.screenshot({path:'05-exit.png'});
+const duration=result.state.completedAt-result.state.startedAt;
+assert(duration<1250,'whole maneuver too slow: '+duration);
+assert(Math.abs(result.state.heading)<.08,'final attitude not straight');
+assert(result.state.smokeCount>25,'overall smoke effect too weak');
+const blastRows=result.history.filter(x=>x.phase==='blast');
+assert(blastRows.length>4,'blast phase missing');
+const avgAbsVx=blastRows.reduce((a,x)=>a+Math.abs(x.vx),0)/blastRows.length;
+const avgAbsVy=blastRows.reduce((a,x)=>a+Math.abs(x.vy),0)/blastRows.length;
+assert(avgAbsVy>avgAbsVx*5,'blast path is not straight enough');
+console.log(JSON.stringify({status:'PASS',durationMs:+duration.toFixed(1),frontMovePrekick:+frontMove.toFixed(2),rearMovePrekick:+rearMove.toFixed(2),catchFrontMove:+catchFront.toFixed(2),catchRearMove:+catchRear.toFixed(2),smokeCount:result.state.smokeCount,maxSlipDeg:+(result.state.maxSlip*180/Math.PI).toFixed(1),finalHeading:+result.state.heading.toFixed(4),samples:result.history.length},null,2));
+await browser.close();
