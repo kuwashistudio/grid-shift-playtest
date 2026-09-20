@@ -381,3 +381,30 @@ Do not add more cars until this motion grammar is accepted.
 
 Next exact gate: **User Feel Review — Double Tame V6**.
 Do not expand to multiple cars until the cadence itself is accepted.
+
+
+## Continuous Rear Skid Trails + Temporary SFX V7 — PASS / USER FEEL REVIEW NEXT
+
+- V6 cadence and accepted motion were preserved; V7 changes only tire marks and temporary sound.
+- Point-style marks were replaced with separate continuous left/right rear-wheel segment trails.
+- Phase transitions do not reset trail history.
+- Browser proof: left/right total segments 90/90.
+- Snap segments: 10/10.
+- Reload/second-tame segments: 17/17.
+- **Right rear maximum join gap across the transition: 0px.**
+- Skid trails remain visible through the immediate aftermath, then fade over a 5.6s window.
+- At ~4.35s age, all 90 segments/side are still represented with reduced alpha; after the 5.6s window, both sides are cleared.
+- Fade decision: do not keep marks permanently because future multi-car play would accumulate visual clutter; do not erase quickly because the finished maneuver should leave a readable physical trace.
+- Temporary Web Audio was added with no external asset dependency.
+- Game tap unlocks AudioContext; browser proof reports context `running`.
+- Temporary sound grammar: first rev build -> first launch chirp/rise -> snap squeal/engine dip -> second rev hold -> stronger second launch.
+- Mute button included.
+- Final recorded / vehicle-specific audio remains downstream.
+- Browser proof run `35488780569`: SUCCESS.
+- Pages deploy run `35488868959`: SUCCESS.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7/`
+- GRID SHIFT root remains unchanged.
+- Multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Feel Review — V7 Trails + Temporary Audio**.
+Judge the continuity/appearance of both rear tire marks and whether the temporary sound rhythm improves the two-stage launch. Do not expand to multiple cars before this review.

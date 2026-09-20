@@ -1,0 +1,61 @@
+{
+  "gate": "CONTINUOUS_REAR_SKID_TRAILS_AND_TEMP_SFX_V7",
+  "status": "PASS_AWAITING_USER_FEEL_REVIEW",
+  "date": "2026-09-20",
+  "scope": "V6 motion preserved. Only continuous rear skid trails, phase-switch continuity, 5.6s fade, and temporary Web Audio rhythm were added.",
+  "motion_preservation": {
+    "v6_cadence_preserved": true,
+    "browser_duration_ms": 1709.2,
+    "snap_front_move_px": 10.19,
+    "snap_rear_move_px": 93.03,
+    "snap_rear_front_ratio": 9.13
+  },
+  "trails": {
+    "representation": "continuous per-wheel line segments",
+    "fade_window_s": 5.6,
+    "total_segments_per_side": 90,
+    "snap_segments_per_side": 10,
+    "reload_segments_per_side": 17,
+    "right_rear_max_join_gap_px": 0,
+    "mid_fade_segments_per_side": 90,
+    "mid_fade_max_age_s": 4.35,
+    "final_segments_per_side": 0,
+    "decision": "Persist long enough to remain visually satisfying, then fade to avoid clutter when multi-car play is introduced."
+  },
+  "temporary_audio": {
+    "implementation": "Web Audio synthesis; no external audio assets",
+    "audio_context_unlock": "gameplay tap",
+    "audio_context_proof": "running",
+    "mute_button": true,
+    "grammar": [
+      "first rev build",
+      "first launch chirp + nonlinear rise",
+      "snap squeal + engine dip",
+      "second rev hold",
+      "stronger second launch"
+    ],
+    "final_audio_locked": false
+  },
+  "browser_proof": {
+    "run_id": 35488780569,
+    "status": "SUCCESS",
+    "artifact_id": 10597834523,
+    "artifact_digest": "sha256:0391c33d8f1ed7b4ea749cfa3d8068491196db372acc51fd7cd69746db2459b1",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "8c490416f9b9aea5c6b50157787dbe4b4d21d202",
+    "pages_run_id": 35488868959,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7/",
+    "grid_shift_root_unchanged": true
+  },
+  "explicit_nonclaims": [
+    "Temporary synthesized SFX are not final vehicle audio.",
+    "Not a multi-car puzzle proof.",
+    "Not final art.",
+    "Physical iPhone feel review still required."
+  ],
+  "next_gate": "USER_FEEL_REVIEW_V7_TRAILS_AND_TEMP_AUDIO",
+  "level3_locked": true
+}
