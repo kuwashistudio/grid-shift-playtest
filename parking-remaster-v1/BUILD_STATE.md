@@ -444,3 +444,32 @@ Judge the continuity/appearance of both rear tire marks and whether the temporar
 - Multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
 
 Next exact gate: **Physical iPhone Review — V7.1 skid path + audible temporary sound**.
+
+
+## Smooth Skid Arcs + Engine Pulse Audio V7.2 — PASS / USER FEEL REVIEW NEXT
+
+- User supplied a new iPhone recording with microphone enabled.
+- Recording review confirmed two issues:
+  1. snap tire marks were visibly angular/polygonal;
+  2. temporary audio read as a tonal beep/sweep rather than a car.
+- Root cause of skid issue: V7.1 rendered fast rear-wheel motion as multiple straight frame-to-frame segments during the ~0.16s snap.
+- V7.2 stores actual rear-wheel contact positions as one stroke per wheel per skid phase, then renders them with quadratic curve smoothing.
+- Snap proof: exactly 1 left stroke + 1 right stroke, with 8 sampled contact points each.
+- Charge and reload still create no skid marks.
+- Left/outside rear remains visibly darker/thicker; right/inside rear remains weaker.
+- Fade window remains 5.6s.
+- Root cause of audio issue: audible oscillator synthesis produced a harmonic ladder / pitch sweep in the microphone recording.
+- V7.2 removes the audible OscillatorNode engine path entirely.
+- New temporary engine: randomized combustion-pulse AudioBuffer loop -> low-pass/body filtering -> gain/compression -> variable playbackRate.
+- Tire sound is filtered broadband noise; pitched chirp oscillator is removed.
+- AudioContext browser proof: `running`; measured RMS > 0.
+- Accepted V6/V7 motion cadence preserved: 1715ms browser duration.
+- First V7.2 run `35490928026`: FAIL due to one stale `chirp()` startup reference.
+- Corrected V7.2 run `35490967519`: SUCCESS.
+- Pages deploy `35491064067`: SUCCESS.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-2/`
+- GRID SHIFT root unchanged.
+- Multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Feel Review — V7.2 Skid Arc + Engine Audio**.
+Judge only whether the snap tire marks now read as a smooth rear-tire arc and whether the sound has stopped reading as a beep. Do not expand to multiple cars before this review.

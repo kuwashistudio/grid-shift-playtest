@@ -1,0 +1,64 @@
+{
+  "gate": "SMOOTH_SKID_ARCS_AND_ENGINE_AUDIO_V7_2",
+  "status": "PASS_AWAITING_USER_FEEL_REVIEW",
+  "date": "2026-09-20",
+  "source_recording": "User iPhone screen recording with microphone enabled",
+  "recording_findings": {
+    "duration_s": 4.733,
+    "video": "512x1112 H.264 30fps",
+    "audio": "AAC stereo 44.1kHz",
+    "skid_issue": "Snap tire marks were polygonal because rear-wheel motion was rendered as several straight frame-to-frame segments.",
+    "audio_issue": "Recorded sound showed a strong tonal harmonic sweep/ladder characteristic of audible oscillator synthesis; this explains the user's 'beep' perception."
+  },
+  "skid_changes": {
+    "representation": "per-wheel contact-point strokes",
+    "snap_strokes_per_rear_wheel": 1,
+    "snap_contact_points_per_wheel": 8,
+    "renderer": "quadratic curve smoothing through rear-wheel contact points",
+    "phase_connectors": "No connector through non-skid charge/reload phases",
+    "outer_left_emphasis": true,
+    "inner_right_weaker": true,
+    "fade_window_s": 5.6
+  },
+  "audio_changes": {
+    "audible_oscillator_engine_removed": true,
+    "engine_kind": "looped randomized combustion-pulse AudioBuffer",
+    "engine_shaping": [
+      "low-pass filter",
+      "body peaking filter",
+      "DynamicsCompressor",
+      "variable playbackRate"
+    ],
+    "tire_kind": "filtered broadband noise",
+    "pitched_chirp_removed": true,
+    "audio_context_unlock": "gameplay tap",
+    "browser_audio_context": "running",
+    "browser_rms": 0.00829264972402181,
+    "spectral_flatness": 0.48824191475699746,
+    "peak_ratio": 8.149252527277294,
+    "caveat": "Browser proof confirms signal and non-oscillator architecture; physical iPhone perceived quality still requires user review."
+  },
+  "motion_preservation": {
+    "duration_ms": 1715,
+    "target": "Preserve accepted V6/V7 cadence",
+    "status": "PASS"
+  },
+  "proof": {
+    "failed_run": 35490928026,
+    "failed_reason": "One stale chirp() startup call remained after removing the oscillator audio path.",
+    "pass_run": 35490967519,
+    "pass_status": "SUCCESS",
+    "artifact_id": 10598159722,
+    "artifact_digest": "sha256:5455ca81e7e5e61f759d446b5af9c010ec650afd81fe928bf69466508b5c043b",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "83adf7bf9aef2246b84ab8fbb5f2eb56c5eca604",
+    "pages_run_id": 35491064067,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-2/",
+    "grid_shift_root_unchanged": true
+  },
+  "next_gate": "USER_FEEL_REVIEW_V7_2_SKID_ARC_AND_ENGINE_AUDIO",
+  "level3_locked": true
+}
