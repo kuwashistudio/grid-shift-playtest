@@ -1,0 +1,78 @@
+{
+  "gate": "SKID_SEMANTICS_AND_AUDIBLE_SFX_V7_1",
+  "status": "PASS_AWAITING_PHYSICAL_IPHONE_REVIEW",
+  "date": "2026-09-20",
+  "source_feedback": [
+    "Right rear skid trajectory looked wrong; left might also be wrong.",
+    "Temporary sound was not audible on the user's iPhone."
+  ],
+  "fixes": {
+    "charge_skids": false,
+    "reload_skids": false,
+    "first_launch_skids": "short only",
+    "snap_skids": "both rear wheels, outer-left dominant",
+    "exit_skids": "short only",
+    "snap_left_alpha": 0.38,
+    "snap_right_alpha": 0.13,
+    "skid_fade_window_s": 5.6,
+    "audio_master_gain": 0.5,
+    "audio_compressor": true,
+    "launch_snap_chirps": true,
+    "audio_unlock": "first gameplay tap",
+    "mute_button": true
+  },
+  "browser_proof": {
+    "run_id": 35490343130,
+    "status": "SUCCESS",
+    "duration_ms": 1703.2,
+    "snap_segments": {
+      "left": 8,
+      "right": 8
+    },
+    "snap_alpha": {
+      "left": 0.38,
+      "right": 0.13
+    },
+    "charge_segments": {
+      "left": 0,
+      "right": 0
+    },
+    "reload_segments": {
+      "left": 0,
+      "right": 0
+    },
+    "mid_fade": {
+      "left": 16,
+      "right": 16,
+      "max_age_s": 3.87
+    },
+    "final_fade": {
+      "left": 0,
+      "right": 0
+    },
+    "audio_context": "running",
+    "audio_rms": 0.04872895244742343,
+    "audio_target": {
+      "hz": 151.21647641721876,
+      "engine": 0.14740740740740743,
+      "noise": 0.047592592592592596
+    },
+    "artifact_id": 10598269077,
+    "artifact_digest": "sha256:7e57c851eb321aa8903cac2e1b7c40dd79ccb2f59d433ad9cb1b2e5d471e3ad3",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "4ae2d5a01fdd8d64bd4261ccdab07660fbfb0988",
+    "pages_run_id": 35490450961,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-1/",
+    "grid_shift_root_unchanged": true
+  },
+  "nonclaims": [
+    "Browser signal proof is not a substitute for physical iPhone audibility.",
+    "Temporary synthesized sound is not final vehicle audio.",
+    "Not final multi-car gameplay."
+  ],
+  "next_gate": "PHYSICAL_IPHONE_REVIEW_V7_1",
+  "level3_locked": true
+}

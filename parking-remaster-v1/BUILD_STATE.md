@@ -408,3 +408,39 @@ Do not expand to multiple cars until the cadence itself is accepted.
 
 Next exact gate: **User Feel Review — V7 Trails + Temporary Audio**.
 Judge the continuity/appearance of both rear tire marks and whether the temporary sound rhythm improves the two-stage launch. Do not expand to multiple cars before this review.
+
+
+## Skid Semantics + Audible Temp SFX V7.1 — PASS / PHYSICAL IPHONE REVIEW NEXT
+
+- User identified that the right-rear skid trajectory looked wrong (left may also be affected) and reported no audible sound on iPhone.
+- Root cause of V7 skid artifact: marks were being generated during non-slip phases, especially reload, so the visual trace represented implementation phases rather than actual tire slip.
+- V7.1 draws skid marks only when slip is visually justified:
+  - CHARGE: no skid segments.
+  - FIRST BLAST: only a short launch segment.
+  - SNAP: both rear wheels leave marks.
+  - RELOAD / second tame: no skid segments.
+  - EXIT: only a short launch segment.
+- Snap mark strength is intentionally asymmetric:
+  - outer-left alpha 0.38 / width 3.2;
+  - inner-right alpha 0.13 / width 1.7.
+- This removes the parallel ruler-line look while keeping a weak right-rear trace.
+- Browser proof run `35490343130`: SUCCESS.
+  - charge marks: 0 / 0.
+  - reload marks: 0 / 0.
+  - snap marks: 8 / 8.
+  - left/right snap alpha: 0.38 / 0.13.
+  - fade: marks remain around 3.87s, then clear after the 5.6s window.
+- Temporary audio was strengthened:
+  - master gain 0.5;
+  - dynamics compressor added;
+  - stronger engine/noise targets;
+  - launch/snap/exit chirps;
+  - AudioContext resume + audible prime on first gameplay tap.
+- Browser proof confirms AudioContext `running` and analyzer RMS **0.0487**, i.e. non-zero output signal is actually being produced.
+- Physical iPhone audibility is still a user-review gate; browser signal proof is not treated as final audio PASS.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-1/`
+- Pages run `35490450961`: SUCCESS.
+- GRID SHIFT root unchanged.
+- Multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **Physical iPhone Review — V7.1 skid path + audible temporary sound**.
