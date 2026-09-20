@@ -1,0 +1,15 @@
+{
+  "brief_id": "level_010",
+  "metrics": {
+    "vehicle_count": 12,
+    "dependency_depth_moves": 2,
+    "initial_legal_choice_count": 4,
+    "mean_legal_choices": 3.0,
+    "forced_state_ratio": 0.1,
+    "mean_choice_entropy_bits": 1.4
+  },
+  "mechanics": [],
+  "conflict_group_count": 0,
+  "conflict_member_count": 1,
+  "safe_alternative_min_during_conflict": 0
+}
