@@ -9,8 +9,8 @@ These rules are mandatory for the remainder of this build.
 5. **Preflight before mutation.** Before each write, confirm exact branch, path, expected input, and rollback point. GRID SHIFT production files are out of scope.
 6. **Verify before advancing.** Every gate needs objective evidence: file exists, expected size/hash/content, render result, or functional test. Failed verification means the next gate does not start.
 7. **One repair attempt inside the same method.** If a tool step fails, make one bounded repair attempt without changing architecture. If still unresolved, record the exact blocker/checkpoint and report immediately.
-8. **Persistent resume point.** After each completed gate, update `BUILD_STATE.md` or a committed manifest so the next turn resumes deterministically.
-9. **Staging first, main last.** All work stays on `parking-remaster-v1-staging-20260917` until all QA gates pass. Main is touched only once at release.
+8. **Persistent resume point.** GitHub is the formal resume authority. At the end of every working turn, update `parking-remaster-v1/project-state/PROJECT_STATE.json`; update `project-state/GATES.json` whenever gate status/evidence changes. `BUILD_STATE.md` and historical result files remain evidence journals, not the sole current-state source.
+9. **Staging first; isolated public prototypes allowed.** Implementation truth stays on `parking-remaster-v1-staging-20260917`. Main may receive isolated `parking-remaster-v1/prototypes/...` public test versions when physical-iPhone human review requires a stable URL. This exception never authorizes GRID SHIFT changes or unrelated main mutations.
 10. **User wait protection.** Do not bundle several long gates into one turn. Prefer a fast verified result now over a large unverified batch later.
 11. **Atomic means logical change, not artificial byte slicing.** Keep code/behavior changes small, but do not turn one immutable binary asset into dozens of user-visible turns merely for transport.
 12. **Binary transport rule.** For immutable assets under GitHub's normal Git-object range, prefer Git Data API blob/tree/commit writes plus objective hash verification. Do not use the Contents API when it has already shown truncation for the payload.
@@ -34,14 +34,14 @@ G0 rules locked -> G1 canonical assets reconstructed/verified locally -> G2 mast
 21. **Every micro-task must advance a Production Blueprint gate.** Before implementation, identify the current macro phase and the exact gate risk being retired. If a task does not materially advance that gate, defer it.
 22. **Do not let local blockers become the roadmap.** Asset transfer, refactors, CI plumbing, format conversion, or other technical chores may consume only the effort justified by the current macro gate. Escalate to a better method or defer if they begin dominating project time.
 23. **Scale only after proof.** Content volume, meta systems, monetization, LiveOps, and production tooling must not start merely because they are foreseeable. They begin only when the prior gate's player/product risk is objectively retired.
-24. **Research the whole system, not only the current bug.** Maintain parallel research on proven studio production practice, player behavior, level design, technical architecture, distribution constraints, and launch validation. Convert useful findings into the Production Blueprint, validators, or gate criteria.
+24. **Research must close a finite gate.** Research proven studio practice, player behavior, level design, technical architecture, distribution constraints, or launch validation only when it can materially improve the named current gate. Convert useful findings into implementation, validators, evidence, or existing gate criteria. Add a new Gate only when new evidence reveals a genuinely necessary completion requirement not covered by the finite registry.
 25. **Vertical Slice before Production.** Parking Remaster remains in pre-production until the representative Vertical Slice gate passes. A polished Level 1 or completed asset transfer alone does not authorize full production.
 
 
-## Self-triggered handoff rule
-26. **The assistant owns Chat handoff timing.** The user is not expected to know or monitor the Chat/context limit. Before context complexity threatens continuity, the assistant must proactively produce a formal HANDOFF PACKAGE/prompt for the next Chat without waiting to be asked.
-27. **Handoff before degradation, not after truncation.** A handoff must preserve current CANON, repository/branch, completed commits, current macro phase, open risks, exact gate status, blockers, verification evidence, and the single best next action.
-28. **Do not interrupt productive work prematurely.** Continue in the current Chat while context remains reliable; trigger handoff only when it materially protects continuity and execution quality.
+## GitHub Persistent Project State rule
+26. **GitHub, not Chat history, is the formal current-state authority.** Before any work, read `project-state/PROJECT_STATE.json`, `project-state/CANON.md`, `project-state/GATES.json`, fetch the latest staging HEAD, and inspect the CI/evidence required by the current gate.
+27. **Every working turn closes with a committed resume point.** Commit implementation/evidence first; then update `GATES.json` if status/evidence changed and update `PROJECT_STATE.json`. A turn must not end with important current state existing only in Chat.
+28. **Long HANDOFF packages are no longer normal workflow.** A new Chat should resume from GitHub with: `Parking RemasterをGitHubのPROJECT_STATEから再開して。1 Gate進めて`. Create a manual long-form handoff only if the GitHub state files are unavailable, corrupted, or demonstrably insufficient.
 
 
 ## Visual source fail-closed
