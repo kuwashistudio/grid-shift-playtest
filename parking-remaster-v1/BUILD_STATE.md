@@ -355,3 +355,29 @@ Do not add multiple cars until the rear-kick / straight-blast / snap-catch feel 
 
 Next exact gate: **User Feel Review — Charge / Straight Blast / Rear Snap V5**.
 Do not add more cars until this motion grammar is accepted.
+
+
+## Double-Tame Nonlinear Acceleration V6 — PASS / USER FEEL REVIEW NEXT
+
+- User said v5 was much better but speed still read as too constant, and both the initial tame and the post-snap restart tame were too weak.
+- V6 adds **two explicit holds** and **nonlinear acceleration curves**.
+- First tame: 0.54s, vehicle remains stationary and aligned while rear smoke builds.
+- First launch uses power-eased acceleration rather than constant speed.
+  - sampled speed: 138.81 -> 414.82 -> 826.72.
+- Rear snap preserved:
+  - front axle movement 10.19px;
+  - rear axle movement 93.03px;
+  - rear/front ratio 9.13.
+- Second tame after attitude alignment: 0.27s, stationary with additional smoke buildup.
+- Second launch is even more aggressive and nonlinear:
+  - sampled speed: 132.41 -> 547.93 -> 1135.30.
+- Full sequence duration including both tames: 1687.2ms.
+- Browser proof run `35486795178`: SUCCESS.
+- Six visual frames reviewed: initial / first tame / accelerating first blast / rear snap / second tame / accelerating exit.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v6/`
+- Pages deploy `35486900683`: SUCCESS.
+- GRID SHIFT root unchanged.
+- Multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Feel Review — Double Tame V6**.
+Do not expand to multiple cars until the cadence itself is accepted.

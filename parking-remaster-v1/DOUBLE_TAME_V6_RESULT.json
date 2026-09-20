@@ -1,0 +1,56 @@
+{
+  "gate": "DOUBLE_TAME_NONLINEAR_ACCELERATION_V6",
+  "status": "PASS_AWAITING_USER_FEEL_REVIEW",
+  "date": "2026-09-20",
+  "user_feedback_addressed": [
+    "Speed must not read as constant.",
+    "Initial anticipation/tame must be stronger.",
+    "Second anticipation after attitude change must be visible before the second launch."
+  ],
+  "motion_contract": {
+    "first_tame_s": 0.54,
+    "first_blast_s": 0.32,
+    "first_blast_distance_px": 166,
+    "first_blast_ease_power": 2.35,
+    "snap_s": 0.16,
+    "second_tame_s": 0.27,
+    "second_blast_s": 0.34,
+    "second_blast_distance_px": 235,
+    "second_blast_ease_power": 2.55
+  },
+  "browser_proof": {
+    "run_id": 35486795178,
+    "status": "SUCCESS",
+    "duration_ms": 1687.2,
+    "first_tame_smoke": 125,
+    "first_blast_speeds": [
+      138.81,
+      414.82,
+      826.72
+    ],
+    "snap_front_move_px": 10.19,
+    "snap_rear_move_px": 93.03,
+    "snap_rear_front_ratio": 9.13,
+    "second_tame_added_smoke": 50,
+    "second_blast_speeds": [
+      132.41,
+      547.93,
+      1135.3
+    ],
+    "final_heading_rad": 0,
+    "samples": 103,
+    "artifact_id": 10597671692,
+    "artifact_digest": "sha256:e2811fef95dae37be7f557959768f5af5e228efc2ae971f84c9fd46da7f490a7",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "bed9f40038d43040a0eaf82bc22ed63c6699bec3",
+    "pages_run_id": 35486900683,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v6/",
+    "grid_shift_root_unchanged": true,
+    "root_index_blob": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d"
+  },
+  "next_gate": "USER_FEEL_REVIEW_DOUBLE_TAME_V6",
+  "level3_locked": true
+}
