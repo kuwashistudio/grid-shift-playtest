@@ -235,3 +235,23 @@ Next exact gate: **CORE GAMEPLAY REBUILD BENCHMARK** — research successful Par
 
 Next exact gate: **User Visual Motion Review**.
 Judge only whether this single car now reads as a car actually driving/turning rather than an image sliding. Do not expand to multiple cars until that is accepted.
+
+
+## Single-Car Reverse/Cutback Prototype — PASS / USER VISUAL REVIEW NEXT
+
+- Still one car only; no multi-car puzzle yet.
+- Start condition deliberately faces the car toward the wheel-stop/dead-end direction.
+- Tap sequence is automatic only for motion proof: reverse straight -> reverse with steering -> full stop/shift -> forward with opposite countersteer -> straighten -> exit.
+- Reverse uses signed negative velocity through the same kinematic bicycle model; no hand-authored lateral translation.
+- Forward/reverse steering therefore produces different yaw response naturally.
+- Reverse lamps appear while backing; brake lamps appear during the stop/shift phase.
+- Browser proof run `35477892282`: SUCCESS.
+- Max frame displacement: 1.52px; no teleport-like movement.
+- Final heading: 0.076rad, approximately aligned with exit lane.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v2/`
+- Pages deploy `35477981978`: SUCCESS.
+- GRID SHIFT root remains unchanged.
+- This is **not** yet a puzzle or final-art PASS. Old Level 1/2 gameplay remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Visual Reverse/Cutback Review**.
+Judge whether backing out, steering, stopping, shifting and driving away now reads as one coherent car maneuver. Do not add multiple cars until accepted.
