@@ -11,6 +11,8 @@ on:
       - 'parking-remaster-v1/scripts/test_validate_project_state.py'
       - 'parking-remaster-v1/scripts/validate_level_data_contract.py'
       - 'parking-remaster-v1/scripts/test_validate_level_data_contract.py'
+      - 'parking-remaster-v1/scripts/level_fingerprint.py'
+      - 'parking-remaster-v1/scripts/test_level_fingerprint.py'
       - '.github/workflows/parking-remaster-project-state.yml'
 
 permissions:
@@ -28,3 +30,5 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_validate_project_state.py
       - name: Regression-test preproduction Level Data contract
         run: python3 parking-remaster-v1/scripts/test_validate_level_data_contract.py
+      - name: Regression-test deterministic Level Data fingerprints
+        run: python3 parking-remaster-v1/scripts/test_level_fingerprint.py
