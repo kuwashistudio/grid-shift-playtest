@@ -1,0 +1,43 @@
+name: Parking Remaster Reverse Cutback Prototype
+on:
+  push:
+    branches: [parking-remaster-v1-staging-20260917]
+    paths:
+      - 'parking-remaster-v1/prototypes/single-car-lot-v2/**'
+      - '.github/workflows/parking-remaster-reverse-cutback-prototype.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: parking-remaster-v1-staging-20260917
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Start prototype
+        working-directory: parking-remaster-v1/prototypes/single-car-lot-v2
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/reverse-cutback-http.log 2>&1 &
+          for i in {1..20}; do
+            if curl -fsS http://127.0.0.1:8765/index.html >/dev/null; then exit 0; fi
+            sleep 0.25
+          done
+          exit 1
+      - name: Verify reverse shift and forward cutback
+        working-directory: parking-remaster-v1/prototypes/single-car-lot-v2
+        run: node smoke.mjs
+      - name: Upload visual proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: parking-remaster-reverse-cutback-v2
+          path: parking-remaster-v1/prototypes/single-car-lot-v2/*.png
+          retention-days: 7
