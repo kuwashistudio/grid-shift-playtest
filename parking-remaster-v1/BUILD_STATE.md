@@ -330,3 +330,28 @@ Do not expand to multiple cars until the user accepts the drift feel/direction.
 
 Next exact gate: **User Feel Review — Snap Drift V4**.
 Do not add multiple cars until the rear-kick / straight-blast / snap-catch feel is accepted.
+
+
+## Charge -> Straight Blast -> Rear Snap V5 — PASS / USER FEEL REVIEW NEXT
+
+- V4 rejected by user because there was no readable anticipation and the vehicle's first motion appeared diagonal.
+- Research separated two real phenomena that V4 had incorrectly blended:
+  - rear-wheel wheelspin can create smoke while the vehicle is stationary / nearly stationary;
+  - rear-end yaw is a separate lateral-grip-loss event.
+- V5 hard invariant: **body heading cannot change at all during CHARGE or first STRAIGHT BLAST**.
+- CHARGE: ~0.36s, center fixed, heading fixed, dense rear smoke buildup.
+- STRAIGHT BLAST: ~0.22s, heading fixed, measured lateral X deviation exactly 0px.
+- REAR SNAP: attitude change starts only after straight motion has been established.
+- Snap proof: front axle moved 10.19px; rear axle moved 93.03px; rear/front ratio 9.13.
+- EXIT: immediate second straight blast after alignment.
+- Full motion duration: 1096.1ms including the visible charge.
+- Browser proof run `35484442378`: SUCCESS.
+- Direct screenshots reviewed: charge remains stationary/straight; first launch is vertical/straight; only later snap rotates the vehicle.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v5/`
+- Pages deploy `35484512595`: SUCCESS.
+- Research contract saved in `CHARGE_BLAST_SNAP_RESEARCH_V1.md`.
+- GRID SHIFT root unchanged.
+- Multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Feel Review — Charge / Straight Blast / Rear Snap V5**.
+Do not add more cars until this motion grammar is accepted.

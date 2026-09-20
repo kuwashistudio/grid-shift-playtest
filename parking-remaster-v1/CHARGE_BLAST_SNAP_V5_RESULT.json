@@ -1,0 +1,52 @@
+{
+  "gate": "CHARGE_STRAIGHT_BLAST_REAR_SNAP_V5",
+  "status": "PASS_AWAITING_USER_FEEL_REVIEW",
+  "date": "2026-09-20",
+  "corrections_from_v4": [
+    "No body-angle change during anticipation.",
+    "No body-angle change during first launch.",
+    "Visible stationary rear-tire smoke creates the buildup.",
+    "First translational movement is exactly straight.",
+    "Rear-swing attitude change occurs only after straight launch.",
+    "Front axle is dominant pivot during snap.",
+    "Second acceleration begins immediately after attitude is aligned."
+  ],
+  "research_basis": [
+    "rear-wheel wheelspin/burnout smoke mechanics",
+    "handbrake-turn rear lateral grip loss with stronger front directional authority",
+    "large-sideslip/rear-saturation drift literature",
+    "highly transient drift-to-grip research"
+  ],
+  "browser_proof": {
+    "run_id": 35484442378,
+    "status": "SUCCESS",
+    "duration_ms": 1096.1,
+    "charge_smoke_sample_count": 80,
+    "blast_lateral_deviation_px": 0,
+    "snap_front_axle_move_px": 10.19,
+    "snap_rear_axle_move_px": 93.03,
+    "snap_rear_front_ratio": 9.13,
+    "final_heading_rad": 0,
+    "total_smoke_emissions": 154,
+    "samples": 67,
+    "artifact_id": 10596958054,
+    "artifact_digest": "sha256:a1c015a77b88d85e44bb919e37a4860c186580eae3b4a72cdb60ec40b1f19628",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "5f7f5fd48d179c07f11896bc4414e4459dd641c9",
+    "pages_run_id": 35484512595,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v5/",
+    "grid_shift_root_unchanged": true,
+    "root_index_blob": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d"
+  },
+  "explicit_nonclaims": [
+    "Not final art.",
+    "Not multi-car puzzle gameplay.",
+    "Not a frame-perfect copy of the linked YouTube Short.",
+    "Physical iPhone feel review still required."
+  ],
+  "next_gate": "USER_FEEL_REVIEW_CHARGE_BLAST_SNAP_V5",
+  "level3_locked": true
+}
