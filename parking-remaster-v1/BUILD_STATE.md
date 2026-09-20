@@ -307,3 +307,26 @@ Judge whether the ~2.8s maneuver now feels fast/aggressive enough. Do not add mu
 
 Next exact gate: **User Reference-Match Review — Compact Drift**.
 Do not expand to multiple cars until the user accepts the drift feel/direction.
+
+
+## Snap Drift V4 — PASS / USER FEEL REVIEW NEXT
+
+- User rejected v3 because it still read as a smooth turn.
+- Research gate completed before implementation; details in `DRIFT_MOTION_RESEARCH_V1.md`.
+- Core correction: do not animate one continuous curved trajectory.
+- V4 is four discrete beats: near-stationary rear pre-kick -> crossed-up straight blast -> front-axle-dominant rear snap catch -> immediate straight exit.
+- Pre-kick browser measurement: front axle 2.13px, rear axle 34.55px (rear moves ~16.2x farther).
+- Catch measurement: front 29.83px, rear 70.31px (rear moves ~2.36x farther).
+- Rear smoke starts before meaningful launch and 81 smoke particles were emitted during the proof.
+- Full maneuver duration: **1246.9ms**.
+- No Bezier or smooth constant-radius path.
+- Browser proof run `35484007514`: SUCCESS.
+- Five-frame visual QA (initial / pre-kick / straight blast / catch / exit): PASS.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v4/`
+- Pages deploy `35484089742`: SUCCESS.
+- Exact linked YouTube Short could not be fetched by the current web reader; no frame-perfect-copy claim is made.
+- GRID SHIFT root unchanged.
+- Old multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Feel Review — Snap Drift V4**.
+Do not add multiple cars until the rear-kick / straight-blast / snap-catch feel is accepted.

@@ -1,0 +1,54 @@
+{
+  "gate": "SNAP_DRIFT_V4",
+  "status": "PASS_AWAITING_USER_FEEL_REVIEW",
+  "date": "2026-09-20",
+  "research_basis": [
+    "SAE 2006 drifting dynamics",
+    "Stanford Dynamic Design Lab drift dissertation",
+    "SAE 2024 drift equilibrium study",
+    "handbrake-turn rear-grip-loss mechanics",
+    "rear-wheelspin/burnout smoke mechanics",
+    "transient drift-to-grip research"
+  ],
+  "exact_youtube_short_frame_access": false,
+  "motion_contract": [
+    "rear pre-kick around nearly planted front axle",
+    "crossed-up straight blast",
+    "front-axle-dominant rear snap catch",
+    "straight high-speed exit"
+  ],
+  "browser_proof": {
+    "run_id": 35484007514,
+    "status": "SUCCESS",
+    "duration_ms": 1246.9,
+    "front_move_prekick_px": 2.13,
+    "rear_move_prekick_px": 34.55,
+    "prekick_rear_front_ratio": 16.22,
+    "catch_front_move_px": 29.83,
+    "catch_rear_move_px": 70.31,
+    "catch_rear_front_ratio": 2.36,
+    "smoke_particles_emitted": 81,
+    "max_slip_deg": 124.6,
+    "final_heading_rad": 0,
+    "samples": 76,
+    "artifact_id": 10596852331,
+    "artifact_digest": "sha256:2856c335763af62fb3f5910c38e1dee4a89ad045ade0ffddf32909370d129356",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "6685c6f706be42259c0d1d88e2ca132687e8cace",
+    "pages_run_id": 35484089742,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v4/",
+    "grid_shift_root_unchanged": true,
+    "root_index_blob": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d"
+  },
+  "explicit_nonclaims": [
+    "Not final photoreal art.",
+    "Not a multi-car puzzle.",
+    "Not a frame-perfect copy of the inaccessible YouTube Short.",
+    "User feel review is still required."
+  ],
+  "next_gate": "USER_FEEL_REVIEW_SNAP_DRIFT_V4",
+  "level3_locked": true
+}
