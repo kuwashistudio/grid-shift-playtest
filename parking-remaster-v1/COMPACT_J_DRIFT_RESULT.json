@@ -1,0 +1,53 @@
+{
+  "gate": "COMPACT_JAPANESE_STYLE_DRIFT_PROTOTYPE",
+  "status": "PASS_AWAITING_USER_REFERENCE_MATCH_REVIEW",
+  "date": "2026-09-20",
+  "user_reference": "https://youtube.com/shorts/_o8KZIu-Fzk?si=nevtPUDeoSiNFjNk",
+  "reference_access_note": "The exact YouTube Shorts stream could not be fetched by the available web reader, so no frame-perfect match is claimed. Drift motion principles were corroborated with external references: slide initiation plus countersteer, with fast direction change.",
+  "replacement_for": "single-car-lot-v2 fast grip/cutback motion",
+  "design_change": {
+    "grip_cutback_rejected_for_feel": true,
+    "explicit_lateral_slip": true,
+    "body_heading_can_lead_velocity_vector": true,
+    "handbrake_flick_phase": true,
+    "countersteer_catch_phase": true,
+    "rear_tire_smoke": true,
+    "rear_skid_marks": true,
+    "snap_to_exit_phase": true
+  },
+  "browser_proof": {
+    "failed_run": 35483357882,
+    "failed_reason": "Insufficient early slip angle",
+    "pass_run": 35483413715,
+    "status": "SUCCESS",
+    "duration_ms": 1828.6,
+    "max_slip_deg": 53.6,
+    "max_yaw": 3.4,
+    "max_frame_displacement_px": 5.59,
+    "final_heading_rad": 0,
+    "final_velocity": {
+      "vx": 315,
+      "vy": 0
+    },
+    "final_slip_rad": 0,
+    "artifact_id": 10596801807,
+    "artifact_digest": "sha256:b915277edbc3f554785b9f9357a395ec53e1d8bad78e6a35e202e4f83fc58490",
+    "visual_qa": "PASS"
+  },
+  "published": {
+    "pages_commit": "8405c914fe4e9534e3b946d7b2c563934f4d457b",
+    "pages_run_id": 35483576704,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v3/",
+    "grid_shift_root_unchanged": true,
+    "root_index_blob": "f0e258de3de4dcfa9cc91529a33722f4954a0d5d"
+  },
+  "explicit_nonclaims": [
+    "Not frame-perfect against the linked Short because the exact stream was not accessible to the current web reader.",
+    "Not final art.",
+    "Not a multi-car puzzle.",
+    "User must judge whether the compact drift feel matches the intended reference."
+  ],
+  "next_gate": "USER_REFERENCE_MATCH_REVIEW_COMPACT_DRIFT",
+  "level3_locked": true
+}

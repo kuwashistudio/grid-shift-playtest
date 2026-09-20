@@ -282,3 +282,28 @@ Judge whether backing out, steering, stopping, shifting and driving away now rea
 
 Next exact gate: **User Feel Review — Fast Cutback**.
 Judge whether the ~2.8s maneuver now feels fast/aggressive enough. Do not add multiple cars until the motion tempo itself is accepted.
+
+
+## Compact Japanese-Style Drift Prototype — PASS / USER REFERENCE-MATCH REVIEW NEXT
+
+- User rejected the ~2.8s fast grip/cutback as still completely wrong and supplied YouTube Shorts reference `_o8KZIu-Fzk`.
+- Exact Shorts stream was not fetchable by the available web reader, so no frame-perfect reference claim is made.
+- Research-confirmed drift grammar used here: initiate slide, allow body heading to diverge from velocity, countersteer to catch the rear, then accelerate out. External drift references also emphasize fast direction change.
+- v3 replaces the old grip-only bicycle behavior with an explicit arcade slip model for the drift phase.
+- Motion: hard launch -> handbrake-style flick -> rear slip / body yaw -> countersteer catch -> snap straight -> blast out.
+- Rear-tire smoke and skid marks are rendered only during the slide.
+- First drift run `35483357882`: FAIL because early slip was insufficient.
+- Second run `35483413715`: SUCCESS.
+- Full maneuver duration: **1828.6ms**.
+- Max slip angle: **53.6°**.
+- Max yaw state: 3.4.
+- Max frame displacement: 5.59px; still below the 7px teleport gate.
+- Final heading and velocity are aligned exactly with the rightward exit.
+- Five-frame visual proof reviewed: initial / flick / counter / catch / exit.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v3/`
+- Pages deploy `35483576704`: SUCCESS.
+- GRID SHIFT root remains unchanged.
+- Old multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Reference-Match Review — Compact Drift**.
+Do not expand to multiple cars until the user accepts the drift feel/direction.
