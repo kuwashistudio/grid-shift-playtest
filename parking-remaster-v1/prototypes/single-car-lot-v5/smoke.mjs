@@ -1,0 +1,46 @@
+import { chromium } from 'playwright';
+const A=(x,m)=>{if(!x)throw new Error(m)};
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'networkidle'});
+await page.waitForFunction(()=>window.__v5QA);
+const initial=await page.evaluate(()=>({s:window.__v5QA.state(),f:window.__v5QA.front(),r:window.__v5QA.rear()}));
+await page.screenshot({path:'01-initial.png'});
+await page.evaluate(()=>window.__v5QA.start());
+await page.waitForTimeout(250);
+const charge=await page.evaluate(()=>window.__v5QA.state());
+A(charge.phaseName==='charge','no visible tame/charge');
+A(Math.abs(charge.x-initial.s.x)<.25&&Math.abs(charge.y-initial.s.y)<.25,'car moved during tame');
+A(Math.abs(charge.heading-initial.s.heading)<.0001,'car angled during tame');
+A(charge.smokeCount>=30,'rear smoke did not build during tame');
+await page.screenshot({path:'02-charge.png'});
+
+await page.waitForFunction(()=>window.__v5QA.state().phaseName==='blast',{timeout:900});
+await page.waitForTimeout(145);
+const blast=await page.evaluate(()=>window.__v5QA.state());
+A(Math.abs(blast.heading+Math.PI/2)<.0001,'blast started diagonally');
+A(Math.abs(blast.x-initial.s.x)<.25,'blast is not straight');
+A(blast.y<initial.s.y-45,'blast did not accelerate away');
+await page.screenshot({path:'03-straight-blast.png'});
+
+await page.waitForFunction(()=>window.__v5QA.state().phaseName==='snap',{timeout:900});
+const p0=await page.evaluate(()=>({s:window.__v5QA.state(),f:window.__v5QA.front(),r:window.__v5QA.rear()}));
+await page.waitForTimeout(105);
+const p1=await page.evaluate(()=>({s:window.__v5QA.state(),f:window.__v5QA.front(),r:window.__v5QA.rear()}));
+const fm=Math.hypot(p1.f.x-p0.f.x,p1.f.y-p0.f.y),rm=Math.hypot(p1.r.x-p0.r.x,p1.r.y-p0.r.y);
+A(rm>fm*4,'rear is not snapping around front axle: '+rm+'/'+fm);
+A(p1.s.heading>-0.65,'snap did not rotate attitude fast enough');
+await page.screenshot({path:'04-rear-snap.png'});
+
+await page.waitForFunction(()=>window.__v5QA.state().done===true,{timeout:1600});
+const result=await page.evaluate(()=>({s:window.__v5QA.state(),h:window.__v5QA.history()}));
+await page.screenshot({path:'05-exit.png'});
+const dur=result.s.completedAt-result.s.startedAt;
+A(dur>900,'no perceptible tame: '+dur);
+A(dur<1350,'maneuver too slow: '+dur);
+A(Math.abs(result.s.heading)<.001,'exit attitude not straight');
+const blastRows=result.h.filter(x=>x.phase==='blast');
+A(blastRows.every(x=>Math.abs(x.x-initial.s.x)<.3),'blast path deviated laterally');
+A(blastRows.every(x=>Math.abs(x.heading+Math.PI/2)<.001),'blast body angled before snap');
+console.log(JSON.stringify({status:'PASS',durationMs:+dur.toFixed(1),chargeSmoke:charge.smokeCount,blastXDeviation:+Math.max(...blastRows.map(x=>Math.abs(x.x-initial.s.x))).toFixed(3),snapFrontMove:+fm.toFixed(2),snapRearMove:+rm.toFixed(2),snapRearFrontRatio:+(rm/fm).toFixed(2),finalHeading:+result.s.heading.toFixed(4),smokeCount:result.s.smokeCount,samples:result.h.length},null,2));
+await browser.close();
