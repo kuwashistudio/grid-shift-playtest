@@ -7,13 +7,12 @@
   "state_authority": "GitHub files under parking-remaster-v1/project-state/ plus the current branch HEAD. Chat history is not the sole source of truth.",
   "current_phase": "PHASE_1_CORE_FUN_PROOF",
   "production_started": false,
-  "current_gate": "GP-000",
-  "last_completed_gate": "P1-005",
-  "next_gate": "P1-006",
+  "current_gate": "P1-006",
+  "last_completed_gate": "GP-000",
+  "next_gate": "P1-007",
   "blockers": [
-    "Persistent-state bootstrap must close before normal gameplay work resumes.",
-    "V7.3 still requires physical-iPhone user feel review.",
-    "Legacy Level 1/2 gameplay design is REJECTED; Level 3 and multi-car expansion remain locked."
+    "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
+    "Legacy Level 1/2 gameplay design is REJECTED; Level 3 and multi-car expansion remain locked until the rebuilt core-fun path passes."
   ],
   "staging_head_at_bootstrap": "b874f7256860948bfb17fa0e270379c912b6b24f",
   "latest_verified_commit": "6d36da13be57645e7d6726ebee56c70b8200cdf7",
@@ -40,8 +39,8 @@
   },
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {
-    "PASS": 6,
-    "IN_PROGRESS": 2,
+    "PASS": 7,
+    "IN_PROGRESS": 1,
     "BLOCKED": 11,
     "TODO": 0,
     "total": 19
@@ -58,16 +57,17 @@
     "parking-remaster-v1/*_RESULT.json"
   ],
   "resume_instruction": [
-    "Read PROJECT_STATE.json.",
-    "Read CANON.md.",
-    "Read GATES.json.",
-    "Fetch the latest staging HEAD.",
-    "Inspect CI/evidence required by current_gate only.",
+    "Read parking-remaster-v1/project-state/PROJECT_STATE.json.",
+    "Read parking-remaster-v1/project-state/CANON.md.",
+    "Read parking-remaster-v1/project-state/GATES.json.",
+    "Fetch the latest HEAD of parking-remaster-v1-staging-20260917; do not trust an embedded head value instead of fetching.",
+    "For current_gate P1-006, inspect V7_3_RESULT.json and CI run 35491534202 only as needed.",
+    "Do not implement another gameplay/audio revision before receiving the user's V7.3 physical-iPhone feel judgment.",
     "Advance exactly one atomic gate.",
     "Commit implementation/evidence first.",
-    "Then update GATES.json when gate status/evidence changed.",
-    "Update PROJECT_STATE.json at the end of every working turn.",
-    "Do not create a long Chat HANDOFF unless GitHub state itself is unavailable or corrupted."
+    "Then update GATES.json if gate status/evidence changed.",
+    "Update PROJECT_STATE.json at the end of the working turn.",
+    "Do not create a long Chat HANDOFF unless GitHub state is unavailable, corrupted, or insufficient."
   ],
   "storage_policy": {
     "persist": [
@@ -97,5 +97,15 @@
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open.",
     "New research may add a gate only when it reveals a genuinely necessary completion requirement; research must not create an infinite roadmap."
   ],
-  "updated_at": "2026-09-20T14:30:00+09:00"
+  "updated_at": "2026-09-20T14:34:00+09:00",
+  "persistence_bootstrap": {
+    "status": "PASS",
+    "project_state_initial_commit": "d0966bd437678b5b97d09c709f285dd5574cd6be",
+    "canon_commit": "1d550abbfac6e2a1133b7faeda0387448bf3860a",
+    "gates_initial_commit": "c88e711304c23cc2719f47681e98dfebc7679e26",
+    "execution_rules_commit": "a61480e09c05f87de09bf4f492f3bab53d749522",
+    "gates_close_commit": "ceaf121b881efa709165f34acafbe3cf561520d9",
+    "verification": "Only Parking Remaster state/rules files changed; no gameplay code and no GRID SHIFT files changed."
+  },
+  "resume_ready": true
 }
