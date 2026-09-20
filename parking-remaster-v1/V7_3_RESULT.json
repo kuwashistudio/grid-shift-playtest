@@ -1,0 +1,56 @@
+{
+  "gate": "ENGINE_ROAR_AND_TIRE_SQUEAL_V7_3",
+  "status": "PASS_AWAITING_USER_FEEL_REVIEW",
+  "date": "2026-09-20",
+  "user_feedback_from_v7_2": {
+    "engine": "Needs substantially more engine growl/roar; V7.2 still sounds like a Famicom/retro-game sound.",
+    "tire": "Needs a much clearer tire squeal / kyuru-kyuru friction sound.",
+    "recording": "User is currently moving and could not make a new recording; recording is not required for this gate."
+  },
+  "scope": {
+    "audio_only": true,
+    "motion_changed": false,
+    "skid_renderer_changed": false,
+    "grid_shift_root_changed": false,
+    "multi_car_still_locked": true
+  },
+  "audio_changes": {
+    "engine": [
+      "Replaced short regular-feeling combustion texture with a 2.6s jittered combustion-event buffer.",
+      "Added separate broadband low/mid engine roar layer.",
+      "Added body resonance, dynamic low-pass shaping and gentle soft clipping.",
+      "Reduced dependence on playback-rate pitch sweep; rev impression now also comes from gain/filter/load changes."
+    ],
+    "tire": [
+      "Built tire squeal from filtered broadband noise rather than a pitched oscillator.",
+      "Parallel moderate-Q friction bands around low-mid and high squeal regions plus high-frequency air texture.",
+      "Snap phase drives the strongest squeal; launch and exit receive shorter chirp-like friction bursts.",
+      "Filter centers move during snap to avoid static hiss while remaining noise-based."
+    ],
+    "kind": "jittered-combustion-roar+tire-squeal-noise"
+  },
+  "browser_proof": {
+    "run_id": 35491534202,
+    "status": "SUCCESS",
+    "duration_ms": 1708.9,
+    "snap_left_strokes": 1,
+    "snap_right_strokes": 1,
+    "snap_left_points": 8,
+    "snap_right_points": 8,
+    "audio_context": "running",
+    "rms": 0.01635679066595456,
+    "spectral_flatness": 0.7117069008300057,
+    "peak_ratio": 6.432718952608292,
+    "artifact_id": 10599277780,
+    "artifact_digest": "sha256:992809c8089ed79b8ba64eb182ca6e8f869a41d18f8f6a7020fd81f089aecdf5",
+    "caveat": "Browser proof verifies signal, phase targeting, and no motion/skid regression. It does not prove perceived realism on physical iPhone speakers."
+  },
+  "published": {
+    "main_commit": "ec36d40dd72451a289886e8225e1c64e18898dd9",
+    "pages_run_id": 35491585246,
+    "pages_status": "SUCCESS",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/"
+  },
+  "next_gate": "USER_FEEL_REVIEW_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL",
+  "review_instruction": "Listen on the iPhone first. A new recording is helpful later if the sound is still wrong, but is not required before giving the next feel judgment."
+}
