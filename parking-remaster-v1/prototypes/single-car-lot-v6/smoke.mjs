@@ -1,0 +1,66 @@
+import { chromium } from 'playwright';
+const A=(x,m)=>{if(!x)throw new Error(m)};
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+await page.goto('http://127.0.0.1:8765/index.html',{waitUntil:'networkidle'});
+await page.waitForFunction(()=>window.__v6QA);
+const initial=await page.evaluate(()=>window.__v6QA.state());
+await page.screenshot({path:'01-initial.png'});
+await page.evaluate(()=>window.__v6QA.start());
+await page.waitForTimeout(390);
+const charge=await page.evaluate(()=>window.__v6QA.state());
+A(charge.phaseName==='charge','first tame too short');
+A(Math.abs(charge.x-initial.x)<.2&&Math.abs(charge.y-initial.y)<.2,'car moved during first tame');
+A(Math.abs(charge.heading-initial.heading)<.0001,'heading changed during first tame');
+A(charge.smokeCount>=80,'first tame smoke too weak');
+await page.screenshot({path:'02-first-tame.png'});
+
+await page.waitForFunction(()=>window.__v6QA.state().phaseName==='blast',{timeout:900});
+await page.waitForTimeout(70);
+const bEarly=await page.evaluate(()=>window.__v6QA.state());
+await page.waitForTimeout(90);
+const bMid=await page.evaluate(()=>window.__v6QA.state());
+await page.waitForTimeout(90);
+const bLate=await page.evaluate(()=>window.__v6QA.state());
+A(Math.abs(bLate.x-initial.x)<.25,'first blast deviated laterally');
+A(bLate.speed>bEarly.speed*3,'first blast speed curve too flat: '+bEarly.speed+' -> '+bLate.speed);
+A(bLate.speed>bMid.speed*1.25,'first blast late acceleration too weak');
+await page.screenshot({path:'03-accelerating-blast.png'});
+
+await page.waitForFunction(()=>window.__v6QA.state().phaseName==='snap',{timeout:900});
+const p0=await page.evaluate(()=>({s:window.__v6QA.state(),f:window.__v6QA.front(),r:window.__v6QA.rear()}));
+await page.waitForTimeout(105);
+const p1=await page.evaluate(()=>({s:window.__v6QA.state(),f:window.__v6QA.front(),r:window.__v6QA.rear()}));
+const fm=Math.hypot(p1.f.x-p0.f.x,p1.f.y-p0.f.y),rm=Math.hypot(p1.r.x-p0.r.x,p1.r.y-p0.r.y);
+A(rm>fm*4,'rear snap too soft');
+await page.screenshot({path:'04-snap.png'});
+
+await page.waitForFunction(()=>window.__v6QA.state().phaseName==='reload',{timeout:900});
+const reloadStart=await page.evaluate(()=>window.__v6QA.state());
+await page.waitForTimeout(170);
+const reload=await page.evaluate(()=>window.__v6QA.state());
+A(reload.phaseName==='reload','second tame too short');
+A(Math.hypot(reload.x-reloadStart.x,reload.y-reloadStart.y)<.3,'car crept during second tame');
+A(reload.smokeCount-reloadStart.smokeCount>=30,'second tame smoke too weak');
+A(Math.abs(reload.heading)<.001,'second tame attitude not aligned');
+await page.screenshot({path:'05-second-tame.png'});
+
+await page.waitForFunction(()=>window.__v6QA.state().phaseName==='exit',{timeout:900});
+await page.waitForTimeout(65);
+const eEarly=await page.evaluate(()=>window.__v6QA.state());
+await page.waitForTimeout(100);
+const eMid=await page.evaluate(()=>window.__v6QA.state());
+await page.waitForTimeout(95);
+const eLate=await page.evaluate(()=>window.__v6QA.state());
+A(eLate.speed>eEarly.speed*4,'second blast speed curve too flat');
+A(eLate.speed>eMid.speed*1.3,'second blast late acceleration too weak');
+await page.screenshot({path:'06-exit-accel.png'});
+
+await page.waitForFunction(()=>window.__v6QA.state().done===true,{timeout:1200});
+const result=await page.evaluate(()=>({s:window.__v6QA.state(),h:window.__v6QA.history()}));
+const dur=result.s.completedAt-result.s.startedAt;
+A(dur>1250,'double tame not perceptible enough: '+dur);
+A(dur<1750,'maneuver too slow overall: '+dur);
+A(Math.abs(result.s.heading)<.001,'final attitude not straight');
+console.log(JSON.stringify({status:'PASS',durationMs:+dur.toFixed(1),firstTameSmoke:charge.smokeCount,blastSpeedEarly:bEarly.speed,blastSpeedMid:bMid.speed,blastSpeedLate:bLate.speed,snapFrontMove:+fm.toFixed(2),snapRearMove:+rm.toFixed(2),snapRearFrontRatio:+(rm/fm).toFixed(2),secondTameAddedSmoke:reload.smokeCount-reloadStart.smokeCount,exitSpeedEarly:eEarly.speed,exitSpeedMid:eMid.speed,exitSpeedLate:eLate.speed,finalHeading:+result.s.heading.toFixed(4),samples:result.h.length},null,2));
+await browser.close();
