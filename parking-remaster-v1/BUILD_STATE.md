@@ -473,3 +473,39 @@ Next exact gate: **Physical iPhone Review — V7.1 skid path + audible temporary
 
 Next exact gate: **User Feel Review — V7.2 Skid Arc + Engine Audio**.
 Judge only whether the snap tire marks now read as a smooth rear-tire arc and whether the sound has stopped reading as a beep. Do not expand to multiple cars before this review.
+
+
+## Engine Roar + Tire Squeal V7.3 — PASS / USER FEEL REVIEW NEXT
+
+- V7.2 user review: motion is substantially improved, but audio is still rejected as too Famicom/retro-game-like.
+- Required audio direction: substantially stronger engine growl/roar and a clearly readable tire "kyuru-kyuru" squeal.
+- User could not make a new recording while moving; recording is **not** required before the next listening judgment.
+- V7.3 is an **audio-only** revision. Accepted V6/V7/V7.2 motion and V7.2 smooth skid-arc renderer are unchanged.
+- Engine architecture now uses:
+  - longer jittered combustion events instead of a short regular-feeling pulse loop;
+  - a separate broadband low/mid roar layer;
+  - body resonance + dynamic low-pass shaping;
+  - gentle soft clipping for exhaust/body density;
+  - reduced reliance on playback-rate pitch sweep alone.
+- Tire architecture now uses:
+  - filtered broadband friction noise, not an audible pitch oscillator;
+  - two moving moderate-Q squeal bands plus high-frequency air texture;
+  - strongest squeal during rear snap;
+  - shorter tire-chirp bursts at launch/exit.
+- Browser proof run `35491534202`: SUCCESS.
+  - duration: 1708.9ms;
+  - snap strokes: left 1 / right 1;
+  - snap contact points: left 8 / right 8;
+  - AudioContext: running;
+  - kind: `jittered-combustion-roar+tire-squeal-noise`;
+  - RMS: 0.0163568;
+  - spectral flatness: 0.711707.
+- Browser numbers are not a realism verdict. Physical iPhone listening remains the quality gate.
+- Public main commit: `ec36d40dd72451a289886e8225e1c64e18898dd9`.
+- Pages deploy `35491585246`: SUCCESS.
+- Public prototype: `https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/`
+- GRID SHIFT root unchanged.
+- Multi-car Level 1/2 remains REJECTED. Level 3 remains LOCKED.
+
+Next exact gate: **User Feel Review — V7.3 Engine Roar + Tire Squeal**.
+Judge only whether the engine now reads more like a real revving car and whether the snap has an obvious tire squeal. Do not expand to multiple cars before this review.
