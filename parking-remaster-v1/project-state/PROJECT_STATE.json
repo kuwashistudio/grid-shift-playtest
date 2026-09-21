@@ -16,7 +16,7 @@
   ],
   "latest_verified_commit": "6d36da13be57645e7d6726ebee56c70b8200cdf7",
   "latest_verified_commit_role": "V7.3 audio/motion browser-proof commit; independent QA preparation commits do not replace gameplay verification.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35576395694,"status":"SUCCESS","verified_head":"7e3ea7ce2ef6adcaa8cc3919155880214d640908"},
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35582106819,"status":"SUCCESS","verified_head":"eb37eb64e4dbd80298fd20a717c9d53a909f6bce"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,24 +27,26 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Finite iPhone runtime technical QA contract",
-    "implementation_commits": ["17e47b743dffedeeeaf34a64804bf27e61f10395","7eda93e0cd0655597bf19239c3cac152a2a4e650","9b4a33246ca6e35aff60c3e3c3594d8315135fe4"],
+    "latest_independent_subgate": "Vertical Slice Beat Chart and brief-envelope regression wiring",
+    "implementation_commits": ["17e47b743dffedeeeaf34a64804bf27e61f10395","7eda93e0cd0655597bf19239c3cac152a2a4e650","9b4a33246ca6e35aff60c3e3c3594d8315135fe4","716fee89483b4e1eacbf1c96e4046597c0701c84"],
     "evidence_files": [
-      "parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json",
-      "parking-remaster-v1/scripts/test_iphone_runtime_contract.py",
+      "parking-remaster-v1/VERTICAL_SLICE_BEAT_CHART_V1.json",
+      "parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json",
+      "parking-remaster-v1/scripts/validate_beat_chart.py",
+      "parking-remaster-v1/scripts/validate_vertical_slice_briefs.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
-    "decision": "Preproduction iPhone runtime requirements are now finite and fail-closed: viewport-fit plus safe-area handling, <=1s control availability, PointerEvent/touch-action input discipline, pointercancel/duplicate-action guards, nonblocking audio unlock, and visibility/page lifecycle recovery. This technical contract does not authorize P1-007/P1-008 and does not replace physical-iPhone subjective or final target-device QA.",
-    "purpose": "Retire preventable iPhone HTML5 input/viewport/lifecycle integration risk while the audio Human Gate is pending, without changing gameplay or audio quality.",
-    "prior_ci": {"workflow":"Parking Remaster Project State","run_id":35576395694,"status":"SUCCESS","verified_head":"7e3ea7ce2ef6adcaa8cc3919155880214d640908","scope":"finite pre-P1-008 runtime evidence package"},
-    "ci": {"workflow":"Parking Remaster Project State","status":"PENDING_TRIGGER_OR_DISCOVERY","expected_head":"STATE_COMMIT_AFTER_9b4a332","scope":"finite iPhone runtime contract regression"}
+    "decision": "The existing finite 12 Main + 2 Hard Beat Chart and level-brief envelopes are now part of the consolidated fail-closed Parking QA workflow. This is pre-authoring consistency protection only: it does not authorize P1-007/P1-008, does not validate the rejected legacy multi-car implementation, and does not claim human difficulty/fun.",
+    "purpose": "Prevent the already-approved Vertical Slice waveform, safe failure-teaching constraints, and brief envelopes from silently drifting while the audio Human Gate is pending, without authoring Level 3 or multi-car gameplay.",
+    "prior_ci": {"workflow":"Parking Remaster Project State","run_id":35582106819,"status":"SUCCESS","verified_head":"eb37eb64e4dbd80298fd20a717c9d53a909f6bce","scope":"finite iPhone runtime contract regression"},
+    "ci": {"workflow":"Parking Remaster Project State","status":"PENDING_TRIGGER_OR_DISCOVERY","expected_head":"STATE_COMMIT_AFTER_716fee8","scope":"Vertical Slice Beat Chart + brief-envelope regression plus all existing consolidated QA"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.",
     "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
     "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
-    "Verify the Parking Remaster Project State CI triggered by the finite iPhone runtime contract; record SUCCESS only after GitHub reports it.",
-    "Keep all P1-008 and iPhone runtime contracts preproduction-only; P1-007 PASS is required before any multi-car prototype build.",
+    "Verify the Parking Remaster Project State CI triggered by Vertical Slice regression wiring; record SUCCESS only after GitHub reports it.",
+    "Treat Beat Chart/brief validation as pre-authoring consistency only; shared_exit_conflict implementation still requires revalidation against the future rebuilt visible movement rule.",
     "Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."
   ],
   "critical_guardrails": [
@@ -53,6 +55,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-21T18:12:00+09:00",
+  "updated_at": "2026-09-21T19:09:00+09:00",
   "resume_ready": true
 }
