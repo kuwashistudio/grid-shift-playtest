@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "gate": "P1-009",
+  "purpose": "Define bounded evidence required for rebuilt Level 1 target-iPhone core-fun review without pretending automated checks prove human comprehension or fun.",
+  "status": "PREPARATION_ONLY",
+  "prerequisites": ["P1-008 PASS", "rebuilt Level 1 candidate exists"],
+  "required_sessions": {
+    "minimum_fresh_players": 3,
+    "target_device_family": "physical iPhone",
+    "developer_coaching": "forbidden before first useful action",
+    "repeat_player_may_not_substitute_for_fresh_player": true
+  },
+  "required_observations_per_session": [
+    "prototype_commit",
+    "device_model_or_class",
+    "ios_version",
+    "safari_or_installed_browser",
+    "first_control_available_ms",
+    "first_useful_action_ms",
+    "first_useful_action_without_explanation",
+    "visible_rule_explanation_after_play",
+    "failure_cause_explanation_if_failure_seen",
+    "retry_to_playable_ms_if_retry_used",
+    "session_notes"
+  ],
+  "hard_technical_bounds": {
+    "first_control_available_ms_max": 1000,
+    "retry_to_playable_ms_target_max": 1500,
+    "solver_runtime_parity_required": true,
+    "visible_movement_runtime_evidence_required": true
+  },
+  "human_acceptance_questions": [
+    "Could a fresh player infer the first useful action without explanation?",
+    "Did visible geometry predict which movement was legal?",
+    "Did actual car motion match the visible rule?",
+    "Was interaction responsive and satisfying enough to continue?",
+    "If failure occurred, could the player explain why?"
+  ],
+  "automation_limits": [
+    "Automated CI may validate this contract and technical evidence shape only.",
+    "Automated CI must not mark P1-009 PASS.",
+    "Synthetic timing, solver success, browser automation, or numeric metrics do not substitute for fresh-player target-iPhone judgment."
+  ],
+  "storage_policy": {
+    "store_structured_summary": true,
+    "raw_video_required": false,
+    "raw_audio_required": false,
+    "avoid_pii": true
+  }
+}
