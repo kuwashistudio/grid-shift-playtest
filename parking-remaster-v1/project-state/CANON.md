@@ -1,7 +1,7 @@
 # Parking Remaster — Current CANON
 
 Status: ACTIVE AUTHORITY
-Updated: 2026-09-20
+Updated: 2026-09-21
 Repository: `kuwashistudio/grid-shift-playtest`
 Work scope: `parking-remaster-v1/`
 Staging: `parking-remaster-v1-staging-20260917`
@@ -210,60 +210,13 @@ core-fun proof -> rebuilt Level 1 -> 14-level Vertical Slice -> greenlight -> co
 
 No 120/144-level bulk production, elaborate meta, LiveOps, or monetization work may start early.
 
-## 12. Repository safety
+## 12. Repository safety and execution scope
 
 - GRID SHIFT production/root files must not be changed.
 - Parking Remaster work is limited to `parking-remaster-v1/` and dedicated Parking Remaster workflows unless an explicitly approved repository-level change is required.
 - Staging is the implementation branch.
 - Main may receive **isolated Parking Remaster public prototype paths** when needed for physical-iPhone human review; this does not authorize unrelated main changes or GRID SHIFT changes.
-- Every working turn advances at most one atomic gate.
+- A run is **not** limited to one atomic gate. Within a single run, complete the largest coherent, rollback-safe work package whose dependencies are already satisfied; related research, specification, implementation, validator/test, CI/evidence, and state updates may be closed together.
+- Do not cross a Human Review, unmet dependency, irreversible action, specification contradiction, failing CI, or unexpected repository-impact boundary. At such a boundary, checkpoint that work safely and continue only with an independent safe requirement if one exists.
+- While P1-006 is on USER-HOLD, independent prerequisite/QA work may continue, but P1-007/P1-008 activation, Level 3 authoring, multi-car gameplay implementation, and autonomous V7.4 audio tuning remain forbidden.
 - CI/numeric PASS never substitutes for human game-quality judgment.
-- Physical iPhone look/sound/feel has the highest priority for subjective quality.
-
-## 13. Persistent project-state operating rule
-
-Chat history is no longer the only current-state record.
-
-At the start of every work turn:
-1. read `project-state/PROJECT_STATE.json`;
-2. read this CANON;
-3. read `project-state/GATES.json`;
-4. fetch latest staging HEAD;
-5. inspect CI/evidence required by the current gate.
-
-At the end of every work turn:
-1. commit the actual implementation/evidence;
-2. update `GATES.json` if any gate status/evidence changed;
-3. update `PROJECT_STATE.json`;
-4. leave GitHub as the exact resume point.
-
-A new Chat should be able to resume from:
-**“Parking RemasterをGitHubのPROJECT_STATEから再開して。1 Gate進めて”**
-
-Long Chat HANDOFF packages are no longer normal workflow.
-
-## 14. Finite research rule
-
-Research exists to close a named gate, not to create an endless roadmap.
-
-A new Gate may be added only if new evidence reveals a genuinely necessary completion requirement that is not covered by the existing finite registry. Record why it was added and which completion risk it retires.
-
-## 15. Storage policy
-
-Persist:
-- code;
-- HTML/CSS/JS;
-- JSON;
-- Markdown;
-- workflows;
-- small test data;
-- project-state information;
-- essential lightweight assets.
-
-Do not accumulate without bound:
-- temporary screenshots/images;
-- large videos;
-- long-lived disposable workflow artifacts;
-- build caches;
-- render intermediates;
-- duplicate backup copies.
