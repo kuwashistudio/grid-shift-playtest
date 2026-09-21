@@ -8,7 +8,7 @@
   "current_phase": "PHASE_1_CORE_FUN_PROOF",
   "production_started": false,
   "current_gate": "P1-006",
-  "last_completed_gate": "GP-000",
+  "last_completed_gate": "P1-005",
   "next_gate": "P1-007",
   "blockers": [
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
@@ -27,8 +27,8 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Persistent execution-policy contradiction removed from CANON",
-    "implementation_commits": ["17e47b743dffedeeeaf34a64804bf27e61f10395","7eda93e0cd0655597bf19239c3cac152a2a4e650","9b4a33246ca6e35aff60c3e3c3594d8315135fe4","716fee89483b4e1eacbf1c96e4046597c0701c84","e7f28a444636051c1f214e9c37c8e0c40bc587a6"],
+    "latest_independent_subgate": "Persistent project-state last-completed freshness invariant",
+    "implementation_commits": ["17e47b743dffedeeeaf34a64804bf27e61f10395","7eda93e0cd0655597bf19239c3cac152a2a4e650","9b4a33246ca6e35aff60c3e3c3594d8315135fe4","716fee89483b4e1eacbf1c96e4046597c0701c84","e7f28a444636051c1f214e9c37c8e0c40bc587a6","f7a6da9891660c6d4c6588930bcdeaf6c4c4ec7c","f12696b896719c91098ee7d22b401ebe6d067ab4"],
     "evidence_files": [
       "parking-remaster-v1/VERTICAL_SLICE_BEAT_CHART_V1.json",
       "parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json",
@@ -39,19 +39,22 @@
       "parking-remaster-v1/qa/visible_movement_runtime_evidence_contract_v1.json",
       "parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json",
       "parking-remaster-v1/project-state/CANON.md",
+      "parking-remaster-v1/scripts/validate_project_state.py",
+      "parking-remaster-v1/scripts/test_validate_project_state.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
-    "decision": "The consolidated fail-closed Parking QA workflow is verified green at staging head 8287ce92 via run 35592919841. CANON previously retained a superseded 'one atomic gate per turn' sentence that conflicted with the active coherent-work-package rule; commit e7f28a44 removes that contradiction and explicitly preserves Human Gate/dependency/repository-scope boundaries. This policy correction authorizes no gameplay gate and changes no runtime/game files.",
-    "purpose": "Keep GitHub itself sufficient and internally consistent as the sole restart authority while the audio Human Gate is pending, without authoring Level 3 or multi-car gameplay.",
+    "decision": "GitHub restart state contained a stale last_completed_gate=GP-000 even though P1-001 through P1-005 are PASS and P1-006 is current. The project-state validator now derives the latest PASS before the current gate from finite registry order and fails closed on stale pointers; regression coverage proves the stale GP-000 value is rejected. Canonical last_completed_gate is corrected to P1-005. This is state-authority hardening only and authorizes no gameplay gate.",
+    "purpose": "Prevent a future Chat or automation from resuming from a semantically stale completed-gate pointer while GitHub remains the sole restart authority.",
     "prior_ci": {"workflow":"Parking Remaster Project State","run_id":35592919841,"status":"SUCCESS","verified_head":"8287ce920443411961003e993fdefbb9f933d9f6","scope":"consolidated preproduction Parking QA"},
-    "ci": {"workflow":"Parking Remaster Project State","status":"VERIFIED_SUCCESS","run_id":35592919841,"verified_head":"8287ce920443411961003e993fdefbb9f933d9f6","scope":"all consolidated preproduction QA before execution-policy CANON correction"}
+    "ci": {"workflow":"Parking Remaster Project State","status":"PENDING_FOR_CURRENT_HEAD","run_id":null,"verified_head":null,"scope":"project-state freshness invariant plus consolidated preproduction QA"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.",
     "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
     "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
     "Use the coherent-work-package rule in CANON: a run may close multiple related safe sub-gates, but must stop that dependency chain at Human Review, unmet dependency, irreversible action, contradiction, failing CI, or unexpected repository impact.",
-    "Treat consolidated CI run 35592919841 as verified preproduction QA evidence; future runs should only add independent work that closes a real existing requirement, not duplicate already-covered validators.",
+    "Treat consolidated CI run 35592919841 as the latest verified preproduction QA evidence until the current-head Project State workflow completes; future runs should verify the newest run before adding more independent work.",
+    "Treat last_completed_gate as a derived freshness invariant: for current P1-006 it must remain P1-005 unless gate statuses legitimately advance.",
     "Treat Beat Chart/brief validation as pre-authoring consistency only; shared_exit_conflict implementation still requires revalidation against the future rebuilt visible movement rule.",
     "Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."
   ],
@@ -61,6 +64,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-21T21:15:00+09:00",
+  "updated_at": "2026-09-21T22:13:00+09:00",
   "resume_ready": true
 }
