@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "status": "PREPARATION_ONLY",
+  "purpose": "Define the minimum deterministic Level Library record needed after rebuilt Level 1 acceptance, without authoring or activating multi-car gameplay early.",
+  "activation_guard": {
+    "content_authoring_for_publication_requires": ["P1-009 PASS"],
+    "bulk_authoring_requires": ["P2-002 GREENLIGHT", "P3-001 active"],
+    "current_phase_behavior": "schema/validator fixtures only; no Level 3 or production level creation"
+  },
+  "required_record_fields": [
+    "level_id",
+    "level_data_schema_version",
+    "level_data_sha256",
+    "solver_ruleset_version",
+    "runtime_ruleset_version",
+    "solver_proof_sha256",
+    "parity_fixture_sha256",
+    "visible_rule_contract_version",
+    "difficulty_role",
+    "mechanics",
+    "duplicate_fingerprint",
+    "review_status",
+    "provenance"
+  ],
+  "review_status_enum": ["DRAFT", "SOLVER_PROVEN", "PARITY_PROVEN", "VISUALLY_REVIEWED", "PUBLISHABLE"],
+  "publishable_invariants": [
+    "solver_ruleset_version equals runtime_ruleset_version",
+    "solver proof and parity fixture hashes are present",
+    "visible movement rule version is explicit",
+    "duplicate fingerprint is present and collision-checked against the target library",
+    "visual review is explicit and cannot be inferred from CI",
+    "PUBLISHABLE is forbidden while prerequisite finite gates are not PASS"
+  ],
+  "duplicate_detection": {
+    "canonical_input": "normalized logical Level Data only; presentation coordinates/assets are excluded unless they alter gameplay geometry",
+    "normalization": [
+      "stable key ordering",
+      "stable vehicle ordering by canonical vehicle id",
+      "strip non-gameplay timestamps/comments",
+      "retain board geometry, movement axes/directions, collision bodies, mechanic state and objective"
+    ],
+    "fingerprint": "SHA-256 of canonical normalized logical Level Data",
+    "note": "Exact duplicate detection is an engineering guard, not a claim of perceptual or strategic uniqueness. Near-duplicate gameplay requires later structural/human review."
+  },
+  "production_cost_fields": [
+    "authoring_seconds",
+    "solver_seconds",
+    "parity_seconds",
+    "visual_review_seconds",
+    "rework_seconds",
+    "total_seconds"
+  ],
+  "forbidden_claims": [
+    "solver complexity proves human difficulty",
+    "duplicate hash proves experiential uniqueness",
+    "CI proves visual quality or fun"
+  ]
+}
