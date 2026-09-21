@@ -15,6 +15,8 @@ on:
       - 'parking-remaster-v1/scripts/test_level_fingerprint.py'
       - 'parking-remaster-v1/scripts/level_library.py'
       - 'parking-remaster-v1/scripts/test_level_library.py'
+      - 'parking-remaster-v1/scripts/production_cost_record.py'
+      - 'parking-remaster-v1/scripts/test_production_cost_record.py'
       - '.github/workflows/parking-remaster-project-state.yml'
 
 permissions:
@@ -36,3 +38,5 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_level_fingerprint.py
       - name: Regression-test deterministic Level Library manifest
         run: python3 parking-remaster-v1/scripts/test_level_library.py
+      - name: Regression-test bounded production-cost records
+        run: python3 parking-remaster-v1/scripts/test_production_cost_record.py
