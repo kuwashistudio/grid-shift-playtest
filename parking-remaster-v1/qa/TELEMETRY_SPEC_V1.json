@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Privacy-minimal event contract for future fresh-player/controlled-release evidence. Pre-production only; does not enable analytics or production.",
+  "privacy": {
+    "persistent_user_id": false,
+    "advertising_id": false,
+    "precise_location": false,
+    "free_text": false,
+    "raw_input_stream": false
+  },
+  "events": {
+    "session_start": ["session_id", "level_id", "build_id", "elapsed_ms"],
+    "first_action": ["session_id", "level_id", "vehicle_id", "elapsed_ms"],
+    "vehicle_action": ["session_id", "level_id", "vehicle_id", "result", "elapsed_ms"],
+    "failure": ["session_id", "level_id", "reason", "elapsed_ms"],
+    "retry": ["session_id", "level_id", "elapsed_ms"],
+    "level_complete": ["session_id", "level_id", "actions", "retries", "elapsed_ms"],
+    "session_end": ["session_id", "level_id", "reason", "elapsed_ms"]
+  },
+  "enums": {
+    "vehicle_action.result": ["moved", "blocked"],
+    "failure.reason": ["shared_exit_conflict"],
+    "session_end.reason": ["complete", "abandon", "page_hidden"]
+  },
+  "constraints": {
+    "session_id": "ephemeral random token; rotate every page session; never derived from device/account/network identifiers",
+    "elapsed_ms": "integer >= 0 measured from session_start",
+    "actions": "integer >= 0",
+    "retries": "integer >= 0",
+    "level_id": "published Level Data identifier",
+    "vehicle_id": "identifier present in that Level Data",
+    "build_id": "release/rollback manifest identifier"
+  },
+  "derived_metrics_only": [
+    "time_to_first_action_ms",
+    "level_completion_rate",
+    "median_level_completion_ms",
+    "retry_rate",
+    "failure_reason_counts",
+    "blocked_action_rate"
+  ],
+  "forbidden_fields": [
+    "name", "email", "phone", "address", "ip", "latitude", "longitude", "advertising_id", "device_fingerprint", "user_agent", "free_text"
+  ],
+  "activation_gate": "Collection endpoint/instrumentation remains disabled until the applicable external-playtest/release gate authorizes telemetry and required privacy/legal checks are complete."
+}
