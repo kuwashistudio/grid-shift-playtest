@@ -16,7 +16,7 @@
   ],
   "latest_verified_commit": "6d36da13be57645e7d6726ebee56c70b8200cdf7",
   "latest_verified_commit_role": "V7.3 audio/motion browser-proof commit; independent QA preparation commits do not replace gameplay verification.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35617388566,"status":"SUCCESS","verified_head":"24dc4d47f91f14d31bdef25f993a8cce959ca2e4"},
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35623833346,"status":"SUCCESS","verified_head":"a5f42b9593c0416a4931670de0a1f9d719e5a566"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,8 +27,8 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "P1-009 fresh-player target-iPhone evidence contract prepared and CI guard added without activating P1-009",
-    "implementation_commits": ["17e47b743dffedeeeaf34a64804bf27e61f10395","7eda93e0cd0655597bf19239c3cac152a2a4e650","9b4a33246ca6e35aff60c3e3c3594d8315135fe4","716fee89483b4e1eacbf1c96e4046597c0701c84","e7f28a444636051c1f214e9c37c8e0c40bc587a6","f7a6da9891660c6d4c6588930bcdeaf6c4c4ec7c","f12696b896719c91098ee7d22b401ebe6d067ab4","80419e684905ecda172b1a6c04302f4d61ec1d7d","8db6335eae2a513311d7180f5be9cc74a7d11dea","3edbea8577369adf2c0de45aeacb10d044de6495","01fd78c45a35e512f240cbebfe3046fd1dd64122","1ad39f374f37e11852ad81e1cc8ba9fa90c75472"],
+    "latest_independent_subgate": "P1-009 fresh-player target-iPhone evidence contract prepared and CI-verified without activating P1-009",
+    "implementation_commits": ["17e47b743dffedeeeaf34a64804bf27e61f10395","7eda93e0cd0655597bf19239c3cac152a2a4e650","9b4a33246ca6e35aff60c3e3c3594d8315135fe4","716fee89483b4e1eacbf1c96e4046597c0701c84","e7f28a444636051c1f214e9c37c8e0c40bc587a6","f7a6da9891660c6d4c6588930bcdeaf6c4c4ec7c","f12696b896719c91098ee7d22b401ebe6d067ab4","80419e684905ecda172b1a6c04302f4d61ec1d7d","8db6335eae2a513311d7180f5be9cc74a7d11dea","3edbea8577369adf2c0de45aeacb10d044de6495","01fd78c45a35e512f240cbebfe3046fd1dd64122","1ad39f374f37e11852ad81e1cc8ba9fa90c75472","a5f42b9593c0416a4931670de0a1f9d719e5a566"],
     "evidence_files": [
       "parking-remaster-v1/VERTICAL_SLICE_BEAT_CHART_V1.json",
       "parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json",
@@ -46,19 +46,18 @@
       "parking-remaster-v1/scripts/test_p1_009_human_evidence_contract.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
-    "decision": "Current-head Project State CI run 35617388566 passed on checkpoint 24dc4d47. A bounded P1-009 human-evidence contract was then added as preparation only: at least three fresh physical-iPhone sessions, no developer coaching before first useful action, explicit visible-rule/failure comprehension observations, <=1.0s first-control technical bound, <=1.5s retry target, solver/runtime parity and visible-movement evidence prerequisites, and an explicit prohibition on CI marking P1-009 PASS. The contract/test/workflow changes end at 1ad39f37; current-head CI for that new guard is not yet recorded as verified, so the previous successful run remains latest_verified_ci. P1-006 remains the only active gate and P1-007/P1-008/P1-009 remain unactivated.",
+    "decision": "Project State CI run 35623833346 passed on checkpoint a5f42b9593, verifying the P1-009 fresh-player human-evidence contract and all consolidated preproduction guards. The contract remains PREPARATION_ONLY: at least three fresh physical-iPhone sessions, no developer coaching before first useful action, explicit visible-rule/failure comprehension observations, <=1.0s first-control technical bound, <=1.5s retry target, solver/runtime parity and visible-movement evidence prerequisites, and an explicit prohibition on CI marking P1-009 PASS. P1-006 remains the only active gate and P1-007/P1-008/P1-009 remain unactivated.",
     "purpose": "Prepare later rebuilt-Level-1 evaluation so automation cannot confuse technical metrics with fresh-player human acceptance while audio USER-HOLD remains untouched.",
-    "prior_ci": {"workflow":"Parking Remaster Project State","run_id":35610329982,"status":"SUCCESS","verified_head":"8db6335eae2a513311d7180f5be9cc74a7d11dea","scope":"Phase 1 authorization guard plus consolidated preproduction QA"},
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35617388566,"status":"SUCCESS","verified_head":"24dc4d47f91f14d31bdef25f993a8cce959ca2e4","scope":"current-head consolidated preproduction QA before P1-009 evidence-contract addition"}
+    "prior_ci": {"workflow":"Parking Remaster Project State","run_id":35617388566,"status":"SUCCESS","verified_head":"24dc4d47f91f14d31bdef25f993a8cce959ca2e4","scope":"consolidated preproduction QA before P1-009 evidence-contract addition"},
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35623833346,"status":"SUCCESS","verified_head":"a5f42b9593c0416a4931670de0a1f9d719e5a566","scope":"P1-009 human-evidence contract plus consolidated preproduction QA"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.",
     "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
     "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
     "Use the coherent-work-package rule in CANON: a run may close multiple related safe sub-gates, but must stop that dependency chain at Human Review, unmet dependency, irreversible action, contradiction, failing CI, or unexpected repository impact.",
-    "Verify the Project State CI that includes P1_009_HUMAN_EVIDENCE_CONTRACT_V1.json and test_p1_009_human_evidence_contract.py before treating that guard as CI-verified evidence.",
     "Treat last_completed_gate as a derived freshness invariant: for current P1-006 it must remain P1-005 unless gate statuses legitimately advance.",
-    "Treat P1-009 human-evidence contract as PREPARATION_ONLY; do not collect/claim fresh-player evidence before P1-008 PASS and a rebuilt Level 1 candidate exist.",
+    "Treat P1-009 human-evidence contract as PREPARATION_ONLY and CI-verified; do not collect/claim fresh-player evidence before P1-008 PASS and a rebuilt Level 1 candidate exist.",
     "Treat Beat Chart/brief validation as pre-authoring consistency only; shared_exit_conflict implementation still requires revalidation against the future rebuilt visible movement rule.",
     "Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."
   ],
@@ -68,6 +67,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-22T01:12:00+09:00",
+  "updated_at": "2026-09-22T02:08:00+09:00",
   "resume_ready": true
 }
