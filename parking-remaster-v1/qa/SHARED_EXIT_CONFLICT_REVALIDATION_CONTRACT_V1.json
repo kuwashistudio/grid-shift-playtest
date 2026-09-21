@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "status": "PREPARATION_ONLY_REVALIDATION_REQUIRED",
+  "gate_owner": "P2-001",
+  "purpose": "Prevent the legacy shared_exit_conflict state machine from being reused after the old hidden-ray/shared-Bezier movement model was rejected. This contract prepares finite evidence requirements only; it does not authorize implementation or level authoring.",
+  "mechanic": "shared_exit_conflict",
+  "prerequisites": {
+    "p1_008_status_required": "PASS",
+    "p1_009_status_required_before_vertical_slice_authoring": "PASS",
+    "visible_movement_rule_required": true,
+    "solver_runtime_parity_required": true,
+    "legacy_geometry_reuse_allowed": false
+  },
+  "required_evidence_before_mechanic_use": [
+    "visible_merge_zone_geometry_ref",
+    "level_data_rule_ref",
+    "python_solver_rule_ref",
+    "javascript_runtime_rule_ref",
+    "parity_evidence_ref",
+    "target_iphone_visual_review_ref",
+    "failure_cause_comprehension_ref",
+    "retry_timing_evidence_ref"
+  ],
+  "behavioral_acceptance": {
+    "conflict_zone_visible_before_action": true,
+    "conflict_trigger_deterministic": true,
+    "no_rng": true,
+    "no_hidden_ray_blocker": true,
+    "no_shared_bezier_exit_mismatch": true,
+    "player_action_attributable": true,
+    "fresh_player_can_explain_failure_after_one_exposure": true,
+    "retry_target_ms_max": 1500
+  },
+  "vertical_slice_constraints": {
+    "level_010_role": "failure_teach",
+    "level_010_safe_alternative_min_during_conflict": 1,
+    "level_011_role": "learned_challenge",
+    "level_012_role": "chapter_peak",
+    "level_014_track": "hard",
+    "level_013_forbids_mechanic": true
+  },
+  "fail_closed": [
+    "Legacy H1_IMPL_RESULT parity is historical engineering evidence only and cannot satisfy this contract.",
+    "Beat Chart or brief validation cannot satisfy runtime or human comprehension evidence.",
+    "CI/numeric PASS cannot substitute for target-iPhone visual review or fresh-player failure comprehension.",
+    "Do not implement shared_exit_conflict while P1-008 is blocked or before its accepted visible movement rule exists.",
+    "Do not author Vertical Slice levels using this mechanic before P1-009 PASS."
+  ]
+}
