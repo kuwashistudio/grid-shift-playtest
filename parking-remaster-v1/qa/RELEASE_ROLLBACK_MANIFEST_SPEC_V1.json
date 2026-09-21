@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "status": "PREPARATION_ONLY_COLLECTION_DISABLED_RELEASE_LOCKED",
+  "purpose": "Finite fail-closed contract for reproducible Parking Remaster release evidence and rollback points without authorizing release.",
+  "required_fields": [
+    "manifest_version",
+    "release_id",
+    "source_commit",
+    "source_branch",
+    "build_profile",
+    "level_library_fingerprint",
+    "asset_manifest_fingerprint",
+    "qa_evidence",
+    "rollback",
+    "authorization"
+  ],
+  "constraints": {
+    "source_branch": "parking-remaster-v1-staging-20260917",
+    "source_commit_pattern": "^[0-9a-f]{40}$",
+    "fingerprint_pattern": "^sha256:[0-9a-f]{64}$",
+    "release_id_pattern": "^parking-remaster-[0-9]{8}-[a-z0-9._-]+$",
+    "qa_evidence_minimum": 1,
+    "qa_evidence_entry_required": ["name", "status", "evidence_ref"],
+    "qa_allowed_status": ["PASS", "HUMAN_PASS"],
+    "rollback_required": ["known_good_commit", "known_good_release_id", "procedure_ref"],
+    "rollback_commit_pattern": "^[0-9a-f]{40}$",
+    "authorization_required": ["release_gate", "human_release_approved"],
+    "release_gate_required_value": "P8-001",
+    "human_release_approved_required_for_publish": true,
+    "forbid_publish_when_project_production_started_false": true
+  },
+  "guardrails": [
+    "This specification is QA preparation only and does not open Production, P3, P8, external publication, telemetry collection, or monetization.",
+    "A manifest may be drafted before release, but publish authorization must fail closed unless the future release gate and explicit human approval are present.",
+    "Rollback must identify an immutable 40-hex commit and a documented procedure; branch names alone are not rollback points.",
+    "QA numeric/CI PASS never substitutes for human game-quality gates.",
+    "Do not embed secrets, personal data, analytics identifiers, large artifacts, or binary build payloads in the manifest."
+  ]
+}
