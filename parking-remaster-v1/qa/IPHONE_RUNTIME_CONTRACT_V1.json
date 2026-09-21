@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "scope": "preproduction technical QA; does not authorize P1-007/P1-008 or replace physical-iPhone quality review",
+  "current_authorization": false,
+  "target": "iPhone Safari HTML5",
+  "requirements": {
+    "viewport": {
+      "meta_tokens": ["width=device-width", "initial-scale=1", "viewport-fit=cover"],
+      "safe_area": ["safe-area-inset-top", "safe-area-inset-right", "safe-area-inset-bottom", "safe-area-inset-left"],
+      "critical_controls_must_respect_safe_area": true,
+      "first_control_available_ms_max": 1000
+    },
+    "input": {
+      "primary_model": "PointerEvent",
+      "game_surface_touch_action": "none",
+      "pointercancel_must_not_commit_game_action": true,
+      "duplicate_touch_mouse_action_forbidden": true,
+      "audio_unlock_may_share_first_real_gameplay_gesture": true,
+      "gameplay_must_not_wait_for_audio": true
+    },
+    "lifecycle": {
+      "required_events": ["visibilitychange", "pagehide", "pageshow"],
+      "hidden_state_stops_or_suspends_audio": true,
+      "return_requires_next_gesture_audio_resume_or_recreate": true,
+      "audio_states_handled": ["suspended", "interrupted"],
+      "bfcache_restore_must_not_duplicate_handlers": true
+    },
+    "evidence": {
+      "static_contract_test": "required",
+      "browser_automation": "required_before_release_candidate",
+      "physical_iphone": "required_for_subjective_quality_and_final_target_device_QA"
+    }
+  },
+  "research_basis": [
+    "WebKit: viewport-fit=cover plus env(safe-area-inset-*) for full-screen iPhone layouts",
+    "MDN: Pointer Events unify touch/mouse input and touch-action controls native gesture handling",
+    "MDN: visibilitychange is the primary observable hidden transition; pagehide/pageshow cover navigation and bfcache lifecycle"
+  ]
+}
