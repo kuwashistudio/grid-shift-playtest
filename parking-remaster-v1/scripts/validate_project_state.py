@@ -16,6 +16,19 @@ STATE_PATH = STATE_DIR / "PROJECT_STATE.json"
 GATES_PATH = STATE_DIR / "GATES.json"
 CANON_PATH = STATE_DIR / "CANON.md"
 ALLOWED = {"TODO", "IN_PROGRESS", "BLOCKED", "PASS"}
+DEPENDENCIES = {
+    "P1-007": "P1-006",
+    "P1-008": "P1-007",
+    "P1-009": "P1-008",
+    "P2-001": "P1-009",
+    "P2-002": "P2-001",
+    "P3-001": "P2-002",
+    "P4-001": "P3-001",
+    "P5-001": "P4-001",
+    "P6-001": "P5-001",
+    "P7-001": "P6-001",
+    "P8-001": "P7-001",
+}
 
 
 def load_json(path: Path):
@@ -79,6 +92,15 @@ def main() -> int:
     if nxt not in by_id:
         fail(errors, f"next_gate {nxt!r} not found in registry")
 
+    # Fail closed on the finite dependency chain. A dependent gate may remain
+    # BLOCKED/TODO, but it cannot become active or PASS before its prerequisite PASSes.
+    for gid, prerequisite in DEPENDENCIES.items():
+        if gid not in by_id or prerequisite not in by_id:
+            fail(errors, f"dependency registry references missing gate: {gid} <- {prerequisite}")
+            continue
+        if by_id[gid].get("status") in {"IN_PROGRESS", "PASS"} and by_id[prerequisite].get("status") != "PASS":
+            fail(errors, f"{gid} cannot be active/PASS before prerequisite {prerequisite} is PASS")
+
     # USER-HOLD invariant: automation must never convert P1-006 into a synthetic PASS.
     audio = by_id.get("P1-006")
     if audio:
@@ -88,7 +110,6 @@ def main() -> int:
             fail(errors, "P1-006 PASS requires explicit user/physical-iPhone evidence")
 
     if state.get("production_started") is False:
-        # Production-scale gates must not silently become active before the core-fun path opens them.
         for gid in ("P2-001", "P2-002", "P3-001", "P4-001", "P5-001", "P6-001", "P7-001", "P8-001"):
             if gid in by_id and by_id[gid].get("status") not in {"BLOCKED", "TODO"}:
                 fail(errors, f"{gid} cannot be active/PASS while production_started=false")
