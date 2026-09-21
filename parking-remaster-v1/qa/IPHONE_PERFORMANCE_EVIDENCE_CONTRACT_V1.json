@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "status": "PREPARATION_ONLY_COLLECTION_DISABLED",
+  "purpose": "Define finite non-subjective performance evidence for future rebuilt gameplay on physical target iPhone without activating blocked gameplay gates.",
+  "measurement": {
+    "device_required": "physical_target_iPhone",
+    "browser_required": "Safari",
+    "clock": "requestAnimationFrame_timestamp_or_performance.now",
+    "visible_only": true,
+    "minimum_active_window_ms": 10000,
+    "minimum_frame_samples": 300,
+    "exclude_visibility_transition_windows": true,
+    "visibility_event_required": "visibilitychange",
+    "background_work_expectation": "no_gameplay_animation_or_polling"
+  },
+  "required_metrics": [
+    "first_control_available_ms",
+    "frame_interval_p50_ms",
+    "frame_interval_p95_ms",
+    "frame_interval_p99_ms",
+    "worst_frame_interval_ms",
+    "frame_sample_count",
+    "visibility_pause_resume_pass"
+  ],
+  "thresholds": {
+    "first_control_available_ms_max": 1000,
+    "frame_interval_p95_ms_max": 25,
+    "frame_interval_p99_ms_max": 50,
+    "worst_frame_interval_ms_max": 100,
+    "visibility_pause_resume_required": true
+  },
+  "optional_metrics": {
+    "long_task_count": "OPTIONAL_ONLY_WHEN_SUPPORTED",
+    "long_task_max_ms": "OPTIONAL_ONLY_WHEN_SUPPORTED",
+    "note": "PerformanceLongTaskTiming is not a required pass signal because browser support is not universal."
+  },
+  "evidence_required": [
+    "device_model",
+    "ios_version",
+    "safari_version_or_user_agent",
+    "candidate_commit",
+    "measurement_started_at",
+    "metrics",
+    "visibility_cycle_observed"
+  ],
+  "guardrails": [
+    "requestAnimationFrame cadence is display-dependent; do not require a fixed 60 Hz or 16.67 ms median.",
+    "Do not count hidden/background intervals as dropped gameplay frames because WebKit may suspend requestAnimationFrame and throttle timers while inactive.",
+    "Use timestamps/delta time for motion; never advance gameplay by a fixed amount per callback.",
+    "Long Tasks API evidence is optional and must not be required on Safari/iPhone when unsupported.",
+    "Automated or numeric PASS does not establish fun, responsiveness feel, audio quality, P1-006, P1-007, P1-008, or P1-009 human acceptance.",
+    "This contract authorizes evidence preparation only; collection begins only when the relevant rebuilt candidate is otherwise authorized."
+  ],
+  "research_basis": [
+    "MDN Window.requestAnimationFrame: callback frequency generally follows display refresh rate; callbacks are paused in most background tabs; timestamp/delta-time based animation is required for high-refresh displays.",
+    "MDN Page Visibility API: visibilitychange is the supported signal for hidden/visible state; background requestAnimationFrame and timers may be paused/throttled.",
+    "WebKit How Web Content Can Affect Power Usage: inactive pages stop requestAnimationFrame and should avoid background CPU work.",
+    "MDN PerformanceLongTaskTiming: Long Tasks API is limited-availability, so it is optional rather than a Safari pass dependency."
+  ]
+}
