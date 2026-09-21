@@ -19,13 +19,7 @@ VALIDATOR = ROOT / "scripts" / "validate_project_state.py"
 
 
 def run(root: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        [sys.executable, str(root / "scripts" / "validate_project_state.py")],
-        cwd=root,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
+    return subprocess.run([sys.executable, str(root / "scripts" / "validate_project_state.py")], cwd=root, text=True, capture_output=True, check=False)
 
 
 def write_json(path: Path, data: dict) -> None:
@@ -51,6 +45,16 @@ def expect_fail(name: str, mutate, needle: str) -> None:
         print(f"PASS negative: {name}")
 
 
+def recount(root: Path, gates: dict) -> None:
+    counts = {s: sum(1 for g in gates["gates"] if g["status"] == s) for s in ("TODO", "IN_PROGRESS", "BLOCKED", "PASS")}
+    counts["total"] = len(gates["gates"])
+    gates["counts"] = counts
+    state_path = root / "project-state" / "PROJECT_STATE.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    state["gate_counts"] = counts
+    write_json(state_path, state)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tmp:
         root = isolated_root(tmp)
@@ -67,34 +71,37 @@ def main() -> int:
             if gate["id"] == "P1-006":
                 gate["status"] = "PASS"
                 gate["evidence"] = ["synthetic browser metric only"]
-        counts = {s: sum(1 for g in gates["gates"] if g["status"] == s) for s in ("TODO", "IN_PROGRESS", "BLOCKED", "PASS")}
-        counts["total"] = len(gates["gates"])
-        gates["counts"] = counts
+        recount(root, gates)
         state = json.loads(state_path.read_text(encoding="utf-8"))
-        state["gate_counts"] = counts
         state["current_gate"] = "P1-007"
         write_json(gates_path, gates)
         write_json(state_path, state)
 
     expect_fail("P1-006 cannot synthetic-PASS while human review pending", pending_audio_synthetic_pass, "P1-006 cannot PASS while human_review_status is pending")
 
+    def activate_p1_008_early(root: Path) -> None:
+        gates_path = root / "project-state" / "GATES.json"
+        gates = json.loads(gates_path.read_text(encoding="utf-8"))
+        for gate in gates["gates"]:
+            if gate["id"] == "P1-008":
+                gate["status"] = "IN_PROGRESS"
+                gate["blocker"] = None
+        recount(root, gates)
+        write_json(gates_path, gates)
+
+    expect_fail("multi-car gate cannot bypass single-car acceptance", activate_p1_008_early, "P1-008 cannot be active/PASS before prerequisite P1-007 is PASS")
+
     def activate_production_early(root: Path) -> None:
         gates_path = root / "project-state" / "GATES.json"
-        state_path = root / "project-state" / "PROJECT_STATE.json"
         gates = json.loads(gates_path.read_text(encoding="utf-8"))
         for gate in gates["gates"]:
             if gate["id"] == "P2-001":
                 gate["status"] = "IN_PROGRESS"
                 gate["blocker"] = None
-        counts = {s: sum(1 for g in gates["gates"] if g["status"] == s) for s in ("TODO", "IN_PROGRESS", "BLOCKED", "PASS")}
-        counts["total"] = len(gates["gates"])
-        gates["counts"] = counts
-        state = json.loads(state_path.read_text(encoding="utf-8"))
-        state["gate_counts"] = counts
+        recount(root, gates)
         write_json(gates_path, gates)
-        write_json(state_path, state)
 
-    expect_fail("production-scale gate cannot activate before production", activate_production_early, "P2-001 cannot be active/PASS while production_started=false")
+    expect_fail("production-scale gate cannot bypass rebuilt Level 1", activate_production_early, "P2-001 cannot be active/PASS before prerequisite P1-009 is PASS")
 
     def corrupt_counts(root: Path) -> None:
         gates_path = root / "project-state" / "GATES.json"
