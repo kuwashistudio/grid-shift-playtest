@@ -11,6 +11,7 @@ on:
       - 'parking-remaster-v1/qa/RELEASE_ROLLBACK_MANIFEST_SPEC_V1.json'
       - 'parking-remaster-v1/qa/visible_movement_rule_contract_v1.json'
       - 'parking-remaster-v1/qa/visible_movement_parity_fixture_v1.json'
+      - 'parking-remaster-v1/qa/visible_movement_runtime_evidence_contract_v1.json'
       - 'parking-remaster-v1/scripts/validate_project_state.py'
       - 'parking-remaster-v1/scripts/test_validate_project_state.py'
       - 'parking-remaster-v1/scripts/validate_level_data_contract.py'
@@ -28,6 +29,7 @@ on:
       - 'parking-remaster-v1/scripts/test_visible_movement_rule_contract.py'
       - 'parking-remaster-v1/scripts/check_visible_movement_parity.js'
       - 'parking-remaster-v1/scripts/test_visible_movement_parity.py'
+      - 'parking-remaster-v1/scripts/test_visible_movement_runtime_evidence_contract.py'
       - '.github/workflows/parking-remaster-project-state.yml'
 
 permissions:
@@ -61,3 +63,5 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_visible_movement_rule_contract.py
       - name: Regression-test bounded Python/JS visible movement parity
         run: python3 parking-remaster-v1/scripts/test_visible_movement_parity.py
+      - name: Regression-test pre-P1-008 runtime evidence contract
+        run: python3 parking-remaster-v1/scripts/test_visible_movement_runtime_evidence_contract.py
