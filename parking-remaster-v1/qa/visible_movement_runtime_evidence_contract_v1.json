@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Pre-P1-008 runtime-evidence contract only. Defines deterministic evidence required after P1-007 PASS; does not authorize multi-car implementation.",
+  "activation_guard": {
+    "required_gate": "P1-007",
+    "required_status": "PASS",
+    "current_authorization": false
+  },
+  "required_checks": [
+    {
+      "id": "blocked_tap_no_displacement",
+      "requirement": "A vehicle whose visible longitudinal swept corridor is blocked must not change pose after a gameplay tap.",
+      "machine_evidence": ["pose_before", "pose_after", "blocking_vehicle_id", "legal_move=false"],
+      "tolerance_px": 0
+    },
+    {
+      "id": "animation_corridor_containment",
+      "requirement": "Every sampled collision body during an authorized move remains inside the same visible swept corridor used by the legal-move rule until the visible exit boundary is crossed.",
+      "machine_evidence": ["sampled_collision_bodies", "visible_corridor", "exit_boundary", "containment=true"]
+    },
+    {
+      "id": "runtime_solver_decision_match",
+      "requirement": "For identical Level Data and state, runtime and independent solver return the same legal/illegal decision.",
+      "machine_evidence": ["level_fingerprint", "state_fingerprint", "runtime_decision", "solver_decision", "match=true"]
+    },
+    {
+      "id": "accepted_single_car_grammar_regression",
+      "requirement": "The prototype must preserve the accepted single-car motion/audio grammar; automated evidence may detect regressions but cannot grant human-quality acceptance.",
+      "machine_evidence": ["motion_regression_result", "audio_runtime_result"],
+      "human_review_required": true
+    }
+  ],
+  "forbidden_shortcuts": [
+    "hidden blocker geometry not represented by visible Level Data",
+    "runtime-only legal-move exception",
+    "solver-only legal-move exception",
+    "shared hidden Bezier exit path",
+    "numeric PASS treated as human game-quality PASS"
+  ],
+  "prototype_limits": {
+    "max_cars": 3,
+    "requires_P1_007_PASS_before_build": true,
+    "bulk_level_authoring": false,
+    "level_3_authoring": false
+  }
+}
