@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Pre-P1-008 contract only; does not authorize multi-car implementation.",
+  "activation_guard": {
+    "required_gate": "P1-007",
+    "required_status": "PASS",
+    "current_authorization": false
+  },
+  "preferred_baseline": "LONGITUDINAL_VISIBLE_CLEARANCE",
+  "level_data_requirements": [
+    "vehicle_id",
+    "pose",
+    "collision_body",
+    "longitudinal_axis",
+    "visible_exit_boundary"
+  ],
+  "legal_move_contract": {
+    "rule": "A move is legal iff the vehicle collision body swept from its current pose along its longitudinal axis to the visible boundary/exit corridor is clear of visible blocking geometry.",
+    "solver_runtime_same_geometry": true,
+    "hidden_ray": false,
+    "shared_hidden_bezier": false,
+    "free_steering": false,
+    "rng": false
+  },
+  "prototype_limits": {
+    "max_cars": 3,
+    "new_failure_mechanic": false,
+    "timer": false,
+    "pedestrian": false,
+    "meta_system": false
+  },
+  "required_future_evidence": [
+    "independent Python/JS legal-move parity fixture",
+    "blocked-tap no-displacement test",
+    "animation corridor containment test",
+    "visible first-action human comprehension review on target iPhone",
+    "accepted single-car motion/audio grammar regression review"
+  ],
+  "human_quality_separate_from_numeric_pass": true,
+  "research_evidence": "parking-remaster-v1/research/VISIBLE_MOVEMENT_BENCHMARK_20260921.md"
+}
