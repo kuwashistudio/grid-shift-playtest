@@ -63,6 +63,14 @@ def main() -> int:
             raise AssertionError("canonical state must pass before negative tests\n" + result.stdout + result.stderr)
         print("PASS baseline canonical state")
 
+    def stale_last_completed(root: Path) -> None:
+        state_path = root / "project-state" / "PROJECT_STATE.json"
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        state["last_completed_gate"] = "GP-000"
+        write_json(state_path, state)
+
+    expect_fail("last_completed_gate must be latest PASS before current gate", stale_last_completed, "last_completed_gate 'GP-000' is stale")
+
     def pending_audio_synthetic_pass(root: Path) -> None:
         gates_path = root / "project-state" / "GATES.json"
         state_path = root / "project-state" / "PROJECT_STATE.json"
@@ -74,6 +82,7 @@ def main() -> int:
         recount(root, gates)
         state = json.loads(state_path.read_text(encoding="utf-8"))
         state["current_gate"] = "P1-007"
+        state["last_completed_gate"] = "P1-006"
         write_json(gates_path, gates)
         write_json(state_path, state)
 
