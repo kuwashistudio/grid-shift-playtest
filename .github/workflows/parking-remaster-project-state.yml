@@ -17,6 +17,7 @@ on:
       - 'parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/IPHONE_PERFORMANCE_EVIDENCE_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/P1_009_HUMAN_EVIDENCE_CONTRACT_V1.json'
+      - 'parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json'
       - 'parking-remaster-v1/scripts/validate_project_state.py'
       - 'parking-remaster-v1/scripts/test_validate_project_state.py'
       - 'parking-remaster-v1/scripts/test_phase1_authorization_guard.py'
@@ -26,6 +27,7 @@ on:
       - 'parking-remaster-v1/scripts/test_level_fingerprint.py'
       - 'parking-remaster-v1/scripts/level_library.py'
       - 'parking-remaster-v1/scripts/test_level_library.py'
+      - 'parking-remaster-v1/scripts/test_level_library_preproduction_contract.py'
       - 'parking-remaster-v1/scripts/production_cost_record.py'
       - 'parking-remaster-v1/scripts/test_production_cost_record.py'
       - 'parking-remaster-v1/scripts/validate_beat_chart.py'
@@ -64,6 +66,8 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_level_fingerprint.py
       - name: Regression-test deterministic Level Library manifest
         run: python3 parking-remaster-v1/scripts/test_level_library.py
+      - name: Guard Level Library preproduction contract
+        run: python3 parking-remaster-v1/scripts/test_level_library_preproduction_contract.py
       - name: Regression-test bounded production-cost records
         run: python3 parking-remaster-v1/scripts/test_production_cost_record.py
       - name: Validate 14-level Vertical Slice Beat Chart
