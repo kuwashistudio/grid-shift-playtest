@@ -10,10 +10,7 @@
   "current_gate": "P1-006",
   "last_completed_gate": "GP-000",
   "next_gate": "P1-007",
-  "blockers": [
-    "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
-    "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
-  ],
+  "blockers": ["V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.","Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."],
   "latest_verified_commit": "6d36da13be57645e7d6726ebee56c70b8200cdf7",
   "latest_verified_commit_role": "V7.3 audio/motion browser-proof commit; independent QA preparation commits do not replace gameplay verification.",
   "latest_verified_ci": {"workflow":"Parking Remaster Engine Roar + Tire Squeal V7.3","run_id":35491534202,"status":"SUCCESS"},
@@ -28,23 +25,10 @@
     "evidence_files": ["parking-remaster-v1/qa/TELEMETRY_SPEC_V1.json","parking-remaster-v1/scripts/validate_telemetry_spec.py","parking-remaster-v1/scripts/test_validate_telemetry_spec.py"],
     "decision": "Future fresh-player/release telemetry is bounded to seven gameplay events, ephemeral session IDs, elapsed/action/retry/failure data, and a small derived-metric set. Persistent identifiers, precise location, IP, user-agent/device fingerprint and free text are forbidden. Collection remains disabled until the applicable external-playtest/release and privacy/legal gates authorize it.",
     "purpose": "Prepare P3/P5/P6 evidence plumbing without analytics collection, gameplay/audio changes, multi-car implementation, or production unlock.",
-    "ci": {"workflow":"Parking Remaster Project State","status":"PENDING_AFTER_TELEMETRY_CI_WIRING"}
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35553213050,"status":"SUCCESS","verified_head":"b2af18fbfdab7a9fdc9c2494ff026ef9ab3490cd"}
   },
-  "resume_instruction": [
-    "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.",
-    "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
-    "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
-    "Verify Parking Remaster Project State CI after telemetry commits; if it fails, repair only the telemetry/state QA regression before new work.",
-    "Telemetry instrumentation/endpoint is forbidden until its future human/legal/release gate authorizes collection.",
-    "Preserve visible-movement benchmark decision, vertical-slice validators, Level Data contract, deterministic fingerprint/Level Library QA, and bounded production-cost QA already present in repository.",
-    "Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."
-  ],
-  "critical_guardrails": [
-    "Do not modify GRID SHIFT root/game files outside parking-remaster-v1/ and dedicated Parking Remaster workflows.",
-    "CI/numeric PASS is not human game-quality PASS.",
-    "Physical iPhone feel review outranks synthetic audio/visual metrics.",
-    "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
-  ],
-  "updated_at": "2026-09-21T11:08:00+09:00",
+  "resume_instruction": ["Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.","Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.","While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.","Telemetry contract QA passed CI run 35553213050; collection/instrumentation remains forbidden until its future human/legal/release gate authorizes it.","Preserve visible-movement benchmark decision, vertical-slice validators, Level Data contract, deterministic fingerprint/Level Library QA, bounded production-cost QA, and telemetry QA already present in repository.","Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."],
+  "critical_guardrails": ["Do not modify GRID SHIFT root/game files outside parking-remaster-v1/ and dedicated Parking Remaster workflows.","CI/numeric PASS is not human game-quality PASS.","Physical iPhone feel review outranks synthetic audio/visual metrics.","No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."],
+  "updated_at": "2026-09-21T11:10:00+09:00",
   "resume_ready": true
 }
