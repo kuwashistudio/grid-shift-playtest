@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Pre-P1-008 pure-geometry parity fixture only; not gameplay authorization.",
+  "activation_guard": {"required_gate":"P1-007","required_status":"PASS","current_authorization":false},
+  "geometry_model": "axis-aligned vehicle AABB swept along its declared longitudinal axis to visible_exit_boundary; touching counts as blocked",
+  "cases": [
+    {"id":"clear_right","vehicle":{"x":0,"y":0,"w":2,"h":1,"axis":"+x"},"exit":10,"blockers":[],"expected":true},
+    {"id":"blocked_right_near","vehicle":{"x":0,"y":0,"w":2,"h":1,"axis":"+x"},"exit":10,"blockers":[{"x":3,"y":0,"w":2,"h":1}],"expected":false},
+    {"id":"clear_right_other_lane","vehicle":{"x":0,"y":0,"w":2,"h":1,"axis":"+x"},"exit":10,"blockers":[{"x":3,"y":2,"w":2,"h":1}],"expected":true},
+    {"id":"touching_lane_edge_blocks","vehicle":{"x":0,"y":0,"w":2,"h":1,"axis":"+x"},"exit":10,"blockers":[{"x":4,"y":1,"w":1,"h":1}],"expected":false},
+    {"id":"clear_left","vehicle":{"x":8,"y":0,"w":2,"h":1,"axis":"-x"},"exit":0,"blockers":[],"expected":true},
+    {"id":"blocked_left","vehicle":{"x":8,"y":0,"w":2,"h":1,"axis":"-x"},"exit":0,"blockers":[{"x":4,"y":0,"w":2,"h":1}],"expected":false},
+    {"id":"clear_down","vehicle":{"x":0,"y":0,"w":1,"h":2,"axis":"+y"},"exit":10,"blockers":[],"expected":true},
+    {"id":"blocked_down","vehicle":{"x":0,"y":0,"w":1,"h":2,"axis":"+y"},"exit":10,"blockers":[{"x":0,"y":5,"w":1,"h":2}],"expected":false},
+    {"id":"clear_up","vehicle":{"x":0,"y":8,"w":1,"h":2,"axis":"-y"},"exit":0,"blockers":[],"expected":true},
+    {"id":"blocked_up","vehicle":{"x":0,"y":8,"w":1,"h":2,"axis":"-y"},"exit":0,"blockers":[{"x":0,"y":4,"w":1,"h":2}],"expected":false}
+  ]
+}
