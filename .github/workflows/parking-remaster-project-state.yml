@@ -17,6 +17,7 @@ on:
       - 'parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json'
       - 'parking-remaster-v1/scripts/validate_project_state.py'
       - 'parking-remaster-v1/scripts/test_validate_project_state.py'
+      - 'parking-remaster-v1/scripts/test_phase1_authorization_guard.py'
       - 'parking-remaster-v1/scripts/validate_level_data_contract.py'
       - 'parking-remaster-v1/scripts/test_validate_level_data_contract.py'
       - 'parking-remaster-v1/scripts/level_fingerprint.py'
@@ -51,6 +52,8 @@ jobs:
         run: python3 parking-remaster-v1/scripts/validate_project_state.py
       - name: Regression-test persistent project-state invariants
         run: python3 parking-remaster-v1/scripts/test_validate_project_state.py
+      - name: Guard Phase 1 authorization chain
+        run: python3 parking-remaster-v1/scripts/test_phase1_authorization_guard.py
       - name: Regression-test preproduction Level Data contract
         run: python3 parking-remaster-v1/scripts/test_validate_level_data_contract.py
       - name: Regression-test deterministic Level Data fingerprints
