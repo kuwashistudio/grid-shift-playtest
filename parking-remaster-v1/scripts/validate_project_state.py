@@ -84,9 +84,14 @@ def main() -> int:
     elif by_id[current].get("status") not in {"IN_PROGRESS", "BLOCKED"}:
         fail(errors, f"current_gate {current} has non-active status {by_id[current].get('status')}")
 
+    # The registry is an ordered finite gate history. last_completed_gate must point
+    # to the latest PASS entry before the current active gate, not merely any old PASS.
+    current_index = ids.index(current) if current in ids else len(gates)
+    passed_before_current = [g.get("id") for g in gates[:current_index] if g.get("status") == "PASS"]
+    expected_last = passed_before_current[-1] if passed_before_current else None
     last = state.get("last_completed_gate")
-    if last not in by_id or by_id.get(last, {}).get("status") != "PASS":
-        fail(errors, f"last_completed_gate {last!r} must reference a PASS gate")
+    if last != expected_last:
+        fail(errors, f"last_completed_gate {last!r} is stale; expected latest PASS before current gate: {expected_last!r}")
 
     nxt = state.get("next_gate")
     if nxt not in by_id:
