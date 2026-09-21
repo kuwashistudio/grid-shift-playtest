@@ -19,32 +19,8 @@ on:
       - 'parking-remaster-v1/qa/P1_009_HUMAN_EVIDENCE_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/SHARED_EXIT_CONFLICT_REVALIDATION_CONTRACT_V1.json'
-      - 'parking-remaster-v1/scripts/validate_project_state.py'
-      - 'parking-remaster-v1/scripts/test_validate_project_state.py'
-      - 'parking-remaster-v1/scripts/test_phase1_authorization_guard.py'
-      - 'parking-remaster-v1/scripts/validate_level_data_contract.py'
-      - 'parking-remaster-v1/scripts/test_validate_level_data_contract.py'
-      - 'parking-remaster-v1/scripts/level_fingerprint.py'
-      - 'parking-remaster-v1/scripts/test_level_fingerprint.py'
-      - 'parking-remaster-v1/scripts/level_library.py'
-      - 'parking-remaster-v1/scripts/test_level_library.py'
-      - 'parking-remaster-v1/scripts/test_level_library_preproduction_contract.py'
-      - 'parking-remaster-v1/scripts/production_cost_record.py'
-      - 'parking-remaster-v1/scripts/test_production_cost_record.py'
-      - 'parking-remaster-v1/scripts/validate_beat_chart.py'
-      - 'parking-remaster-v1/scripts/validate_vertical_slice_briefs.py'
-      - 'parking-remaster-v1/scripts/validate_telemetry_spec.py'
-      - 'parking-remaster-v1/scripts/test_validate_telemetry_spec.py'
-      - 'parking-remaster-v1/scripts/validate_release_rollback_manifest.py'
-      - 'parking-remaster-v1/scripts/test_validate_release_rollback_manifest.py'
-      - 'parking-remaster-v1/scripts/test_visible_movement_rule_contract.py'
-      - 'parking-remaster-v1/scripts/check_visible_movement_parity.js'
-      - 'parking-remaster-v1/scripts/test_visible_movement_parity.py'
-      - 'parking-remaster-v1/scripts/test_visible_movement_runtime_evidence_contract.py'
-      - 'parking-remaster-v1/scripts/test_iphone_runtime_contract.py'
-      - 'parking-remaster-v1/scripts/test_iphone_performance_evidence_contract.py'
-      - 'parking-remaster-v1/scripts/test_p1_009_human_evidence_contract.py'
-      - 'parking-remaster-v1/scripts/test_shared_exit_conflict_revalidation_contract.py'
+      - 'parking-remaster-v1/qa/PERSISTENCE_RECOVERY_CONTRACT_V1.json'
+      - 'parking-remaster-v1/scripts/**'
       - '.github/workflows/parking-remaster-project-state.yml'
 
 permissions:
@@ -96,3 +72,5 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_p1_009_human_evidence_contract.py
       - name: Guard shared-exit conflict revalidation before reuse
         run: python3 parking-remaster-v1/scripts/test_shared_exit_conflict_revalidation_contract.py
+      - name: Guard deterministic persistence and recovery contract
+        run: python3 parking-remaster-v1/scripts/test_persistence_recovery_contract.py
