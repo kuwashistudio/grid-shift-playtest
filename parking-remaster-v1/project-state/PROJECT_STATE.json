@@ -10,26 +10,55 @@
   "current_gate": "P1-006",
   "last_completed_gate": "GP-000",
   "next_gate": "P1-007",
-  "blockers": ["V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.","Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."],
+  "blockers": [
+    "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
+    "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
+  ],
   "latest_verified_commit": "6d36da13be57645e7d6726ebee56c70b8200cdf7",
   "latest_verified_commit_role": "V7.3 audio/motion browser-proof commit; independent QA preparation commits do not replace gameplay verification.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Engine Roar + Tire Squeal V7.3","run_id":35491534202,"status":"SUCCESS"},
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35571651617,"status":"SUCCESS","verified_head":"6d997b66c77aa84fd59b42fcba00b8ceffb6d932"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
-  "canonical_files": {"canon":"parking-remaster-v1/project-state/CANON.md","gates":"parking-remaster-v1/project-state/GATES.json","project_state":"parking-remaster-v1/project-state/PROJECT_STATE.json"},
+  "canonical_files": {
+    "canon":"parking-remaster-v1/project-state/CANON.md",
+    "gates":"parking-remaster-v1/project-state/GATES.json",
+    "project_state":"parking-remaster-v1/project-state/PROJECT_STATE.json"
+  },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Pre-P1-008 bounded Python/JS visible-movement geometry parity fixture",
-    "implementation_commits": ["4279e5a57a2e109734883796b8bc35bb98d788c5","341a0e05f16d160d88a1e67d57c32e601ff80e1c","ed65f4ade035bb3270148b1a26309e7062a61e3c","ad3135bf650752ab7c5b740f86d45f197a23fd4a"],
-    "evidence_files": ["parking-remaster-v1/qa/visible_movement_rule_contract_v1.json","parking-remaster-v1/qa/visible_movement_parity_fixture_v1.json","parking-remaster-v1/scripts/check_visible_movement_parity.js","parking-remaster-v1/scripts/test_visible_movement_parity.py",".github/workflows/parking-remaster-project-state.yml"],
-    "decision": "Future P1-008 longitudinal visible-clearance geometry now has a bounded 10-case axis-aligned fixture covering four travel directions, clear lanes, blockers, and touching-edge blocking. Independent Python and JavaScript calculations must match the fixture exactly. This is preproduction evidence only and current_authorization remains false until P1-007 PASS.",
-    "purpose": "Prepare solver/runtime parity evidence without starting multi-car gameplay or changing the accepted single-car motion/audio grammar.",
-    "prior_ci": {"workflow":"Parking Remaster Project State","run_id":35567657456,"status":"SUCCESS","verified_head":"63021b047a19ad40ec128139a8ef5b5ea1119f03","scope":"visible movement rule contract/state checkpoint"},
-    "ci": {"workflow":"Parking Remaster Project State","status":"PENDING_TRIGGER_OR_DISCOVERY","expected_head":"ad3135bf650752ab7c5b740f86d45f197a23fd4a","scope":"bounded Python/JS visible movement parity regression"}
+    "latest_independent_subgate": "Finite pre-P1-008 runtime evidence contract",
+    "implementation_commits": [
+      "6e7ef66cd2bc1231503bffa485e7fbaf73173c5a",
+      "9e9c7fc454b420602a11e5761598b383a17afa3d",
+      "f63359e89b581bdc392db9d5217cdb8e14e17c1e"
+    ],
+    "evidence_files": [
+      "parking-remaster-v1/qa/visible_movement_rule_contract_v1.json",
+      "parking-remaster-v1/qa/visible_movement_parity_fixture_v1.json",
+      "parking-remaster-v1/qa/visible_movement_runtime_evidence_contract_v1.json",
+      "parking-remaster-v1/scripts/test_visible_movement_runtime_evidence_contract.py",
+      ".github/workflows/parking-remaster-project-state.yml"
+    ],
+    "decision": "The bounded Python/JS visible-movement parity CI at head 6d997b6 passed. Future P1-008 runtime evidence is now finite and fail-closed: blocked taps require zero displacement, authorized animation samples must remain inside the visible solver corridor, runtime and independent solver decisions must match, and accepted single-car grammar regression still requires human quality review. current_authorization remains false until P1-007 PASS.",
+    "purpose": "Prepare objective P1-008 evidence without starting multi-car gameplay or changing accepted single-car motion/audio grammar.",
+    "prior_ci": {"workflow":"Parking Remaster Project State","run_id":35571651617,"status":"SUCCESS","verified_head":"6d997b66c77aa84fd59b42fcba00b8ceffb6d932","scope":"bounded Python/JS visible movement parity regression"},
+    "ci": {"workflow":"Parking Remaster Project State","status":"PENDING_TRIGGER_OR_DISCOVERY","expected_head":"STATE_COMMIT_AFTER_f63359e","scope":"finite pre-P1-008 runtime evidence contract regression"}
   },
-  "resume_instruction": ["Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.","Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.","While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.","Verify the Parking Remaster Project State CI triggered by bounded Python/JS visible movement parity wiring; record SUCCESS only after GitHub reports it.","Keep visible-movement parity fixture bounded and preproduction-only; P1-007 PASS is required before P1-008 authorization.","Preserve vertical-slice validators, Level Data contract, deterministic fingerprint/Level Library QA, bounded production-cost QA, privacy-minimal telemetry QA, release/rollback QA, and finite dependency locks already present in repository.","Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."],
-  "critical_guardrails": ["Do not modify GRID SHIFT root/game files outside parking-remaster-v1/ and dedicated Parking Remaster workflows.","CI/numeric PASS is not human game-quality PASS.","Physical iPhone feel review outranks synthetic audio/visual metrics.","No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."],
-  "updated_at": "2026-09-21T16:08:00+09:00",
+  "resume_instruction": [
+    "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.",
+    "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
+    "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
+    "Verify the Parking Remaster Project State CI triggered by the finite runtime-evidence contract; record SUCCESS only after GitHub reports it.",
+    "Keep all P1-008 evidence contracts preproduction-only; P1-007 PASS is required before any multi-car prototype build.",
+    "Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."
+  ],
+  "critical_guardrails": [
+    "Do not modify GRID SHIFT root/game files outside parking-remaster-v1/ and dedicated Parking Remaster workflows.",
+    "CI/numeric PASS is not human game-quality PASS.",
+    "Physical iPhone feel review outranks synthetic audio/visual metrics.",
+    "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
+  ],
+  "updated_at": "2026-09-21T17:08:00+09:00",
   "resume_ready": true
 }
