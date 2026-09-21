@@ -15,6 +15,7 @@ on:
       - 'parking-remaster-v1/qa/visible_movement_parity_fixture_v1.json'
       - 'parking-remaster-v1/qa/visible_movement_runtime_evidence_contract_v1.json'
       - 'parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json'
+      - 'parking-remaster-v1/qa/IPHONE_PERFORMANCE_EVIDENCE_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/P1_009_HUMAN_EVIDENCE_CONTRACT_V1.json'
       - 'parking-remaster-v1/scripts/validate_project_state.py'
       - 'parking-remaster-v1/scripts/test_validate_project_state.py'
@@ -38,6 +39,7 @@ on:
       - 'parking-remaster-v1/scripts/test_visible_movement_parity.py'
       - 'parking-remaster-v1/scripts/test_visible_movement_runtime_evidence_contract.py'
       - 'parking-remaster-v1/scripts/test_iphone_runtime_contract.py'
+      - 'parking-remaster-v1/scripts/test_iphone_performance_evidence_contract.py'
       - 'parking-remaster-v1/scripts/test_p1_009_human_evidence_contract.py'
       - '.github/workflows/parking-remaster-project-state.yml'
 
@@ -82,5 +84,7 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_visible_movement_runtime_evidence_contract.py
       - name: Regression-test finite iPhone runtime contract
         run: python3 parking-remaster-v1/scripts/test_iphone_runtime_contract.py
+      - name: Guard target-iPhone performance evidence contract
+        run: python3 parking-remaster-v1/scripts/test_iphone_performance_evidence_contract.py
       - name: Guard P1-009 fresh-player human evidence contract
         run: python3 parking-remaster-v1/scripts/test_p1_009_human_evidence_contract.py
