@@ -7,6 +7,7 @@ on:
       - parking-remaster-v1-staging-20260917
     paths:
       - 'parking-remaster-v1/project-state/**'
+      - 'parking-remaster-v1/qa/TELEMETRY_SPEC_V1.json'
       - 'parking-remaster-v1/scripts/validate_project_state.py'
       - 'parking-remaster-v1/scripts/test_validate_project_state.py'
       - 'parking-remaster-v1/scripts/validate_level_data_contract.py'
@@ -17,6 +18,8 @@ on:
       - 'parking-remaster-v1/scripts/test_level_library.py'
       - 'parking-remaster-v1/scripts/production_cost_record.py'
       - 'parking-remaster-v1/scripts/test_production_cost_record.py'
+      - 'parking-remaster-v1/scripts/validate_telemetry_spec.py'
+      - 'parking-remaster-v1/scripts/test_validate_telemetry_spec.py'
       - '.github/workflows/parking-remaster-project-state.yml'
 
 permissions:
@@ -40,3 +43,7 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_level_library.py
       - name: Regression-test bounded production-cost records
         run: python3 parking-remaster-v1/scripts/test_production_cost_record.py
+      - name: Validate privacy-minimal telemetry contract
+        run: python3 parking-remaster-v1/scripts/validate_telemetry_spec.py
+      - name: Regression-test telemetry privacy/schema guardrails
+        run: python3 parking-remaster-v1/scripts/test_validate_telemetry_spec.py
