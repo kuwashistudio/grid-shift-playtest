@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "status": "PREPARATION_ONLY",
+  "purpose": "Measure repeatable per-level production effort without authorizing bulk level production.",
+  "applies_when": "P2-001 or later controlled level authoring is authorized by its dependency gates",
+  "clock_unit": "seconds",
+  "required_stage_ids": [
+    "design",
+    "level_data",
+    "solver_parity",
+    "visual_assembly",
+    "qa",
+    "human_review_rework"
+  ],
+  "required_record_fields": [
+    "level_id",
+    "authoring_run_id",
+    "started_at",
+    "finished_at",
+    "stage_seconds",
+    "rework_cycles",
+    "human_review_seconds",
+    "tool_compute_seconds",
+    "result",
+    "content_fingerprint"
+  ],
+  "result_enum": ["PASS", "REWORK", "REJECTED"],
+  "measurement_rules": {
+    "wall_clock_seconds": "finished_at minus started_at; ISO-8601 timestamps required",
+    "active_production_seconds": "sum(stage_seconds values)",
+    "human_seconds": "design + level_data + visual_assembly + qa + human_review_rework stage seconds",
+    "automation_seconds": "solver_parity stage seconds plus tool_compute_seconds",
+    "rework_cycles": "non-negative integer; increment only after a completed review requests another production pass",
+    "content_fingerprint": "immutable SHA-256 of canonical Level Data/content input used for this measurement"
+  },
+  "batch_acceptance": {
+    "minimum_distinct_levels": 5,
+    "minimum_passed_levels": 5,
+    "required_statistics": ["median_active_production_seconds", "p90_active_production_seconds", "median_rework_cycles"],
+    "note": "Thresholds for acceptable cost are a later evidence-based production decision; this contract prevents inventing them before representative levels exist."
+  },
+  "guardrails": [
+    "Do not create levels solely to populate this metric while P2-001 is dependency-blocked.",
+    "Do not treat solver runtime as human authoring time.",
+    "Do not exclude failed/reworked attempts from batch evidence.",
+    "Do not use this metric as proof of gameplay fun or human quality.",
+    "Do not scale to 30/144 levels from synthetic fixtures."
+  ]
+}
