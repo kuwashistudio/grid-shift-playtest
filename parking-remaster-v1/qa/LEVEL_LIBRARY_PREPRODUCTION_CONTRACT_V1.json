@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "status": "PREPARATION_ONLY",
   "purpose": "Define the minimum deterministic Level Library record needed after rebuilt Level 1 acceptance, without authoring or activating multi-car gameplay early.",
   "activation_guard": {
@@ -7,21 +7,7 @@
     "bulk_authoring_requires": ["P2-002 GREENLIGHT", "P3-001 active"],
     "current_phase_behavior": "schema/validator fixtures only; no Level 3 or production level creation"
   },
-  "required_record_fields": [
-    "level_id",
-    "level_data_schema_version",
-    "level_data_sha256",
-    "solver_ruleset_version",
-    "runtime_ruleset_version",
-    "solver_proof_sha256",
-    "parity_fixture_sha256",
-    "visible_rule_contract_version",
-    "difficulty_role",
-    "mechanics",
-    "duplicate_fingerprint",
-    "review_status",
-    "provenance"
-  ],
+  "required_record_fields": ["level_id","level_data_schema_version","level_data_sha256","solver_ruleset_version","runtime_ruleset_version","solver_proof_sha256","parity_fixture_sha256","visible_rule_contract_version","difficulty_role","mechanics","duplicate_fingerprint","review_status","provenance"],
   "review_status_enum": ["DRAFT", "SOLVER_PROVEN", "PARITY_PROVEN", "VISUALLY_REVIEWED", "PUBLISHABLE"],
   "publishable_invariants": [
     "solver_ruleset_version equals runtime_ruleset_version",
@@ -33,13 +19,7 @@
   ],
   "duplicate_detection": {
     "canonical_input": "normalized logical Level Data only; presentation coordinates/assets are excluded unless they alter gameplay geometry",
-    "normalization": [
-      "stable key ordering",
-      "strip level_id and non-gameplay timestamps/comments",
-      "strip vehicle IDs after sorting cars by gameplay geometry and resolved exit semantics",
-      "strip exit IDs after resolving every car exit reference to exit axis/direction semantics",
-      "retain board geometry, movement axes/directions, collision bodies, mechanic state and objective"
-    ],
+    "normalization": ["stable key ordering","strip level_id and non-gameplay timestamps/comments","strip vehicle IDs after sorting cars by gameplay geometry and resolved exit semantics","strip exit IDs after resolving every car exit reference to exit axis/direction semantics","retain board geometry, movement axes/directions, collision bodies, mechanic state and objective"],
     "fingerprint": "SHA-256 of canonical normalized logical Level Data",
     "id_rename_invariant": "Renaming level, vehicle, or exit identifiers without changing their resolved logical relationships MUST NOT change the fingerprint.",
     "note": "Exact logical duplicate detection is an engineering guard, not a claim of perceptual or strategic uniqueness. Symmetric/near-duplicate gameplay requires later structural/human review."
@@ -48,8 +28,9 @@
     "canonical_validator": "parking-remaster-v1/scripts/validate_level_production_cost_evidence.py",
     "record_required_fields": ["level_id", "authoring_run_id", "started_at", "finished_at", "stage_seconds", "rework_cycles", "human_review_seconds", "tool_compute_seconds", "result", "content_fingerprint"],
     "stage_seconds_exact_keys": ["design", "level_data", "solver_parity", "visual_assembly", "qa", "human_review_rework"],
-    "batch_minimum": "At least 5 distinct levels and 5 PASS levels before repeatability statistics may be claimed.",
+    "batch_minimum": "At least 5 distinct levels, 5 PASS levels, and 5 distinct PASS logical content fingerprints before repeatability statistics may be claimed.",
     "identity_rule": "(level_id, authoring_run_id) must be unique within evidence.",
+    "content_independence_rule": "Renaming or copying the same logical content under multiple level IDs does not increase the repeatability sample. PASS evidence must contain at least 5 distinct canonical logical content fingerprints.",
     "time_rule": "All durations are finite non-negative seconds and active production time may not exceed timezone-aware wall-clock duration.",
     "fingerprint_rule": "content_fingerprint is lowercase SHA-256 and binds the cost record to exact logical content.",
     "claim_boundary": "Cost evidence measures repeatability/cost only; it cannot PASS human quality, difficulty, fun, or any blocked gate."
@@ -59,9 +40,5 @@
     "status": "COARSE_COMPATIBILITY_ONLY",
     "rule": "authoring_minutes/qa_minutes records are not canonical Level Library repeatability evidence and must not be used for P2/P3 production-cost claims."
   },
-  "forbidden_claims": [
-    "solver complexity proves human difficulty",
-    "duplicate hash proves experiential uniqueness",
-    "CI proves visual quality or fun"
-  ]
+  "forbidden_claims": ["solver complexity proves human difficulty","duplicate hash proves experiential uniqueness","CI proves visual quality or fun"]
 }
