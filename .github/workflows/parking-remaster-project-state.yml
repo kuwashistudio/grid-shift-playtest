@@ -21,6 +21,7 @@ on:
       - 'parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/SHARED_EXIT_CONFLICT_REVALIDATION_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/PERSISTENCE_RECOVERY_CONTRACT_V1.json'
+      - 'parking-remaster-v1/qa/LEVEL_PRODUCTION_COST_EVIDENCE_CONTRACT_V1.json'
       - 'parking-remaster-v1/scripts/**'
       - '.github/workflows/parking-remaster-project-state.yml'
 
@@ -49,6 +50,8 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_level_library_preproduction_contract.py
       - name: Regression-test bounded production-cost records
         run: python3 parking-remaster-v1/scripts/test_production_cost_record.py
+      - name: Guard representative level-production cost evidence
+        run: python3 parking-remaster-v1/scripts/test_validate_level_production_cost_evidence.py
       - name: Validate 14-level Vertical Slice Beat Chart
         run: python3 parking-remaster-v1/scripts/validate_beat_chart.py
       - name: Validate 14-level Vertical Slice brief envelopes
