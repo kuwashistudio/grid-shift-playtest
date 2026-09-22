@@ -45,6 +45,11 @@ def main():
     expect_fail("evidence cannot traverse", lambda r: mutate_state(r,lambda s:s["parallel_progress"]["evidence_files"].append("parking-remaster-v1/../app1.js")), "evidence path escapes Parking Remaster scope")
     expect_fail("Phase 1 cannot silently start production", lambda r: mutate_state(r,lambda s:s.__setitem__("production_started",True)), "Phase 1 core-fun proof requires production_started=false")
     expect_fail("last_completed_gate latest", lambda r: mutate_state(r,lambda s:s.__setitem__("last_completed_gate","GP-000")), "last_completed_gate 'GP-000' is stale")
+    expect_fail("verified commit must be full SHA", lambda r: mutate_state(r,lambda s:s.__setitem__("latest_verified_commit","deadbeef")), "latest_verified_commit must be a full lowercase 40-hex commit SHA")
+    expect_fail("verified CI must be success", lambda r: mutate_state(r,lambda s:s["latest_verified_ci"].__setitem__("status","PENDING")), "latest_verified_ci.status must be SUCCESS")
+    expect_fail("verified CI head must match commit", lambda r: mutate_state(r,lambda s:s["latest_verified_ci"].__setitem__("verified_head","0"*40)), "latest_verified_ci.verified_head must equal latest_verified_commit")
+    expect_fail("verified CI workflow locked", lambda r: mutate_state(r,lambda s:s["latest_verified_ci"].__setitem__("workflow","Other Workflow")), "latest_verified_ci.workflow must be Parking Remaster Project State")
+    expect_fail("verified CI run id valid", lambda r: mutate_state(r,lambda s:s["latest_verified_ci"].__setitem__("run_id",0)), "latest_verified_ci.run_id must be a positive integer")
 
     def pending_audio(root):
         gp=root/"project-state"/"GATES.json"; gates=json.loads(gp.read_text(encoding="utf-8"))
