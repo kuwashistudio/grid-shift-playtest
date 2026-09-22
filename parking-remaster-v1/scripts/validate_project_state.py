@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path, PurePosixPath
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,8 +63,6 @@ def main() -> int:
     state = load_json(STATE_PATH)
     registry = load_json(GATES_PATH)
 
-    # Restart identity is fail-closed: automation must not silently drift to another
-    # repo/branch/scope or substitute different canonical state files.
     if state.get("repository") != EXPECTED_REPOSITORY:
         fail(errors, f"repository identity mismatch: {state.get('repository')!r}")
     if state.get("work_scope") != EXPECTED_SCOPE:
@@ -76,6 +75,24 @@ def main() -> int:
         fail(errors, "state_authority drifted from GitHub persistent-state authority")
     if state.get("current_phase") == "PHASE_1_CORE_FUN_PROOF" and state.get("production_started") is not False:
         fail(errors, "Phase 1 core-fun proof requires production_started=false")
+
+    # A restart may point to an older verified checkpoint while a newer HEAD is being
+    # validated, but the commit and CI record that define that checkpoint must agree.
+    verified_commit = state.get("latest_verified_commit")
+    verified_ci = state.get("latest_verified_ci")
+    if not isinstance(verified_commit, str) or re.fullmatch(r"[0-9a-f]{40}", verified_commit) is None:
+        fail(errors, "latest_verified_commit must be a full lowercase 40-hex commit SHA")
+    if not isinstance(verified_ci, dict):
+        fail(errors, "latest_verified_ci must be an object")
+    else:
+        if verified_ci.get("status") != "SUCCESS":
+            fail(errors, "latest_verified_ci.status must be SUCCESS")
+        if verified_ci.get("workflow") != "Parking Remaster Project State":
+            fail(errors, "latest_verified_ci.workflow must be Parking Remaster Project State")
+        if not isinstance(verified_ci.get("run_id"), int) or verified_ci.get("run_id") <= 0:
+            fail(errors, "latest_verified_ci.run_id must be a positive integer")
+        if verified_ci.get("verified_head") != verified_commit:
+            fail(errors, "latest_verified_ci.verified_head must equal latest_verified_commit")
 
     evidence_files = state.get("parallel_progress", {}).get("evidence_files", [])
     if not isinstance(evidence_files, list) or not evidence_files:
