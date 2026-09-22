@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "status": "PREPARATION_ONLY_COLLECTION_DISABLED_RELEASE_LOCKED",
   "purpose": "Finite fail-closed contract for reproducible Parking Remaster release evidence and rollback points without authorizing release.",
   "required_fields": [
@@ -10,6 +10,7 @@
     "build_profile",
     "level_library_fingerprint",
     "asset_manifest_fingerprint",
+    "runtime_contract_fingerprints",
     "qa_evidence",
     "rollback",
     "authorization"
@@ -19,6 +20,7 @@
     "source_commit_pattern": "^[0-9a-f]{40}$",
     "fingerprint_pattern": "^sha256:[0-9a-f]{64}$",
     "release_id_pattern": "^parking-remaster-[0-9]{8}-[a-z0-9._-]+$",
+    "runtime_contract_required": ["persistence_recovery", "iphone_runtime", "iphone_performance"],
     "qa_evidence_minimum": 1,
     "qa_evidence_entry_required": ["name", "status", "evidence_ref"],
     "qa_allowed_status": ["PASS", "HUMAN_PASS"],
@@ -32,6 +34,7 @@
   "guardrails": [
     "This specification is QA preparation only and does not open Production, P3, P8, external publication, telemetry collection, or monetization.",
     "A manifest may be drafted before release, but publish authorization must fail closed unless the future release gate and explicit human approval are present.",
+    "Release evidence must bind the exact Level Library, asset manifest, persistence/recovery contract, iPhone runtime contract, and iPhone performance contract by SHA-256 fingerprint; branch names or mutable paths alone are insufficient.",
     "Rollback must identify an immutable 40-hex commit and a documented procedure; branch names alone are not rollback points.",
     "QA numeric/CI PASS never substitutes for human game-quality gates.",
     "Do not embed secrets, personal data, analytics identifiers, large artifacts, or binary build payloads in the manifest."
