@@ -14,9 +14,9 @@
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
     "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
   ],
-  "latest_verified_commit": "834a37a65308818b4df73f02a2e005819f969bf2",
-  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; production-cost evidence regressions are green while V7.3 remains the gameplay/audio Human Review prototype.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35686064436,"status":"SUCCESS","verified_head":"834a37a65308818b4df73f02a2e005819f969bf2"},
+  "latest_verified_commit": "2abf4fc37c77ee133c0d63105438f25941e9e3cd",
+  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; telemetry contract fail-closed regressions are green while V7.3 remains the gameplay/audio Human Review prototype.",
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35693595197,"status":"SUCCESS","verified_head":"2abf4fc37c77ee133c0d63105438f25941e9e3cd"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,7 +27,7 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Production-cost evidence validation now fail-closes timezone-less timestamps, non-finite numeric values, double-counted Human Review time, tool compute exceeding wall-clock bounds, and batches below the five-level minimum; consolidated CI is green.",
+    "latest_independent_subgate": "Telemetry specification validation is now fail-closed with expanded negative/regression coverage; consolidated Project State CI passed on the current telemetry checkpoint.",
     "evidence_files": [
       "parking-remaster-v1/VERTICAL_SLICE_BEAT_CHART_V1.json",
       "parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json",
@@ -48,9 +48,9 @@
       "parking-remaster-v1/scripts/test_validate_release_rollback_manifest.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
-    "decision": "Project State CI run 35686064436 passed on 834a37a65308818b4df73f02a2e005819f969bf2. Production-cost evidence regressions are now verified in the consolidated QA suite. This remains PREPARATION_ONLY and does not authorize production, publishing, multi-car implementation, or any human-quality PASS. P1-006 remains the only active gate and P1-007/P1-008/P1-009 remain blocked by their declared dependencies.",
-    "purpose": "Keep GitHub restart state synchronized with the latest verified independent QA work while preserving the audio USER-HOLD and Phase 1 authorization chain.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35686064436,"status":"SUCCESS","verified_head":"834a37a65308818b4df73f02a2e005819f969bf2","scope":"production-cost evidence regression hardening plus consolidated preproduction QA"}
+    "decision": "Project State CI run 35693595197 passed on 2abf4fc37c77ee133c0d63105438f25941e9e3cd. Telemetry fail-closed regressions are verified in the consolidated QA suite. This remains PREPARATION_ONLY and does not authorize production, publishing, multi-car implementation, or any human-quality PASS. P1-006 remains the only active gate and P1-007/P1-008/P1-009 remain blocked by their declared dependencies.",
+    "purpose": "Synchronize GitHub restart state with the latest verified independent QA checkpoint while preserving the audio USER-HOLD and Phase 1 authorization chain.",
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35693595197,"status":"SUCCESS","verified_head":"2abf4fc37c77ee133c0d63105438f25941e9e3cd","scope":"telemetry fail-closed regression hardening plus consolidated preproduction QA"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
@@ -67,6 +67,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-22T14:12:00+09:00",
+  "updated_at": "2026-09-22T17:11:00+09:00",
   "resume_ready": true
 }
