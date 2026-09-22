@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Canonical structural fingerprint for Parking Remaster Level Data.
 
-Pre-production QA utility only. It detects exact structural duplicates after
-normalizing semantically irrelevant array/order differences. It does not judge
-fun/difficulty, solve a level, unlock P1-008, or approve production.
+Pre-production QA utility only. It detects exact logical duplicates after
+normalizing semantically irrelevant metadata, array order, vehicle IDs and exit
+IDs. It does not judge fun/difficulty, solve a level, unlock P1-008, or approve
+production.
 """
 from __future__ import annotations
 
@@ -18,20 +19,37 @@ from validate_level_data_contract import validate
 
 def canonical_payload(data: dict) -> dict:
     validate(data)
+
+    # IDs are referential labels, not gameplay geometry. Resolve each car's
+    # exit reference to the exit's semantic rule before stripping labels, so a
+    # copied level cannot evade duplicate detection merely by renaming cars or
+    # exits. Presentation metadata remains excluded by design.
+    exit_by_id = {
+        e["id"]: {"axis": e["axis"], "direction": e["direction"]}
+        for e in data["exits"]
+    }
+    exits = sorted(
+        ({"axis": e["axis"], "direction": e["direction"]} for e in data["exits"]),
+        key=lambda e: (e["axis"], e["direction"]),
+    )
+    cars = sorted(
+        ({
+            "x": c["x"],
+            "y": c["y"],
+            "length": c["length"],
+            "orientation": c["orientation"],
+            "exit": exit_by_id[c["exit_id"]],
+        } for c in data["cars"]),
+        key=lambda c: (
+            c["x"], c["y"], c["length"], c["orientation"],
+            c["exit"]["axis"], c["exit"]["direction"],
+        ),
+    )
     return {
         "schema_version": data["schema_version"],
         "board": {"width": data["board"]["width"], "height": data["board"]["height"]},
-        "exits": sorted(
-            ({"id": e["id"], "axis": e["axis"], "direction": e["direction"]} for e in data["exits"]),
-            key=lambda e: (e["id"], e["axis"], e["direction"]),
-        ),
-        "cars": sorted(
-            ({
-                "id": c["id"], "x": c["x"], "y": c["y"], "length": c["length"],
-                "orientation": c["orientation"], "exit_id": c["exit_id"],
-            } for c in data["cars"]),
-            key=lambda c: c["id"],
-        ),
+        "exits": exits,
+        "cars": cars,
     }
 
 
@@ -56,14 +74,14 @@ def main() -> int:
         for path in args.levels:
             digest = fingerprint(load(path))
             if digest in seen:
-                print(f"FAIL: exact structural duplicate: {seen[digest]} == {path} ({digest})", file=sys.stderr)
+                print(f"FAIL: exact logical duplicate: {seen[digest]} == {path} ({digest})", file=sys.stderr)
                 return 1
             seen[digest] = path
             print(f"{digest}  {path}")
-    except (OSError, json.JSONDecodeError, ValueError) as exc:
+    except (OSError, json.JSONDecodeError, KeyError, ValueError) as exc:
         print(f"FAIL: {exc}", file=sys.stderr)
         return 1
-    print(f"PASS: {len(seen)} structurally unique Level Data file(s)")
+    print(f"PASS: {len(seen)} logically unique Level Data file(s)")
     return 0
 
 
