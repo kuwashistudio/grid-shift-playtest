@@ -22,4 +22,19 @@ assert any("cannot be inferred from CI" in x for x in contract["publishable_inva
 assert any("prerequisite finite gates" in x for x in contract["publishable_invariants"])
 assert any("human difficulty" in x for x in contract["forbidden_claims"])
 assert any("experiential uniqueness" in x for x in contract["forbidden_claims"])
+
+cost = contract["production_cost_evidence"]
+assert cost["canonical_validator"] == "parking-remaster-v1/scripts/validate_level_production_cost_evidence.py"
+assert set(cost["record_required_fields"]) == {
+    "level_id", "authoring_run_id", "started_at", "finished_at", "stage_seconds",
+    "rework_cycles", "human_review_seconds", "tool_compute_seconds", "result", "content_fingerprint"
+}
+assert cost["stage_seconds_exact_keys"] == [
+    "design", "level_data", "solver_parity", "visual_assembly", "qa", "human_review_rework"
+]
+assert "5 distinct" in cost["batch_minimum"]
+assert "cannot PASS human quality" in cost["claim_boundary"]
+legacy = contract["legacy_cost_helper"]
+assert legacy["status"] == "COARSE_COMPATIBILITY_ONLY"
+assert "not canonical" in legacy["rule"]
 print("LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1 PASS")
