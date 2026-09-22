@@ -48,9 +48,13 @@ def validate_batch(records):
         key=(r.get("level_id"),r.get("authoring_run_id"))
         if key in seen: raise ValueError("duplicate level/run identity")
         seen.add(key); metrics.append(validate_record(r))
-    levels={r["level_id"] for r in records}; passed={r["level_id"] for r in records if r["result"]=="PASS"}
-    if len(levels)<5 or len(passed)<5: raise ValueError("batch requires >=5 distinct levels and >=5 passed levels")
-    return {"median_active_production_seconds":pct([m["active"] for m in metrics],.5),"p90_active_production_seconds":pct([m["active"] for m in metrics],.9),"median_rework_cycles":pct([r["rework_cycles"] for r in records],.5)}
+    levels={r["level_id"] for r in records}
+    passed=[r for r in records if r["result"]=="PASS"]
+    passed_levels={r["level_id"] for r in passed}
+    passed_fingerprints={r["content_fingerprint"] for r in passed}
+    if len(levels)<5 or len(passed_levels)<5: raise ValueError("batch requires >=5 distinct levels and >=5 passed levels")
+    if len(passed_fingerprints)<5: raise ValueError("batch requires >=5 distinct PASS content fingerprints; renamed/copied logical content cannot prove repeatability")
+    return {"median_active_production_seconds":pct([m["active"] for m in metrics],.5),"p90_active_production_seconds":pct([m["active"] for m in metrics],.9),"median_rework_cycles":pct([r["rework_cycles"] for r in records],.5),"distinct_pass_content_fingerprints":len(passed_fingerprints)}
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("evidence"); ap.add_argument("--batch",action="store_true"); a=ap.parse_args()
