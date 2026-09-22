@@ -26,6 +26,10 @@ jobs:
         run: python3 parking-remaster-v1/scripts/validate_project_state.py
       - name: Regression-test persistent project-state invariants
         run: python3 parking-remaster-v1/scripts/test_validate_project_state.py
+      - name: Guard durable restart evidence paths
+        run: python3 parking-remaster-v1/scripts/validate_restart_evidence.py
+      - name: Regression-test durable restart evidence guard
+        run: python3 parking-remaster-v1/scripts/test_validate_restart_evidence.py
       - name: Guard Phase 1 authorization chain
         run: python3 parking-remaster-v1/scripts/test_phase1_authorization_guard.py
       - name: Regression-test preproduction Level Data contract
