@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "status": "PREPARATION_ONLY",
+  "purpose": "Define a deterministic, lightweight asset-integrity manifest that can feed the future release/rollback manifest without authorizing production or publication.",
+  "authority_boundary": {
+    "does_not_pass_gate": true,
+    "does_not_authorize_multi_car": true,
+    "does_not_authorize_level_authoring": true,
+    "does_not_authorize_release": true,
+    "does_not_replace_visual_or_human_review": true
+  },
+  "manifest_rules": {
+    "root": "parking-remaster-v1/",
+    "path_must_be_relative_and_under_root": true,
+    "path_traversal_forbidden": true,
+    "required_entry_fields": ["path", "sha256", "bytes", "role", "provenance"],
+    "sha256_pattern": "^[0-9a-f]{64}$",
+    "bytes_min": 1,
+    "allowed_roles": ["visual_master", "clean_plate", "production_sprite", "runtime_asset", "ui_asset"],
+    "allowed_provenance": ["USER_APPROVED_MASTER", "MASTER_DERIVED", "PROJECT_AUTHORED"],
+    "duplicate_paths_forbidden": true,
+    "deterministic_order": "path_ascending",
+    "manifest_fingerprint": "sha256 of canonical UTF-8 JSON entries sorted by path with separators comma/colon and ensure_ascii=false"
+  },
+  "locked_assets": [
+    {
+      "path": "assets/master.webp",
+      "sha256": "535c114a9825fcbea2ca608f06246e5a5f5e954539506fe7e832c5c0b092b8d0",
+      "role": "visual_master",
+      "provenance": "USER_APPROVED_MASTER"
+    },
+    {
+      "path": "assets/clean_plate.webp",
+      "sha256": "5906db99473a51ebf49d21e1bc456869a6588dbec4a17012b8fc4748b7921175",
+      "role": "clean_plate",
+      "provenance": "MASTER_DERIVED"
+    }
+  ],
+  "release_link": {
+    "future_release_field": "asset_manifest_fingerprint",
+    "fingerprint_prefix": "sha256:",
+    "release_manifest_spec": "qa/RELEASE_ROLLBACK_MANIFEST_SPEC_V1.json",
+    "require_exact_fingerprint_match_before_publish": true
+  },
+  "guardrails": [
+    "Manifest integrity proves byte identity and declared provenance category only; it does not prove visual quality, licensing, gameplay quality, or human acceptance.",
+    "Do not include generated caches, temporary renders, recordings, build artifacts, secrets, personal data, or duplicate backups.",
+    "A changed locked asset must fail closed until the canonical authority is deliberately updated with appropriate review evidence."
+  ]
+}
