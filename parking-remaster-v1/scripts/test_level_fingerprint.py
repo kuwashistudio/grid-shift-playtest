@@ -44,10 +44,10 @@ def main():
     relabeled["cars"].reverse()
     assert fingerprint(original) == fingerprint(relabeled)
 
-    # Rewiring a car to a semantically different exit changes gameplay identity.
-    rewired = deepcopy(original)
-    rewired["cars"][0]["exit_id"] = "south"
-    assert fingerprint(original) != fingerprint(rewired)
+    # A valid change to resolved exit semantics changes gameplay identity.
+    reversed_exit = deepcopy(original)
+    reversed_exit["exits"][0]["direction"] = -1
+    assert fingerprint(original) != fingerprint(reversed_exit)
 
     # A real structural change must produce a different fingerprint.
     changed = deepcopy(original)
