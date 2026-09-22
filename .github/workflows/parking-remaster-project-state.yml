@@ -70,6 +70,8 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_iphone_runtime_contract.py
       - name: Guard target-iPhone performance evidence contract
         run: python3 parking-remaster-v1/scripts/test_iphone_performance_evidence_contract.py
+      - name: Regression-test target-iPhone performance evidence validator
+        run: python3 parking-remaster-v1/scripts/test_validate_iphone_performance_evidence.py
       - name: Guard P1-009 fresh-player human evidence contract
         run: python3 parking-remaster-v1/scripts/test_p1_009_human_evidence_contract.py
       - name: Guard shared-exit conflict revalidation before reuse
