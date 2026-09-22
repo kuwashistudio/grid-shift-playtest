@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "status": "PREPARATION_ONLY",
   "purpose": "Define the minimum deterministic Level Library record needed after rebuilt Level 1 acceptance, without authoring or activating multi-car gameplay early.",
   "activation_guard": {
@@ -44,14 +44,21 @@
     "id_rename_invariant": "Renaming level, vehicle, or exit identifiers without changing their resolved logical relationships MUST NOT change the fingerprint.",
     "note": "Exact logical duplicate detection is an engineering guard, not a claim of perceptual or strategic uniqueness. Symmetric/near-duplicate gameplay requires later structural/human review."
   },
-  "production_cost_fields": [
-    "authoring_seconds",
-    "solver_seconds",
-    "parity_seconds",
-    "visual_review_seconds",
-    "rework_seconds",
-    "total_seconds"
-  ],
+  "production_cost_evidence": {
+    "canonical_validator": "parking-remaster-v1/scripts/validate_level_production_cost_evidence.py",
+    "record_required_fields": ["level_id", "authoring_run_id", "started_at", "finished_at", "stage_seconds", "rework_cycles", "human_review_seconds", "tool_compute_seconds", "result", "content_fingerprint"],
+    "stage_seconds_exact_keys": ["design", "level_data", "solver_parity", "visual_assembly", "qa", "human_review_rework"],
+    "batch_minimum": "At least 5 distinct levels and 5 PASS levels before repeatability statistics may be claimed.",
+    "identity_rule": "(level_id, authoring_run_id) must be unique within evidence.",
+    "time_rule": "All durations are finite non-negative seconds and active production time may not exceed timezone-aware wall-clock duration.",
+    "fingerprint_rule": "content_fingerprint is lowercase SHA-256 and binds the cost record to exact logical content.",
+    "claim_boundary": "Cost evidence measures repeatability/cost only; it cannot PASS human quality, difficulty, fun, or any blocked gate."
+  },
+  "legacy_cost_helper": {
+    "path": "parking-remaster-v1/scripts/production_cost_record.py",
+    "status": "COARSE_COMPATIBILITY_ONLY",
+    "rule": "authoring_minutes/qa_minutes records are not canonical Level Library repeatability evidence and must not be used for P2/P3 production-cost claims."
+  },
   "forbidden_claims": [
     "solver complexity proves human difficulty",
     "duplicate hash proves experiential uniqueness",
