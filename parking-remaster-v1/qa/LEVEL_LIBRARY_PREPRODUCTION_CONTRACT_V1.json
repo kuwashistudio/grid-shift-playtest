@@ -35,12 +35,14 @@
     "canonical_input": "normalized logical Level Data only; presentation coordinates/assets are excluded unless they alter gameplay geometry",
     "normalization": [
       "stable key ordering",
-      "stable vehicle ordering by canonical vehicle id",
-      "strip non-gameplay timestamps/comments",
+      "strip level_id and non-gameplay timestamps/comments",
+      "strip vehicle IDs after sorting cars by gameplay geometry and resolved exit semantics",
+      "strip exit IDs after resolving every car exit reference to exit axis/direction semantics",
       "retain board geometry, movement axes/directions, collision bodies, mechanic state and objective"
     ],
     "fingerprint": "SHA-256 of canonical normalized logical Level Data",
-    "note": "Exact duplicate detection is an engineering guard, not a claim of perceptual or strategic uniqueness. Near-duplicate gameplay requires later structural/human review."
+    "id_rename_invariant": "Renaming level, vehicle, or exit identifiers without changing their resolved logical relationships MUST NOT change the fingerprint.",
+    "note": "Exact logical duplicate detection is an engineering guard, not a claim of perceptual or strategic uniqueness. Symmetric/near-duplicate gameplay requires later structural/human review."
   },
   "production_cost_fields": [
     "authoring_seconds",
