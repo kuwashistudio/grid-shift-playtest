@@ -9,19 +9,7 @@ on:
       - 'parking-remaster-v1/project-state/**'
       - 'parking-remaster-v1/VERTICAL_SLICE_BEAT_CHART_V1.json'
       - 'parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json'
-      - 'parking-remaster-v1/qa/TELEMETRY_SPEC_V1.json'
-      - 'parking-remaster-v1/qa/RELEASE_ROLLBACK_MANIFEST_SPEC_V1.json'
-      - 'parking-remaster-v1/qa/ASSET_MANIFEST_PREPRODUCTION_CONTRACT_V1.json'
-      - 'parking-remaster-v1/qa/visible_movement_rule_contract_v1.json'
-      - 'parking-remaster-v1/qa/visible_movement_parity_fixture_v1.json'
-      - 'parking-remaster-v1/qa/visible_movement_runtime_evidence_contract_v1.json'
-      - 'parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json'
-      - 'parking-remaster-v1/qa/IPHONE_PERFORMANCE_EVIDENCE_CONTRACT_V1.json'
-      - 'parking-remaster-v1/qa/P1_009_HUMAN_EVIDENCE_CONTRACT_V1.json'
-      - 'parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json'
-      - 'parking-remaster-v1/qa/SHARED_EXIT_CONFLICT_REVALIDATION_CONTRACT_V1.json'
-      - 'parking-remaster-v1/qa/PERSISTENCE_RECOVERY_CONTRACT_V1.json'
-      - 'parking-remaster-v1/qa/LEVEL_PRODUCTION_COST_EVIDENCE_CONTRACT_V1.json'
+      - 'parking-remaster-v1/qa/**'
       - 'parking-remaster-v1/scripts/**'
       - '.github/workflows/parking-remaster-project-state.yml'
 
@@ -56,6 +44,10 @@ jobs:
         run: python3 parking-remaster-v1/scripts/validate_beat_chart.py
       - name: Validate 14-level Vertical Slice brief envelopes
         run: python3 parking-remaster-v1/scripts/validate_vertical_slice_briefs.py
+      - name: Audit Vertical Slice beat/brief/failure cross-contract
+        run: python3 parking-remaster-v1/scripts/validate_vertical_slice_cross_contract.py
+      - name: Regression-test Vertical Slice cross-contract drift
+        run: python3 parking-remaster-v1/scripts/test_vertical_slice_cross_contract.py
       - name: Validate privacy-minimal telemetry contract
         run: python3 parking-remaster-v1/scripts/validate_telemetry_spec.py
       - name: Regression-test telemetry privacy/schema guardrails
