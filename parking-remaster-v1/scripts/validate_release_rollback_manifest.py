@@ -16,6 +16,12 @@ def validate(data, spec, publishing=False, production_started=False):
     if not re.fullmatch(c["release_id_pattern"], data["release_id"]): fail("invalid release_id")
     for key in ("level_library_fingerprint", "asset_manifest_fingerprint"):
         if not re.fullmatch(c["fingerprint_pattern"], data[key]): fail(f"invalid {key}")
+    runtime = data["runtime_contract_fingerprints"]
+    if not isinstance(runtime, dict): fail("runtime_contract_fingerprints must be an object")
+    for key in c["runtime_contract_required"]:
+        if key not in runtime: fail(f"runtime contract fingerprint missing {key}")
+        if not re.fullmatch(c["fingerprint_pattern"], runtime[key]): fail(f"invalid runtime contract fingerprint: {key}")
+    if set(runtime) != set(c["runtime_contract_required"]): fail("unexpected runtime contract fingerprint key")
     evidence = data["qa_evidence"]
     if not isinstance(evidence, list) or len(evidence) < c["qa_evidence_minimum"]: fail("insufficient qa_evidence")
     for item in evidence:
