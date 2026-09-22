@@ -11,6 +11,7 @@ on:
       - 'parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json'
       - 'parking-remaster-v1/qa/TELEMETRY_SPEC_V1.json'
       - 'parking-remaster-v1/qa/RELEASE_ROLLBACK_MANIFEST_SPEC_V1.json'
+      - 'parking-remaster-v1/qa/ASSET_MANIFEST_PREPRODUCTION_CONTRACT_V1.json'
       - 'parking-remaster-v1/qa/visible_movement_rule_contract_v1.json'
       - 'parking-remaster-v1/qa/visible_movement_parity_fixture_v1.json'
       - 'parking-remaster-v1/qa/visible_movement_runtime_evidence_contract_v1.json'
@@ -58,6 +59,8 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_validate_telemetry_spec.py
       - name: Regression-test release and rollback manifest guardrails
         run: python3 parking-remaster-v1/scripts/test_validate_release_rollback_manifest.py
+      - name: Guard deterministic asset manifest and locked asset hashes
+        run: python3 parking-remaster-v1/scripts/test_asset_manifest_preproduction_contract.py
       - name: Regression-test pre-P1-008 visible movement rule contract
         run: python3 parking-remaster-v1/scripts/test_visible_movement_rule_contract.py
       - name: Regression-test bounded Python/JS visible movement parity
