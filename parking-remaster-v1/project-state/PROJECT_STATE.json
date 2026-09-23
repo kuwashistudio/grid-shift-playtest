@@ -31,16 +31,13 @@
     "evidence_files": [
       "parking-remaster-v1/qa/REJECTED_GAMEPLAY_QUARANTINE_CONTRACT_V1.json",
       "parking-remaster-v1/scripts/test_rejected_gameplay_quarantine_contract.py",
-      "parking-remaster-v1/qa/VISIBLE_MOVEMENT_RULE_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/VISIBLE_GEOMETRY_NUMERIC_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/SHARED_EXIT_CONFLICT_REVALIDATION_CONTRACT_V1.json",
       "parking-remaster-v1/scripts/validate_project_state.py",
+      "parking-remaster-v1/scripts/validate_restart_evidence.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
     "decision": "Keep P1-006 as the only active Human gate. Independent QA may advance, but cannot authorize P1-007/P1-008, multi-car implementation, Level 3, production, or Human-quality PASS.",
-    "purpose": "Keep the GitHub restart checkpoint synchronized with the CI-verified rejected-gameplay quarantine while preserving the V7.3 USER-HOLD and Human-gate boundary.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35907654993,"status":"SUCCESS","head":"bd7221eaba74cb148ab237cb5efca8687f4257ab","scope":"consolidated project-state suite including rejected legacy gameplay quarantine"}
+    "purpose": "Repair the durable restart-evidence inventory after consolidated CI correctly detected stale paths, while preserving the V7.3 USER-HOLD and Human-gate boundary.",
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35914027237,"status":"FAILURE","head":"0d28260e8a0fd22e6ed74a1b8b7955f2a2503d54","scope":"restart evidence guard detected stale evidence path; state inventory repaired in this commit and awaits consolidated CI"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
@@ -55,6 +52,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-24T05:08:00+09:00",
+  "updated_at": "2026-09-24T06:11:00+09:00",
   "resume_ready": true
 }
