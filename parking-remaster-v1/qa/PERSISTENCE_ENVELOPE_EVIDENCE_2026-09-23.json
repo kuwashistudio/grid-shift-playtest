@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "PREPRODUCTION_PERSISTENCE_ENVELOPE_GUARD",
+  "date": "2026-09-23",
+  "scope": "Independent technical QA only; does not authorize P1-006, P1-007, P1-008, multi-car gameplay, Level 3, or production.",
+  "contract": {
+    "supported_schema_version": "1.0",
+    "required_fields": ["schema_version", "content_version", "level_id", "level_state", "updated_at"],
+    "max_serialized_bytes": 65536,
+    "max_nesting_depth": 12,
+    "updated_at": "offset-aware ISO-8601 required",
+    "portable_json_only": true,
+    "unknown_level_policy": "FAIL_CLOSED",
+    "stale_content_policy": "EXPLICIT_TESTED_MIGRATION_OR_RESET",
+    "transient_runtime_state_policy": "FORBIDDEN"
+  },
+  "regression_matrix": [
+    "missing required field",
+    "unsupported schema version",
+    "stale content version",
+    "unknown level id",
+    "non-object level state",
+    "forbidden transient runtime fields",
+    "NaN and positive/negative Infinity",
+    "naive or malformed timestamps",
+    "oversized serialized envelope",
+    "excessive nesting depth",
+    "validator mutation of accepted state"
+  ],
+  "recovery_rule": "Invalid, stale, ambiguous, non-portable, oversized, or structurally unsafe persistence must never be trusted as resumable gameplay state. Runtime integration must reset safely or use an explicitly tested migration.",
+  "human_gate_boundary": "This evidence is machine-verifiable recovery hygiene. Physical-iPhone audio/feel remains USER-HOLD and no gameplay-quality gate is promoted by this evidence."
+}
