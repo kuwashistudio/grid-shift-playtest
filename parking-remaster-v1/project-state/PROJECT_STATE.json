@@ -14,9 +14,9 @@
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
     "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
   ],
-  "latest_verified_commit": "7b4cccde6a924c9c8408fdf88e166c0ac381c9c9",
-  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; researched visible-movement baseline invariants are fail-closed without authorizing gameplay gates.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35893965986,"status":"SUCCESS","verified_head":"7b4cccde6a924c9c8408fdf88e166c0ac381c9c9"},
+  "latest_verified_commit": "bd7221eaba74cb148ab237cb5efca8687f4257ab",
+  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; rejected legacy Level 1/2 gameplay is fail-closed quarantined from publication, P1-008 acceptance, Level 3 unlock, and bulk-authoring reuse while remaining available for engineering regression evidence only.",
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35907654993,"status":"SUCCESS","verified_head":"bd7221eaba74cb148ab237cb5efca8687f4257ab"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,32 +27,20 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Visible-movement research baseline is now CI-verified and fail-closed: initial candidate is LONGITUDINAL_VISIBLE_CLEARANCE, with legality derived from Level Data/visible geometry rather than viewport, frame rate, AudioContext state, hidden rays, or shared Bezier occupancy.",
+    "latest_independent_subgate": "Rejected Gameplay Quarantine is CI-verified: legacy Level 1/2 may be used only for schema/parity/persistence regression and historical engineering evidence, never as rebuilt gameplay, P1-008 acceptance evidence, Level 3 authorization, or a bulk-authoring seed without explicit rebuild.",
     "evidence_files": [
-      "parking-remaster-v1/qa/PERSISTENCE_ENVELOPE_EVIDENCE_2026-09-23.json",
-      "parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_EVIDENCE_2026-09-23.json",
-      "parking-remaster-v1/scripts/test_iphone_runtime_contract.py",
-      "parking-remaster-v1/qa/P1_006_007_HUMAN_ACCEPTANCE_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/P1_006_007_HUMAN_ACCEPTANCE_CONTRACT_EVIDENCE_2026-09-23.json",
-      "parking-remaster-v1/scripts/test_p1_006_007_human_acceptance_contract.py",
+      "parking-remaster-v1/qa/REJECTED_GAMEPLAY_QUARANTINE_CONTRACT_V1.json",
+      "parking-remaster-v1/scripts/test_rejected_gameplay_quarantine_contract.py",
+      "parking-remaster-v1/qa/VISIBLE_MOVEMENT_RULE_CONTRACT_V1.json",
       "parking-remaster-v1/qa/VISIBLE_GEOMETRY_NUMERIC_CONTRACT_V1.json",
-      "parking-remaster-v1/scripts/test_visible_geometry_numeric_contract.py",
-      "parking-remaster-v1/qa/RELEASE_ROLLBACK_MANIFEST_SPEC_V1.json",
-      "parking-remaster-v1/scripts/validate_release_rollback_manifest.py",
-      "parking-remaster-v1/qa/TELEMETRY_SPEC_V1.json",
-      "parking-remaster-v1/scripts/validate_telemetry_evidence.py",
-      "parking-remaster-v1/qa/IPHONE_PERFORMANCE_EVIDENCE_CONTRACT_V1.json",
-      "parking-remaster-v1/scripts/validate_iphone_performance_evidence.py",
       "parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json",
-      "parking-remaster-v1/scripts/test_level_library_preproduction_contract.py",
-      "parking-remaster-v1/scripts/validate_level_production_cost_evidence.py",
+      "parking-remaster-v1/qa/SHARED_EXIT_CONFLICT_REVALIDATION_CONTRACT_V1.json",
       "parking-remaster-v1/scripts/validate_project_state.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
     "decision": "Keep P1-006 as the only active Human gate. Independent QA may advance, but cannot authorize P1-007/P1-008, multi-car implementation, Level 3, production, or Human-quality PASS.",
-    "purpose": "Keep the GitHub restart checkpoint synchronized with the CI-verified researched visible-movement baseline while preserving the V7.3 USER-HOLD and Human-gate boundary.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35893965986,"status":"SUCCESS","head":"7b4cccde6a924c9c8408fdf88e166c0ac381c9c9","scope":"consolidated project-state suite after researched visible-movement baseline invariants"}
+    "purpose": "Keep the GitHub restart checkpoint synchronized with the CI-verified rejected-gameplay quarantine while preserving the V7.3 USER-HOLD and Human-gate boundary.",
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35907654993,"status":"SUCCESS","head":"bd7221eaba74cb148ab237cb5efca8687f4257ab","scope":"consolidated project-state suite including rejected legacy gameplay quarantine"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
@@ -67,6 +55,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-24T03:12:00+09:00",
+  "updated_at": "2026-09-24T05:08:00+09:00",
   "resume_ready": true
 }
