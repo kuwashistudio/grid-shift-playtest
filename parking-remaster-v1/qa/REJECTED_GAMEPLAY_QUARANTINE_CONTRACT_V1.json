@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Fail closed against accidental reuse or publication of rejected legacy Level 1/2 gameplay while preserving those files as engineering evidence.",
+  "authority": [
+    "parking-remaster-v1/project-state/CANON.md",
+    "parking-remaster-v1/project-state/GATES.json",
+    "parking-remaster-v1/REAL_DEVICE_GAMEPLAY_REJECTION_20260919.md"
+  ],
+  "legacy_levels": ["parking-remaster-v1/levels/level_001.json", "parking-remaster-v1/levels/level_002.json"],
+  "required_classification": "REJECTED_GAMEPLAY_ENGINEERING_EVIDENCE_ONLY",
+  "forbidden_uses": [
+    "publish_as_rebuilt_level",
+    "treat_solver_pass_as_gameplay_acceptance",
+    "derive_p1_008_human_acceptance",
+    "unlock_level_3",
+    "bulk_authoring_seed_without_explicit_rebuild"
+  ],
+  "allowed_uses": [
+    "schema_regression",
+    "solver_runtime_parity_regression",
+    "persistence_regression",
+    "historical_engineering_evidence"
+  ],
+  "phase1_gate_boundary": {
+    "P1-006": "IN_PROGRESS_HUMAN_AUDIO_HOLD",
+    "P1-007": "BLOCKED_BY_P1_006",
+    "P1-008": "BLOCKED_BY_P1_007",
+    "level_3": "LOCKED",
+    "multi_car_runtime_implementation": "FORBIDDEN_UNTIL_P1_008_AUTHORIZED"
+  },
+  "fail_closed": true
+}
