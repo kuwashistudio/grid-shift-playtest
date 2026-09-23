@@ -34,6 +34,22 @@ assert cost["stage_seconds_exact_keys"] == [
 ]
 assert "5 distinct" in cost["batch_minimum"]
 assert "cannot PASS human quality" in cost["claim_boundary"]
+
+storage = contract["evidence_storage_policy"]
+assert storage["status"] == "PREPRODUCTION_GUARDRAIL"
+assert storage["actions_artifact_rules"]["required_explicit_retention_days"] is True
+assert storage["actions_artifact_rules"]["default_project_retention_days"] == 7
+assert 1 <= storage["actions_artifact_rules"]["maximum_project_retention_days_without_human_exception"] <= 14
+assert storage["actions_artifact_rules"]["artifact_must_not_be_restart_authority"] is True
+assert storage["actions_artifact_rules"]["large_media_requires_human_exception"] is True
+assert storage["cache_rules"]["must_not_contain_unique_evidence"] is True
+assert storage["cache_rules"]["cache_eviction_must_not_break_restart"] is True
+assert "build caches" in storage["git_forbidden_by_default"]
+assert "large temporary video" in storage["git_forbidden_by_default"]
+assert len(storage["official_sources"]) >= 3
+assert all(url.startswith("https://docs.github.com/") for url in storage["official_sources"])
+assert "does not estimate future production volume" in storage["claim_boundary"]
+
 legacy = contract["legacy_cost_helper"]
 assert legacy["status"] == "COARSE_COMPATIBILITY_ONLY"
 assert "not canonical" in legacy["rule"]
