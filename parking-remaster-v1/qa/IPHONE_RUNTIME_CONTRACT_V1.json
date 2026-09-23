@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "scope": "preproduction technical QA; does not authorize P1-007/P1-008 or replace physical-iPhone quality review",
   "current_authorization": false,
   "target": "iPhone Safari HTML5",
@@ -8,12 +8,22 @@
       "meta_tokens": ["width=device-width", "initial-scale=1", "viewport-fit=cover"],
       "safe_area": ["safe-area-inset-top", "safe-area-inset-right", "safe-area-inset-bottom", "safe-area-inset-left"],
       "critical_controls_must_respect_safe_area": true,
-      "first_control_available_ms_max": 1000
+      "first_control_available_ms_max": 1000,
+      "full_height_strategy": "dynamic_viewport_with_legacy_fallback",
+      "dynamic_unit": "100dvh",
+      "legacy_fallback_allowed": "100vh",
+      "fixed_100vh_as_only_height_strategy_for_game_surface_forbidden": true,
+      "visual_viewport_role": "presentation_observability_only",
+      "visual_viewport_must_not_change_logical_game_state": true,
+      "resize_or_orientation_change_must_not_commit_game_action": true
     },
     "input": {
       "primary_model": "PointerEvent",
       "game_surface_touch_action": "none",
+      "single_gameplay_pointer_policy": "primary_pointer_only",
+      "secondary_simultaneous_pointer_must_not_commit_game_action": true,
       "pointercancel_must_not_commit_game_action": true,
+      "pointer_capture_policy": "capture_active_gameplay_pointer_when_continuity_is_needed_and_release_on_pointerup_or_pointercancel",
       "duplicate_touch_mouse_action_forbidden": true,
       "audio_unlock_may_share_first_real_gameplay_gesture": true,
       "gameplay_must_not_wait_for_audio": true
@@ -23,7 +33,9 @@
       "hidden_state_stops_or_suspends_audio": true,
       "return_requires_next_gesture_audio_resume_or_recreate": true,
       "audio_states_handled": ["suspended", "interrupted"],
-      "bfcache_restore_must_not_duplicate_handlers": true
+      "bfcache_restore_must_not_duplicate_handlers": true,
+      "hidden_or_pagehide_must_cancel_transient_pointer_state": true,
+      "pageshow_restore_must_not_replay_or_commit_stale_pointer_action": true
     },
     "evidence": {
       "static_contract_test": "required",
@@ -32,8 +44,12 @@
     }
   },
   "research_basis": [
-    "WebKit: viewport-fit=cover plus env(safe-area-inset-*) for full-screen iPhone layouts",
-    "MDN: Pointer Events unify touch/mouse input and touch-action controls native gesture handling",
-    "MDN: visibilitychange is the primary observable hidden transition; pagehide/pageshow cover navigation and bfcache lifecycle"
-  ]
+    "WebKit Safari 15.4+: svh/lvh/dvh exist specifically for mobile browser viewport changes; 100dvh tracks the dynamic viewport.",
+    "MDN viewport meta: viewport-fit=cover should be paired with safe-area inset handling so important content is not obscured.",
+    "MDN VisualViewport: visual viewport resize/scroll metrics describe presentation geometry and can change independently of layout viewport; they are not gameplay-state authority.",
+    "MDN Pointer Events: touch-action controls native gesture handling; browser gesture takeover can fire pointercancel.",
+    "MDN Pointer Events: direct-manipulation touch gets implicit pointer capture; explicit capture can preserve continuity when required and is released on pointerup/pointercancel.",
+    "MDN Pointer Events: isPrimary identifies the primary pointer, allowing deterministic rejection of secondary simultaneous touches for a single-pointer game action."
+  ],
+  "authorization_boundary": "This contract may constrain future implementation and QA only. It does not activate P1-007/P1-008, authorize multi-car gameplay, or replace the pending V7.3 physical-iPhone Human review."
 }
