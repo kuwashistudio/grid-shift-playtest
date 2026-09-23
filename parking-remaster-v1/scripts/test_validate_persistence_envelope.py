@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regression tests for deterministic persistence envelope validation."""
-import copy, importlib.util, json, tempfile
+import copy, importlib.util, json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -34,6 +34,24 @@ x = copy.deepcopy(BASE); x["level_state"] = []; must_fail(x, "level_state must b
 for field in sorted(v.FORBIDDEN):
     x = copy.deepcopy(BASE); x[field] = "leak"; must_fail(x, "forbidden transient fields")
 
-# Recovery must be deterministic: validation cannot mutate persisted state.
+# Cross-runtime persistence must reject Python-permitted but non-portable JSON numbers.
+for bad in (float("nan"), float("inf"), float("-inf")):
+    x = copy.deepcopy(BASE); x["level_state"]["bad_number"] = bad; must_fail(x, "non-finite number")
+
+# Recovery timestamps must be unambiguous across JS/Python/runtime boundaries.
+for bad_time in ("2026-09-23 10:00:00", "2026-09-23T10:00:00", "not-a-time", ""):
+    x = copy.deepcopy(BASE); x["updated_at"] = bad_time; must_fail(x, "offset-aware ISO-8601")
+x = copy.deepcopy(BASE); x["updated_at"] = "2026-09-23T19:00:00+09:00"; must_pass(x)
+
+# Bound pathological/corrupt saves before a browser storage payload can grow without limit.
+x = copy.deepcopy(BASE); x["level_state"]["oversized"] = "x" * v.MAX_ENVELOPE_BYTES; must_fail(x, "bounded persistence size")
+
+# Excessive recursive state is rejected deterministically rather than trusted on restore.
+x = copy.deepcopy(BASE); cursor = x["level_state"]
+for _ in range(v.MAX_DEPTH + 2):
+    cursor["nested"] = {}; cursor = cursor["nested"]
+must_fail(x, "maximum nesting depth")
+
+# Recovery validation is pure: it cannot mutate persisted state.
 x = copy.deepcopy(BASE); before = json.dumps(x, sort_keys=True); must_pass(x); assert json.dumps(x, sort_keys=True) == before
-print("PASS: persistence envelope validator fails closed across corruption/staleness/transient-state matrix")
+print("PASS: persistence envelope fails closed across corruption/staleness/transient/portability/size/depth matrix")
