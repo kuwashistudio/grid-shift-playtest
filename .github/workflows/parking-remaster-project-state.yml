@@ -64,6 +64,8 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_asset_manifest_preproduction_contract.py
       - name: Regression-test pre-P1-008 visible movement rule contract
         run: python3 parking-remaster-v1/scripts/test_visible_movement_rule_contract.py
+      - name: Guard visible geometry numeric semantics
+        run: python3 parking-remaster-v1/scripts/test_visible_geometry_numeric_contract.py
       - name: Regression-test bounded Python/JS visible movement parity
         run: python3 parking-remaster-v1/scripts/test_visible_movement_parity.py
       - name: Regression-test pre-P1-008 runtime evidence contract
