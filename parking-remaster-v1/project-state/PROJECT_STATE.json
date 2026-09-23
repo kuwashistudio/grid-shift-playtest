@@ -14,9 +14,9 @@
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
     "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
   ],
-  "latest_verified_commit": "6e3a1297a1e28ae3cebe01db394039ad12fdf0e6",
-  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; visible-geometry numeric contract and authorization-boundary negative regression are fail-closed while P1-008/multi-car remain unauthorized.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35821518827,"status":"SUCCESS","verified_head":"6e3a1297a1e28ae3cebe01db394039ad12fdf0e6"},
+  "latest_verified_commit": "c5a202fdf2bd0d3a92a3dea78454e64ed4898e61",
+  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; P1-006/P1-007 physical-iPhone Human acceptance boundary is fail-closed and cannot be substituted by CI/browser evidence.",
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35830616589,"status":"SUCCESS","verified_head":"c5a202fdf2bd0d3a92a3dea78454e64ed4898e61"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,8 +27,11 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Visible-geometry numeric guard is CI-verified. Logical integer coordinates alone decide legality; presentation/DOM/CSS/viewport/scroll/rounding cannot decide legal movement; animation timing is timestamp-driven; the contract explicitly cannot authorize P1-008 or multi-car implementation. A negative regression now proves removal of that authorization boundary fails validation.",
+    "latest_independent_subgate": "P1-006/P1-007 Human acceptance boundary is CI-verified fail-closed. P1-006 PASS requires an explicit physical-iPhone user Human acceptance record; P1-007 cannot activate before P1-006 PASS and cannot PASS without explicit joint-feel acceptance. CI/browser/audio metrics cannot substitute for Human acceptance.",
     "evidence_files": [
+      "parking-remaster-v1/qa/P1_006_007_HUMAN_ACCEPTANCE_CONTRACT_V1.json",
+      "parking-remaster-v1/qa/P1_006_007_HUMAN_ACCEPTANCE_CONTRACT_EVIDENCE_2026-09-23.json",
+      "parking-remaster-v1/scripts/test_p1_006_007_human_acceptance_contract.py",
       "parking-remaster-v1/qa/VISIBLE_GEOMETRY_NUMERIC_CONTRACT_V1.json",
       "parking-remaster-v1/scripts/test_visible_geometry_numeric_contract.py",
       "parking-remaster-v1/qa/RELEASE_ROLLBACK_MANIFEST_SPEC_V1.json",
@@ -43,8 +46,8 @@
       ".github/workflows/parking-remaster-project-state.yml"
     ],
     "decision": "Keep P1-006 as the only active Human gate. Independent QA may advance, but cannot authorize P1-007/P1-008, multi-car implementation, Level 3, production, or Human-quality PASS.",
-    "purpose": "Make future solver/runtime/visible-motion integration fail closed against presentation-coordinate leakage without bypassing Human or dependency gates.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35821518827,"status":"SUCCESS","head":"6e3a1297a1e28ae3cebe01db394039ad12fdf0e6","scope":"visible geometry numeric contract plus authorization-boundary negative regression"}
+    "purpose": "Make Human-gate promotion fail closed while preserving safe independent preproduction progress during the V7.3 USER-HOLD.",
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35830616589,"status":"SUCCESS","head":"c5a202fdf2bd0d3a92a3dea78454e64ed4898e61","scope":"P1-006/P1-007 physical-iPhone Human acceptance boundary plus consolidated project-state regression suite"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
@@ -59,6 +62,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-23T15:12:00+09:00",
+  "updated_at": "2026-09-23T17:11:00+09:00",
   "resume_ready": true
 }
