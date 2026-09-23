@@ -14,9 +14,9 @@
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
     "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
   ],
-  "latest_verified_commit": "3b158dc561304da8c5f69f459ce8e58be441bbb3",
-  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; target-iPhone performance evidence is now fail-closed for provenance, minimum sample size, Instant Start, percentile ordering/budgets, worst-frame budget, and visibility recovery.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35791126457,"status":"SUCCESS","verified_head":"3b158dc561304da8c5f69f459ce8e58be441bbb3"},
+  "latest_verified_commit": "1853ca9848cf6063ab154ab9515c89d6452e3967",
+  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; privacy-minimal telemetry session evidence has schema/provenance/order/PII regression guards.",
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35801085801,"status":"SUCCESS","verified_head":"1853ca9848cf6063ab154ab9515c89d6452e3967"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,49 +27,33 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Target-iPhone performance evidence now has a fail-closed validator plus regression suite: evidence cannot pass with fewer than 300 frames, Instant Start above 1.0s, invalid percentile ordering/budgets, excessive worst-frame time, failed visibility recovery, or invalid commit provenance. This is PREPARATION_ONLY and numeric PASS cannot substitute for human gameplay-quality acceptance.",
+    "latest_independent_subgate": "Telemetry evidence lifecycle hardening: COMPLETE/CAPTURED lifecycle is fail-closed; completion/action/retry counters must agree with observed events; retry requires an unresolved failure; duplicate failure before retry is rejected; completion cannot coexist with unresolved failure or abandon/page_hidden. Regression fixtures cover valid direct-complete and failure/retry/complete sessions plus negative cases. This remains PREPARATION_ONLY and telemetry collection remains disabled until its future authorization/privacy gates.",
     "evidence_files": [
-      "parking-remaster-v1/VERTICAL_SLICE_BEAT_CHART_V1.json",
-      "parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json",
       "parking-remaster-v1/qa/TELEMETRY_SPEC_V1.json",
-      "parking-remaster-v1/qa/RELEASE_ROLLBACK_MANIFEST_SPEC_V1.json",
-      "parking-remaster-v1/qa/ASSET_MANIFEST_PREPRODUCTION_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/PERSISTENCE_RECOVERY_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json",
+      "parking-remaster-v1/scripts/validate_telemetry_spec.py",
+      "parking-remaster-v1/scripts/test_validate_telemetry_spec.py",
+      "parking-remaster-v1/scripts/validate_telemetry_evidence.py",
+      "parking-remaster-v1/scripts/test_validate_telemetry_evidence.py",
       "parking-remaster-v1/qa/IPHONE_PERFORMANCE_EVIDENCE_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/visible_movement_rule_contract_v1.json",
-      "parking-remaster-v1/qa/visible_movement_parity_fixture_v1.json",
-      "parking-remaster-v1/qa/visible_movement_runtime_evidence_contract_v1.json",
-      "parking-remaster-v1/qa/P1_009_HUMAN_EVIDENCE_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json",
-      "parking-remaster-v1/qa/SHARED_EXIT_CONFLICT_REVALIDATION_CONTRACT_V1.json",
-      "parking-remaster-v1/scripts/level_fingerprint.py",
-      "parking-remaster-v1/scripts/test_level_fingerprint.py",
-      "parking-remaster-v1/scripts/validate_level_production_cost_evidence.py",
-      "parking-remaster-v1/scripts/test_validate_level_production_cost_evidence.py",
       "parking-remaster-v1/scripts/validate_iphone_performance_evidence.py",
       "parking-remaster-v1/scripts/test_validate_iphone_performance_evidence.py",
+      "parking-remaster-v1/qa/LEVEL_LIBRARY_PREPRODUCTION_CONTRACT_V1.json",
+      "parking-remaster-v1/scripts/validate_level_production_cost_evidence.py",
+      "parking-remaster-v1/scripts/test_validate_level_production_cost_evidence.py",
       "parking-remaster-v1/scripts/validate_project_state.py",
       "parking-remaster-v1/scripts/test_validate_project_state.py",
-      "parking-remaster-v1/scripts/validate_restart_evidence.py",
-      "parking-remaster-v1/scripts/test_validate_restart_evidence.py",
-      "parking-remaster-v1/scripts/validate_vertical_slice_cross_contract.py",
-      "parking-remaster-v1/scripts/test_vertical_slice_cross_contract.py",
-      "parking-remaster-v1/scripts/test_validate_release_rollback_manifest.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
-    "decision": "Project State CI run 35791126457 passed on 3b158dc561304da8c5f69f459ce8e58be441bbb3. Target-iPhone performance evidence is now guarded against undersampling, provenance mismatch, Instant Start regression, percentile/worst-frame budget failure, percentile-order inconsistency, and visibility-recovery failure. This remains PREPARATION_ONLY and does not authorize production, publishing, multi-car implementation, or any human-quality PASS. P1-006 remains the only active gate and P1-007/P1-008/P1-009 remain blocked by their declared dependencies.",
-    "purpose": "Make later target-device performance evidence mechanically trustworthy and regression-tested while preserving the audio USER-HOLD and Phase 1 authorization chain.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35791126457,"status":"SUCCESS","verified_head":"3b158dc561304da8c5f69f459ce8e58be441bbb3","scope":"iPhone performance evidence contract validator, regression suite, workflow integration, and consolidated preproduction QA"}
+    "decision": "Keep P1-006 as the only active Human gate. Independent telemetry preparation may become mechanically stricter, but cannot authorize collection, production, multi-car implementation, or Human-quality PASS. Telemetry lifecycle hardening commits 0bd727c8f0b5f0451900c5ba4eb3825c173717bb and 1fb116f0e42d7afe5ee4b5ec3e6229d3bdb667a3 are awaiting/under consolidated CI at this checkpoint; latest fully verified checkpoint remains 1853ca9848cf6063ab154ab9515c89d6452e3967 / run 35801085801.",
+    "purpose": "Prevent internally contradictory future telemetry evidence from producing misleading completion/retry metrics while audio is on USER-HOLD.",
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35805034960,"status":"IN_PROGRESS","head":"1fb116f0e42d7afe5ee4b5ec3e6229d3bdb667a3","scope":"telemetry lifecycle/counter validator and regression suite"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
+    "If telemetry lifecycle CI has completed, promote that head to latest_verified_commit only after SUCCESS.",
     "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
     "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
-    "Use the coherent-work-package rule in CANON and stop a dependency chain at Human Review, unmet dependency, irreversible action, contradiction, failing CI, or unexpected repository impact.",
-    "Treat P1-009 human evidence, Level Library, telemetry, release/rollback, asset, persistence/recovery, iPhone runtime/performance, shared_exit_conflict, and production-cost contracts as PREPARATION_ONLY.",
-    "CI/numeric PASS never substitutes for human gameplay-quality acceptance.",
-    "Commit implementation/evidence first; update GATES only if gate status/evidence changes; update PROJECT_STATE last."
+    "CI/numeric PASS never substitutes for human gameplay-quality acceptance."
   ],
   "critical_guardrails": [
     "Do not modify GRID SHIFT root/game files outside parking-remaster-v1/ and dedicated Parking Remaster workflows.",
@@ -77,6 +61,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-23T08:09:00+09:00",
+  "updated_at": "2026-09-23T10:08:00+09:00",
   "resume_ready": true
 }
