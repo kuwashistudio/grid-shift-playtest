@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "status": "PREPARATION_ONLY",
+  "purpose": "Fail-closed contract for validating future fresh-player telemetry evidence without activating collection or substituting metrics for Human review.",
+  "required_session_invariants": [
+    "session_start is first and occurs exactly once",
+    "session_end is last and occurs at most once",
+    "session_id, level_id, and build_id provenance remain session-consistent",
+    "elapsed_ms is integer >= 0 and monotonic nondecreasing",
+    "first_action occurs at most once and precedes later vehicle_action/failure/retry/level_complete events",
+    "level_complete occurs at most once",
+    "event fields exactly match TELEMETRY_SPEC_V1",
+    "enum values exactly match TELEMETRY_SPEC_V1",
+    "forbidden fields are rejected recursively"
+  ],
+  "authorization": {
+    "collection_enabled": false,
+    "requires_external_playtest_or_release_gate": true,
+    "requires_privacy_legal_clearance": true,
+    "numeric_pass_is_human_quality_pass": false
+  },
+  "evidence_role": "Future telemetry files may support external-playtest/release analysis only after authorization. This contract is preproduction QA and authorizes no instrumentation, endpoint, publishing, or gate PASS."
+}
