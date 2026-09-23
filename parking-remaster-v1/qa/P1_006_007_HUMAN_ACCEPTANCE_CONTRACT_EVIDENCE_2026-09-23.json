@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "CI_VERIFIED_FAIL_CLOSED_HUMAN_GATE_BOUNDARY",
+  "scope": ["P1-006", "P1-007"],
+  "contract": "parking-remaster-v1/qa/P1_006_007_HUMAN_ACCEPTANCE_CONTRACT_V1.json",
+  "regression_test": "parking-remaster-v1/scripts/test_p1_006_007_human_acceptance_contract.py",
+  "verified_commit": "c5a202fdf2bd0d3a92a3dea78454e64ed4898e61",
+  "workflow": "Parking Remaster Project State",
+  "workflow_run_id": 35830616589,
+  "workflow_conclusion": "success",
+  "verified_at": "2026-09-23T16:13:55+09:00",
+  "claims": [
+    "P1-006 cannot be promoted to PASS by CI/browser evidence without an explicit physical-iPhone user Human acceptance record.",
+    "P1-007 cannot activate before P1-006 PASS.",
+    "P1-007 PASS requires explicit joint-feel Human acceptance on physical iPhone.",
+    "The contract does not authorize V7.4 audio tuning, P1-008, multi-car implementation, Level 3, or production."
+  ],
+  "non_claims": [
+    "This evidence is not Human acceptance.",
+    "This evidence does not judge V7.3 perceived audio quality.",
+    "This evidence does not change P1-006 or P1-007 gate status."
+  ],
+  "expected_gate_state": {
+    "P1-006": "IN_PROGRESS",
+    "P1-007": "BLOCKED"
+  }
+}
