@@ -84,3 +84,5 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_shared_exit_conflict_revalidation_contract.py
       - name: Guard deterministic persistence and recovery contract
         run: python3 parking-remaster-v1/scripts/test_persistence_recovery_contract.py
+      - name: Regression-test persistence envelope corruption/staleness recovery
+        run: python3 parking-remaster-v1/scripts/test_validate_persistence_envelope.py
