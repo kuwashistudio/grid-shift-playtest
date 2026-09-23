@@ -14,9 +14,9 @@
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
     "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
   ],
-  "latest_verified_commit": "e59ae4730049d3c52fc74395b6619ef0ea67c45a",
-  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; persistence envelope recovery now fail-closes corrupt, stale, unknown-level, non-portable, oversized, deeply nested, transient, and ambiguous save state without authorizing gameplay gates.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35852922095,"status":"SUCCESS","verified_head":"e59ae4730049d3c52fc74395b6619ef0ea67c45a"},
+  "latest_verified_commit": "1d81a71f6617eac5a57ab290d1283040c59ce1a9",
+  "latest_verified_commit_role": "Latest CI-verified independent preproduction QA checkpoint; persistence envelope recovery and persistent-state promotion are consolidated and verified without authorizing gameplay gates.",
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35858753079,"status":"SUCCESS","verified_head":"1d81a71f6617eac5a57ab290d1283040c59ce1a9"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,7 +27,7 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Persistence/recovery preproduction contract is CI-verified: invalid or ambiguous saves fail closed; accepted state is portable JSON, bounded to 64 KiB and depth 12, uses offset-aware timestamps, forbids transient runtime state, and requires explicit tested migration or safe reset for stale content.",
+    "latest_independent_subgate": "Persistence/recovery preproduction contract and its persistent-state promotion are CI-verified: invalid or ambiguous saves fail closed; accepted state is portable JSON, bounded to 64 KiB and depth 12, uses offset-aware timestamps, forbids transient runtime state, and requires explicit tested migration or safe reset for stale content.",
     "evidence_files": [
       "parking-remaster-v1/qa/PERSISTENCE_ENVELOPE_EVIDENCE_2026-09-23.json",
       "parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json",
@@ -50,8 +50,8 @@
       ".github/workflows/parking-remaster-project-state.yml"
     ],
     "decision": "Keep P1-006 as the only active Human gate. Independent QA may advance, but cannot authorize P1-007/P1-008, multi-car implementation, Level 3, production, or Human-quality PASS.",
-    "purpose": "Reduce future persistence/recovery failure modes while preserving the V7.3 USER-HOLD and Human-gate boundary.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35852922095,"status":"SUCCESS","head":"e59ae4730049d3c52fc74395b6619ef0ea67c45a","scope":"persistence envelope recovery regression matrix plus consolidated project-state suite"}
+    "purpose": "Keep the GitHub restart checkpoint synchronized with completed CI while preserving the V7.3 USER-HOLD and Human-gate boundary.",
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35858753079,"status":"SUCCESS","head":"1d81a71f6617eac5a57ab290d1283040c59ce1a9","scope":"persistent-state promotion after persistence envelope recovery regression matrix plus consolidated project-state suite"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
@@ -66,6 +66,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-23T21:08:00+09:00",
+  "updated_at": "2026-09-23T22:07:00+09:00",
   "resume_ready": true
 }
