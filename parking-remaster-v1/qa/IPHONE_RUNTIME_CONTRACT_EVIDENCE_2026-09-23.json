@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "preproduction_iphone_runtime_contract",
+  "date": "2026-09-23",
+  "gate_context": "P1-006 USER-HOLD; independent technical prerequisite only",
+  "contract": "parking-remaster-v1/qa/IPHONE_RUNTIME_CONTRACT_V1.json",
+  "contract_version": "1.1",
+  "regression_test": "parking-remaster-v1/scripts/test_iphone_runtime_contract.py",
+  "verified_head": "dc1045015921854e4f0a0bf59c2550d3e90c1343",
+  "workflow": "Parking Remaster Project State",
+  "run_id": 35841252454,
+  "result": "SUCCESS",
+  "verified_requirements": [
+    "viewport-fit=cover plus all four safe-area insets",
+    "100dvh dynamic-height strategy with 100vh only as legacy fallback, never sole game-surface height authority",
+    "VisualViewport is presentation observability only and cannot mutate logical game state",
+    "resize/orientation changes cannot commit gameplay actions",
+    "PointerEvent primary-pointer-only single-action policy",
+    "secondary simultaneous pointers and pointercancel cannot commit gameplay actions",
+    "pointer capture continuity policy releases on pointerup/pointercancel",
+    "hidden/pagehide clears transient pointer state and pageshow cannot replay stale actions",
+    "gameplay input never waits for audio recovery"
+  ],
+  "research_basis": [
+    "WebKit Safari 15.4 dynamic viewport units",
+    "MDN viewport meta and safe-area guidance",
+    "MDN VisualViewport resize semantics",
+    "MDN Pointer Events, touch-action, pointercancel, pointer capture, and isPrimary semantics"
+  ],
+  "authorization": {
+    "p1_006_pass": false,
+    "p1_007_activated": false,
+    "p1_008_activated": false,
+    "multi_car_authorized": false,
+    "human_quality_pass": false
+  },
+  "note": "Technical fail-closed evidence only. The user's physical-iPhone V7.3 audio/feel Human review remains authoritative and pending."
+}
