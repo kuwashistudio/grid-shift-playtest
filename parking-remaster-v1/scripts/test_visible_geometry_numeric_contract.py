@@ -28,7 +28,9 @@ def validate(c, gates):
     if projection.get("viewport_or_scroll_must_not_change_legality") is not True: errors.append("viewport-independent legality required")
     if "timestamp" not in projection.get("animation_rule", "").lower(): errors.append("timestamp-driven animation required")
     if len(c.get("future_runtime_evidence_required", [])) < 5: errors.append("runtime evidence set incomplete")
-    if not any("does not authorize" in x for x in c.get("forbidden_claims", [])): errors.append("authorization claim boundary missing")
+    forbidden = [x.lower() for x in c.get("forbidden_claims", [])]
+    if not any("authoriz" in x and ("p1-008" in x or "multi-car" in x) for x in forbidden):
+        errors.append("authorization claim boundary missing")
     return errors
 
 
@@ -44,6 +46,11 @@ def main():
     assert "presentation rounding may not decide legality" in validate(bad, g)
     bad = copy.deepcopy(c); bad["presentation_projection"]["viewport_or_scroll_must_not_change_legality"] = False
     assert "viewport-independent legality required" in validate(bad, g)
+    bad = copy.deepcopy(c); bad["forbidden_claims"] = [
+        "numeric parity proves human legibility",
+        "DOMRect equality proves visual quality"
+    ]
+    assert "authorization claim boundary missing" in validate(bad, g)
     print("PASS visible geometry numeric contract + fail-closed regressions")
 
 if __name__ == "__main__": main()
