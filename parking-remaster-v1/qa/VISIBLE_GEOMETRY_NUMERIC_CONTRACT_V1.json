@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "status": "PRE_P1_008_PREPARATION_ONLY",
+  "purpose": "Keep future solver/runtime/DOM presentation geometry numerically deterministic without authorizing multi-car gameplay.",
+  "activation_guard": {
+    "required_gate": "P1-007",
+    "required_status": "PASS",
+    "current_authorization": false
+  },
+  "canonical_space": {
+    "name": "LEVEL_LOGICAL_SPACE",
+    "rule": "Legal movement and collision are decided only from Level Data logical coordinates. DOM/CSS viewport coordinates are presentation/evidence and MUST NOT become an independent legality source.",
+    "finite_numbers_only": true,
+    "integer_source_coordinates": true,
+    "minimum_vehicle_extent_units": 1,
+    "minimum_clearance_units": 1
+  },
+  "boundary_semantics": {
+    "interval_model": "closed_for_blocking",
+    "touching_counts_as_blocked": true,
+    "epsilon_legality_fudge_forbidden": true,
+    "reason": "The existing visible-movement parity fixture defines edge touch as blocked; retaining exact integer logical geometry prevents Python/JS epsilon drift."
+  },
+  "presentation_projection": {
+    "allowed": "A deterministic affine projection from logical board space to CSS pixels for rendering and evidence.",
+    "domrect_role": "QA observation only; getBoundingClientRect returns viewport-relative CSS-pixel geometry and may be fractional.",
+    "round_before_legality_forbidden": true,
+    "viewport_or_scroll_must_not_change_legality": true,
+    "animation_rule": "Use requestAnimationFrame timestamps/delta time for visual progress; frame count MUST NOT define logical displacement or completion.",
+    "hidden_tab_rule": "Background/hidden animation suspension MUST NOT mutate logical state or create a different legal-move result."
+  },
+  "future_runtime_evidence_required": [
+    "same Level Data produces identical legal-move decisions before and after viewport resize/orientation change",
+    "same Level Data produces identical legal-move decisions across at least two CSS projection scales",
+    "blocked tap produces zero logical displacement",
+    "legal animation remains inside the visible swept corridor within declared QA tolerance",
+    "animation completion snaps to the exact logical terminal state rather than accumulated frame deltas"
+  ],
+  "research_basis": [
+    "MDN Element.getBoundingClientRect: DOMRect reports viewport-relative CSS-pixel geometry and includes border/padding semantics.",
+    "MDN requestAnimationFrame: callbacks generally follow display refresh rate, may pause in background tabs, and timestamp-based progress avoids refresh-rate-dependent animation speed.",
+    "MDN scrollTop: modern browser geometry values can be subpixel precise."
+  ],
+  "forbidden_claims": [
+    "numeric parity proves human legibility",
+    "DOMRect equality proves visual quality",
+    "this contract authorizes P1-008 or multi-car implementation"
+  ]
+}
