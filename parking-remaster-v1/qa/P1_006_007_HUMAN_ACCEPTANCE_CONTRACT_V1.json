@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Fail-closed evidence contract for the physical-iPhone Human gates P1-006 and P1-007. This contract does not pass either gate.",
+  "gate_order": ["P1-006", "P1-007"],
+  "current_expected_state": {
+    "P1-006": "IN_PROGRESS",
+    "P1-007": "BLOCKED",
+    "human_review_status_contains": "PENDING"
+  },
+  "acceptance_record": {
+    "path": "parking-remaster-v1/qa/human/P1_006_007_PHYSICAL_IPHONE_ACCEPTANCE.json",
+    "must_be_created_only_after_user_feedback": true,
+    "required_fields": [
+      "schema_version",
+      "device_class",
+      "review_source",
+      "reviewed_prototype",
+      "p1_006_audio_judgment",
+      "p1_007_joint_feel_judgment",
+      "motion_regression_judgment",
+      "user_feedback_verbatim_or_faithful_summary",
+      "accepted_at"
+    ],
+    "required_values": {
+      "device_class": "physical_iPhone",
+      "review_source": "user_human_review",
+      "reviewed_prototype": "V7.3",
+      "p1_006_audio_judgment": "PASS",
+      "p1_007_joint_feel_judgment": "PASS",
+      "motion_regression_judgment": "NO_REGRESSION"
+    }
+  },
+  "forbidden_substitutes": [
+    "browser proof",
+    "AudioContext running state",
+    "RMS or spectrum metrics",
+    "CI success",
+    "synthetic playback or recording-only judgment",
+    "assistant-authored approval without new user feedback"
+  ],
+  "promotion_rules": [
+    "P1-006 cannot become PASS unless the acceptance record exists and validates.",
+    "P1-007 cannot become IN_PROGRESS or PASS unless P1-006 is PASS.",
+    "P1-007 cannot become PASS unless the same physical-iPhone acceptance record explicitly passes joint motion/sound/responsiveness/feedback feel.",
+    "Creating this contract or passing its CI is not Human acceptance and does not authorize P1-008 or multi-car implementation.",
+    "V7.4 audio tuning is not authorized by this contract."
+  ]
+}
