@@ -14,9 +14,9 @@
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
     "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
   ],
-  "latest_verified_commit": "11e4b551f4e6c9bb356bfbb76e0cce0d06f6d721",
-  "latest_verified_commit_role": "Latest consolidated-CI verified independent preproduction QA checkpoint. Newer iPhone input/viewport prerequisite work is committed but must not replace this verified pointer until its consolidated CI succeeds.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35985845449,"status":"SUCCESS","verified_head":"11e4b551f4e6c9bb356bfbb76e0cce0d06f6d721"},
+  "latest_verified_commit": "e6d87eb2f52809fde91d0578e3780a9cca13166e",
+  "latest_verified_commit_role": "Latest consolidated-CI verified independent preproduction QA checkpoint, including the iPhone input/viewport prerequisite package.",
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35997579584,"status":"SUCCESS","verified_head":"e6d87eb2f52809fde91d0578e3780a9cca13166e"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,7 +27,7 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "Completed a bounded pre-P1-008 iPhone input/viewport prerequisite package: research lock, fail-closed contract, regression test, and consolidated-CI wiring. It keeps legality in Level Data/world space, makes viewport/DPR/safe-area presentation-only, forbids pointercancel state mutation and synthetic double-fire, preserves <=1.0s Instant Start, and cannot authorize P1-007/P1-008 or multi-car gameplay.",
+    "latest_independent_subgate": "Completed and consolidated-CI verified a bounded pre-P1-008 iPhone input/viewport prerequisite package: research lock, fail-closed contract, regression test, and consolidated-CI wiring. It keeps legality in Level Data/world space, makes viewport/DPR/safe-area presentation-only, forbids pointercancel state mutation and synthetic double-fire, preserves <=1.0s Instant Start, and cannot authorize P1-007/P1-008 or multi-car gameplay.",
     "evidence_files": [
       "parking-remaster-v1/research/IPHONE_INPUT_VIEWPORT_PREPRODUCTION_20260924.md",
       "parking-remaster-v1/qa/IPHONE_INPUT_VIEWPORT_CONTRACT_V1.json",
@@ -38,13 +38,13 @@
       "parking-remaster-v1/scripts/validate_restart_evidence.py",
       ".github/workflows/parking-remaster-project-state.yml"
     ],
-    "decision": "Keep P1-006 as the only active Human gate. iPhone input/viewport plumbing is now specified fail-closed as an independent prerequisite, but implementation activation remains dependency-locked behind P1-007 PASS.",
+    "decision": "Keep P1-006 as the only active Human gate. iPhone input/viewport plumbing is specified and CI-verified fail-closed as an independent prerequisite, but implementation activation remains dependency-locked behind P1-007 PASS.",
     "purpose": "Prevent future target-iPhone viewport, DPR, browser-chrome, safe-area, pointer-cancel, or synthetic-click behavior from silently changing logical movement or duplicating a physical tap when the visible multi-car prototype is eventually authorized.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35997540737,"status":"QUEUED_AT_CHECKPOINT","head":"4f64988709697421e4288db00ebd3fdea88ada26","scope":"new iPhone input/viewport guard plus consolidated project-state suite; do not promote latest_verified_commit until SUCCESS"}
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35997579584,"status":"SUCCESS","head":"e6d87eb2f52809fde91d0578e3780a9cca13166e","scope":"iPhone input/viewport guard plus consolidated project-state suite"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
-    "Check the newest consolidated CI covering the iPhone input/viewport prerequisite; promote a newer staging head to latest_verified_commit only after that workflow succeeds.",
+    "Treat e6d87eb2f52809fde91d0578e3780a9cca13166e as the latest consolidated-CI verified independent prerequisite checkpoint unless a newer head is subsequently verified.",
     "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
     "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
     "CI/numeric PASS never substitutes for human gameplay-quality acceptance."
@@ -55,6 +55,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-24T21:13:00+09:00",
+  "updated_at": "2026-09-24T22:10:00+09:00",
   "resume_ready": true
 }
