@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Pre-P1-008 deterministic iPhone input/viewport prerequisite; does not authorize gameplay expansion.",
+  "activation_guard": {
+    "required_gate": "P1-007",
+    "required_status": "PASS",
+    "current_authorization": false
+  },
+  "coordinate_contract": {
+    "logical_space": "LEVEL_DATA_WORLD_SPACE",
+    "raw_client_coordinates_in_legality": false,
+    "viewport_affects_legality": false,
+    "device_pixel_ratio_affects_legality": false,
+    "safe_area_affects_legality": false,
+    "single_projection_before_hit_test": true,
+    "projection_round_trip_tolerance_css_px_max": 0.5
+  },
+  "pointer_contract": {
+    "primary_model": "POINTER_EVENTS",
+    "pointercancel_mutates_gameplay": false,
+    "max_gameplay_actions_per_physical_pointer_sequence": 1,
+    "synthetic_click_double_fire_allowed": false,
+    "explicit_touch_action_policy_required": true,
+    "document_wide_prevent_default_as_only_policy_allowed": false
+  },
+  "viewport_fixture_classes": [
+    "portrait_baseline",
+    "visual_viewport_height_offset_change",
+    "device_pixel_ratio_change",
+    "orientation_sized_projection"
+  ],
+  "required_machine_evidence": [
+    "same world point resolves to same vehicle across all viewport fixture classes",
+    "same logical state yields same legal move decision across all viewport fixture classes",
+    "pointercancel yields byte-equivalent gameplay state before/after",
+    "one physical pointer sequence yields at most one gameplay action",
+    "projection round-trip error <= declared tolerance",
+    "legal-move function has no raw viewport/client-coordinate dependency"
+  ],
+  "instant_start": {
+    "first_gameplay_control_available_ms_max": 1000,
+    "may_wait_for_viewport_stabilization": false,
+    "may_wait_for_audio_recovery": false
+  },
+  "human_quality_separate_from_machine_pass": true,
+  "forbidden_promotions": [
+    "P1-006 PASS",
+    "P1-007 PASS",
+    "P1-008 activation",
+    "multi-car implementation",
+    "Level 3 authoring",
+    "production start"
+  ],
+  "research_evidence": "parking-remaster-v1/research/IPHONE_INPUT_VIEWPORT_PREPRODUCTION_20260924.md"
+}
