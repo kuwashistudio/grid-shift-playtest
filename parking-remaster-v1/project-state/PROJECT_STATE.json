@@ -14,9 +14,9 @@
     "V7.3 requires the user's physical-iPhone listening/feel judgment before audio quality can pass.",
     "Legacy Level 1/2 gameplay is REJECTED; Level 3 and multi-car expansion remain locked until rebuilt core-fun path passes."
   ],
-  "latest_verified_commit": "bbc18211a9938fb755de522aa2e8c3a68cbea233",
-  "latest_verified_commit_role": "Latest consolidated-CI verified independent preproduction QA checkpoint. Gate dependency regression guard and persistent-state promotion are verified together; rejected legacy gameplay remains quarantined and P1-006 remains the sole active Human gate.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35950484207,"status":"SUCCESS","verified_head":"bbc18211a9938fb755de522aa2e8c3a68cbea233"},
+  "latest_verified_commit": "6169edfe46a8c9a6e66bb76e27f64986ef588e2b",
+  "latest_verified_commit_role": "Latest consolidated-CI verified independent preproduction QA checkpoint. Gate dependency regression guard, rejected-gameplay quarantine, and persistent-state resume authority are verified together; P1-006 remains the sole active Human gate.",
+  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35954657619,"status":"SUCCESS","verified_head":"6169edfe46a8c9a6e66bb76e27f64986ef588e2b"},
   "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
   "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
@@ -27,7 +27,7 @@
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
-    "latest_independent_subgate": "The promoted persistent-state checkpoint itself passed consolidated project-state CI. GitHub now records bbc18211 as the newest verified resume authority while downstream gameplay gates remain dependency-locked.",
+    "latest_independent_subgate": "The current staging checkpoint itself passed the consolidated project-state workflow. GitHub now records 6169edfe as the newest verified resume authority while downstream gameplay gates remain dependency-locked.",
     "evidence_files": [
       "parking-remaster-v1/qa/GATE_DEPENDENCY_CONTRACT_V1.json",
       "parking-remaster-v1/scripts/test_gate_dependency_contract.py",
@@ -39,7 +39,7 @@
     ],
     "decision": "Keep P1-006 as the only active Human gate. Independent QA may advance, but cannot authorize P1-007/P1-008, multi-car implementation, Level 3, production, or Human-quality PASS.",
     "purpose": "Keep the GitHub resume authority self-consistent by promoting only a staging HEAD that has itself completed the consolidated project-state workflow successfully.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35950484207,"status":"SUCCESS","head":"bbc18211a9938fb755de522aa2e8c3a68cbea233","scope":"consolidated project-state, restart-evidence, Human-gate, gate-dependency, quarantine, level-data/library, production-cost, Vertical Slice, telemetry, release/rollback, asset, visible-movement, iPhone runtime/performance, persistence and related preproduction guards"}
+    "ci": {"workflow":"Parking Remaster Project State","run_id":35954657619,"status":"SUCCESS","head":"6169edfe46a8c9a6e66bb76e27f64986ef588e2b","scope":"consolidated project-state, restart-evidence, Human-gate, gate-dependency, quarantine, level-data/library, production-cost, Vertical Slice, telemetry, release/rollback, asset, visible-movement, iPhone runtime/performance, persistence and related preproduction guards"}
   },
   "resume_instruction": [
     "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
@@ -54,6 +54,6 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-24T13:11:00+09:00",
+  "updated_at": "2026-09-24T14:07:50+09:00",
   "resume_ready": true
 }
