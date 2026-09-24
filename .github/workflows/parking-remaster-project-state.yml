@@ -32,6 +32,8 @@ jobs:
         run: python3 parking-remaster-v1/scripts/test_validate_restart_evidence.py
       - name: Guard Phase 1 authorization chain
         run: python3 parking-remaster-v1/scripts/test_phase1_authorization_guard.py
+      - name: Guard finite gate dependency chain
+        run: python3 parking-remaster-v1/scripts/test_gate_dependency_contract.py
       - name: Guard rejected legacy gameplay quarantine
         run: python3 parking-remaster-v1/scripts/test_rejected_gameplay_quarantine_contract.py
       - name: Guard P1-006/P1-007 physical-iPhone Human acceptance boundary
