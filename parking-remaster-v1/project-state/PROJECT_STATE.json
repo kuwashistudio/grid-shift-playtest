@@ -16,14 +16,29 @@
   ],
   "latest_verified_commit": "e6d87eb2f52809fde91d0578e3780a9cca13166e",
   "latest_verified_commit_role": "Latest consolidated-CI verified independent preproduction QA checkpoint, including the iPhone input/viewport prerequisite package.",
-  "latest_verified_ci": {"workflow":"Parking Remaster Project State","run_id":35997579584,"status":"SUCCESS","verified_head":"e6d87eb2f52809fde91d0578e3780a9cca13166e"},
-  "latest_public_prototype": {"version":"V7.3","url":"https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/","pages_status":"SUCCESS"},
+  "latest_verified_ci": {
+    "workflow": "Parking Remaster Project State",
+    "run_id": 35997579584,
+    "status": "SUCCESS",
+    "verified_head": "e6d87eb2f52809fde91d0578e3780a9cca13166e"
+  },
+  "latest_public_prototype": {
+    "version": "V7.3",
+    "url": "https://kuwashistudio.github.io/grid-shift-playtest/parking-remaster-v1/prototypes/single-car-lot-v7-3/",
+    "pages_status": "SUCCESS"
+  },
   "human_review_status": "PENDING_V7_3_ENGINE_ROAR_AND_TIRE_SQUEAL_USER_FEEL_REVIEW",
-  "gate_counts": {"PASS":7,"IN_PROGRESS":1,"BLOCKED":11,"TODO":0,"total":19},
+  "gate_counts": {
+    "PASS": 7,
+    "IN_PROGRESS": 1,
+    "BLOCKED": 11,
+    "TODO": 0,
+    "total": 19
+  },
   "canonical_files": {
-    "canon":"parking-remaster-v1/project-state/CANON.md",
-    "gates":"parking-remaster-v1/project-state/GATES.json",
-    "project_state":"parking-remaster-v1/project-state/PROJECT_STATE.json"
+    "canon": "parking-remaster-v1/project-state/CANON.md",
+    "gates": "parking-remaster-v1/project-state/GATES.json",
+    "project_state": "parking-remaster-v1/project-state/PROJECT_STATE.json"
   },
   "parallel_progress": {
     "user_hold": "P1-006 physical-iPhone audio feel review remains pending and was not advanced.",
@@ -40,13 +55,20 @@
     ],
     "decision": "Keep P1-006 as the only active Human gate. iPhone input/viewport plumbing is specified and CI-verified fail-closed as an independent prerequisite, but implementation activation remains dependency-locked behind P1-007 PASS.",
     "purpose": "Prevent future target-iPhone viewport, DPR, browser-chrome, safe-area, pointer-cancel, or synthetic-click behavior from silently changing logical movement or duplicating a physical tap when the visible multi-car prototype is eventually authorized.",
-    "ci": {"workflow":"Parking Remaster Project State","run_id":35997579584,"status":"SUCCESS","head":"e6d87eb2f52809fde91d0578e3780a9cca13166e","scope":"iPhone input/viewport guard plus consolidated project-state suite"}
+    "ci": {
+      "workflow": "Parking Remaster Project State",
+      "run_id": 35997579584,
+      "status": "SUCCESS",
+      "head": "e6d87eb2f52809fde91d0578e3780a9cca13166e",
+      "scope": "iPhone input/viewport guard plus consolidated project-state suite"
+    }
   },
   "resume_instruction": [
-    "Read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD and latest Parking Remaster Project State CI.",
-    "Treat e6d87eb2f52809fde91d0578e3780a9cca13166e as the latest consolidated-CI verified independent prerequisite checkpoint unless a newer head is subsequently verified.",
+    "Project is PAUSED BY USER. Do not resume implementation, research automation, or Parking schedules until the user explicitly says to resume.",
+    "On resume, read PROJECT_STATE.json, CANON.md and GATES.json, then fetch current staging HEAD.",
+    "Preserve the GitHub Actions budget policy in CANON section 13: minimize private-repo Actions usage, avoid push CI by default, use [skip ci] for state-only commits, batch changes, avoid duplicate triggers, separate production from validation, and estimate monthly minutes before increasing Actions.",
     "Do not advance P1-006 without user's physical-iPhone audio/feel judgment and do not perform V7.4 audio tuning autonomously.",
-    "While P1-006 is on USER-HOLD, advance only independent prerequisite/QA work; do not activate P1-007/P1-008 or multi-car gameplay.",
+    "While P1-006 is on USER-HOLD, do not activate P1-007/P1-008 or multi-car gameplay without satisfying dependencies.",
     "CI/numeric PASS never substitutes for human gameplay-quality acceptance."
   ],
   "critical_guardrails": [
@@ -55,6 +77,28 @@
     "Physical iPhone feel review outranks synthetic audio/visual metrics.",
     "No bulk level authoring or multi-car expansion while Phase 1 core-fun proof is open."
   ],
-  "updated_at": "2026-09-24T22:10:00+09:00",
-  "resume_ready": true
+  "updated_at": "2026-09-25T12:44:00+09:00",
+  "resume_ready": true,
+  "operational_status": "PAUSED_BY_USER",
+  "pause": {
+    "active": true,
+    "since": "2026-09-25T12:44:00+09:00",
+    "reason": "User is prioritizing other work and GitHub Actions free allowance is near its shared monthly limit.",
+    "resume_requires": "Explicit user instruction to resume Parking Remaster."
+  },
+  "github_actions_budget_policy": {
+    "monthly_shared_free_minutes": 2000,
+    "user_reported_usage_percent_as_of_2026_09_25": 90,
+    "minimize_actions": true,
+    "private_repo_default_ci": "PR or necessary manual workflow_dispatch; avoid normal push CI",
+    "prohibit_duplicate_push_and_pull_request_ci": true,
+    "state_only_commits_use_skip_ci": true,
+    "batch_related_changes": true,
+    "scheduled_workflows": "prefer existing-workflow integration, lower frequency, or event-driven triggers",
+    "separate_code_validation_from_production_runs": true,
+    "concurrency_cancel_in_progress": true,
+    "human_and_safety_gates_preserved": true,
+    "no_public_repo_billing_evasion": true,
+    "require_monthly_run_and_minutes_estimate_before_increasing_actions": true
+  }
 }

@@ -1,7 +1,7 @@
 # Parking Remaster — Current CANON
 
 Status: ACTIVE AUTHORITY
-Updated: 2026-09-21
+Updated: 2026-09-25
 Repository: `kuwashistudio/grid-shift-playtest`
 Work scope: `parking-remaster-v1/`
 Staging: `parking-remaster-v1-staging-20260917`
@@ -220,3 +220,22 @@ No 120/144-level bulk production, elaborate meta, LiveOps, or monetization work 
 - Do not cross a Human Review, unmet dependency, irreversible action, specification contradiction, failing CI, or unexpected repository-impact boundary. At such a boundary, checkpoint that work safely and continue only with an independent safe requirement if one exists.
 - While P1-006 is on USER-HOLD, independent prerequisite/QA work may continue, but P1-007/P1-008 activation, Level 3 authoring, multi-car gameplay implementation, and autonomous V7.4 audio tuning remain forbidden.
 - CI/numeric PASS never substitutes for human game-quality judgment.
+
+## 13. GitHub Actions budget and paused-operation rule
+
+As of 2026-09-25, the shared `kuwashistudio` GitHub Actions free allowance is 2,000 minutes/month and the user reported approximately 90% already consumed. Parking Remaster is therefore **PAUSED BY USER** until explicitly resumed, and future CI/automation must be designed to stay within the shared monthly allowance rather than assuming Actions capacity is free or unlimited.
+
+When work resumes:
+- On private repositories, do not trigger normal CI for every push. Prefer PR validation or necessary manual `workflow_dispatch`.
+- Never run the same CI redundantly on both `push` and `pull_request`.
+- State/progress-only commits should use `[skip ci]` whenever possible.
+- Batch related file changes into coherent commits; do not create one-file commits that repeatedly trigger Actions.
+- Before adding any scheduled workflow, prefer consolidation into an existing workflow, lower frequency, or event-driven execution.
+- Do not run the full test suite on every scheduled/production execution. Separate code validation from production execution.
+- Use workflow `concurrency` with `cancel-in-progress` where appropriate so obsolete runs do not consume minutes.
+- Human Review and safety gates must never be removed merely to save Actions minutes.
+- Do not move private-project processing into a public repository merely to evade private Actions billing/minute limits.
+- Before any design change that increases Actions use, estimate monthly run count and approximate minutes first.
+- The objective is not to remove necessary CI; it is to keep required automation/CI sustainable within the shared 2,000-minute monthly allowance.
+
+While the project is paused, do not autonomously enable Parking Remaster schedules, run research/implementation work, or create CI-consuming changes. Resume only on an explicit user instruction.
