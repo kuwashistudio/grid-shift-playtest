@@ -25,6 +25,10 @@ on:
       - 'runtime-tail-v180.js'
       - 'hotfix-v184-squares-balance.js'
 
+concurrency:
+  group: grid-shift-playgama-build-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

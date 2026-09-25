@@ -9,6 +9,10 @@ on:
       - 'factory-fuse-fall.html'
       - 'factory-fuse-fall-platform.js'
 
+concurrency:
+  group: fuse-fall-build-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
