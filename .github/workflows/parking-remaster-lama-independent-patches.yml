@@ -1,11 +1,6 @@
 name: Parking Remaster Independent Local LaMa Patches
 
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/scripts/build_lama_independent_patches.py'
-      - '.github/workflows/parking-remaster-lama-independent-patches.yml'
   workflow_dispatch:
 
 permissions:
