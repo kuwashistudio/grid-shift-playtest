@@ -1,11 +1,6 @@
 name: Parking Remaster LaMa Refined Mask
 
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/scripts/build_lama_refined_mask.py'
-      - '.github/workflows/parking-remaster-lama-refined-mask.yml'
   workflow_dispatch:
 
 permissions:
