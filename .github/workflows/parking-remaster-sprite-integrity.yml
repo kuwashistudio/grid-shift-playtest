@@ -1,13 +1,6 @@
 name: Parking Remaster Production Sprite Integrity
 
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/assets/sprites/**'
-      - 'parking-remaster-v1/VP_SPRITE_PRODUCTION_RESULT.json'
-      - 'parking-remaster-v1/scripts/validate_production_sprites.py'
-      - '.github/workflows/parking-remaster-sprite-integrity.yml'
   workflow_dispatch:
 
 permissions:
