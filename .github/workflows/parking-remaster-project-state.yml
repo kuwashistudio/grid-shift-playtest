@@ -2,16 +2,6 @@ name: Parking Remaster Project State
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - parking-remaster-v1-staging-20260917
-    paths:
-      - 'parking-remaster-v1/project-state/**'
-      - 'parking-remaster-v1/VERTICAL_SLICE_BEAT_CHART_V1.json'
-      - 'parking-remaster-v1/VERTICAL_SLICE_LEVEL_BRIEFS_V1.json'
-      - 'parking-remaster-v1/qa/**'
-      - 'parking-remaster-v1/scripts/**'
-      - '.github/workflows/parking-remaster-project-state.yml'
 
 permissions:
   contents: read
