@@ -1,11 +1,7 @@
 name: Parking Remaster Engine Roar + Tire Squeal V7.3
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/prototypes/single-car-lot-v7-3/**'
-      - '.github/workflows/parking-remaster-v73.yml'
   workflow_dispatch:
+
 permissions:
   contents: read
 jobs:
