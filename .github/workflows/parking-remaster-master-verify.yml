@@ -2,13 +2,6 @@ name: Parking Remaster Master Verify
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - parking-remaster-v1-staging-20260917
-    paths:
-      - "parking-remaster-v1/.transfer/MASTER_TRANSFER_COMPLETE"
-      - "parking-remaster-v1/scripts/reconstruct_master.py"
-      - ".github/workflows/parking-remaster-master-verify.yml"
 
 permissions:
   contents: read
