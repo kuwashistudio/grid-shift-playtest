@@ -1,11 +1,6 @@
 name: Parking Remaster VP2D2 Vector Geometry
 
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/scripts/fit_parking_marking_geometry.py'
-      - '.github/workflows/parking-remaster-vp2d2-geometry.yml'
   workflow_dispatch:
 
 permissions:
