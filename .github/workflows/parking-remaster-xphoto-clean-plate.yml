@@ -1,14 +1,6 @@
 name: Parking Remaster xphoto Clean Plate
 
 on:
-  push:
-    branches:
-      - parking-remaster-v1-staging-20260917
-    paths:
-      - 'parking-remaster-v1/scripts/build_xphoto_clean_plate_candidates.py'
-      - 'parking-remaster-v1/assets/master.webp'
-      - 'parking-remaster-v1/levels/level_001.json'
-      - '.github/workflows/parking-remaster-xphoto-clean-plate.yml'
   workflow_dispatch:
 
 permissions:
