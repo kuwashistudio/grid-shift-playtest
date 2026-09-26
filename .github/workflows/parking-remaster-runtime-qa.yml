@@ -2,23 +2,6 @@ name: Parking Remaster Runtime QA
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - parking-remaster-v1-staging-20260917
-    paths:
-      - "parking-remaster-v1/index.html"
-      - "parking-remaster-v1/assets/clean_plate.webp"
-      - "parking-remaster-v1/levels.generated.js"
-      - "parking-remaster-v1/levels/level_001.json"
-      - "parking-remaster-v1/levels/level_002.json"
-      - "parking-remaster-v1/scripts/validate_runtime_mobile.py"
-      - "parking-remaster-v1/scripts/validate_instant_start_audio.py"
-      - "parking-remaster-v1/scripts/validate_runtime_clean_plate.py"
-      - "parking-remaster-v1/scripts/validate_inline_runtime_syntax.py"
-      - "parking-remaster-v1/scripts/validate_level2_progression_runtime.py"
-      - "parking-remaster-v1/iphone_qa.js"
-      - "parking-remaster-v1/scripts/validate_iphone_qa_harness.py"
-      - ".github/workflows/parking-remaster-runtime-qa.yml"
 
 permissions:
   contents: read
