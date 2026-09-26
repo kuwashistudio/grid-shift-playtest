@@ -1,14 +1,6 @@
 name: Parking Remaster Visual Asset Candidate
 
 on:
-  push:
-    branches:
-      - parking-remaster-v1-staging-20260917
-    paths:
-      - 'parking-remaster-v1/scripts/build_visual_asset_candidates.py'
-      - 'parking-remaster-v1/assets/master.webp'
-      - 'parking-remaster-v1/levels/level_001.json'
-      - '.github/workflows/parking-remaster-visual-assets.yml'
   workflow_dispatch:
 
 permissions:
