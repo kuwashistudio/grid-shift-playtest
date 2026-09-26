@@ -1,11 +1,6 @@
 name: Parking Remaster MASTER-only Image Quilting
 
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/scripts/build_master_quilting_clean_plate.py'
-      - '.github/workflows/parking-remaster-quilting.yml'
   workflow_dispatch:
 
 permissions:
