@@ -1,11 +1,6 @@
 name: Parking Remaster LaMa Clean Plate
 
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/scripts/build_lama_onnx_clean_plate.py'
-      - '.github/workflows/parking-remaster-lama-clean-plate.yml'
   workflow_dispatch:
 
 permissions:
