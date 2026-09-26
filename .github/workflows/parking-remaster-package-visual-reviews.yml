@@ -1,11 +1,6 @@
 name: Parking Remaster Package Visual Reviews
 
 on:
-  push:
-    branches:
-      - parking-remaster-v1-staging-20260917
-    paths:
-      - '.github/workflows/parking-remaster-package-visual-reviews.yml'
   workflow_dispatch:
 
 permissions:
