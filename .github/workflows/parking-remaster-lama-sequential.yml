@@ -1,11 +1,6 @@
 name: Parking Remaster LaMa Sequential Clean Plate
 
 on:
-  push:
-    branches: [parking-remaster-v1-staging-20260917]
-    paths:
-      - 'parking-remaster-v1/scripts/build_lama_sequential_clean_plate.py'
-      - '.github/workflows/parking-remaster-lama-sequential.yml'
   workflow_dispatch:
 
 permissions:
